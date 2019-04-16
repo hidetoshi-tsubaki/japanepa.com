@@ -1,0 +1,72 @@
+<div class="container ">
+  <div class="last_question red text-center">
+    <p>last question you played</p>
+    <%= link_to "last questioin" , "#" %>
+  </div>
+
+   <div >
+    <h1><a data-toggle="collapse" data-target="#letter">letter もじ</a</h1>
+      
+      <div id="letter" class="collapse red tenxt-center">
+        <div class=>
+          <h3>Alphabet → ひらがな(hiragana)</h3>
+          <%= link_to "play" ,"#", class: " btn btn-primary" %>
+        </div>
+        <div>
+          <h3 class="red">Alphabet → かたかな(katakana)</h3>
+          <%= link_to "play" ,"#", class: "btn btn-primary" %>
+        </div>
+        <div>
+          <h3>ひらがな(hiragana) → Alphabet</h3>
+          <%= link_to "play" ,"#" ,class: " btn btn-primary" %>
+        </div>
+        <div>
+          <h3>ひらがな(hiragana) → かたかな(katakana)</h3>
+          <%= link_to "play" ,"#" ,class: "btn btn-primary" %>
+        </div>
+        <div>
+          <h3>カタカナ(katakana) → ひらがな</h3>
+           <%= link_to "play" ,"#" ,class: "bg-btn btn-primary" %>
+        </div>
+        <div>
+          <h3>カタカナ(katakana) → Alphabet </h3>
+          <%= link_to "play" ,"#" ,class: "btn btn-primary" %>
+        </div>
+      </div>
+    <div>
+    
+    <h1>word  ことば</h1>
+    <div>
+
+        <div class="text-center">
+            <a data-toggle="collapse" data-target="#noun">  めいし</a>
+            <div id="noun" class="collapse">
+            <div >
+                <p>English → japanese </p>
+                <%= link_to "play" ,"#" %>
+            </div>
+            <div>
+                <p>picture → japanese </p>
+                <%= link_to "play" ,"#" %>
+            </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a data-toggle="collapse" data-target="#verb">  どうし</a>
+            <div id="verb" class="collapse">
+            <div >
+                <p>English → japanese </p>
+                <%= link_to "lesson" ,"#" %>
+                <%= link_to "play" ,"#" %>
+            </div>
+            <div>
+            <p>picture → japanese </p>
+            <%= link_to "lesson" ,"#" %>
+            <%= link_to "play" ,"#" %>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
