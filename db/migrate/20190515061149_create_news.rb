@@ -4,7 +4,6 @@ class CreateNews < ActiveRecord::Migration[5.1]
       t.string :eyecatch
       t.string :title
       t.text :contents
-      # t.enum :tag
 
       t.timestamps
     end
