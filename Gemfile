@@ -6,7 +6,6 @@ gem 'puma',         '3.9.1'
 gem 'sass-rails',   '5.0.6'
 gem 'uglifier',     '3.2.0'
 gem 'coffee-rails', '4.2.2'
-<<<<<<< HEAD
 gem 'jquery-rails'
 gem 'turbolinks',   '5.0.1'
 gem 'jbuilder',     '2.7.0'
@@ -23,11 +22,7 @@ gem 'mini_magick'
 gem 'fullcalendar-rails' 
 gem 'momentjs-rails'
 gem 'dotenv-rails'
-=======
-gem 'jquery-rails', '4.3.1'
-gem 'turbolinks',   '5.0.1'
-gem 'jbuilder',     '2.7.0'
->>>>>>> origin/master
+
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
@@ -39,7 +34,7 @@ group :development do
   gem 'listen',                '3.1.5'
   gem 'spring',                '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
-<<<<<<< HEAD
+
   gem 'guard'
   gem 'guard-livereload', '~> 2.5', require: false
   gem "better_errors"
@@ -47,8 +42,6 @@ group :development do
   gem "awesome_print"
   gem 'pry-byebug'
   gem "rack-livereload"
-=======
->>>>>>> origin/master
 end
 
 group :production do
