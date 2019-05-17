@@ -11,9 +11,13 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
+<<<<<<< HEAD
 # Rails.application.config.assetøs.precompile += %w( admin.js admin.css )
 Rails.application.config.assets.precompile += %w( quiz.js )
 Rails.application.config.assets.precompile += %w( show_charts.js )
 Rails.application.config.assets.precompile += %w( indexCharts.js )
 Rails.application.config.assets.precompile += %w( calendar.js )
 # treeを消したから、自動で読み込んでくれないので、ここに指定してあげる。
+=======
+# Rails.application.config.assets.precompile += %w( admin.js admin.css )
+>>>>>>> origin/master

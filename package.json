@@ -1,7 +1,11 @@
 {
   "name": "portfolio",
   "private": true,
+<<<<<<< HEAD
   "dependencies": {
     "chart.js": "^2.7.1"
   }
+=======
+  "dependencies": {}
+>>>>>>> origin/master
 }
