@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-<<<<<<< HEAD
+
 //= require turbolinks
 //= require jquery3
 //= require jquery_ujs
@@ -25,8 +25,3 @@ $(document).ready(function(){
   $('#calendar').fullCalendar({
   })
 });
-=======
-//= require rails-ujs
-//= require turbolinks
-//= require_tree .
->>>>>>> origin/master
