@@ -1,0 +1,20 @@
+<div class="signup-modal-wrapper">
+  <div class="modal">
+    <div class="close-modal">
+    <p>close</p>
+    </div>
+    <div class="explain_membership">
+       <h2> Be free membership!</h2>
+       <h3>after register free membership you can ....</h3>
+       <ul>
+         <li>play all japanese quiz</li>
+         <li>read all articles in japanepa.com</li>
+         <li>use your own score board</li>
+        </ul>
+    </div> 
+    <div id="signup-form">
+      <%= link_to 'Register', new_user_registration_path %>
+      <%= link_to 'Login', new_user_session_path %>
+    </div>
+  </div>
+</div>

@@ -12,5 +12,15 @@
 //
 //= require turbolinks
 //= require jquery3
-//= require bootstrap-sprockets
+//= require jquery_ujs
+//= require bootstrap
+//= require Chart.min
+//= require form
+//= require moment
+//= require fullcalendar
+//= require fullcalendar/locale-all
 
+$(document).ready(function(){
+  $('#calendar').fullCalendar({
+  })
+});

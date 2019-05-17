@@ -1,0 +1,22 @@
+
+<div class="row">
+<% @n5Quiz.each do |section,quizTitles| %>
+  <div class="col-xs-12">
+    <h1>●<%= section %></h1> 
+    <div>
+      <% quizTitles.each do |quizTitle| %>
+      <div class="col-xs-12 col-lg-4 ">
+        <div class=" card redBtn link">
+        <h1><%= quizTitle %></h1>
+        <%= link_to "",controller:"quizzes",action:"show",title:quizTitle %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
+
+
+
+

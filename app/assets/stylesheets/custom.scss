@@ -1,27 +1,513 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.red{
-    background-color: red;
+
+body{
+    background-color: #fef2db;
+    font-size:40px;
 }
+
+
+
+.wrapper{
+ 
+  width:80%;
+  margin:0 auto;
+  
+}
+
+.row-eq-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+header h1{
+  text-align: center;
+  margin:10px 0 10px;
+}
+
+#flash{
+  width:80%;
+  height:20vh;
+  
+}
+
+#logo{
+  text-decoration: none;
+  margin:10px auto;
+  color:#331D09;
+  font-size:48px;
+  font-weight:bold;
+}
+
+#pop_up{
+  position: fixed;
+  display:none;
+  width: 90%;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-radius: 12px;
+
+}
+
+// ログイン
+
+.head{
+  border-radius:12px;
+  text-align:center;
+  margin:20px 0;
+}
+
+.head h1{
+  font-size:50px;
+}
+
+.provider{
+  margin-top:40px;
+}
+
+.providerBtn{
+  height:90px;
+  margin:0 auto 5vh;
+}
+
+.providerBtn > h1{
+  margin:0;
+}
+
+.input{
+  margin-bottom:40px;
+}
+
+.input input{
+  font-size:70%;
+  width:100%;
+}
+
+.action{
+   margin:40px auto 0;
+}
+
+.actions input{
+  text-align:center;
+  border: none;
+  height:60px;
+  width:70%;
+}
+
+.sessionHelp{
+  margin:60px 0 30px;
+  font-size:30px;
+}
+
+.actionBtn{
+  text-align:center;
+}
+
+input:focus {
+
+box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
+border: solid 2px #666;
+}
+
+.field span{
+  font-size:30px;
+}
+
+.form{
+  width:70%;
+  margin:90px auto;
+  
+}
+// home画面
+.card{
+  height:20vh;
+  margin:5vh auto ;
+}
+
+.link {
+    position: relative;
+    z-index: 1; 
+    width:90%;
+}
+
+.link > h1{
+  position: absolute;
+  display:block;
+  width:100%;
+  top:30%;
+  text-align:center;
+}
+.link a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-indent:-999px;
+    z-index: 2; 
+}
+
+.twitterBtn{
+  background-color: #4AB3F4;
+    color:#FFF;
+    border-radius:15px;
+    box-shadow: 0 0.7em 0 #388abd;
+}
+
+.twitterBtn:active 
+{
+    box-shadow: 0px 0px 0px #388abd; 
+    transform: translateY(0.7em);
+}
+
+.facebookBtn{
+  background-color: #4167B2;
+    color:#FFF;
+    border-radius:15px;
+    box-shadow: 0 0.7em 0 #2f4c85;
+}
+
+.facebookBtn:active 
+{
+    box-shadow: 0px 0px 0px #2f4c85; 
+    transform: translateY(0.7em);
+}
+
+.googleBtn{
+  background-color: #DC4B3A;
+    color:#FFF;
+    border-radius:15px;
+    box-shadow: 0 0.7em 0 #a8382c;
+}
+
+.googleBtn:active 
+{
+    box-shadow: 0px 0px 0px #a8382c; 
+    transform: translateY(0.7em);
+}
+
+// ボタンの色、動作
+.redBtn{
+    background-color: #ED4B4C;
+    color:#FFF;
+    border-radius:15px;
+    box-shadow: 0 0.7em 0 #b4231c;
+}
+
+.redBtn:active 
+{
+    box-shadow: 0px 0px 0px #F53240; 
+    transform: translateY(0.7em);
+}
+
+.red2Btn{
+    background-color: #F28E3F;
+    color:#FFF;
+    border-radius:15px;
+    box-shadow: 0 0.7em 0 #ad632a;
+}
+
+.redBtn:active 
+{
+    box-shadow: 0px 0px 0px #F53240; 
+    transform: translateY(0.7em);
+}
+
+.pinkBtn{
+    background-color: #ED5060;
+    color:#FFF;
+    border-radius:15px;
+    box-shadow: 0 0.7em 0 #b4231c;
+}
+
+.pinkBtn:active 
+{
+    box-shadow: 0px 0px 0px #F53240; 
+    transform: translateY(0.7em);
+}
+
+.blueBtn{
+    background-color: #4467D3;
+    color:#FFF;
+    border-radius:15px;
+    box-shadow: 0 0.7em 0 rgb(50, 77, 158);
+}
+
+
+.blueBtn:active 
+{
+    box-shadow: 0px 0px 0px #4467D3; 
+    transform: translateY(0.7em);
+}
+
+.blue2Btn{
+   background-color: #45A5B7;
+    color:#FFF;
+    border-radius:15px;
+    box-shadow: 0px 0.7em 0px #296772;
+}
+
+.blue2Btn:active 
+{
+    box-shadow: 0px 0px 0px #296772; 
+    transform: translateY(0.7em);
+}
+
+.greenBtn{
+   background-color: #02c8a7;
+    color:#FFF;
+    border-radius:15px;
+    box-shadow: 0px 0.7em 0px #01856f;
+}
+
+.greenBtn:active 
+{
+    box-shadow: 0px 0px 0px #7be7d5; 
+    transform: translateY(0.7em);
+}
+
+.green2Btn{
+   background-color: #459947;
+    color:#FFF;
+    border-radius:15px;
+    box-shadow: 0px 0.7em 0px #2e662f;
+}
+
+.green2Btn:active 
+{
+    box-shadow: 0px 0px 0px #7be7d5; 
+    transform: translateY(0.7em);
+}
+
+
+.yellowBtn{
+    background-color: #f9be02;
+    color:rgb(255, 255, 255);
+    border-radius:15px;
+    box-shadow: 0px 0.7em 0px #c59701;
+}
+
+.yellowBtn:active 
+{
+    box-shadow: 0px 0px 0px #f9be02 ; 
+    transform: translateY(0.7em);
+}
+// #EF6754 #a84639 #C69435
+.brownBtn{
+    background-color: #C69435;
+    color:rgb(255, 255, 255);
+    border-radius:15px;
+    box-shadow: 0px 0.7em 0px #866423;
+}
+
+.pink2Btn:active 
+{
+    box-shadow: 0px 0px 0px #866423 ; 
+    transform: translateY(0.7em);
+}
+
 
 @import url(https://fonts.googleapis.com/css?family=Economica:400,700);
 
- body{
-  background: #c0392b;
-  font-family: 'Economica', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  -webkit-backface-visibility: hidden;
+
+// quiz.index
+
+
+
+
+
+
+
+// quiz/show
+
+.questionContents{
+  position: relative;
+  height:430px;
+  margin-bottom:10%;
+  border:solid ;
+  border-radius: 12px;
+}
+
+#question{
+  position: absolute;
+  top: 50%;
+  left:0;
+  -webkit-transform : translateY(-50%);
+  transform : translateY(-50%);
+  width:100%;
+  margin:atuo;
+  text-align: center;
+  font-weight: bold;
+}
+
+#quizCount{
+  position: absolute;
+  left:0;
+  width:100%;
+  text-align:right;
+}
+
+
+#question {
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+#choices {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+#choices > li {
+  height:90px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin-bottom: 1em;
+  box-shadow: 0 9px 0 rgba(156, 153, 153, 0.376);
+  cursor: pointer;
+}
+
+#choices > li:hover {
+  background: #f8f8f8;
+}
+
+#choices > li.correct {
+  background: #6adbca;
+  border-color: #c3e6cb;
+  color: #155724;
+  font-weight: bold;
+}
+
+#choices > li.correct::after {
+  content: " ... correct!";
+}
+
+#choices > li.wrong {
+  background: #ff5a5d;
+  border-color: #fdc1b9;
+  color: #fff9fa;
+  font-weight: bold;
+}
+
+#choices > li.wrong::after{
+  content: "... wrong!";
+}
+
+.chart{
+  background-color:#02c8a7;
+}
+
+#btn{
+  cursor: pointer;
+  background: #f9be02;
+  margin:50px 20% 0px;
+  padding: 8px;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 9px 0 #d39803ab;
 }
 
 
 
-#circle {
-  width: 400px;
-  height: 400px;
-  border-radius: 200px;
-  border: 2px solid #fff;
+#btn.disabled {
+  background: #ccc;
+  box-shadow: 0 9px 0 #bbb;
+  opacity: 0.7;
+}
+
+
+#window {
+  position: fixed;
+  width: 90%;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  top: -1500px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-radius: 12px;
+  text-align: center;
+  transition:0.4s ease-out;
+}
+
+.replayBtn{
+  position: relative;
+  height:80px;
+  width:40%;
+  margin:5vh auto 30px;
+}
+
+.replayBtn > h1{
   position: absolute;
-  left: -250px;
+  height:100%;
+  margin:0;
+  top:20%;
+}
+
+// showCharts.js 
+
+
+
+#window.show{
+  top:100px;
+}
+
+// #window > p {
+//   font-size: 24px;
+// }
+
+#window > a {
+  display: block;
+  text-decoration: none;
+}
+ 
+
+#scoreLabel{
+  font-size:70px;
+}
+
+.doughnutsChart{
+  position: relative;
+}
+
+#learningLevel, .learningLevel{
+  position: absolute;
+   top: 35%;
+   left: 0;
+   right: 0;
+   margin: auto;
+   text-align: center;
+   font-size:10rem;
+   color:#fff;
+}
+
+#coution, .coution{
+  width:80%;
+  margin:0 auto;
+  position:absolute;
+  top:30%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color:#fff;
+  font-size:28px;
+  
+}
+
+// score_index
+.scoreInfo{
+  margin-bottom:60px;
+}
+
+#calendar{
+  height:300px;
 }

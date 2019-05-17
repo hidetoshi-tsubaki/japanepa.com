@@ -6,5 +6,6 @@ class StaticPagesController < ApplicationController
   end
 
   def score
+    gon.number = params[:id]
   end
 end

@@ -1,0 +1,56 @@
+<div class="head">
+  <h1>Sign Up for Japanepa ! </h1>
+</div>
+  <div class="row">
+    <div class="col-xs-12 col-lg-6 ">
+      <div class="provider">
+        <div class=" providerBtn facebookBtn link">
+          <h1 class="text-center">Sing up with Facebook</h1>
+          <%= link_to "","/users/auth/facebook" %>
+        </div>
+        <div class="providerBtn  twitterBtn link">
+          <h1 class="text-center">Sign up with Twitter</h1>
+          <%= link_to "","/users/auth/twitter" %>
+        </div>
+        <div class="providerBtn  googleBtn link">
+          <h1 class="text-center">Sign up with Google</h1>
+          <%= link_to "","/users/auth/google_oauth2" %>
+        </div>
+      </div>
+      <div class="sessionHelp">
+        <h3>Already signed up? <%= link_to "Log in ", new_session_path(resource_name) %>.</h3>
+        <h3>don`t have any email Address？<%= link_to "Creat gmail", "https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp" %>.</h3>
+      </div>
+    </div>
+  <div>
+
+  <div class="col-xs-12 col-lg-6 ">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="field input">
+          <h1>:<%= f.label :email %></h1>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" ,placeholder:" Enter Email"%>
+        </div>
+
+        <div class="field input">
+          <h1>
+            :<%= f.label :password %><% if @minimum_password_length %>
+            <span>(<%= @minimum_password_length %> characters minimum)</span>
+            <% end %>
+          </h1>
+          <%= f.password_field :password, autocomplete: "new-password",placeholder:" Enter Password" %>
+        </div>
+
+        <div class="field input">
+          <h1>:<%= f.label :password_confirmation %></h1>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" ,placeholder:" Enter Password confirmation" %>
+        </div>
+
+        <div class="actions input">
+          <div class="actionBtn"><%= f.submit "Sign up" ,class:"yellowBtn"%></div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+</div>

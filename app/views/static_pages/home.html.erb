@@ -1,46 +1,85 @@
 
-  <div class="wrapper">
-    <div class="row red">
+<div class="row ">
 
-      <div class=" card col-xs-6 ">
-        <div class="red">
-        <h1 class="text-center">question</h1>
-        <p class="text-center">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <%= link_to "", questions_path,class: "jump" %>
+  <div class="col-md-4 ">
+        <div class="card redBtn link">
+          <h1 class="text-center">Quiz</h1>
+          <%= link_to "","quizzes/index" %>
+        </div> 
+  </div >
+
+  <div class="col-md-4 ">
+        <div class="card yellowBtn link">
+          <h1 class="text-center">Score</h1>
+          <%= link_to "", score_board_path %>
         </div>
-      </div>
+  </div>
 
-      <div class="card col-xs-6" >
-        <div class="bg-warning">
-        <h1 class="card-title text-center">score</h1>
-        <p class="card-text text-center">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <%= link_to "score","#", class: "jump"  %>
+  <div class="col-md-4 ">
+        <div class="card blue2Btn link">
+          <% if user_signed_in? %>
+            <h1 class="text-center">Last Quiz </h1>
+            <%= link_to "","quizzes/index" %>
+          <% else %>
+            <h1 class="text-center">Register! </h1>
+            <%= link_to "",new_user_registration_path %>
+          <% end %>
         </div>
-      </div>
-    </div>
-    
-    <div class="row ">
+  </div>
 
-      <div class=" card col-xs-6 ">
-        <div class="blue">
-        <h1 class="text-center">News</h1>
-        <p class="text-center">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <%= link_to "","#",class: "jump" %>
+  <div class="col-md-4">
+        <div class="card red2Btn link">
+          <h1 class="text-center">Talk</h1>
+          <br>
+          <br>
+          <%= link_to "", talk_path %>
         </div>
-      </div>
+  </div>
 
-      <div class="card col-xs-6" >
-        <div class="orange">
-        <h1 class="card-title text-center">ranking</h1>
-        <p class="card-text text-center">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <%= link_to "score","#", class: "jump"  %>
+  <div class="col-md-4">
+        <div class="card greenBtn link">
+          <% if user_signed_in? %>
+            <h1 class="text-center">Profile</h1>
+            <%= link_to "","quizzes/index" %>
+          <% else %>
+            <h1 class="text-center">Login?</h1>
+            <%= link_to "",new_user_session_path %>
+          <% end %>
         </div>
-      </div>
-    </div>
+  </div>
 
+  <div class="col-md-4">
+        <div class="card pinkBtn link">
+          <h1 class="text-center">Calendar</h1>
 
+          <%= link_to "",calendar_path %>
+        </div>
+  </div>
+
+  
+
+  
+
+  <div class="col-md-4">
+        <div class="card green2Btn link">
+          <h1 class="text-center">Edit Profile</h1>
+          <%= link_to "",edit_user_registration_path %>
+        </div> 
+  </div >
+
+  <div class="col-md-4">
+        <div class="card blueBtn link">
+          <h1 class="text-center">Logout</h1>
+          <%= link_to "",destroy_user_session_path, method: :delete %>
+        </div> 
+  </div >
+
+  <div class="col-md-4">
+        <div class="card brownBtn link">
+          <h1 class="text-center">About us</h1>
+          <%= link_to "","quizzes/index" %>
+        </div> 
   </div>
 
 
-
-
+</div>
