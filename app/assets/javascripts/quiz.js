@@ -39,7 +39,7 @@
         if (arr.length >=10){
         var scoreArray = arr.slice(-10);
         var scoreLength = scoreArray.length;
-        let sum = 0;
+        var sum = 0;
         for (let i = 0;i < 10; i++){
             sum += scoreArray[i];   
         }
@@ -52,7 +52,7 @@
 
     function shuffle(arr) {
         // 例えば３×０〜１未満で小数点を切ると１か２がでる。
-        for (let i = arr.length - 1; i > 0; i--) {
+        for (var i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [arr[j], arr[i]] = [arr[i], arr[j]];
         }
