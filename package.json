@@ -1,9 +1,17 @@
 {
   "name": "portfolio",
   "private": true,
-
   "dependencies": {
     "chart.js": "^2.7.1"
+  },
+  "devDependencies": {
+    "webpack": "^4.31.0",
+    "webpack-dev-server": "^3.4.1"
+  },
+  "engines": {
+    "yarn": "1.x"
+  },
+  "scripts": {
+    "postinstall": "cd ./frontend && yarn && yarn run webpack --config ./webpack.config.js --mode production"
   }
-
 }

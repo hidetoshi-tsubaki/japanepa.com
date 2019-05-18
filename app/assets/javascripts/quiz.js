@@ -19,9 +19,9 @@
     const quizSet = gon.quizSet;
     const totalQuizNum = Object.keys(quizSet).length;
 
-    let currentNum = 0;
-    let isAnswered;
-    let score = 0;
+    var currentNum = 0;
+    var isAnswered;
+    var score = 0;
     
     // canvasの表示設定
     var w = $('.chart').width();
