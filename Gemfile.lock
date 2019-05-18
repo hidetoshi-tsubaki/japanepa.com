@@ -528,7 +528,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-twitter
-  pg (= 0.20.0)
+  pg (~> 0.18)
   pry-byebug
   puma (= 3.9.1)
   rack-livereload
