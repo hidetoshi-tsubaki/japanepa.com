@@ -12,8 +12,8 @@
     if (arr.length >= 10) {
       var scoreArray = arr.slice(-10);
       var scoreLength = scoreArray.length;
-      let sum = 0;
-      for (let i = 0; i < 10; i++) {
+      var sum = 0;
+      for (var i = 0; i < 10; i++) {
         sum += scoreArray[i];
       }
       var level = Math.floor(sum / scoreLength);
@@ -59,8 +59,8 @@
         var quizTitle = hash[key][i]['quizTitle'];
         chart1 = quizTitle + "LinearChart";
         chart2 = quizTitle + "DoughnutsChart";
-        let idLearningLevel = quizTitle + "learningLevel";
-        let idCoution = quizTitle +"coution";
+        var idLearningLevel = quizTitle + "learningLevel";
+        var idCoution = quizTitle +"coution";
         learningLevel = document.getElementById(idLearningLevel)
         coution = document.getElementById(idCoution);
 
