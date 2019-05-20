@@ -90,7 +90,6 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   config.action_mailer.default_url_options = {host: 'gentle-sea-78243.herokuapp.com' }
-  rails.application.routes.default_url_options[:host] = 'gentle-sea-78243.herokuapp.com'
   
   
   # mail setting
