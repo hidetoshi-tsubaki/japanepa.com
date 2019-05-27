@@ -72,9 +72,9 @@ Rails.application.routes.draw do
   devise_for :admins, skip: :all
   devise_scope :admin do
   # loginリクエストに対してadmins/sessionsコントローラのnewアクションにルーティングし、new_user_session_pathと名付ける
-  get '/admins/sign_in' => 'admins/sessions#new', as: :new_admin_session
-  post '/admins/sign_in' => 'admins/sessions#create', as: :admin_session
-  delete '/admins/sign_in' => 'admins/sessions#destroy', as: :destroy_admin_session
+  get '/admins/sign_in' => 'admins/sessions#new', as: 'new_admin_session'
+  post '/admins/sign_in' => 'admins/sessions#create', as: 'admin_session'
+  delete '/admins/sign_out' => 'admins/sessions#destroy', as: 'destroy_admin_session'
 end
 
 # deviseのroutesをカスタマイズで追加する
