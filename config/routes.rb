@@ -62,8 +62,8 @@ Rails.application.routes.draw do
     passwords: "users/passwords"
   }
   devise_for :admins, only: [:session] do
-  get '/admin_login', :to => 'admins/sessions#new', :as => :new_admin_session
-  get '/admin_logout', :to => 'admins/sessions#destroy', :as => :destroy_admin_session
+  get '/admin_login', :to => 'devise/sessions#new', :as => :new_admin_session
+  delete '/admin_logout', :to => 'devise/sessions#destroy', :as => :destroy_admin_session
 end
 
 #   全てのroutesを無効にしてから、必要なものだけを設定
