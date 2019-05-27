@@ -1,0 +1,36 @@
+
+<% if admin_signed_in? %>
+<h1> Quiz section index </h1>
+<div class="col-xs-12">
+  <div>
+    <div class="col-xs-12 col-lg-4 ">
+      <div class=" card redBtn link">
+      <h1>Create New Quiz</h1>
+      <%= link_to "",new_quiz_path %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<div class="row">
+<% @n5Quiz.each do |section,quizTitles| %>
+  <div class="col-xs-12">
+    <h1>●<%= section %></h1> 
+    <div>
+      <% quizTitles.each do |quizTitle| %>
+      <div class="col-xs-12 col-lg-4 ">
+        <div class=" card redBtn link">
+        <h1><%= quizTitle %></h1>
+        <% if admin_signed_in? %>
+          <%= link_to "",controller:"quizzes",action:"edit_quiz_index",title:quizTitle %>
+        <% else %>
+          <%= link_to "",controller:"quizzes",action:"show",title:quizTitle %>
+         <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</div>

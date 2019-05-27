@@ -1,0 +1,7 @@
+<h1>users index</h1>
+
+<% @users.each do |user| %>
+<h1>user.email</h1>
+<% link_to "edit" ,edit_user_registration_path(user) %>
+<% link_to "delete" ,user_registration_path(user),method: delete %>
+<% end %>

@@ -1,0 +1,12 @@
+<% @talks.each do |talk| %>
+<div>
+ <p><%= image_tag talk.img.to_s %></p>
+</div>
+<div>
+  <p><%= talk.content %></p>
+</div>
+<div>
+  <%= link_to "edit",edit_talk_path(talk), remote: true,class:"edit-btn" %>
+  <%= link_to "delete",delete_talk_path(talk), remote: true,data: { confirm: 'Delete this post?' },method: :delete,class:"delete-btn" %>
+</div>
+<% end %>
