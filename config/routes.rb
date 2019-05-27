@@ -1,19 +1,10 @@
 Rails.application.routes.draw do
-  get 'aticles/new'
-  get 'aticles/create'
-  get 'aticles/index'
-  get 'aticles/show'
-  get 'aticles/edit'
-  get 'aticles/update'
-  get 'aticles/delete'
-
   root "static_pages#home"
   get  '/home', to: 'static_pages#home'
   get  '/top', to: 'static_pages#top'
   get  '/score/:id', to: 'static_pages#score'
   get  '/questions', to: 'static_pages#question'
 
-  
   
   get 'news/index'
   get 'news/show'
@@ -40,8 +31,8 @@ Rails.application.routes.draw do
   get '/score_board', to:'score_record#index'
   get 'score_record/show'
 
-  get 'mistake/index'
-  get 'mistake/show'
+  # get 'mistake/index'
+  # get 'mistake/show'
 
 
   get  '/talks' , to:'talks#index'
@@ -59,26 +50,37 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
     confirmations: "users/confirmations",
     sessions: "users/sessions",
-    passwords: "users/passwords"
+    passwords: "users/passwords",
+    unlocks: "users/unlocks"
   }
-  devise_for :admins, only: [:session] do
-  get '/admin_login', :to => 'devise/sessions#new', :as => :new_admin_session
-  delete '/admin_logout', :to => 'devise/sessions#destroy', :as => :destroy_admin_session
-end
+
+  # devise/~~~ をadmins/~~~に変える
+  #   devise_for :admins, controllers: {
+  #   sessions:      'admins/sessions',
+  #   passwords:     'admins/passwords',
+  #   registrations: 'admins/registrations'
+  # }
+
+
+  # devise_for :admins, only: [:session] do
+  # get '/admins/sign_in', :to => 'admins/sessions#new', :as => :new_admin_session
+  # post 'admins/sign_in', :to =>'admins/sessions#create',:as => :admin_session
+  # delete '/admins/', :to => 'admins/sessions#destroy', :as => :destroy_admin_session
+  # end
 
 #   全てのroutesを無効にしてから、必要なものだけを設定
-#   devise_for :admins, skip: :all
-#   devise_scope :admin do
-#   # loginリクエストに対してadmins/sessionsコントローラのnewアクションにルーティングし、new_user_session_pathと名付ける
-#   get 'login' => 'admins/sessions#new', as: :new_admin_session
-#   post 'login' => 'admins/sessions#create', as: :admin_session
-#   delete 'logout' => 'admins/sessions#destroy', as: :destroy_admin_session
-# end
+  devise_for :admins, skip: :all
+  devise_scope :admin do
+  # loginリクエストに対してadmins/sessionsコントローラのnewアクションにルーティングし、new_user_session_pathと名付ける
+  get '/admins/sign_in' => 'admins/sessions#new', as: :new_admin_session
+  post '/admins/sign_in' => 'admins/sessions#create', as: :admin_session
+  delete '/admins/sign_in' => 'admins/sessions#destroy', as: :destroy_admin_session
+end
 
 # deviseのroutesをカスタマイズで追加する
-  devise_scope :user do
-    get '/users_index' => 'users/registrations#index'
-  end
+  # devise_scope :user do
+  #   get '/users_index' => 'users/registrations#index'
+  # end
 
   
 
