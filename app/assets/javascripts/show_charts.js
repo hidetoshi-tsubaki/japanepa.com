@@ -1,7 +1,7 @@
 {
     // ドーナッツchart用の値を作る
     
-    // これをonlickで発動させる
+    // これをonclickで発動させる
     function showLinearChart(data,chartID,level){
          
         // chartに表示するからのラベルを生成
@@ -25,8 +25,7 @@
                 pointBorderWidth: 1,  //点の周りの線の大きさ
                 pointRadius: 4, //点の大きさ
                 borderColor: '#fff',
-                borderWidth: 3,
-            
+                borderWidth: 3,       
             }]
             },
             options: {

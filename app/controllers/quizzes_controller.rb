@@ -1,4 +1,5 @@
 class QuizzesController < ApplicationController
+  before_action :authenticate_admin!, only: [:new,:create,:edit,:update,:delete,:edit_quiz_index]
   include  QuizzesHelper
   def show
     @quizzes = Quiz.where(title: params[:title])
@@ -13,7 +14,6 @@ class QuizzesController < ApplicationController
       @quizzes.each do |quiz| 
       gon.quizSet.push(q:"#{quiz.question}",c:["#{quiz.choice1}","#{quiz.choice2}","#{quiz.choice3}","#{quiz.choice4}"])
     end
-  
     gon.quizSet.shuffle!
   end
 
@@ -32,27 +32,51 @@ class QuizzesController < ApplicationController
     #                   choice3:params[choice3],choice4:params[choice4])
     if @quiz.save
       # 成功時の処理
-      redirect_to  quizzes_new_path
       flash.now[:notice] = "registered successfully"
+      redirect_to  new_quiz_path
     else
       render "quizzes/new"
       flash.now[:notice] = "Failed to register.Try again"
     end
   end
 
+  def quiz_title_index
+     @n5Quiz = getn5Quiz()
+  end
+
+  def edit_quiz_index
+    @quizzes = Quiz.where(title: params[:title])
+  end
+
   def edit
     @quiz = Quiz.find(params[:id])
   end
 
-private
-  # 直接呼び出せないメソッドの中からしか呼び出せない
-  def quiz_params
-  params.require(:quiz).permit(:level,:section,:title,:question,:choice1,:choice2,:choice3,:choice4)
-  # ここに書いてある値しか受け取らない 攻撃を受けないため
+  def update
+    if Quiz.update(quiz_params)
+      flash.now[:notice] = "updated successfully"
+      redirect_to  edit_quizzes_path
+    else
+      flash.now[:notice] = "Failed to update.Try again"
+      render "quizzes/edit_quiz_index"
+      return
+    end
   end
 
-  def quiz_title_params
-    params.require(:quiz).permit(:title)
+  def delete
+    Quiz.find(params[:id]).destroy
+      flash.now[:notice] = "edited quiz successfully!"
+    redirect_to edit_quiz_index_path
+    return
   end
 
+  private
+    # 直接呼び出せないメソッドの中からしか呼び出せない
+    def quiz_params
+    params.require(:quiz).permit(:level,:section,:title,:question,:choice1,:choice2,:choice3,:choice4)
+    # ここに書いてある値しか受け取らない 攻撃を受けないため
+    end
+
+    
 end
+

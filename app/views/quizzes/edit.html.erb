@@ -1,2 +1,8 @@
+<% provide(:action, "Save") %>
 <h1>Edit Quiz!</h1>
-<%= render "form_quiz" %>
+<%= render "form_quizzes" %>
+<div class="card yellowBtn link">
+<h1 class="text-center">delete</h1>
+<%= link_to "delete", delete_quiz_path(@quiz) ,method: :delete %>
+</div>
+

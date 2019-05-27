@@ -22,6 +22,7 @@ gem 'mini_magick'
 gem 'fullcalendar-rails' 
 gem 'momentjs-rails'
 gem 'dotenv-rails'
+gem 'remotipart', '~> 1.2'
 
 
 group :development, :test do

@@ -2,8 +2,13 @@
 
   <div class="col-md-4 ">
         <div class="card redBtn link">
-          <h1 class="text-center">Quiz</h1>
-          <%= link_to "","quizzes/index" %>
+          <% if admin_signed_in? %>
+            <h1 class="text-center">Edit Quiz</h1>
+            <%= link_to "",quiz_title_index_path %>
+          <% else %>
+            <h1 class="text-center">Quiz</h1>
+            <%= link_to "",quiz_index_path %>
+          <% end %>
         </div> 
   </div >
 
@@ -16,11 +21,14 @@
 
   <div class="col-md-4 ">
         <div class="card blue2Btn link">
-          <% if user_signed_in? %>
+          <% if admin_signed_in? %>
+            <h1 class="text-center">create Quiz</h1>
+            <%= link_to "", new_quiz_path %>
+          <% elsif user_signed_in? %>
             <h1 class="text-center">Last Quiz </h1>
-            <%= link_to "","quizzes/index" %>
+            <%= link_to "",new_user_registration_path %>
           <% else %>
-            <h1 class="text-center">Register! </h1>
+            <h1 class="text-center">not login </h1>
             <%= link_to "",new_user_registration_path %>
           <% end %>
         </div>
@@ -31,7 +39,7 @@
           <h1 class="text-center">Talk</h1>
           <br>
           <br>
-          <%= link_to "", talk_path %>
+          <%= link_to "", talks_path %>
         </div>
   </div>
 
@@ -49,15 +57,18 @@
 
   <div class="col-md-4">
         <div class="card pinkBtn link">
-          <h1 class="text-center">Calendar</h1>
-
-          <%= link_to "",calendar_path %>
+        <% if user_signed_in? %>
+          <h1 class="text-center">Log Out</h1>
+          <%= link_to "",destroy_user_session_path, method: :delete%>
+        <% elsif admin_signed_in? %>
+        <h1 class="text-center">Admin Logout</h1>
+          <%= link_to "",destroy_admin_session_path , method: :delete%>
+        <% else %>
+        <h1 class="text-center">Admin Logout</h1>
+          <%= link_to "",new_admin_session_path %>
+        <% end %>
         </div>
   </div>
-
-  
-
-  
 
   <div class="col-md-4">
         <div class="card green2Btn link">
@@ -68,8 +79,13 @@
 
   <div class="col-md-4">
         <div class="card blueBtn link">
+        <% if user_signed_in? | admin_signed_in?  %>
           <h1 class="text-center">Logout</h1>
           <%= link_to "",destroy_user_session_path, method: :delete %>
+        <% else %>
+          <h1 class="text-center">none</h1>
+          <%= link_to "",destroy_user_session_path, method: :delete %>
+        <% end %>
         </div> 
   </div >
 

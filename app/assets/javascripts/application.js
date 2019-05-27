@@ -20,6 +20,7 @@
 //= require moment
 //= require fullcalendar
 //= require fullcalendar/locale-all
+//= require jquery.remotipart
 
 // $(document).ready(function(){
 //   $('#calendar').fullCalendar({

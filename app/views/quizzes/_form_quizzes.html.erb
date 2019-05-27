@@ -1,20 +1,20 @@
 <div>
-  <%= form_with model:@quiz,local: true do |f| %>
+  <%= form_with  model: @quiz do |f| %>
     
 
     <div class="field">
-      <%= f.label :level %><br />
-      <%= f.text_field :level  %>
+      <%= f.label :level %>
+      <%= f.select :level, [["N5","N5"],["N4","N4"]], :prompt => "Select Level" %>
     </div>
 
     <div class="field">
       <%= f.label :section %>
-      <%= f.text_field :section %>
+      <%= f.select :section, [["Character(もじ)","Character"],["Word(ことば)","Word"]], :prompt => "Select Section" %>
     </div>
 
     <div class="field">
       <%= f.label :title %>
-      <%= f.text_field :title %>
+      <%= f.select :title, [["あ→A","あ→A"],["ア→A","ア→A"],["Noun1","Noun1"],["Noun2","Noun2"]], :prompt => "Select title" %>
     </div>
 
     <div class="field">
@@ -42,10 +42,8 @@
       <%= f.text_field :choice4 %>
     </div>
 
-
-
     <div class="actions">
-      <%= f.submit "Register" %>
+      <%= f.submit "#{yield(:action)}" %>
     </div>
   <% end %>
 </div>

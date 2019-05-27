@@ -512,3 +512,36 @@ border: solid 2px #666;
 #calendar{
   height:300px;
 }
+
+
+//  edit_quiz_index
+// .quiz-columns,.quiz-row{
+//   display:table;
+//   table-layout:fixed;
+//   width:100%
+// }
+// .quiz-columns p,.quiz-row{
+//   display:table-cell;
+// }
+
+table{
+  font-size:24px;
+  background-color:#fff;
+  width:100%;
+}
+
+th,td{
+  text-align:center;
+  border: solid 1px #ccc;
+}
+
+.th-cell{
+  font-size:18px;
+}
+
+// talk
+
+#talkIndex{
+  text-align: center;
+
+}

@@ -433,6 +433,7 @@ GEM
       json (>= 1.8)
       nokogiri (~> 1.5)
       optimist (~> 3.0)
+    remotipart (1.4.3)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
@@ -539,6 +540,7 @@ DEPENDENCIES
   rack-livereload
   rails (= 5.1.6)
   rails_12factor
+  remotipart (~> 1.2)
   sass-rails (= 5.0.6)
   spring (= 2.0.2)
   spring-watcher-listen (= 2.0.1)

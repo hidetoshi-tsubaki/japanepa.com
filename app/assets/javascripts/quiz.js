@@ -11,13 +11,13 @@
     const quizCount = document.getElementById('quizCount');
     const chart1 = "linearChart";
     const chart2 = "doughnutsChart";
-
-   
-    // css記述で指定より複雑な指定ができる
-    // const scoreLabel = document.querySelector('#window > p');
     const scoreLabel = document.getElementById('scoreLabel');
     const quizSet = gon.quizSet;
     const totalQuizNum = Object.keys(quizSet).length;
+   
+    // css記述で指定より複雑な指定ができる
+    // const scoreLabel = document.querySelector('#window > p');
+
 
     var currentNum = 0;
     var isAnswered;
