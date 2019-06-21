@@ -11,18 +11,21 @@
 // about supported directives.
 //
 
-//= require turbolinks
-//= require jquery3
+
+//= require jquery
 //= require jquery_ujs
+//= require jquery.remotipart
+//= require popper
 //= require bootstrap
+//= require summernote.min
+//= require activestorage
 //= require Chart.min
 //= require form
 //= require moment
 //= require fullcalendar
 //= require fullcalendar/locale-all
-//= require jquery.remotipart
-
-// $(document).ready(function(){
-//   $('#calendar').fullCalendar({
-//   })
-// });
+//= require common
+//= require prev_img
+//= require jquery.jscroll.min
+//= require infinite_scroll
+// require_tree .

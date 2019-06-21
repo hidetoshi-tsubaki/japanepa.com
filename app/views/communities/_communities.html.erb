@@ -1,0 +1,16 @@
+
+<% @communities.each do |community| %>
+  <% link_to show_community_path(community)  %>
+  <div class="community <%= community.id %> col-12 col-md-4">  
+  <% if community.img %>
+    <%= image_tag community.img.to_s%>
+  <% else %>
+
+  <% end %>
+    <p class="community_name"><%= community.name %></p>
+    <p class="community_intro"><%= community.introduction %></p>
+    <p>Member:<%= community.users.count %></p>
+    <p>total-post:<%= community.talks.count %></p>
+    <%= link_to 'show', show_community_path(community) %>
+  </div>
+<% end %>

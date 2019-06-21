@@ -1,0 +1,22 @@
+
+<% if admin_signed_in? %>
+  <div >
+    <%= link_to "edit",edit_articles_path(@article) %>
+    <%= link_to "delete",delete_article_path(@article),data: {confirm: 'Delete Article?'},method: :delete %>
+    <%= link_to "back to index",articles_index_path %>
+  </div>
+<% end %>
+
+
+<div class="wrapper-article">
+  <div>
+    <p><%= image_tag @article.image.to_s ,class:"top_img" %></p>
+  </div>
+  <div class="article-contents">
+    <p class="posted-time">posted at <%= @article.created_at.strftime('%Y/%m/%d') %></p>
+    <h1><%= @article.title %></h1>
+    <hr>
+    <div>
+      <%= raw(@article.contents) %>
+    </div>
+</div>

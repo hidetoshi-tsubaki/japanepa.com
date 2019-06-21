@@ -1,5 +1,13 @@
 <div class="head">
   <h1>Sign Up for Japanepa ! </h1>
+  <div> 
+    <h1>Hi ! welcome to japaepa.com!
+      Why don`t you Sign up japanepa.After Sign up , you can ...</h1>
+    <p> 1. play all quiz in the japanepa.com!</p>
+    <p>2. save all socre-records and check your score in charts!</p>
+    <p>3. read all article and bookmark article!</p>
+    <p>4. talk with Friends learning japanese langauge!</p>
+  </div>
 </div>
   <div class="row">
     <div class="col-xs-12 col-lg-6 ">
@@ -29,6 +37,21 @@
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="field input">
+          <h1>:<%= f.label :name %></h1>
+          <%= f.text_field :name, autofocus: true, autocomplete: "email" ,placeholder:" Enter name"%>
+        </div>
+
+        <div class="field input">
+          <h1>:<%= f.label :country %></h1>
+          <%= f.country_select :country,priority_countries: ["nepal"]%>
+        </div>
+
+        <div class="field input">
+          <h1>:<%= f.label :current_address %></h1>
+          <%= f.country_select :current_address,priority_countries: ["nepal","JP"]%>
+        </div>
+
+        <div class="field input">
           <h1>:<%= f.label :email %></h1>
           <%= f.email_field :email, autofocus: true, autocomplete: "email" ,placeholder:" Enter Email"%>
         </div>
@@ -41,6 +64,8 @@
           </h1>
           <%= f.password_field :password, autocomplete: "new-password",placeholder:" Enter Password" %>
         </div>
+
+    
 
         <div class="field input">
           <h1>:<%= f.label :password_confirmation %></h1>

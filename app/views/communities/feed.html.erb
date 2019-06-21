@@ -1,0 +1,12 @@
+<h1>top feed </h1>
+<div class="row">
+  <div id="talk_index" class="col-12 col-md-8 jscroll scroll_list">
+    <%= render 'talks/index' %>
+  </div>
+  <div id="form_talk" class="col-12 col-md-4">
+    <%= link_to 'create talk', create_talk_path, remote: true %>
+    <%= link_to 'create community', create_community_path, remote: true %>
+    <%= link_to 'see communities', communities_path %>
+  </div>
+  
+</div>

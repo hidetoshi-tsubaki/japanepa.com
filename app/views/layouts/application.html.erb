@@ -3,6 +3,7 @@
   <head>
     <title>Portfolio</title>
     <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "https://use.fontawesome.com/releases/v5.8.2/css/all.css" %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= Gon::Base.render_data %>
@@ -10,14 +11,25 @@
 
   <body>
   <header>
-          <% if flash[:notice] %>
-          <div id="flash">
-            <p><%= flash[:notice] %></p>
-          </div>
-          <% end %>
-          <h1><%= link_to "Japanepa.com","/",id:"logo" %> </h1>
+    <% if flash[:notice] %>
+    <div id="flash">
+      <p><%= flash[:notice] %></p>
+    </div>
+    <% end %>
+    <h1><%= link_to "Japanepa.com","/",id:"logo" %> </h1>
+    <section id="modalArea" class="modalArea">
+    <div id="modalBg" class="modalBg"></div>
+    <div class="modalWrapper">
+      <div class="modalContents" id="modal"></div>
+      <div class="modalContents hidden" id="LoginModal"><%= render "logIn" %></div>
+      <div id="closeModal" class="closeModal">×</div>
+    </div>
+  </section>
   </header>
-  <div class="wrapper">
+
+
+  <div id="form" class="window"></div>
+  <div>
     <%= yield %>
   </div>
   </body>

@@ -1,58 +1,57 @@
-<div class="row>
-  <div class="col-lg-4>
-    <div>
+<div class="row">
+  <div class="col-md-4 eq-height">
+    <div class="eq-hieght_content">
     <% if user_signed_in? %>
      <%= link_to "profile",show_profile_path %> 
     <% elsif admin_signed_in? %>
-      <%= link_to "users index", users_index_path%>
+      <%= link_to "Users", users_index_path%>
     <% else %>
-      <%= link_to "login",new_user_session_path %>
+      <p>New Account</p>
     <% end %>
     </div>
-    <div>
+    <div class="eq-hieght_content">
       <% if user_signed_in? %>
-        <%= link_to "", score_board_path %> 
+        <%= link_to "Score Board", score_board_path %> 
       <% elsif admin_signed_in? %>
-        <%= link_to "users index",users_index_path %>
+        <%= link_to "Access Analysis",users_index_path %>
       <% else %>
-        <%= link_to "",new_user_session_path %>
+        <%= link_to "LogIn",new_user_session_path %>
       <% end %>
     </div>
-    <div>
-    </div>
+    <div class="eq-hieght_content">
+      <% if user_signed_in? %>
+        <%= link_to "Request", score_board_path %> 
+      <% elsif admin_signed_in? %>
+        <%= link_to "Requests",users_index_path %>
+      <% else %>
+        <%= icon("fas", "fa-user-cogs") %><%= link_to "Admin Login",new_user_session_path %>
+      <% end %>
     </div>
   </div>
-  <div class="col-lg-8>
+  <div class="col-md-8">
+    <p>ss</p>
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-4">
-  <% if user_signed_in? %>
-      
-    <% elsif admin_signed_in? %>
-    ??
+  <div class="col-md-4">
+    <% if admin_signed_in? %>
+      <%= link_to  "Quiz",edit_quiz_index_path, class:"edit" %>
     <% else %>
-    log in
+      <%= link_to  "Quiz",quiz_index_path %>
     <% end %>
   </div>
-  <div class="col-lg-4">
-  <% if user_signed_in? %>
-      profile
-    <% elsif admin_signed_in? %>
-    ??
+  <div class="col-md-4">
+    <% if admin_signed_in? %>
+      <%= link_to  "News",edit_quiz_index_path, class:"edit" %>
     <% else %>
-    log in
+      <%= link_to  "News",quiz_index_path %>
     <% end %>
   </div>
-  <div class="col-lg-4">
-  <% if user_signed_in? %>
-      profile
-    <% elsif admin_signed_in? %>
-    ??
+  <div class="col-md-4">
+    <% if admin_signed_in? %>
+      <%= link_to  "Talk",edit_quiz_index_path ,class:"edit" %>
     <% else %>
-    log in
+      <%= link_to  "Talk",quiz_index_path %>
     <% end %>
   </div>
 </div>
-
-
