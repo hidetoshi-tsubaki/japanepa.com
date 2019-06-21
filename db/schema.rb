@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190524053715) do
+ActiveRecord::Schema.define(version: 2019_06_18_031727) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,58 +27,57 @@ ActiveRecord::Schema.define(version: 20190524053715) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.string "contents"
+    t.string "img"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "controllers", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.string "admins"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_controllers_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_controllers_on_reset_password_token", unique: true
-  end
-
-  create_table "mistakes", force: :cascade do |t|
+  create_table "comments", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "quiz_id"
-    t.integer "count"
+    t.integer "talk_id"
+    t.string "contents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["quiz_id"], name: "index_mistakes_on_quiz_id"
-    t.index ["user_id"], name: "index_mistakes_on_user_id"
+    t.index ["talk_id"], name: "index_comments_on_talk_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "news", force: :cascade do |t|
-    t.string "eyecatch"
-    t.string "title"
-    t.text "contents"
+  create_table "communities", force: :cascade do |t|
+    t.string "name"
+    t.string "img"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "introduction"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_communities_on_user_id"
+  end
+
+  create_table "community_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "community_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_id"], name: "index_community_users_on_community_id"
+    t.index ["user_id"], name: "index_community_users_on_user_id"
   end
 
   create_table "quizzes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "level"
-    t.string "section"
-    t.string "title"
-    t.string "question"
-    t.string "choice1"
-    t.string "choice2"
-    t.string "choice3"
-    t.string "choice4"
+    t.string "level", null: false
+    t.string "section", null: false
+    t.string "title", null: false
+    t.string "question", null: false
+    t.string "choice1", null: false
+    t.string "choice2", null: false
+    t.string "choice3", null: false
+    t.string "choice4", null: false
   end
 
   create_table "score_records", force: :cascade do |t|
-    t.integer "score"
-    t.string "quizTitle"
-    t.integer "user_id"
+    t.integer "score", null: false
+    t.string "quizTitle", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_score_records_on_user_id"
@@ -90,6 +89,8 @@ ActiveRecord::Schema.define(version: 20190524053715) do
     t.string "img"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "community_id"
+    t.index ["community_id"], name: "index_talks_on_community_id"
     t.index ["user_id"], name: "index_talks_on_user_id"
   end
 
@@ -115,24 +116,13 @@ ActiveRecord::Schema.define(version: 20190524053715) do
     t.datetime "updated_at", null: false
     t.string "uid"
     t.string "provider"
-    t.string "username"
+    t.string "name"
+    t.string "country"
+    t.string "current_address"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
-  end
-
-  create_table "views", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.string "admins"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_views_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_views_on_reset_password_token", unique: true
   end
 
 end

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.4.1'
-gem 'rails',        '5.1.6'
-gem 'bootstrap-sass', '3.3.7'
+gem 'rails', '~> 5.2.0.rc1'
+gem 'bootstrap-sass'
 gem 'puma',         '3.9.1'
 gem 'sass-rails',   '5.0.6'
 gem 'uglifier',     '3.2.0'
@@ -23,6 +23,10 @@ gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'dotenv-rails'
 gem 'remotipart', '~> 1.2'
+gem 'font-awesome-sass', '~> 5.8.1'
+gem 'aws-sdk-s3', '~> 1'
+gem 'kaminari'
+gem 'country_select', require: 'country_select_without_sort_alphabetical'
 
 
 group :development, :test do

@@ -15,8 +15,12 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Rails.application.config.assetøs.precompile += %w( admin.js admin.css )
 Rails.application.config.assets.precompile += %w( quiz.js )
 Rails.application.config.assets.precompile += %w( show_charts.js )
+Rails.application.config.assets.precompile += %w( common.js )
+Rails.application.config.assets.precompile += %w( prev_img.js )
+Rails.application.config.assets.precompile += %w( infinite_scroll.js )
 Rails.application.config.assets.precompile += %w( indexCharts.js )
 Rails.application.config.assets.precompile += %w( calendar.js )
+Rails.application.config.assets.precompile += %w( summernote.min.js )
 # treeを消したから、自動で読み込んでくれないので、ここに指定してあげる。
 
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )

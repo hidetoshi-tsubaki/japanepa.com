@@ -1,0 +1,36 @@
+<%= form_with(model: @article, local: true) do |f| %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field" >
+    <%= f.label :lead %><br>
+    <%= f.text_area :lead %>
+  </div>
+
+  <div class="field">
+    <p>Top-Image</p>
+    <div class="post_img_area">
+    <%= f.file_field :image, id: 'post_img' %>
+    <% if @article.image? %>
+      <%= image_tag @article.image.to_s, class: 'present_topImg' %>
+      <label><%= f.check_box :remove_image %> 画像を削除</label>
+    <% else %>
+      <%= f.hidden_field :image_cache %>
+    <% end %>
+    <img id="postImg_prev" src="#" class='hidden' /> 
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :contents %>
+    <%= f.text_area :contents, 'data-provider': :summernote %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "submit" %>
+  </div>
+
+<% end %>

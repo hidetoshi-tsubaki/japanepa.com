@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'comments/create'
+  get 'comments/edit'
+  get 'comments/delete'
+  get 'communities/index'
+  get 'communities/create'
+  get 'communities/delete'
+  get 'communities/update'
   root "static_pages#home"
   get  '/home', to: 'static_pages#home'
   get  '/top', to: 'static_pages#top'
@@ -35,16 +42,49 @@ Rails.application.routes.draw do
   # get 'mistake/show'
 
 
-  get  '/talks' , to:'talks#index'
+
+  get '/talks/:id' , to:'talks#index',as:'talks_index'
+  get '/talk/:id' , to:'talks#show',as:'talk_show'
+  get '/create_talk' ,to:'talks#new'
+  get '/create_talk/:id' ,to:'talks#new',as:'create_talk_from_community'
   post '/talks' , to:'talks#create'
-  get '/edit_talk/:id', to:'talks#edit',as:'edit_talk'
-  patch '/talks' , to: 'talks#update'
+  get '/edit_talks/:id', to:'talks#edit',as:'edit_talks'
+  # updateの時のform_withが生成する送り先urlは/talk/
+  patch '/talk' , to: 'talks#update'
   delete '/delete_talk/:id', to:'talks#delete',as: 'delete_talk'
-
-  get '/calendar', to:'calendar#show'
+  post '/talks_sort' ,to:'talks#sort'
+  post '/talks_search' ,to:'talks#search'
   
- 
+  get '/comment', to:'comments#new'
+  post '/comments',to:'comments#create'
+  
+  get '/articles_index',to:'articles#index'
+  get '/articles/:id',to:'articles#show',as: 'show_articles'
+  get '/create_articles', to:'articles#new'
+  post '/articles', to:'articles#create'
+  get '/edit_articles/:id', to:'articles#edit',as: 'edit_articles'
+  patch '/article',to:'articles#update'
+  post '/articles/image_upload', to:'articles#image_upload'
+  post '/articles/delete_image',to:'articles#delete_image'
+  delete '/delete_articles/:id',to:'articles#delete',as: 'delete_article'
+  post '/articles_sort' ,to:'articles#sort'
+  post '/articles_search' ,to:'talks#search'
 
+  get '/japanepa/feed' , to:'communities#feed'
+  get '/create_community' , to: 'communities#new'
+  get '/communities' ,to: 'communities#index'
+  get '/community/:id' ,to: 'communities#show',as: 'show_community'
+  post '/communities' ,to: 'communities#create'
+  get '/community' ,to: 'communities#edit'
+  patch '/community' ,to: 'communities#update'
+  delete '/community' ,to: 'communities#delete'
+  post '/communities_sort' ,to:'communities#sort'
+  post '/communities_search' ,to:'talks#search'
+
+  post '/community_users',to: 'community_user#create'
+  delete '/community_users',to: 'community_user#delete'
+  
+  
   devise_for :users, controllers: { 
     omniauth_callbacks: 'users/omniauth_callbacks',
     registrations: "users/registrations",
@@ -81,8 +121,6 @@ end
   # devise_scope :user do
   #   get '/users_index' => 'users/registrations#index'
   # end
-
   
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

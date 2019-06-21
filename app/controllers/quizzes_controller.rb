@@ -56,6 +56,7 @@ class QuizzesController < ApplicationController
     if Quiz.update(quiz_params)
       flash.now[:notice] = "updated successfully"
       redirect_to  edit_quizzes_path
+      
     else
       flash.now[:notice] = "Failed to update.Try again"
       render "quizzes/edit_quiz_index"
