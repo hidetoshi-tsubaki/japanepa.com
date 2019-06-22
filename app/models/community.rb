@@ -11,16 +11,28 @@ class Community < ApplicationRecord
     # sort機能
     def self.sorted_by(key) 
       case key
-      when 'most_posted'
+      when 'Posts - Descending'
         sorted_community_ids = Talk.group("community_id").order("count_id desc").count(:id).keys
         # postがゼロのものを後ろに追加する
         sorted_community_ids += Community.joins("LEFT OUTER JOIN talks ON communities.id = talks.community_id").where(talks: {community_id: nil}).pluck(:id)
         Community.find(sorted_community_ids)
-      when 'most_members'
+      when 'Posts - Ascending'
+        sorted_community_ids = Community.joins("LEFT OUTER JOIN talks ON communities.id = talks.community_id").where(talks: {community_id: nil}).pluck(:id)
+        p sorted_community_ids
+        sorted_community_ids += Talk.group("community_id").order("count_id asc").count(:id).keys
+        p sorted_community_ids
+        a = Community.find(sorted_community_ids)
+        p a
+      when 'Members - Descending'
+        sorted_community_ids = CommunityUser.group("community_id").order("count_id desc").count(:id).keys
+        sorted_community_ids += Community.joins("LEFT OUTER JOIN community_users ON communities.id = community_users.community_id").where(community_users: {community_id:nil}).pluck(:id)
+      when 'Members - Ascending'
         sorted_community_ids = CommunityUser.group("community_id").order("count_id desc").count(:id).keys
         sorted_community_ids += Community.joins("LEFT OUTER JOIN community_users ON communities.id = community_users.community_id").where(community_users: {community_id:nil}).pluck(:id)
         Community.find(sorted_community_ids)
-      when 'oldest'
+      when 'Date - new to old'
+        Community.all.order('created_at desc')
+      when 'Date - old to new'
         Community.all.order('created_at asc')
       else
         Community.all.order('created_at desc')
@@ -38,8 +50,6 @@ class Community < ApplicationRecord
     end
     # uniq!だと、変更がないとnilを返してしまう
     communities = communities.uniq
-    
-
     end
 
 end

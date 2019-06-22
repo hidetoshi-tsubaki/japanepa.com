@@ -35,7 +35,7 @@ class User < ApplicationRecord
     end
   end
 
-  def alradey_joined?(community)
+  def already_joined?(community)
     community_users.find_by(community_id: community.id)
   end
 

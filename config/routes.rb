@@ -80,6 +80,8 @@ Rails.application.routes.draw do
   delete '/community' ,to: 'communities#delete'
   post '/communities_sort' ,to:'communities#sort'
   post '/communities_search' ,to:'communities#search'
+  get '/join_community/:id',to:'communities#join',as: 'join_community'
+  get '/leave_community/:id',to:'communities#leave',as: 'leave_community'
 
   post '/community_users',to: 'community_user#create'
   delete '/community_users',to: 'community_user#delete'

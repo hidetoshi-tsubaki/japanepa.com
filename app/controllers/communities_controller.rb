@@ -1,10 +1,11 @@
 class CommunitiesController < ApplicationController
   include CommunitiesHelper
+  before_action :authenticate_user! , only: [:create,:edit,:update,:delete,:join,:leave]
   before_action  :past_30days_after_signIn?, only: [:new ,:create]
   
-  # これはコミュニティーの一覧、フィード画面へのアクションが必要
+
   def index
-    @communities = Community.includes(:talks).all
+    @communities = Community.includes(:talks).all.order('created_at desc')
   #community.users.size
   end
 
@@ -61,6 +62,17 @@ class CommunitiesController < ApplicationController
 
   def search
      @communities = Community.search(params[:keyword])
+     render 'sort.js.erb'
+  end
+
+  def join
+    @community = Community.find(params[:id])
+    current_user.join(@community)
+  end
+
+  def leave
+    @community = Community.find(params[:id])
+    current_user.leave(@community)
   end
 
   private

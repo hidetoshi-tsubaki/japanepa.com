@@ -1,4 +1,8 @@
 <h1><%= @community.name %></h1>
+<p id="member_count_<%= @community.id %>"><%= render partial:'member_count', locals: {community: @community} %></p>
+<div id="join_btn_<%= @community.id %>">
+  <%= render partial:'join_btn' , locals: {community: @community} %>
+</div>
 <div class="row">
   <div id="form_talk" class="col-md-4 ">
     <%= link_to 'create talk', create_talk_from_community_path(@community), remote: true %>

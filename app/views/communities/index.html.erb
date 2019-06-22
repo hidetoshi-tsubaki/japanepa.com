@@ -1,7 +1,7 @@
 <h1>community index</h1>
 <div>
   <%= form_with url: communities_sort_path ,id:'formSort' do |f| %>
-    <%= f.select :sort,[["sort by","sort_by"],["most posted","most_posted"],["most members","most_members"],["oldest","oldest"]],id:"sort" %>
+    <%= f.select :sort,[["All","All"],["Posts - Descending","Posts - Descending"],["Posts - Ascending","Posts - Ascending"],["Members - Descending","Members - Descending"],["Members - Aescending","Members - Ascending"],["Date - new to old","Date - new to old"],["Date - old to new","Date - old to new"]],id:"sort" %>
   <% end %>
 </div>
 <%= form_with url: communities_search_path ,id:'formSearch' do |f| %>
@@ -25,6 +25,6 @@
     <% end %>
   </div>
   <div id="community_index" class="col-12 col-md-8">
-    <%= render 'communities' %>
+      <%= render partial:'communities' ,locals: {community: @communities} %>
   </div>
 </div>
