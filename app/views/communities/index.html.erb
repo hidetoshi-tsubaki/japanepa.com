@@ -4,6 +4,10 @@
     <%= f.select :sort,[["sort by","sort_by"],["most posted","most_posted"],["most members","most_members"],["oldest","oldest"]],id:"sort" %>
   <% end %>
 </div>
+<%= form_with url: communities_search_path ,id:'formSearch' do |f| %>
+  <%= f.text_field :keyword %>
+  <%= f.submit 'search' ,id:"search_btn" %>
+<% end %>
 <div>
 
 </div>

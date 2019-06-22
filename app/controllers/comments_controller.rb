@@ -26,7 +26,11 @@ class CommentsController < ApplicationController
   end
 
   def sort
-    @communities = Community.all
+    @communities = Community.sorted_by(params[:sort])
+  end
+
+  def search
+    @communities = Community.search(params[:keyword])
   end
   private
     def comment_params

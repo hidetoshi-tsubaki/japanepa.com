@@ -54,15 +54,14 @@ class CommunitiesController < ApplicationController
     end
   end
 
-    def sort
-      # pry-byebug
-      @communities = Community.sorted_by(params[:sort])
+  def sort
+    # pry-byebug
+    @communities = Community.sorted_by(params[:sort])
   end
 
-  def serch
-
+  def search
+     @communities = Community.search(params[:keyword])
   end
-
 
   private
 

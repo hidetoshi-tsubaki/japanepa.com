@@ -79,7 +79,7 @@ Rails.application.routes.draw do
   patch '/community' ,to: 'communities#update'
   delete '/community' ,to: 'communities#delete'
   post '/communities_sort' ,to:'communities#sort'
-  post '/communities_search' ,to:'talks#search'
+  post '/communities_search' ,to:'communities#search'
 
   post '/community_users',to: 'community_user#create'
   delete '/community_users',to: 'community_user#delete'
