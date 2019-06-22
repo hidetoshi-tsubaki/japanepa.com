@@ -9,15 +9,15 @@ class Community < ApplicationRecord
     validates :name, uniqueness: { case_sensitive: false }
 
     # sort機能
-    def self.sorted_by(sort) 
-      case sort
+    def self.sorted_by(key) 
+      case key
       when 'most_posted'
         sorted_community_ids = Talk.group("community_id").order("count_id desc").count(:id).keys
         # postがゼロのものを後ろに追加する
         sorted_community_ids += Community.joins("LEFT OUTER JOIN talks ON communities.id = talks.community_id").where(talks: {community_id: nil}).pluck(:id)
         Community.find(sorted_community_ids)
       when 'most_members'
-        sorted_community_ids =CommunityUser.group("community_id").order("count_id desc").count(:id).keys
+        sorted_community_ids = CommunityUser.group("community_id").order("count_id desc").count(:id).keys
         sorted_community_ids += Community.joins("LEFT OUTER JOIN community_users ON communities.id = community_users.community_id").where(community_users: {community_id:nil}).pluck(:id)
         Community.find(sorted_community_ids)
       when 'oldest'
@@ -25,17 +25,21 @@ class Community < ApplicationRecord
       else
         Community.all.order('created_at desc')
       end
+    end
 
-      def self.search(keyword)
-        render 'index' if params[:keyword] == ""
+    def self.search(keywords_params)
+    return communities = Community.all.order('created_at desc') if keywords_params == ""
+    keywords = keywords_params.split(/[[:blank:]]+/)
+    p keywords
+    communities = []
+    keywords.each do |keyword|
+      next if keyword == ""
+      communities += Community.where('name LIKE ? OR introduction LIKE ?',"%#{keyword}%","%#{keyword}%")
+    end
+    # uniq!だと、変更がないとnilを返してしまう
+    communities = communities.uniq
+    
 
-        keywords = params[:keyword].split(/[[:blank]]+/)
-        @communities = []
-        keywords.each do |keyword|
-          next if keyword == ""
-          @communities += Community.where('name LIKE? OR introduction LIKE?',"%#{keyword}%","%#{keyword}%")
-        end
-        @communities.uniq!
-      end
-  end
+    end
+
 end
