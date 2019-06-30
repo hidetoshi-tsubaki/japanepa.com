@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_admin!, only: [:new,:create,:edit,:update,:delete]
-
+  impressionist :actions=> [:show]
   def index
     @articles = Article.order('created_at DESC').page(params[:page]).per(10)
   end
@@ -73,8 +73,9 @@ class ArticlesController < ApplicationController
     end
   end
 
+
   private
   def article_params
-    params.require(:article).permit(:title,:lead,:image,:image_cache,:remove_image,:contents,)
+    params.require(:article).permit(:title,:lead,:image,:img_cache,:remove_image,:contents,)
   end
 end

@@ -1,6 +1,52 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+/* ------------------------------
+default
+------------------------------ */
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	border-style: initial;
+	-webkit-text-size-adjust: 100%;
+}
+
+html,body {
+	height: 100%;
+	width: 100%;
+}
+body {
+  font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ', Meiryo,'ヒラギノ角ゴシック','Hiragino Sans',sans-serif;
+	line-height: 2;
+	// letter-spacing: ;s
+}
+
+a {
+	// color: ;
+	text-decoration: none !important;
+	-webkit-transition: all linear 0.2s;
+	transition: all linear 0.2s;
+}
+a:hover{
+	opacity: 0.65;
+}
+img {
+	height: auto;
+	max-width: 100%;
+}
+input, button, select, textarea {
+	-webkit-appearance: none;
+}
+p, ul, li{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+
 /*---------------
 共通
 -----------------*/
@@ -19,13 +65,19 @@
   display:none;
 }
 
+header{
+  position: relative;
+}
+
+
+
+
 
 body{
   margin: 0;
   padding: 0;
   position: relative;
-  background-color: #fef2db;
-  font-size:40px;
+  background-color: #F7F9FA;
 }
 
 .wrapper{
@@ -98,6 +150,125 @@ header h1{
 
 .eq-hieght_content{
   flex:1;
+}
+/*---------------
+flash
+---------------*/
+#notice,#alert{
+  position:absolute;
+  top:30px;
+  left:50%;
+  transform:translateX(-50%);
+  border:solid 1px #ccc;
+  background-color:#fff;
+  padding:20px 40px;
+  border-radius:5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.5);
+}
+#notice,#alert{
+  text-align:center;
+  z-index:100;
+}
+.flash_message{
+  font-weight: bold;
+}
+.fa-laugh{
+  color:#94D83C;
+  font-size:48px;
+}
+.fa-dizzy{
+  color:#E63631;
+  font-size:48px;
+}
+
+/*---------------
+icon 
+---------------*/
+
+// .fa-heart{
+//   color:#E24E42;
+// }
+// .fa-heart{
+//   color:#E24E42;
+// }
+.like{
+  color:#E24E42;
+}
+
+header  img{
+  width:30px;
+}
+header  li{
+  background-color:red;
+}
+
+/*---------------
+talk
+----------------*/ 
+.talk_container{
+  width:50%;
+  margin:0 auto 30px;
+}
+.action_container{
+  width:80%;
+  margin:0 auto;
+}
+.talk_wrap{
+  background-color:#fff;
+  width:90%;
+  margin:0 auto 30px;
+  border-radius:2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.talk_head >li{
+  display:inline-block;
+  font-size:14px;
+}
+.posted_time{
+  font-size:14px;
+}
+.comment_mark{
+  color:#ccc;
+  text-decoration:none;
+}
+.fa-comment-alt{
+  transform: scale(-1, 1);
+}
+.talk_btns > li{
+  display:inline-block;
+  font-size:18px;
+}
+
+.comment_wrapper li{
+  display:inline-block;
+}
+// .fa-plus-circle{
+  
+//   font-size:15vw;
+// }
+
+/*---------------
+talk comment
+----------------*/ 
+.comment_wrapper{
+  position:relative;
+  background:#fff;
+}
+.comment_text{
+  margin:10px 0 1% 60px;
+  
+}
+
+hr{
+  width:95%;
+  margin:0 auto;
+}
+
+.edit_delete_btn{
+  position: absolute;
+  bottom:5px;
+  right:5px;
+  font-size:24px;
 }
 
 /*---------------
@@ -263,6 +434,7 @@ border: solid 2px #666;
 }
 .link a {
     position: absolute;
+    text-decoration:none;
     top: 0;
     left: 0;
     width: 100%;
@@ -662,7 +834,7 @@ talkページ
 ---------------------*/
 
 #form_talk{
-  width:70%;
+  // width:%;
   background-color:#fff;
 }
 form_talk li{

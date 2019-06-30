@@ -13,12 +13,12 @@
   <div class="field">
     <p>Top-Image</p>
     <div class="post_img_area">
-    <%= f.file_field :image, id: 'post_img' %>
-    <% if @article.image? %>
-      <%= image_tag @article.image.to_s, class: 'present_topImg' %>
-      <label><%= f.check_box :remove_image %> 画像を削除</label>
+    <%= f.file_field :img, id: 'post_img' %>
+    <% if @article.img? %>
+      <%= image_tag @article.img.to_s, class: 'present_topImg' %>
+      <label><%= f.check_box :remove_img %> 画像を削除</label>
     <% else %>
-      <%= f.hidden_field :image_cache %>
+      <%= f.hidden_field :img_cache %>
     <% end %>
     <img id="postImg_prev" src="#" class='hidden' /> 
     </div>

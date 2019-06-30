@@ -1,7 +1,27 @@
-    <% @comments.each do |comment| %>
-     <div>
-       <p><%= comment.user.name %>
-       <p><%= time_ago_in_words(comment.created_at) %>ago</p>
-       <p><%= comment.contents %></p>
-    <div>
+<% @comments.each do |comment| %>
+  <div class="comment_wrapper">
+    <ul>
+      <li>comment by<%= link_to "#{comment.user.name}",user_path(current_user) %></li>
+        <li>
+      </li><%= time_ago_in_words(comment.created_at) %>ago<li>
+      </li>
+    </ul >
+    <p class="comment_text"><%= simple_format(text_url_to_link(h(comment.contents)).html_safe) %></p>
+    <% if @talk.user_id == current_user.id %>
+    <ul class="edit_delete_btn">
+      <li>
+        <%= link_to edit_talks_path(@talk), remote: true,class:"edit-btn" do %>
+          <%= icon("fas", "edit") %>
+        <% end %>
+      </li>
+      <li >
+      <%= link_to delete_talk_path(@talk), remote: true,data: { confirm: 'Delete this post?' },method: :delete,class:"delete-btn" do %>
+          <%= icon("fas", "trash-alt") %>
+        <% end %>
+      </li>
+    </ul>
+    <hr>
     <% end %>
+  </div>
+<% end %>
+<%= paginate @comments %>

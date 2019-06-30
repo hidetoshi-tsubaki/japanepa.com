@@ -28,47 +28,32 @@ $(function () {
     });
   });
 
-  
+  // ソート（ajax)
+  $(function () {
+    $('#submit').on('click', function () {
+      var url = $('#formSort').attr('action');
+      $.ajax({
+        url: url,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'get',
+        success: function () {
+          alert('')
+        },
+        error: function () {
+          alert('failed ....');
+        }
+      });
+    })
+  });
+  //  通知の表示
+  $(function(){
+    setTimeout("$('#notice').fadeOut('slow')",1000);
+    setTimeout("$('#alert').fadeOut('slow')", 1000);
+  })
+
 });
-
-
-
-
-
-
-
-// ajax通信
-// login
-// $(function () {
-//   $('#login').on('click', function () {
-//     var community_id = $(this).val();
-//     $.ajax({
-//       url: '/users/sign_in',
-//       // data: {
-//       //   fruit: {
-//       //     id: val
-//       //   }
-//       // },
-//       cache: false,
-//       contentType: false,
-//       processData: false,
-//       type: 'get',
-//       success: function () {
-//         $('#modalArea').fadeIn();
-//       },
-//       error: function () {
-//         alert('failed to upload the image.Try again');
-//       }
-//     });
-//   })
-
-
-
-
-
-
-
-
 // create_community
 
 // $(function () {

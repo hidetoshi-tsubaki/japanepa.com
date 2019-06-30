@@ -1,12 +1,16 @@
-<h1>top feed </h1>
-<div class="row">
-  <div id="talk_index" class="col-12 col-md-8 jscroll scroll_list">
+<div class="talk_container column col-md-8">
+  <div id="talk_index" class="jscroll scroll_list">
     <%= render 'talks/index' %>
   </div>
-  <div id="form_talk" class="col-12 col-md-4">
-    <%= link_to 'create talk', create_talk_path, remote: true %>
-    <%= link_to 'create community', create_community_path, remote: true %>
-    <%= link_to 'see communities', communities_path %>
-  </div>
-  
+</div>
+<div class="action_container col-md-4">
+<%= link_to create_talk_path,class:"create_btn", remote: true do %>
+  <p><%= icon("fas", "plus-circle")%>create post</p>
+<% end %>
+<%= link_to create_community_path, remote: true do %>
+  <p><%= icon("fas", "plus-circle")%>crate community</p>
+<% end %>
+<%= link_to  communities_path remote: true do %>
+  <p><%= icon("fas", "arrow-circle-right")%>see commnities</p>
+<% end %>
 </div>

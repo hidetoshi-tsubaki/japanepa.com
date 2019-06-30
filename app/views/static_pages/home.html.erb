@@ -10,6 +10,25 @@
         <%= link_to "",quiz_index_path %>
       <% end %>
     </div> 
+    <%= icon("far", "comment-dots") %>
+    <%= icon("fas", "edit") %>
+    <%= icon("fas", "user-cog") %>
+    <%= icon("fas", "chart-line") %>
+    <%= icon("fas", "trash-alt") %>
+    <%= icon("fas", "heart") %>
+    <%= icon("far", "heart") %>
+    <%= icon("fas", "star") %>
+    <%= icon("far", "star") %>
+    <%= icon("fas", "marker-alt") %>
+    <%= icon("fas", "comments") %>
+    <%= icon("fas", "id_card") %>
+    <%= icon("fas", "passport") %>
+    <%= icon("fas", "envelope") %>
+    <%= icon("fas", "key") %>
+    <%= icon("fas", "users") %>
+    <%= icon("fas", "sign-in-alt") %>
+    <%= icon("fas", "map-marker-alt") %>
+    <%= icon("fas", "fa-edit") %>
   </div >
 
   <div class="col-md-4 ">
@@ -41,7 +60,7 @@
     <div class="card greenBtn link">
       <% if user_signed_in? %>
         <h1 class="text-center">Profile</h1>
-        <%= link_to "","quizzes/index" %>
+        <%= link_to "",user_path(current_user) %>
       <% else %>
         <h1 class="text-center">Login?</h1>
         <%= link_to "",new_user_session_path  %>

@@ -1,6 +1,6 @@
 class CommunitiesController < ApplicationController
   include CommunitiesHelper
-  before_action :authenticate_user! , only: [:create,:edit,:update,:delete,:join,:leave]
+  before_action :authenticate_user! , only: [:create,:edit,:update,:delete]
   before_action  :past_30days_after_signIn?, only: [:new ,:create]
   
 
@@ -10,8 +10,8 @@ class CommunitiesController < ApplicationController
   end
 
   def feed
-    joinedCommunity = current_user.communities.pluck(:id)
-    @talks = Talk.where(community_id: joinedCommunity).order('created_at DESC').page(params[:page]).per(10)
+    joinedCommunity = current_user.community_users.pluck(:community_id)
+    @talks = Talk.where(community_id: joinedCommunity).includes(:community).order('created_at DESC').page(params[:page]).per(10)
   end
 
   def new
@@ -65,15 +65,7 @@ class CommunitiesController < ApplicationController
      render 'sort.js.erb'
   end
 
-  def join
-    @community = Community.find(params[:id])
-    current_user.join(@community)
-  end
 
-  def leave
-    @community = Community.find(params[:id])
-    current_user.leave(@community)
-  end
 
   private
 
