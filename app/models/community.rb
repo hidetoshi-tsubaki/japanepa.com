@@ -18,17 +18,15 @@ class Community < ApplicationRecord
         Community.find(sorted_community_ids)
       when 'Posts - Ascending'
         sorted_community_ids = Community.joins("LEFT OUTER JOIN talks ON communities.id = talks.community_id").where(talks: {community_id: nil}).pluck(:id)
-        p sorted_community_ids
         sorted_community_ids += Talk.group("community_id").order("count_id asc").count(:id).keys
-        p sorted_community_ids
         a = Community.find(sorted_community_ids)
-        p a
       when 'Members - Descending'
         sorted_community_ids = CommunityUser.group("community_id").order("count_id desc").count(:id).keys
-        sorted_community_ids += Community.joins("LEFT OUTER JOIN community_users ON communities.id = community_users.community_id").where(community_users: {community_id:nil}).pluck(:id)
+        # sorted_community_ids += Community.joins("LEFT OUTER JOIN community_users ON communities.id = community_users.community_id").where(community_users: {community_id:nil}).pluck(:id)
+        Community.find(sorted_community_ids)
       when 'Members - Ascending'
-        sorted_community_ids = CommunityUser.group("community_id").order("count_id desc").count(:id).keys
-        sorted_community_ids += Community.joins("LEFT OUTER JOIN community_users ON communities.id = community_users.community_id").where(community_users: {community_id:nil}).pluck(:id)
+        sorted_community_ids = CommunityUser.group("community_id").order("count_id asc").count(:id).keys
+        # sorted_community_ids += Community.joins("LEFT OUTER JOIN community_users ON communities.id = community_users.community_id").where(community_users: {community_id:nil}).pluck(:id)
         Community.find(sorted_community_ids)
       when 'Date - new to old'
         Community.all.order('created_at desc')

@@ -1,4 +1,10 @@
 <% @articles.each do |article| %>
+  <div id="like_btn_<%= article.id %>">
+    <%= render partial:'like_btn' , locals: {article: article} %>
+  </div>
+  <div id="bookmark_btn_<%= article.id %>">
+    <%= render partial:'bookmark_btn' , locals: {article: article} %>
+  </div>
   <%= link_to show_articles_path(article) do %>
     <div class="row article-index no-gutters">
       <div class="col-xs-4 contain-thumbnail">

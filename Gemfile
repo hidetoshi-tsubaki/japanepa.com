@@ -27,7 +27,7 @@ gem 'font-awesome-sass', '~> 5.8.1'
 gem 'aws-sdk-s3', '~> 1'
 gem 'kaminari'
 gem 'country_select', require: 'country_select_without_sort_alphabetical'
-
+gem 'impressionist'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

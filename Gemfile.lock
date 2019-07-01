@@ -335,6 +335,8 @@ GEM
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     i18n_data (0.8.0)
+    impressionist (1.6.1)
+      nokogiri (~> 1)
     ipaddress (0.8.3)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -582,6 +584,7 @@ DEPENDENCIES
   gon
   guard
   guard-livereload (~> 2.5)
+  impressionist
   jbuilder (= 2.7.0)
   jquery-rails
   kaminari

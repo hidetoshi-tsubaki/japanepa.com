@@ -9,6 +9,12 @@
 
 
 <div class="wrapper-article">
+  <div id="like_btn_<%= article.id %>">
+    <%= render partial:'like_btn' , locals: {article: article} %>
+  </div>
+  <div id="bookmark_btn_<%= article.id %>">
+    <%= render partial:'bookmark_btn' , locals: {article: article} %>
+  </div>
   <div>
     <p><%= image_tag @article.image.to_s ,class:"top_img" %></p>
   </div>

@@ -4,34 +4,31 @@ class CommentsController < ApplicationController
   def create
     # pry-bye
     comment = current_user.comments.new(comment_params)
-    #   talk IDを取り出して、それで検索する
+    talk = Talk.find(comment_params[:talk_id])
     if comment.save
-        @comments = Comment.where(talk_id: comment_params[:talk_id] ).order('created_at DESC')
-        @comment = Comment.new()
-    else
+      @comments = Comment.where(talk_id: comment_params[:talk_id] ).order('created_at DESC').page(params[:page]).per(10)
+      @comment = talk.comments.new()
+      @talk =Talk.find(comment_params[:talk_id])
+      render :update_index
+      else
       render 'talk/show'
     end
   end
 
   def edit
-    @comment = Comment.new
+    @comment = Comment.find(params[:id])
   end
 
   def update
      Comment.update(comment_params)
+     render :update_index
   end
 
   def delete
     Comment.find(params[:id]).destroy
   end
 
-  def sort
-    @communities = Community.sorted_by(params[:sort])
-  end
-
-  def search
-    @communities = Community.search(params[:keyword])
-  end
+  
   private
     def comment_params
       params.require(:comment).permit(:talk_id,:contents)

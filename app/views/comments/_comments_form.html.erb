@@ -1,8 +1,6 @@
 <%= form_with model: @comment do |f| %>
   <%= f.hidden_field :talk_id ,:value => @talk.id %>
   <%= f.label :contents %><br>
-  <%= f.text_field :contents %>
-  <div class="submit_btn">
-    <%= f.submit "Create" %>
-  </div>
+  <%= f.text_field :contents %> <%= f.submit "Comment" %>
+ 
 <% end %>

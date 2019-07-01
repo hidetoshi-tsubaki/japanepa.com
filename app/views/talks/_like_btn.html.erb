@@ -1,0 +1,9 @@
+<% if current_user.already_liked_talk?(talk) %>
+  <%= link_to remove_like_talk_path(talk), class:"like" ,remote: true do %>
+    <%= icon("fas", "heart") %><%= talk.like_talks.count %>
+  <% end %>
+<% else %>
+  <%= link_to like_talk_path(talk), class:"like",remote: true do %>
+    <%= icon("far", "heart") %><%= talk.like_talks.count %>
+  <% end %>
+<% end %>

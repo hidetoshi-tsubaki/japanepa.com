@@ -5,15 +5,15 @@
   <div class="col-xs-12 col-lg-6 ">
     <div class="provider">
       <div class=" providerBtn facebookBtn link">
-        <h1 class="text-center">Login with Facebook</h1>
+        <h1 class="text-center"><%= icon("fab", "facebook-square") %> Login with Facebook</h1>
         <%= link_to "","/users/auth/facebook" %>
       </div>
       <div class="providerBtn  twitterBtn link">
-        <h1 class="text-center">Login with Twitter</h1>
+        <h1 class="text-center"><%= icon("fab", "twitter") %> Login with Twitter</h1>
         <%= link_to "","/users/auth/twitter" %>
       </div>
       <div class="providerBtn  googleBtn link">
-        <h1 class="text-center">Login with Google</h1>
+        <h1 class="text-center"><%= icon("fab", "google") %> Login with Google</h1>
         <%= link_to "","/users/auth/google_oauth2" %>
       </div>
       <div class="sessionHelp">
@@ -43,9 +43,10 @@
           </div>
 
         <div class="actions input">
-          <div class="actionBtn"><%= f.submit "Log in" ,class:"yellowBtn"%></div>
+          <div class="actionBtn"><%= f.submit " Log in " ,class:"yellowBtn"%></div>
         </div>
       <% end %>
+    <%= icon("fas", "sign-in-alt") %>
   
     
   </div>

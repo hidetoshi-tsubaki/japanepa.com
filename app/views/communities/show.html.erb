@@ -5,11 +5,12 @@
 </div>
 <div class="row">
   <div id="form_talk" class="col-md-4 ">
-    <%= link_to 'create talk', create_talk_from_community_path(@community), remote: true %>
-    <%= link_to 'create community', create_community_path, remote: true %>
-    <%= link_to 'community_index', communities_path %>
+    <%= link_to  create_talk_from_community_path(@community.id) ,class:'submit' ,remote: true do %>
+    <button>create talk</button>
+    <% end %>
+    <p><%= link_to 'community_index', communities_path %></p>
   </div>
   <div id="talk_index" class="col-md-8 jscroll">
-    <%= render 'talks/index' %>
+    <%= render 'talks/index' %> 
   </div>
 </div>

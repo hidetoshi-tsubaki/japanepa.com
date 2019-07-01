@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/show'
+  get 'users/index'
   get 'comments/create'
   get 'comments/edit'
   get 'comments/delete'
@@ -47,16 +49,19 @@ Rails.application.routes.draw do
   get '/talk/:id' , to:'talks#show',as:'talk_show'
   get '/create_talk' ,to:'talks#new'
   get '/create_talk/:id' ,to:'talks#new',as:'create_talk_from_community'
-  post '/talks' , to:'talks#create'
+  post '/talks' , to:'talks#create',as:'talks'
   get '/edit_talks/:id', to:'talks#edit',as:'edit_talks'
   # updateの時のform_withが生成する送り先urlは/talk/
-  patch '/talk' , to: 'talks#update'
+  patch '/talk/:id' , to: 'talks#update',as:'talk'
   delete '/delete_talk/:id', to:'talks#delete',as: 'delete_talk'
   post '/talks_sort' ,to:'talks#sort'
   post '/talks_search' ,to:'talks#search'
   
   get '/comment', to:'comments#new'
   post '/comments',to:'comments#create'
+  get '/edit_comment/:id',to:'comments#edit',as:'edit_comment'
+  patch'/comment',to:'comments#update'
+  delete '/delete_comment',to:'comment#delete'
   
   get '/articles_index',to:'articles#index'
   get '/articles/:id',to:'articles#show',as: 'show_articles'
@@ -80,12 +85,21 @@ Rails.application.routes.draw do
   delete '/community' ,to: 'communities#delete'
   post '/communities_sort' ,to:'communities#sort'
   post '/communities_search' ,to:'communities#search'
-  get '/join_community/:id',to:'communities#join',as: 'join_community'
-  get '/leave_community/:id',to:'communities#leave',as: 'leave_community'
 
-  post '/community_users',to: 'community_user#create'
-  delete '/community_users',to: 'community_user#delete'
-  
+
+  get '/join_community/:id',to:'communities_users#join',as: 'join_community'
+  get '/leave_community/:id',to:'communities_users#leave',as: 'leave_community'
+
+
+  get '/like_talk/:id',to:'likes_talks#like',as: 'like_talk'
+  get '/remove_like_talk/:id',to:'likes_talks#remove_like',as: 'remove_like_talk'
+
+  get '/like_article/:id',to:'likes_articles#like',as: 'like_article'
+  get '/remove_like_article/:id',to:'likes_articles#remove_like',as: 'remove_like_article'
+
+  get '/bookmark/:id',to:'bookmarks#bookmark',as: 'bookmark'
+  get '/remove_bookmark/:id',to:'bookmarks#remove_bookmark',as: 'remove_bookmark'
+
   
   devise_for :users, controllers: { 
     omniauth_callbacks: 'users/omniauth_callbacks',
@@ -96,14 +110,20 @@ Rails.application.routes.draw do
     unlocks: "users/unlocks"
   }
 
+  # deviseのroutesをカスタマイズで追加する
+  devise_scope :user do
+    get '/users',to: 'users#index',as: 'users'
+    get 'user/:id',to: 'users#show',as: 'user'
+  end
+
   # devise/~~~ をadmins/~~~に変える
   #   devise_for :admins, controllers: {
   #   sessions:      'admins/sessions',
   #   passwords:     'admins/passwords',
   #   registrations: 'admins/registrations'
   # }
-
-
+ 
+  # routesをカスタマイズして、追加する
   # devise_for :admins, only: [:session] do
   # get '/admins/sign_in', :to => 'admins/sessions#new', :as => :new_admin_session
   # post 'admins/sign_in', :to =>'admins/sessions#create',:as => :admin_session
@@ -119,10 +139,7 @@ Rails.application.routes.draw do
   delete '/admins/sign_out' => 'admins/sessions#destroy', as: 'destroy_admin_session'
 end
 
-# deviseのroutesをカスタマイズで追加する
-  # devise_scope :user do
-  #   get '/users_index' => 'users/registrations#index'
-  # end
+
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
