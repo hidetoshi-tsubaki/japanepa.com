@@ -9,13 +9,11 @@
   <%= f.submit 'search' ,id:"search_btn" %>
 <% end %>
 <div>
-
-
   <div class="col-12 col-md-4 create_community">
     <p>Hi there! Come here to check in with your favorite communities
-       and learn japanese with our Members!</p>
-       <button id="form_community">create community</button>
-       <%= link_to 'create community', create_community_path, remote: true %>
+      and learn japanese with our Members!</p>
+      <button id="form_community">create community</button>
+      <%= link_to 'create community', create_community_path, remote: true %>
     <% if past_30days_after_signIn? %>
       <button id="form_community">create community</button>
     <% else %>
@@ -24,6 +22,6 @@
     <% end %>
   </div>
   <div id="community_index" class="col-12 col-md-8">
-      <%= render partial:'communities' ,locals: {community: @communities} %>
+    <%= render partial:'communities' ,locals: {community: @communities} %>
   </div>
 </div>

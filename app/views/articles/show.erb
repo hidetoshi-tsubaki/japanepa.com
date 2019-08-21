@@ -1,4 +1,3 @@
-
 <% if admin_signed_in? %>
   <div >
     <%= link_to "edit",edit_articles_path(@article) %>
@@ -6,23 +5,24 @@
     <%= link_to "back to index",articles_index_path %>
   </div>
 <% end %>
-
-
-<div class="wrapper-article">
-  <div id="like_btn_<%= article.id %>">
-    <%= render partial:'like_btn' , locals: {article: article} %>
+<div class="article_section white">
+  <div id="like_btn_<%= @article.id %>">
+    <%= render partial:'like_btn' , locals: {article: @article} %>
   </div>
-  <div id="bookmark_btn_<%= article.id %>">
-    <%= render partial:'bookmark_btn' , locals: {article: article} %>
+  <% if user_signed_in? %>
+  <div id="bookmark_btn_<%= @article.id %>">
+    <%= render partial:'bookmark_btn' , locals: {article: @article} %>
   </div>
+  <% end %>
   <div>
-    <p><%= image_tag @article.image.to_s ,class:"top_img" %></p>
+    <p><%= image_tag @article.img.to_s ,class:"top_img" %></p>
   </div>
   <div class="article-contents">
-    <p class="posted-time">posted at <%= @article.created_at.strftime('%Y/%m/%d') %></p>
+    <p class="posted-time"><%= @article.created_at.strftime('%Y/%m/%d') %></p>
     <h1><%= @article.title %></h1>
     <hr>
     <div>
       <%= raw(@article.contents) %>
     </div>
+  <div>
 </div>

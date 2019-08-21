@@ -1,0 +1,16 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), builder: CustomFormBuilder) do |f| %>
+  <div class="field input">
+    <p>:Email</p>
+    <div><%= f.email_field :email, autofocus: true, autocomplete: "email" , placeholder:" Enter email"%></div>
+  </div>
+  <div class="field input">
+    <p>:Password</p>
+    <div><%= f.password_field :password, autocomplete: "current-password" , placeholder:" Enter password" %></div>
+  </div>
+    <div class="field ">
+      <h1><%= f.check_box :remember_me %><%= f.label :remember_me %></h1>
+    </div>
+  <div class="actions input">
+    <div class="actionBtn"><%= f.submit " Log in " ,class:"yellowBtn"%></div>
+  </div>
+<% end %>

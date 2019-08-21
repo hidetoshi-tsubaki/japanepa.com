@@ -1,47 +1,36 @@
-
-
-  <div class="row">
-   <div class="col-lg-6 questionContents ">
-          <p id="quizCount"></P>
-          <p id="question"></p>
-    
+<div class="row">
+  <div class="col-lg-6 questionContents ">
+    <p id="quizCount"></P>
+    <p id="question"></p>
+  </div>
+  <div class="col-lg-6 choicesContents ">
+    <ul id="choices" >
+    </ul>
+    <div id="btn" class="quizAction disabled">
+      Next
     </div>
-    <div class="col-lg-6 choicesContents ">
-      
-          <ul id="choices" >
-          </ul>
-          
-
-        <div id="btn" class="quizAction disabled">
-           Next
-        </div>
-     </div>
-
   </div>
 </div>
-
 <section id="window" >
   <p id="scoreLabel"></p>
-    <div class="row chart">
-      <div class="col-xs-8">
-        <canvas id="linearChart"  width="300" height="300"></canvas>
-      </div>
-      <div class="col-xs-4">
-          <canvas id="doughnutsChart" width="200" height="300"></canvas>
-          <p id="learningLevel"></p>
-          <p id="coution"></p>
-      </div>
+  <div class="row chart">
+    <div class="col-xs-8">
+      <canvas id="linearChart"  width="300" height="300"></canvas>
     </div>
-    <div class="replayBtn yellowBtn link">
-      <h1 class="text-center">Play Again ?</h1>
-      <%= link_to "","#" %>
-      
+    <div class="col-xs-4">
+      <canvas id="doughnutsChart" width="200" height="300"></canvas>
+      <p id="learningLevel"></p>
+      <p id="coution"></p>
     </div>
-    <div class="card yellowBtn link">
-          <h1 class="text-center">Score</h1>
-          <%= link_to "", score_board_path %>
-        </div>
-    
+  </div>
+  <div class="replayBtn yellowBtn link">
+    <h1 class="text-center">Play Again ?</h1>
+    <%= link_to "","#" %>
+  </div>
+  <div class="card yellowBtn link">
+    <h1 class="text-center">Score</h1>
+    <%= link_to "", score_board_path %>
+  </div>
 </section>
 <%= javascript_include_tag 'quiz.js' %>
 <%= javascript_include_tag 'show_charts.js' %>

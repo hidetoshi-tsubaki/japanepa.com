@@ -1,15 +1,12 @@
-<%= form_with(model: @article, local: true) do |f| %>
-
+<%= form_with model: @article, local: true, builder: CustomFormBuilder do |f| %>
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
-
   <div class="field" >
     <%= f.label :lead %><br>
     <%= f.text_area :lead %>
   </div>
-
   <div class="field">
     <p>Top-Image</p>
     <div class="post_img_area">
@@ -20,17 +17,14 @@
     <% else %>
       <%= f.hidden_field :img_cache %>
     <% end %>
-    <img id="postImg_prev" src="#" class='hidden' /> 
+    <img id="postImg_prev" src="#" class='hidden' />
     </div>
   </div>
-
   <div class="field">
     <%= f.label :contents %>
     <%= f.text_area :contents, 'data-provider': :summernote %>
   </div>
-
   <div class="actions">
     <%= f.submit "submit" %>
   </div>
-
 <% end %>

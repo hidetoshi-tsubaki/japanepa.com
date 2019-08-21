@@ -1,6 +1,6 @@
 <div>
-<p>Profile</p>
-<p><%= link_to 'edit profile', edit_user_registration_path(@user) %></p>
+  <p>Profile</p>
+  <p><%= link_to 'edit profile', edit_user_registration_path(@user) %></p>
 </div>
 <div>
   <% if @user.img %>
@@ -15,5 +15,4 @@
     <li>Communities<br><%= @user.community_users.count %></li>
     <li>Posts<br><%= @user.talks.count %></li>
   </ul>
-
 </div>

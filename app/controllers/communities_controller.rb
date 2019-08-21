@@ -1,17 +1,16 @@
 class CommunitiesController < ApplicationController
   include CommunitiesHelper
-  before_action :authenticate_user! , only: [:create,:edit,:update,:delete]
-  before_action  :past_30days_after_signIn?, only: [:new ,:create]
-  
+  before_action :authenticate_user!, only: [:create, :edit, :update, :delete]
+  before_action :past_30days_after_signIn?, only: [:new, :create]
 
   def index
-    @communities = Community.includes(:talks).all.order('created_at desc')
-  #community.users.size
+    @communities = Community.includes(:talks).order('created_at desc')
+    # community.users.size
   end
 
   def feed
-    joinedCommunity = current_user.community_users.pluck(:community_id)
-    @talks = Talk.where(community_id: joinedCommunity).includes(:community).order('created_at DESC').page(params[:page]).per(10)
+    joined_Community = current_user.community_users.pluck(:community_id)
+    @talks = Talk.where(community_id: joined_Community).includes(:community).sort_and_paginate(10)
   end
 
   def new
@@ -30,7 +29,7 @@ class CommunitiesController < ApplicationController
 
   def show
     @community = Community.find(params[:id])
-    @talks = Talk.includes(:user).where(community_id:params[:id]).order('created_at DESC').page(params[:page]).per(10)
+    @talks = Talk.includes(:users).where(community_id: params[:id]).sort_and_paginate(10)
     # もしくはtalk.where("community_id = params[id]")
   end
 
@@ -38,40 +37,35 @@ class CommunitiesController < ApplicationController
     @community = Community.find(params[:id])
   end
 
-
   def update
     if Community.update(community_params)
-      flash.now[:notice]="community was updated"
+      flash.now[:notice] = "community was updated"
     end
   end
 
   def delete
     if Community.find(params[:id]).destroy
-      @community = Community.order('created_at DESC').page(params[:page]).per(9)
+      @community = Community.sort_and_paginate(9)
       render :index
     else
-      flash.now[:notice]="failed to delete... try again"
+      flash.now[:notice] = "failed to delete... try again"
       render :index
     end
   end
 
   def sort
-    # pry-byebug
     @communities = Community.sorted_by(params[:sort])
   end
 
   def search
-     @communities = Community.search(params[:keyword])
-     render 'sort.js.erb'
+    @communities = Community.search(params[:keyword])
+    render 'sort.js.erb'
   end
-
-
 
   private
 
-    def community_params
-      params.require(:community).permit(:name,:img,:introduction,:user_id)
-    end
-
+  def community_params
+    params.require(:community).permit(:name, :img, :introduction, :user_id)
+  end
 
 end

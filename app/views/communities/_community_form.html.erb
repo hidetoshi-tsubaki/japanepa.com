@@ -1,13 +1,11 @@
 <div>
-<%= form_with model: @community, local: true do |f|  %>
+  <%= form_with model: @community, builder: CustomFormBuilder, local: true do |f|  %>
     <div class="input_community_name">
       <%= f.label :name %>
       <%= f.text_field :name %>
     </div>
-
     <div class="upload">
       <p>Image</p>
-
     <div class="post_img_area upload_img">
     <%= f.file_field :img, id: 'post_img' %>
     <% if @community.img %>
@@ -18,16 +16,14 @@
     <% end %> 
     <p class="delete_img hidden">cancel</p>
     </div>
-   </div>
-
-    <div class="input_introduction">
-      <%= f.label :introduction %>
-      <%= f.text_area :introduction %>
     </div>
-
-  <div class="submit_btn">
-    <%= f.submit "Create" %>
-  </div>
-<% end %>
+      <div class="input_introduction">
+        <%= f.label :introduction %>
+        <%= f.text_area :introduction %>
+      </div>
+    <div class="submit_btn">
+      <%= f.submit "Create" %>
+    </div>
+  <% end %>
 </div>
 <%= javascript_include_tag "prev_img.js" %>

@@ -19,7 +19,7 @@ gem 'chart-js-rails', '~> 0.1.4'
 gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
-gem 'fullcalendar-rails' 
+gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'dotenv-rails'
 gem 'remotipart', '~> 1.2'
@@ -28,6 +28,7 @@ gem 'aws-sdk-s3', '~> 1'
 gem 'kaminari'
 gem 'country_select', require: 'country_select_without_sort_alphabetical'
 gem 'impressionist'
+gem 'awesome_nested_set'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
@@ -46,6 +47,8 @@ group :development do
   gem "awesome_print"
   gem 'pry-byebug'
   gem "rack-livereload"
+  gem 'rubocop-airbnb'
+  gem 'rubocop-rspec'
 end
 
 group :production do

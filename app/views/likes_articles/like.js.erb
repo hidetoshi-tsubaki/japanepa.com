@@ -1,2 +1,1 @@
-$("#member_count_<%= @article.id %>").html("<%= j(render partial: 'communities/member_count', locals: {community: @community}) %>")
-$("#join_btn_<%= @article.id %>").html("<%= j(render partial: 'communities/join_btn', locals: {community: @community}) %>")
+$("#likeBtn_<%= @article.id %>").html("<%= j(render partial: 'articles/likeBtn', locals: {article: @article}) %>");

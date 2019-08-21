@@ -1,11 +1,9 @@
 <div class="head">
   <h1>Change Email & Password</h1>
 </div>
-
 <div class="form">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
-
      <div class="post_img_area">
         <img id="prev_img" src="#" class='hidden' /> 
         <% if @user.img? %>
@@ -16,33 +14,27 @@
           <img class="present_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
         <% end %> 
         <%= f.file_field :img, id: 'post_img' %>
-
     <div class="field input">
       <h1>:Email <span>  (required)</span></h1>
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
     </div>
-
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
-
     <div class="field input">
     <% if @minimum_password_length %>
       <h1>:Password<span> (<%= @minimum_password_length %> characters minimum)</span></h1>
       <% end %>
       <%= f.password_field :password, autocomplete: "new-password" ,placeholder:"leave blank if you don't want to change it"%>
     </div>
-
     <div class="field input">
     <h1>:Password_confirmation</h1>
       <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
     </div>
-
     <div class="field input">
     <h1>Current_password<span>  (required)</span></h1>
       <%= f.password_field :current_password, autocomplete: "current-password" %>
     </div>
-
     <div class="actions input">
       <div class="actionBtn"><%= f.submit "Change" ,class:"yellowBtn" %></div>
     </div>

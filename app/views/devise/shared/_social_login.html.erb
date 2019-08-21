@@ -1,0 +1,17 @@
+
+        
+        <%= link_to user_facebook_omniauth_authorize_path do %>
+          <p class="socialBtn facebook"><%= icon("fab", "facebook-square") %> Login with Facebook</p>
+        <% end %>
+        <%= link_to user_twitter_omniauth_authorize_path do %>
+          <p class="socialBtn twitter"><%= icon("fab", "twitter") %> Login with Twitter</p>
+        <% end %>
+        <%= link_to user_google_oauth2_omniauth_authorize_path do %>
+          <p class="socialBtn google"><%= icon("fab", "google") %> Login with Google</p>
+        <% end %>
+      
+      <div class="sessionHelp">
+        <h2><%= link_to "login as admin",new_admin_session_path %></h2>
+        <h2><%= link_to "Sign Up for Japanepa!",new_user_registration_path %></h2>
+        <h2><%= link_to "Forgot  password?", new_password_path(resource_name) %></h2>
+      </div>

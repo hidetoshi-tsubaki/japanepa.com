@@ -1,9 +1,0 @@
-<% if current_user.already_liked_article?(article) %>
-  <%= link_to remove_like_article_path(article), remote: true do %>
-    <%= icon("fas", "heart") %>
-  <% end %>
-<% else %>
-  <%= link_to like_article_path(article), remote: true do %>
-    <%= icon("far", "heart") %>
-  <% end %>
-<% end %>

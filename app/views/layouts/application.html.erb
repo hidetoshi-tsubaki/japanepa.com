@@ -3,30 +3,26 @@
   <head>
     <title>Portfolio</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "https://use.fontawesome.com/releases/v5.8.2/css/all.css" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= Gon::Base.render_data %>
   </head>
-
   <body>
   <header>
   <%= render 'layouts/header' %>
   </header>
-  <%= render 'layouts/notice' %>
+  <%= render 'layouts/flash' %>
   <section id="modalArea" class="modalArea">
-    <div id="modalBg" class="modalBg"></div>
-    <div class="modalWrapper">
-      <div class="modalContents" id="modal"></div>
-      <div class="modalContents hidden" id="LoginModal"><%= render "logIn" %></div>
-      <div id="closeModal" class="closeModal">×</div>
-    </div>
+    <%= render 'layouts/modal' %>
   </section>
 
-
   <div id="form" class="window"></div>
-  <div class="row">
+  <div class="row wrapper">
     <%= yield %>
+    <footer>
+      <p>&copy;  2019  Japanepa.com</p>
+    </footer>
   </div>
   </body>
 </html>

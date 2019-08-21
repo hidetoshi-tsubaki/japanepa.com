@@ -1,7 +1,5 @@
 
 {
-  
-  
   const scoreRecords = gon.scoreRecords;
   var learningLevel;
   var coution;

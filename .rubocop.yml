@@ -1,0 +1,16 @@
+require: rubocop-rspec
+inherit_from:
+  - .rubocop_airbnb.yml
+
+AllCops:
+  argetRubyVersion: 2.3
+  Exclude:
+   - 'db/**/*'
+   - 'bin/*'
+   - 'config/environments/*'
+   - 'config/application.rb'
+   - 'config/initializers/*'
+   - 'config/spring.rb'
+   - 'lib/tasks/*'
+   - 'vendor/**/*'
+   - 'path/ruby'

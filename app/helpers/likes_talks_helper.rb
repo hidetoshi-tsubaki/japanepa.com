@@ -1,2 +1,0 @@
-module LikesTalksHelper
-end

@@ -1,47 +1,37 @@
 <div>
-  <%= form_with  model: @quiz do |f| %>
-    
-
+  <%= form_with model: @quiz, builder: CustomFormBuilder do |f| %>
     <div class="field">
       <%= f.label :level %>
       <%= f.select :level, [["N5","N5"],["N4","N4"]], :prompt => "Select Level" %>
     </div>
-
     <div class="field">
       <%= f.label :section %>
       <%= f.select :section, [["Character(もじ)","Character"],["Word(ことば)","Word"]], :prompt => "Select Section" %>
     </div>
-
     <div class="field">
       <%= f.label :title %>
       <%= f.select :title, [["あ→A","あ→A"],["ア→A","ア→A"],["Noun1","Noun1"],["Noun2","Noun2"]], :prompt => "Select title" %>
     </div>
-
     <div class="field">
       <%= f.label :question %>
       <%= f.text_field :question %>
     </div>
-
     <div class="field">
       <%= f.label :choice1 %>
       <%= f.text_field :choice1 %>
     </div>
-
     <div class="field">
       <%= f.label :choice2%>
       <%= f.text_field :choice2 %>
     </div>
-
     <div class="field">
       <%= f.label :choice3 %>
       <%= f.text_field :choice3 %>
     </div>
-
     <div class="field">
       <%= f.label :choice4 %>
       <%= f.text_field :choice4 %>
     </div>
-
     <div class="actions">
       <%= f.submit "#{yield(:action)}" %>
     </div>

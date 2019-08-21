@@ -1,7 +1,29 @@
-<%= link_to "Japanepa.com","/",id:"logo" %>
-<ul>
-<li><img class="present_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/new_icon-min.png" />
-</li>
-<li><img class="present_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/quiz_icon-min.png" />
-</li>
-</ul>
+<div id="logo">
+  <%= link_to "Japanepa.com","/",id:"logo" %>
+</div>
+<div class="header_link">
+  <%= link_to 'Quiz' ,quiz_index_path %>
+  <%= link_to 'News' ,articles_index_path %>
+  <% if user_signed_in? %>
+    <div class="header_btn user">
+      <% unless current_user.img.to_s.empty? %>
+        <%= image_tag current_user.img.to_s %>
+      <% else %>
+        <%= icon("fas", "user") %>
+      <% end %>
+    </div>
+    <%= render 'user_menu'%>
+  <% elsif admin_signed_in? %>
+    <div class="header_btn user">
+      <%= icon("fas", "user-cog") %>
+    </div>
+    <%= render 'user_menu'%>
+  <% else %>
+    <div class="inline">
+      <%= link_to 'Log in', new_user_session_path ,class:'login bold' %>
+    </div>
+    <div class="inline" >
+      <%= link_to 'Register', new_user_registration_path,class:'register bold' %>
+    </div>
+  <% end %>
+</div>

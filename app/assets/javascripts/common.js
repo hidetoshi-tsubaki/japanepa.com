@@ -1,5 +1,9 @@
   // モーダル開閉
 $(function () {
+  $('.user').on('click',function(){
+  $('.user_menu').fadeToggle(100);
+  // $('.user').toggleClass('active');
+  });
   $('#openModal').on('click',function () {
     $('#modalArea').fadeIn();
   });
@@ -49,8 +53,8 @@ $(function () {
   });
   //  通知の表示
   $(function(){
-    setTimeout("$('#notice').fadeOut('slow')",1000);
-    setTimeout("$('#alert').fadeOut('slow')", 1000);
+    setTimeout("$('#notice').fadeOut('slow')",2000);
+    setTimeout("$('#alert').fadeOut('slow')", 2000);
   })
 
 });

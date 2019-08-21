@@ -13,25 +13,23 @@
       <th></th>
     </tr>
   </thead>
-
-
   <% @quizzes.each do |quiz| %>
-  <tbody class="quiz-row">
-    <tr>
-      <td><%= quiz.id %></td>
-      <td><%= quiz.level %></td>
-      <td><%= quiz.section %></td>
-      <td><%= quiz.title %></td>
-      <td><%= quiz.question %></td>
-      <td><%= quiz.choice1 %></td>
-      <td><%= quiz.choice2 %></td>
-      <td><%= quiz.choice3 %></td>
-      <td><%= quiz.choice4 %></td>
-      <td>
-        <%= link_to "edit", edit_quiz_path(quiz) ,class:"edit-btn"%>
-        <%= link_to "delete", delete_quiz_path(quiz) ,method: :delete,class:"delete-btn" %>
-      </td>
-    </tr>
-  </tbody>
+    <tbody class="quiz-row">
+      <tr>
+        <td><%= quiz.id %></td>
+        <td><%= quiz.level %></td>
+        <td><%= quiz.section %></td>
+        <td><%= quiz.title %></td>
+        <td><%= quiz.question %></td>
+        <td><%= quiz.choice1 %></td>
+        <td><%= quiz.choice2 %></td>
+        <td><%= quiz.choice3 %></td>
+        <td><%= quiz.choice4 %></td>
+        <td>
+          <%= link_to "edit", edit_quiz_path(quiz) ,class:"edit-btn"%>
+          <%= link_to "delete", delete_quiz_path(quiz) ,method: :delete,class:"delete-btn" %>
+        </td>
+      </tr>
+    </tbody>
   <% end %>
 </table>
