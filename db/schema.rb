@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_21_104730) do
+ActiveRecord::Schema.define(version: 2019_08_21_230244) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -134,14 +134,13 @@ ActiveRecord::Schema.define(version: 2019_08_21_104730) do
   create_table "quizzes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "level", null: false
-    t.string "section", null: false
-    t.string "title", null: false
     t.string "question", null: false
     t.string "choice1", null: false
     t.string "choice2", null: false
     t.string "choice3", null: false
     t.string "choice4", null: false
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_quizzes_on_category_id"
   end
 
   create_table "score_records", force: :cascade do |t|

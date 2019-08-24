@@ -1,3 +1,4 @@
 class Quiz < ApplicationRecord
-  validates :level, :section, :title, :question, :choice1, :choice2, :choice3, :choice4, presence: true
+  validates :question, :choice1, :choice2, :choice3, :choice4, presence: true
+  belongs_to :category, class_name: 'QuizCategory', foreign_key: "category_id"
 end
