@@ -1,16 +1,16 @@
 <div>
   <%= form_with model: @quiz, builder: CustomFormBuilder do |f| %>
-    <div class="field">
-      <%= f.label :level %>
-      <%= f.select :level, [["N5","N5"],["N4","N4"]], :prompt => "Select Level" %>
+    <div id="level" class="field">
+      <span>Level</span>
+      <%= f.select :level, @level_options, { include_blank: false ,prompt: "選択してください" }, id: 'select_level', class: 'form_page' %>
     </div>
-    <div class="field">
-      <%= f.label :section %>
-      <%= f.select :section, [["Character(もじ)","Character"],["Word(ことば)","Word"]], :prompt => "Select Section" %>
+    <div id="section" class="field">
+      <span>Section</span>
+      <%= f.select :section,[], { include_blank: true }, id: 'select_section', class: 'form_page' %>
     </div>
-    <div class="field">
-      <%= f.label :title %>
-      <%= f.select :title, [["あ→A","あ→A"],["ア→A","ア→A"],["Noun1","Noun1"],["Noun2","Noun2"]], :prompt => "Select title" %>
+    <div id="title" class="field">
+      <span>Title</span>
+      <%= f.select :category, [], { include_blank: true }, id: 'select_title', class: 'form_page' %>
     </div>
     <div class="field">
       <%= f.label :question %>

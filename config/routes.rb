@@ -32,6 +32,12 @@ Rails.application.routes.draw do
   post '/quiz', to: 'quizzes#update'
   patch '/quiz', to: 'quizzes#update'
   delete '/delete_quiz/:id', to: 'quizzes#delete', as: 'delete_quiz'
+  post '/quiz_section_list/:id', to: 'quizzes#get_section_list', as: 'quiz_section_list'
+  post '/quiz_title_list/:id', to: 'quizzes#get_title_list', as: 'quiz_title_list'
+  get '/quizzes_in_title/:id', to: 'quizzes#quizzes_in_title', as: 'quizzes_in_title'
+  get '/all_quizzes', to: 'quizzes#all_quizzes'
+  get '/all_quizzes_in_level/:id', to: 'quizzes#all_quizzes_in_level'
+  get '/all_quizzes_in_section/:id', to: 'quizzes#all_quizzes_in_section'
 
   post 'score_record/create'
   get '/score_record', to: 'score_record#index'

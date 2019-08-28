@@ -15,8 +15,9 @@ $(function () {
     $('#modalArea').fadeIn();
     $('#LoginModal').removeClass('hidden');
   });
+
   //sortフォームの送信
-  $('select').on('change', function () {
+  $('.select_sort').on('change', function () {
     var target = $('[name="sort"] option:selected').val();
     var url = $('#formSort').attr('action');
     data = new FormData();
@@ -32,7 +33,7 @@ $(function () {
     });
   });
 
-  // ソート（ajax)
+  // ソート
   $(function () {
     $('#submit').on('click', function () {
       var url = $('#formSort').attr('action');
@@ -51,13 +52,87 @@ $(function () {
       });
     })
   });
+  
   //  通知の表示
   $(function(){
     setTimeout("$('#notice').fadeOut('slow')",2000);
     setTimeout("$('#alert').fadeOut('slow')", 2000);
   })
 
+  $('#select_level').on('change', function () {
+    var page = $('#select_section').attr('class');
+    var url = $('option:selected').data('quiz-select-path');
+    if (url){
+      var selectSection = $('#select_section');
+      var selectTitle = $('#select_title');
+      data = new FormData();
+      data.append('page', page);
+      $.ajax({
+        url: url,
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'post',
+        dataType: "json"
+      }).done(function (sections) {
+        selectSection.find('option').remove();
+        selectTitle.find('option').remove();
+        $(sections).each(function () {
+          selectSection.append($('<option />')
+            .attr('quiz-select-path', this.path)
+            .val(this.value)
+            .text(this.name)
+          );
+        });
+      });
+    }
+  });
+
+  $('#select_section').on('change', function () {
+    var page = $('#select_section').attr('class');
+    var url = $('#select_section').find('option:selected').attr('quiz-select-path');
+    if (url){
+      var selectTitle = $('#select_title');
+      data = new FormData();
+      data.append('page', page);
+      $.ajax({
+        url: url,
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'post',
+        dataType: "json"
+      }).done(function (sections) {
+        selectTitle.find('option').remove();
+        $(sections).each(function () {
+          selectTitle.append($('<option />')
+            .attr('quiz-select-path', this.path)
+            .val(this.value)
+            .text(this.name)
+          );
+        });
+      });
+    }
+  });
+
+  $('#select_title').on('change', function () {
+    var page = $('#select_section').attr('class');
+    if (page == "index_page"){
+      var url = $('#select_title').find('option:selected').attr('quiz-select-path');
+      var selectTitle = $('#select_title');
+      $.ajax({
+        url: url,
+        type: 'get',
+        dataType: "script"
+      })
+    }
+  });
 });
+
+
+
 // create_community
 
 // $(function () {
