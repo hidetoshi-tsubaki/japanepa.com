@@ -40,13 +40,13 @@ class QuizzesController < ApplicationController
 
   def edit_quiz_index
     @quizzes = Quiz.all
-    @level_options = get_levels
-    @level_options.unshift(["all level", 0, data: { quiz_select_list_path: all_quizzes_path }])
+    @level_options = get_levels("index_page")
+    @level_options.unshift(["all level", 0, data: { quiz_select_path: all_quizzes_path }])
   end
 
   def edit
     @quiz = Quiz.find(params[:id])
-    @level_options = get_levels
+    @level_options = get_levels("edit_page")
   end
 
   def update
@@ -67,36 +67,41 @@ class QuizzesController < ApplicationController
 
   def all_quizzes
     @quizzes = Quiz.all
+    render 'quiz_index'
   end
 
   def all_quizzes_in_level
     level = QuizCategory.find(params[:id])
     @quizzes = level.all_quizzes
+    render 'quiz_index'
   end
 
   def all_quizzes_in_section
     section = QuizCategory.find(params[:id])
     @quizzes = section.all_quizzes
+    render 'quiz_index'
   end
 
   def get_section_list
     @level = QuizCategory.find(params[:id])
-    @section_list = get_sections(@level)
-    path = "/all_quizzes_in_level/" + params[:id]
-    add_options(params[:page], @section_list, path)
+    current_page = params[:page]
+    @section_list = get_sections(@level,current_page)
+    all_quizzes_in_level_path = "/all_quizzes_in_level/" + params[:id] + "/" + params[:page]
+    add_options(current_page, @section_list, all_quizzes_in_level_path)
     render json: @section_list
   end
 
   def get_title_list
     @section = QuizCategory.find(params[:id])
-    @title_list = get_titles(@section)
-    path = "/all_quizzes_in_section/" + params[:id]
-    add_options(params[:page], @title_list, path)
+    current_page = params[:page]
+    @title_list = get_titles(@section,current_page)
+    get_all_quizzes_in_section_path = "/all_quizzes_in_section/" + params[:id] + "/" + current_page
+    add_options(current_page, @title_list, get_all_quizzes_in_section_path)
     render json: @title_list
   end
 
   def quizzes_in_title
-    @quizzes = Quiz.get_quizzes_in(params[:id])
+    @quizzes = Quiz.get_quizzes_in(params[:id].to_i)
     render 'quiz_index'
   end
 
@@ -106,27 +111,26 @@ class QuizzesController < ApplicationController
     params.require(:quiz).permit(:level, :section, :title, :question, :choice1, :choice2, :choice3, :choice4)
   end
 
-  def get_levels
+  def get_levels(page)
     levels = (QuizCategory.where(depth: 0))
     levels.map do |level|
-      [level.name, level.id, data: { quiz_select_path: quiz_section_list_path(level) }]
+      [level.name, level.id, data: { quiz_select_path: quiz_section_list_path(level,page) }]
     end
   end
 
-  def get_sections(level)
+  def get_sections(level,page)
     QuizCategory.sections_in(level).map do |section|
-    {name: section.name, value: section.id, path: quiz_title_list_path(section)}
+    {name: section.name, value: section.id, path: quiz_title_list_path(section,page)}
     end
   end
 
-  def get_titles(section)
+  def get_titles(section,page)
     QuizCategory.titles_in(section).map do |title|
-    {name: title.name, value: title.id, path: quizzes_in_title_path(title)}
+    {name: title.name, value: title.id, path: quizzes_in_title_path(title,page)}
     end
   end
 
   def add_options(page,valiable,path)
-    p page
     if valiable.any?
       if page == "index_page"
         valiable.unshift({ name: "all",value: 0, path: path })
@@ -137,7 +141,5 @@ class QuizzesController < ApplicationController
     end
   end
 
-  # def
-  # end
 end
 

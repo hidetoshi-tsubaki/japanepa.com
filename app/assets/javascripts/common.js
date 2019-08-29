@@ -67,13 +67,15 @@ $(function () {
       var selectTitle = $('#select_title');
       data = new FormData();
       data.append('page', page);
+      var type = 'post'
+      
       $.ajax({
         url: url,
         data: data,
         cache: false,
         contentType: false,
         processData: false,
-        type: 'post',
+        type: 'get',
         dataType: "json"
       }).done(function (sections) {
         selectSection.find('option').remove();
@@ -94,15 +96,9 @@ $(function () {
     var url = $('#select_section').find('option:selected').attr('quiz-select-path');
     if (url){
       var selectTitle = $('#select_title');
-      data = new FormData();
-      data.append('page', page);
       $.ajax({
         url: url,
-        data: data,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'post',
+        type: 'get',
         dataType: "json"
       }).done(function (sections) {
         selectTitle.find('option').remove();
