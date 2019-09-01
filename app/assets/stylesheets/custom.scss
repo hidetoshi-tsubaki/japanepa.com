@@ -1,8 +1,17 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+/* ====== index =====
+1. COMMON
+2. HOME
+  2.1 HEADER
+  2.2 FOOTER
+  2.3 MODAL
+  2.4 FLASH
+infinite scroll
+QUEZ CATEGORY
 /* ------------------------------
-default
+1. COMMON
 ------------------------------ */
 * {
 	-webkit-box-sizing: border-box;
@@ -43,10 +52,6 @@ p, ul, li{
 	margin: 0;
 	padding: 0;
 }
-
-/*---------------
-共通
------------------*/
 .inline{
   display:inline-block;
 }
@@ -62,11 +67,14 @@ p, ul, li{
 .sp{
   display:none;
 }
-.white{
-  background-color:#fff;
+.center{
+  text-align: center;
 }
 .bold{
   font-weight:bold;
+}
+inline{
+  display: inline-block;
 }
 body{
   margin: 0;
@@ -79,9 +87,6 @@ body{
   position:relative;
   padding-bottom:150px;
 }
-
-
-
 /*-------------
 infinite scroll
 --------------*/
@@ -92,36 +97,30 @@ infinite scroll
     display: flex;
     flex-wrap: wrap;
 }
-
 .no-gutters {
   margin:0;
   padding:0;
 }
-
 .no-gutters > .col,
 .no-gutters > [class*="col-"] {
   margin:0;
   padding:0;
 }
-
 header h1{
   text-align: center;
   margin:10px 0 10px;
 }
-
 .eq-height{
   display:flex;
   flex-direction: column;
   height:45vh;
   max-height:45vh;
 }
-
 .eq-hieght_content{
   flex:1;
 }
-
 /*---------------
-header
+2.1 HEADER
 ----------------*/
 header{
   position: relative;
@@ -214,10 +213,28 @@ header >div{
   background-color:#767676;
   color:#61C359;
 }
-
-
+/*-----------
+2.2 FOOTER
+------------*/
+footer{
+  position: absolute;
+  bottom:0;
+  width:100%;
+  height:100px;
+  background-color:#767676;
+  color:#fff;
+  text-align:center;
+  display:table;
+}
+footer p{
+  color:#fff;
+  font-size:20px;
+  text-align:center;
+  display:table-cell;
+  vertical-align: middle;
+}
 /*---------------
-modal
+2.3 MODAL
 ----------------*/ 
 .modalArea {
   display: none;
@@ -275,7 +292,7 @@ button {
   display:flex;
 }
 /*---------------
-flash
+2.4 FLASH
 ---------------*/
 #notice,#alert{
   position:absolute;
@@ -308,23 +325,96 @@ flash
 icon 
 ---------------*/
 
-// .fa-heart{
-//   color:#E24E42;
-// }
-// .fa-heart{
-//   color:#E24E42;
-// }
 .like{
   color:#E24E42;
 }
-
-// header  li{
-//   background-color:red;
-// }
+/*---------------
+QUIZ CATEGORY
+----------------*/
+.quiz_categories{
+  width: 75%;
+  margin: 100px auto;
+  padding:5% 0;
+  border-radius:5px;
+}
+.quiz_category_parent{
+  background-color:#fff;
+}
+.parent_name{
+  font-size: 36px;
+  font-weight: bold;
+}
+.breadcrumbs_list li{
+  display: inline-block;
+  font-size: 16px;
+}
+.category_new{
+  position: relative;
+  margin:10px ;
+  text-align: right;
+}
+.category_new span{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.category_children .new_button{
+  padding:10px 15px;
+  background-color: #388abd;
+  color: #fff;
+  font-size: 20px;
+  text-align: right;
+}
+.quiz_category_list{
+  background-color: #fff;
+}
+.quiz_category{
+  position: relative;
+  font-size: 0;
+  text-align: right;
+  border-top: solid 1px #e7e7e7;
+  border-bottom: solid 1px #e7e7e7;
+}
+.quiz_category:nth-child(odd){
+  background-color: #e7e7e7;
+}
+.quiz_category:hover{
+  cursor:pointer;
+  border: solid 2px #c5c5c5;
+}
+.quiz_category span{
+  position: absolute;
+  top:50%;
+  transform: translateY(-50%);
+  left:10px;
+  font-size: 24px;
+}
+.quiz_category a{
+  padding: 15px;
+}
+.quiz_category .edit_button{
+  font-size: 20px;
+  color: #388abd;
+}
+.quiz_category .edit_button:hover{
+  color: #fff;
+  background-color: #388abd;
+}
+.quiz_category .delete_button{
+  font-size: 20px;
+  color: #F53240;
+}
+.quiz_category .delete_button:hover{
+  color: #fff;
+  background-color :#F53240;
+}
+.quiz_category i{
+  margin-right: 3px;
+}
 
 /*---------------
 talk
-----------------*/ 
+----------------*/
 .talk_container{
   width:50%;
   margin:0 auto 30px;
@@ -409,39 +499,26 @@ login
   width:40%;
   vertical-align: top;
 }
-
-// .provider{
-//   margin-top:40px;
-// }
-
 .providerBtn{
   height:90px;
   margin:0 auto 5vh;
 }
-
 .providerBtn > h1{
   margin:0;
 }
-
-
-
-
 .input input{
   font-size:70%;
   width:100%;
 }
-
 .action{
    margin:40px auto 0;
 }
-
 .actions input{
   text-align:center;
   border: none;
   height:60px;
   width:70%;
 }
-
 .sessionHelp{
   margin:60px 0 30px;
   font-size:30px;
@@ -456,11 +533,6 @@ input:focus {
 box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
 border: solid 2px #666;
 }
-
-// .field span{
-//   font-size:30px;
-// }
-
 .form{
   width:70%;
   margin:90px auto;
@@ -490,34 +562,6 @@ article
   min-width:700px;
   margin:120px auto 60px;
 }
-
-
-
-/*-----------
-footer
-------------*/
-footer{
-  position: absolute;
-  bottom:0;
-  width:100%;
-  height:100px;
-  background-color:#767676;
-  color:#fff;
-  text-align:center;
-  display:table;
-}
-footer p{
-  color:#fff;
-  font-size:20px;
-  text-align:center;
-  display:table-cell;
-  vertical-align: middle;
-}
-
-
-
-
-
 // home画面
 .card{
   height:20vh;

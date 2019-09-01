@@ -29,6 +29,7 @@ gem 'kaminari'
 gem 'country_select', require: 'country_select_without_sort_alphabetical'
 gem 'impressionist'
 gem 'awesome_nested_set'
+gem 'acts_as_list'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

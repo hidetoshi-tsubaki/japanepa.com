@@ -30,4 +30,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      user: ユーザー
+      post: 投稿
+      quiz_category: コメント
+
+    attributes:
+      quiz_category:
+        name:name

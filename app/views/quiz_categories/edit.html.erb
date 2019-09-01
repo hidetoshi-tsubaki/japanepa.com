@@ -1,0 +1,29 @@
+<div class="quiz_categories">
+  <div class="quiz_category_parent">
+    <% unless @parent %>
+      <p class="parent_name center">Quiz カテゴリー</p>
+    <% else %>
+      <%= render partial: 'children_category', locals: { parent: @parent, ancestors: @ancestors } %>
+    <% end %>
+  </div>
+  <div class="category_children">
+    <p class="category_new">
+      <span>※ ドラッグ＆ドロップで並び替え</span>
+      <% if @parent.present? %>
+        <%= link_to 'NEW', new_children_quiz_categroy_path(@parent), class: 'new_button', remote: true %>
+      <% else %>
+        <%= link_to 'NEW', new_parent_quiz_categroy_path, class: 'new_button', remote: true %>
+      <% end %>
+    </p>
+    <ul id="sortable_list" class="quiz_category_list">
+    <% unless @parent.present? && @parent.depth == 3 %>
+      <%= render partial: 'quiz_category', collection: @categories, as: :category %>
+    <% else %>
+      <%= render partial: 'quiz', collection: @quizzes, as: :quiz %>
+    <% end %>
+    </ul>
+    <% if @parent.present? %>
+      <%= hidden_field_tag :category_id, @parent.id %>
+    <% end %>
+  </div>
+</div>

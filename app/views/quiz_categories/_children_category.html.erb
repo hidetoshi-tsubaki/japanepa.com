@@ -1,0 +1,6 @@
+<ul class="breadcrumbs_list">
+  <li><%= link_to "クイズカテゴリー TOP", quiz_levels_path %></li>
+  <%= render partial: 'breadcrumbs_list', collection: ancestors, as: :ancestor %>
+</ul>
+<p class="parent_name center"><%= parent.name %></p>
+<%= render partial: 'quiz_category_form', locals: {category: parent} %>

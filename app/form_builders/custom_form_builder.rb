@@ -42,7 +42,7 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def error_message(method)
-    (@object.errors[method].size > 0) ? I18n.t("activerecord.attributes.#{@object.model_name.singular}.#{method}") + @object.errors[method].first : ""
+    (@object.errors[method].size > 0) ? "#{method} " + @object.errors[method].first : ""
   end
 
   def error_html(msg)

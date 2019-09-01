@@ -7,8 +7,8 @@ class RemoveLevelFromeQuizzes < ActiveRecord::Migration[5.2]
   end
 
   def down
-    add_column :quizzs, :level, :string
-    add_column :quizzs, :section, :string
-    add_column :quizzs, :title, :string
+    add_column :quizzes, :level, :string
+    add_column :quizzes, :section, :string
+    add_column :quizzes, :title, :string
   end
 end

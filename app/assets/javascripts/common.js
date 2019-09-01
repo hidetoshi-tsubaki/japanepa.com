@@ -34,24 +34,22 @@ $(function () {
   });
 
   // ソート
-  $(function () {
-    $('#submit').on('click', function () {
-      var url = $('#formSort').attr('action');
-      $.ajax({
-        url: url,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'get',
-        success: function () {
-          alert('')
-        },
-        error: function () {
-          alert('failed ....');
-        }
-      });
-    })
-  });
+  $('#submit').on('click', function () {
+    var url = $('#formSort').attr('action');
+    $.ajax({
+      url: url,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: 'get',
+      success: function () {
+        alert('')
+      },
+      error: function () {
+        alert('failed ....');
+      }
+    });
+  })
   
   //  通知の表示
   $(function(){
@@ -125,37 +123,25 @@ $(function () {
       })
     }
   });
+
+  // ドラッグアンドドロップ
+  $(function () {
+    var el, sortable;
+    el = document.getElementById("sortable_list");
+    if (el !== null) {
+      return sortable = Sortable.create(el, {
+        delay: 200,
+        onUpdate: function (evt) {
+          return $.ajax({
+            url: '/quiz_category/' + $("#category_id").val() + '/sort',
+            type: 'patch',
+            data: {
+              from: evt.oldIndex,
+              to: evt.newIndex
+            }
+          });
+        }
+      });
+    }
+  });
 });
-
-
-
-// create_community
-
-// $(function () {
-//   $('#form_community').on('click', function () {
-//     //送信したいものを取得する communityのidとか。htmlをみて値を取得する
-//     var val = $(this).val();
-    
-//     $.ajax({
-//       url: '/create_community',
-//       // data: {
-//       //   fruit: {
-//       //     id: val
-//       //   }
-//       // },
-//       cache: false,
-//       contentType: false,
-//       processData: false,
-//       type: 'get',
-//       success: function () {
-//         // コントローラーでモーダルの中_form_communityをrenderingする
-
-
-//         $('#modalArea').fadeIn();
-//       },
-//       error: function () {
-//         alert('failed to "create community" form.Try again');
-//       }
-//     });
-//   })
-// })

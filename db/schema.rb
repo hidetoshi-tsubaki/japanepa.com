@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_21_230244) do
+ActiveRecord::Schema.define(version: 2019_08_29_150401) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 2019_08_21_230244) do
     t.integer "rgt"
     t.integer "depth"
     t.integer "children_count"
+    t.integer "position"
     t.index ["depth"], name: "index_quiz_categories_on_depth"
     t.index ["lft"], name: "index_quiz_categories_on_lft"
     t.index ["parent_id"], name: "index_quiz_categories_on_parent_id"
@@ -140,6 +141,9 @@ ActiveRecord::Schema.define(version: 2019_08_21_230244) do
     t.string "choice3", null: false
     t.string "choice4", null: false
     t.integer "category_id"
+    t.integer "level"
+    t.integer "section"
+    t.integer "title"
     t.index ["category_id"], name: "index_quizzes_on_category_id"
   end
 

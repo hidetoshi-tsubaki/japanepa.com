@@ -1,0 +1,12 @@
+<li class="quizzes_index">
+  <ul>
+    <li><%= quiz.question %></li>
+    <li><%= quiz.choice1 %></li>
+  </ul>
+  <%= link_to edit_quiz_path(quiz), class: "edit_button inline" do %>
+    <%= icon("fas", "edit") %>編集
+  <% end %>
+  <%= link_to delete_quiz_path(quiz), class: "delete_button inline",data: { confirm: 'このクイズを削除しますか?' } ,method: :delete do %>
+    <%= icon("fas", "trash-alt") %>削除
+  <% end %>
+</li>

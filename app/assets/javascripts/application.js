@@ -28,4 +28,5 @@
 //= require prev_img
 //= require jquery.jscroll.min
 //= require infinite_scroll
+//= require Sortable.min
 // require_tree .

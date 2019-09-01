@@ -28,10 +28,10 @@ Rails.application.routes.draw do
   post '/quizzes', to: 'quizzes#create'
   get '/quiz_title_index', to: 'quizzes#quiz_title_index'
   get '/edit_quiz_index', to: 'quizzes#edit_quiz_index'
-  get '/edit_quiz/:id', to: 'quizzes#edit', as: 'edit_quiz'
+  get '/quiz/:id/edit', to: 'quizzes#edit', as: 'edit_quiz'
   post '/quiz', to: 'quizzes#update'
   patch '/quiz', to: 'quizzes#update'
-  delete '/delete_quiz/:id', to: 'quizzes#delete', as: 'delete_quiz'
+  delete '/quiz/:id/delete', to: 'quizzes#delete', as: 'delete_quiz'
   get '/quiz_section_list/:id/:page', to: 'quizzes#get_section_list', as: 'quiz_section_list'
   get '/quiz_title_list/:id/:page', to: 'quizzes#get_title_list', as: 'quiz_title_list'
   get '/quizzes_in_title/:id', to: 'quizzes#quizzes_in_title', as: 'quizzes_in_title'
@@ -39,9 +39,18 @@ Rails.application.routes.draw do
   get '/all_quizzes_in_level/:id', to: 'quizzes#all_quizzes_in_level'
   get '/all_quizzes_in_section/:id', to: 'quizzes#all_quizzes_in_section'
 
+  get '/category_levels', to: 'quiz_categories#levels'
+  get '/quiz_category/new', to: 'quiz_categories#new', as: 'new_parent_quiz_categroy'
+  get '/quiz_category/:id/new', to: 'quiz_categories#new_children', as: 'new_children_quiz_categroy'
+  post '/quiz_categories', to: 'quiz_categories#create'
+  get '/quiz_category/:id/edit', to: 'quiz_categories#edit', as: 'edit_quiz_category'
+  patch '/quiz_category/:id', to:'quiz_categories#update'
+  delete '/quiz_category/:id/delete',to: 'quiz_categories#delete', as: 'delete_quiz_category'
+  patch '/quiz_category/:id/sort', to: 'quiz_categories#sort'
+
   post 'score_record/create'
   get '/score_record', to: 'score_record#index'
-  get 'score_record/show'
+  get '/score_record/show'
 
   # get '/talks/:id', to: ' talks#index', as: 'talks_index'
   # def index をコメントアウトにしているので、routing errorになる
