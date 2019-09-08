@@ -1,6 +1,6 @@
-class QuizzesController < ApplicationController
+class Admin::QuizzesController < ApplicationController
   before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :delete, :edit_quiz_index]
-  include QuizzesHelper
+
   def show
     @quizzes = Quiz.where(title: params[:title])
     # あとでsanitizeする
@@ -16,7 +16,7 @@ class QuizzesController < ApplicationController
   end
 
   def index
-    @n5_quiz = QuizCategory.levels
+    @categories = QuizCategory.levels
   end
 
   def new
@@ -55,21 +55,29 @@ class QuizzesController < ApplicationController
   end
 
   def update
-    if Quiz.update(quiz_params)
-      flash.now[:notice] = "updated successfully"
-      redirect_to edit_quizzes_path
+    @quiz = Quiz.find(params[:id])
+    @quiz.update(quiz_params)
+    if from_category_page?(request)
+      create_in_category_page(@quiz)
     else
-      flash.now[:notice] = "Failed to update.Try again"
-      render "quizzes/edit_quiz_index"
+      if @quiz.save
+        flash.now[:notice] = "updated successfully"
+        redirect_to edit_quizzes_path
+      else
+        flash.now[:notice] = "Failed to update.Try again"
+        render "quizzes/edit_quiz_index"
+      end
     end
   end
 
-  def delete
-    Quiz.find(params[:id]).destroy
+  def destroy
+    quiz = Quiz.find(params[:id])
+    quiz.destroy
     if from_category_page?(request)
+      flash.now[:notice] = "edited quiz successfully!"
+      redirect_to admin_quiz_category_path(quiz.category_id)
     else
     flash.now[:notice] = "edited quiz successfully!"
-    redirect_to edit_quiz_index_path
     end
   end
 
@@ -150,23 +158,20 @@ class QuizzesController < ApplicationController
   end
 
   def from_category_page?(request)
-    request.referer&.include?("quiz_category")
+    request.referer&.include?("quiz_categories")
   end
 
   def create_in_category_page(quiz)
-    @category = QuizCategory.find(quiz.category_id)
     if quiz.save
-      @quizzes = Quiz.where(category_id: @category.id)
+      @quizzes = Quiz.where(category_id: quiz.category_id)
       respond_to do |format|
-        format.js { flash[:notice] = 'quiz was registered successfully'}
+        format.js { flash[:notice] = 'quiz was registered successfully' }
       end
-      render "quiz_categories/create_quiz"
+      render "admin/quiz_categories/show"
     else
-      respond_to do |format|
-        format.js { flash[:alert] = 'Failed to register quiz.Try again'}
-      end
-      render "quiz_categories/new_quiz"
+      render "admin/quiz_categories/quiz_form"
     end
   end
+
 end
 

@@ -53,8 +53,7 @@ $(function () {
   
   //  通知の表示
   $(function(){
-    setTimeout("$('#notice').fadeOut('slow')",2000);
-    setTimeout("$('#alert').fadeOut('slow')", 2000);
+    setTimeout("$('#flash').fadeOut('slow')",2000);
   })
 
   $('#select_level').on('change', function () {

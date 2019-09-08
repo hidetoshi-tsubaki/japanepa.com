@@ -1,0 +1,9 @@
+<%= form_with url: new_children_quiz_categroy_path, builder: CustomFormBuilder do |f| %>
+  <%= hidden_field_tag :parent_id, parent.id  %>
+  <div class="field" >
+    <%= f.text_field :name ,id: 'form_input' %>
+  </div>
+  <div class="form_btn">
+    <%= f.submit '作成',id: 'form_btn'%>
+  </div>
+<% end %>

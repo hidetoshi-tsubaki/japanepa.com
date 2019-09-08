@@ -1,0 +1,15 @@
+<li class="quiz">
+  <ul class="quiz_content">
+    <li class="question">Question: <%= quiz.question %></li>
+    <hr>
+    <li>Answer: <%= quiz.choice1 %></li>
+    <li class="edit_btns">
+      <%= link_to edit_quiz_admin_quiz_category_path(quiz), class: "edit_btn inline", remote: true do %>
+        <%= icon("fas", "edit") %> 編集
+      <% end %>
+      <%= link_to admin_quiz_path(quiz), params: { category_id: quiz.category_id }, class: "delete_btn inline",data: { confirm: 'このクイズを削除しますか?' } ,method: :delete do %>
+        <%= icon("fas", "trash-alt") %> 削除
+      <% end %>
+    </li>
+  </ul>
+</li>

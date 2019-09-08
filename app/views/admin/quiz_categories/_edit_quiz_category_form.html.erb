@@ -1,4 +1,4 @@
-<%= form_with model: category, builder: CustomFormBuilder, local: true do |f| %>
+<%= form_with model: category,url:edit_quiz_admin_quiz_category_path(category), builder: CustomFormBuilder, local: true do |f| %>
   <div class="field" >
     <%= f.text_field :name ,id: 'form_input' %>
   </div>

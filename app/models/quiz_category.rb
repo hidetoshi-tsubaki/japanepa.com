@@ -15,4 +15,22 @@ class QuizCategory < ApplicationRecord
     scope = Quiz.joins(:category)
     scope.where(quiz_category: { id: self_and_descendants.select(:id) })
   end
+
+  def is_level?
+    self.root?
+  end
+
+  def is_section?
+    true if self.depth == 1
+  end
+
+  def is_title?
+    true if self.depth == 2
+  end
+
+  def get_ancestors
+    unless self.root?
+      self.ancestors
+    end
+  end
 end

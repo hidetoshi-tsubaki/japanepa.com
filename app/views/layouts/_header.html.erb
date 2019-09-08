@@ -1,9 +1,9 @@
 <div id="logo">
-  <%= link_to "Japanepa.com","/",id:"logo" %>
+  <%= link_to "Japanepa.com", "/", id: "logo" %>
 </div>
 <div class="header_link">
-  <%= link_to 'Quiz' ,quiz_index_path %>
-  <%= link_to 'News' ,articles_index_path %>
+  <%= link_to 'Quiz', quizzes_path %>
+  <%= link_to 'News', articles_path %>
   <% if user_signed_in? %>
     <div class="header_btn user">
       <% unless current_user.img.to_s.empty? %>
@@ -20,10 +20,10 @@
     <%= render 'user_menu'%>
   <% else %>
     <div class="inline">
-      <%= link_to 'Log in', new_user_session_path ,class:'login bold' %>
+      <%= link_to 'Log in', new_user_session_path, class: 'login bold' %>
     </div>
-    <div class="inline" >
-      <%= link_to 'Register', new_user_registration_path,class:'register bold' %>
+    <div class="inline">
+      <%= link_to 'Register', new_user_registration_path, class: 'register bold' %>
     </div>
   <% end %>
 </div>

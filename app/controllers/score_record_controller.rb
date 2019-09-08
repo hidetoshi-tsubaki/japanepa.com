@@ -13,15 +13,15 @@ class ScoreRecordController < ApplicationController
 
   def index
     # chart.jsでcanvasのidを指定するため
-    @n5_Quiz = { "Character(もじ)": %w(あ→A ア→A), "Word(ことば)": %w(Noun1 Noun2) }
-    @score_Records = {}
-    @n5_Quiz.each |section, titles|
-      @scoreRecords.store(section, [])
-        titles.each { |title|
-        scoreArr = ScoreRecord.where(user_id: current_user.id, quizTitle: "#{title}").last(75).pluck(:score)
-        @scoreRecords[section].push({ quizTitle: title, score: scoreArr })
-      }
-    end
+    # @n5_Quiz = { "Character(もじ)": %w(あ→A ア→A), "Word(ことば)": %w(Noun1 Noun2) }
+    # @score_Records = {}
+    # @n5_Quiz.each |section, titles|
+    #   @scoreRecords.store(section, [])
+    #     titles.each { |title|
+    #     scoreArr = ScoreRecord.where(user_id: current_user.id, quizTitle: "#{title}").last(75).pluck(:score)
+    #     @scoreRecords[section].push({ quizTitle: title, score: scoreArr })
+    #   }
+    # end
     gon.scoreRecords = @score_Records
   end
 
