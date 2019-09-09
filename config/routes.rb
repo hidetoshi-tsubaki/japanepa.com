@@ -6,27 +6,15 @@ Rails.application.routes.draw do
   get '/home', to: 'static_pages#home'
   get '/top', to: 'static_pages#top'
   get '/japanepa/feed', to: 'communities#feed', as: 'feed'
-  # form_with model: @~~~ に対応するpathは ~~~(複数形、method: post)、それに合わせてやる
 
   resources :quizzes, only: [:show, :index] do
     collection do
       get :all_quizzes
       get :play
     end
-    member do
-      get :all_quizzes_in_level
-      get :all_quizzes_in_section
-      get :quizzes_in_title
-    end
-    get '/sectioin_list/:id/:page', to: 'quizzes#get_section_list', as: 'quiz_section_list'
-    get '/title_list/:id/:page', to: 'quizzes#get_title_list', as: 'quiz_title_list'
   end
 
   resources :score_records, only: [:index, :show, :create]
-  # get '/talks/:id', to: ' talks#index', as: 'talks_index'
-  # def index をコメントアウトにしているので、routing errorになる
-  # get '/talk/:id', to: 'talks#show', as: 'talk_show'
-
   resources :talks do
     collection do
       post :sort
@@ -68,7 +56,19 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/top', to: 'home#top'
-    resources :quizzes
+    resources :quizzes do
+      collection do
+        get :all
+      end
+      member do
+        get :all_in_level
+        get :all_in_section
+        get :titles
+        get :quizzes_in_title
+      end
+    end
+    get '/quizzes/section_list/:id/:page', to: 'quizzes#get_section_list', as: 'quiz_sections'
+    get '/quizzes/title_list/:id/:page', to: 'quizzes#get_title_list', as: 'quiz_titles'
     resources :quiz_categories do
       collection do
         get :levels
@@ -81,9 +81,6 @@ Rails.application.routes.draw do
         get :edit_quiz
         get :new_quiz
       end
-    end
-    resources :quizzes do
-
     end
   end
 

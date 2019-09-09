@@ -15,7 +15,6 @@ $(function () {
     $('#modalArea').fadeIn();
     $('#LoginModal').removeClass('hidden');
   });
-
   //sortフォームの送信
   $('.select_sort').on('change', function () {
     var target = $('[name="sort"] option:selected').val();
@@ -32,7 +31,6 @@ $(function () {
       dataType: "script"
     });
   });
-
   // ソート
   $('#submit').on('click', function () {
     var url = $('#formSort').attr('action');
@@ -50,66 +48,82 @@ $(function () {
       }
     });
   })
-  
   //  通知の表示
   $(function(){
     setTimeout("$('#flash').fadeOut('slow')",2000);
   })
-
+// 動的セレクト（section）
   $('#select_level').on('change', function () {
     var page = $('#select_section').attr('class');
     var url = $('option:selected').data('quiz-select-path');
-    if (url){
-      var selectSection = $('#select_section');
-      var selectTitle = $('#select_title');
-      data = new FormData();
-      data.append('page', page);
-      var type = 'post'
-      
-      $.ajax({
-        url: url,
-        data: data,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'get',
-        dataType: "json"
-      }).done(function (sections) {
-        selectSection.find('option').remove();
-        selectTitle.find('option').remove();
-        $(sections).each(function () {
-          selectSection.append($('<option />')
-            .attr('quiz-select-path', this.path)
-            .val(this.value)
-            .text(this.name)
-          );
+    var value = $('option:selected').attr('value');
+    var selectSection = $('#select_section');
+    var selectTitle = $('#select_title');
+    selectSection.find('option').remove();
+    selectTitle.find('option').remove();
+    if (value==0) {
+        alert(url);
+        $.ajax({
+          url: url,
+          type: 'get',
+          dataType: "script"
+        })
+    }else{
+      if (url) {
+        data = new FormData();
+        data.append('page', page);
+        var type = 'post'
+        $.ajax({
+          url: url,
+          data: data,
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'get',
+          dataType: "json"
+        }).done(function (sections) {
+          $(sections).each(function () {
+            selectSection.append($('<option />')
+              .attr('quiz-select-path', this.path)
+              .val(this.value)
+              .text(this.name)
+            );
+          });
         });
-      });
+      }
     }
   });
-
+// 動的セレクト（title）
   $('#select_section').on('change', function () {
     var page = $('#select_section').attr('class');
     var url = $('#select_section').find('option:selected').attr('quiz-select-path');
-    if (url){
-      var selectTitle = $('#select_title');
+    var selectTitle = $('#select_title');
+    selectTitle.find('option').remove();
+    if (value == 0) {
       $.ajax({
         url: url,
         type: 'get',
-        dataType: "json"
-      }).done(function (sections) {
-        selectTitle.find('option').remove();
-        $(sections).each(function () {
-          selectTitle.append($('<option />')
-            .attr('quiz-select-path', this.path)
-            .val(this.value)
-            .text(this.name)
-          );
+        dataType: "script"
+      })
+    } else {
+      if (url){
+        $.ajax({
+          url: url,
+          type: 'get',
+          dataType: "json"
+        }).done(function (sections) {
+          $(sections).each(function () {
+            selectTitle.append($('<option />')
+              .attr('quiz-select-path', this.path)
+              .val(this.value)
+              .text(this.name)
+            );
+          });
         });
-      });
+      }
     }
   });
-
+//  quiz一覧の変更
   $('#select_title').on('change', function () {
     var page = $('#select_section').attr('class');
     if (page == "index_page"){
@@ -122,7 +136,6 @@ $(function () {
       })
     }
   });
-
   // ドラッグアンドドロップ
   $(function () {
     var el, sortable;

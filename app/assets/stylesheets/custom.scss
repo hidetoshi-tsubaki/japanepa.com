@@ -355,6 +355,37 @@ input[type="submit"]{
   color:#E24E42;
 }
 /*---------------
+QUIZ
+----------------*/
+.quiz_index{
+  width: 75%;
+  margin: auto;
+  background-color: #fff;
+}
+.question{
+  word-break: break-all;
+}
+.edit_btns{
+  text-align: right;
+}
+.edit_btns a{
+  padding: 5px;
+}
+.edit_btn{
+  color: #388abd;
+}
+.edit_btn:hover{
+  color: #fff;
+  background-color: #388abd;
+}
+.delete_btn{
+  color: #F53240;
+}
+.delete_btn:hover{
+  color: #fff;
+  background-color: #F53240;
+}
+/*---------------
 QUIZ CATEGORY
 ----------------*/
 .quiz_categories{
@@ -439,29 +470,7 @@ QUIZ CATEGORY
 .quiz_content{
   padding: 15px;
 }
-.question{
-  word-break: break-all;
-}
-.edit_btns{
-  text-align: right;
-}
-.edit_btns a{
-  padding: 5px;
-}
-.edit_btn{
-  color: #388abd;
-}
-.edit_btn:hover{
-  color: #fff;
-  background-color: #388abd;
-}
-.delete_btn{
-  color: #F53240;
-}
-.delete_btn:hover{
-  color: #fff;
-  background-color: #F53240;
-}
+
 /*---------------
 talk
 ----------------*/
@@ -972,18 +981,6 @@ article
 #calendar{
   height:300px;
 }
-
-
-//  edit_quiz_index
-// .quiz-columns,.quiz-row{
-//   display:table;
-//   table-layout:fixed;
-//   width:100%
-// }
-// .quiz-columns p,.quiz-row{
-//   display:table-cell;
-// }
-
 table{
   font-size:24px;
   background-color:#fff;

@@ -3,6 +3,9 @@
     <li class="question">Question: <%= quiz.question %></li>
     <hr>
     <li>Answer: <%= quiz.choice1 %></li>
+    <li>choice2: <%= quiz.choice2 %></li>
+    <li>choice3: <%= quiz.choice3 %></li>
+    <li>choice4: <%= quiz.choice4 %></li>
     <li class="edit_btns">
       <%= link_to edit_quiz_admin_quiz_category_path(quiz), class: "edit_btn inline", remote: true do %>
         <%= icon("fas", "edit") %> 編集

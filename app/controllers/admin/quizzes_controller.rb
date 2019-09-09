@@ -1,5 +1,5 @@
 class Admin::QuizzesController < ApplicationController
-  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :delete, :edit_quiz_index]
+  # before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :delete, :edit_quiz_index]
 
   def show
     @quizzes = Quiz.where(title: params[:title])
@@ -16,7 +16,10 @@ class Admin::QuizzesController < ApplicationController
   end
 
   def index
-    @categories = QuizCategory.levels
+    @quizzes = Quiz.all
+    @options = get_levels("index")
+    p @options
+    @options.unshift(["All", 0, data: { quiz_select_path: all_admin_quizzes_path }])
   end
 
   def new
@@ -46,7 +49,7 @@ class Admin::QuizzesController < ApplicationController
   def edit_quiz_index
     @quizzes = Quiz.all
     @level_options = get_levels("index_page")
-    @level_options.unshift(["all level", 0, data: { quiz_select_path: all_quizzes_path }])
+    @level_options.unshift(["all level", 0, data: { quiz_select_path: all_admin_quiz_path }])
   end
 
   def edit
@@ -81,21 +84,27 @@ class Admin::QuizzesController < ApplicationController
     end
   end
 
-  def all_quizzes
+  def all
     @quizzes = Quiz.all
-    render 'quiz_index'
+    render 'narrow_down'
   end
 
-  def all_quizzes_in_level
+  def all_in_level
     level = QuizCategory.find(params[:id])
-    @quizzes = level.all_quizzes
-    render 'quiz_index'
+    @quizzes = level.quizzes
+    render 'narrow_down'
   end
 
-  def all_quizzes_in_section
+  def all_in_section
     section = QuizCategory.find(params[:id])
-    @quizzes = section.all_quizzes
-    render 'quiz_index'
+    p @quizzes
+    @quizzes = section.quizzes
+    render 'narrow_down'
+  end
+
+  def quizzes_in_title
+    @quizzes = Quiz.get_quizzes_in(params[:id].to_i)
+    render 'narrow_down'
   end
 
   def get_section_list
@@ -103,7 +112,7 @@ class Admin::QuizzesController < ApplicationController
     current_page = params[:page]
     @section_list = get_sections(@level,current_page)
     all_quizzes_in_level_path = "/all_quizzes_in_level/" + params[:id] + "/" + params[:page]
-    add_options(current_page, @section_list, all_quizzes_in_level_path)
+    add_options(current_page, @section_list, all_in_level_admin_quiz_path)
     render json: @section_list
   end
 
@@ -112,13 +121,8 @@ class Admin::QuizzesController < ApplicationController
     current_page = params[:page]
     @title_list = get_titles(@section,current_page)
     get_all_quizzes_in_section_path = "/all_quizzes_in_section/" + params[:id] + "/" + current_page
-    add_options(current_page, @title_list, get_all_quizzes_in_section_path)
+    add_options(current_page, @title_list, all_in_section_admin_quiz_path)
     render json: @title_list
-  end
-
-  def quizzes_in_title
-    @quizzes = Quiz.get_quizzes_in(params[:id].to_i)
-    render 'quiz_index'
   end
 
   private
@@ -130,25 +134,25 @@ class Admin::QuizzesController < ApplicationController
   def get_levels(page)
     levels = (QuizCategory.where(depth: 0))
     levels.map do |level|
-      [level.name, level.id, data: { quiz_select_path: quiz_section_list_path(level,page) }]
+      [level.name, level.id, data: { quiz_select_path: admin_quiz_sections_path(id:level.id,page: page) }]
     end
   end
 
   def get_sections(level,page)
     QuizCategory.sections_in(level).map do |section|
-    {name: section.name, value: section.id, path: quiz_title_list_path(section,page)}
+      { name: section.name, value: section.id, path: admin_quiz_titles_path(section,page) }
     end
   end
 
   def get_titles(section,page)
     QuizCategory.titles_in(section).map do |title|
-    {name: title.name, value: title.id, path: quizzes_in_title_path(title,page)}
+      { name: title.name, value: title.id, path: quizzes_in_title_admin_quiz_path(title) }
     end
   end
 
   def add_options(page,valiable,path)
     if valiable.any?
-      if page == "index_page"
+      if page == "index"
         valiable.unshift({ name: "all",value: 0, path: path })
       end
       valiable.unshift({ name: "選択してください" })

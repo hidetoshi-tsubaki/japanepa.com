@@ -1,0 +1,25 @@
+<div class="quiz_index">
+  <div class="narrow_down">
+    <%= form_with do |f| %>
+      <div id="level" class="field">
+        <span>Level</span>
+        <%= f.select :level, @options, { include_blank: false ,prompt: "選択してください" }, id: 'select_level', class: 'index_page' %>
+      </div>
+      <div id="section" class="field">
+        <span>Section</span>
+        <%= f.select :section,[], { include_blank: true }, id: 'select_section', class: 'index_page' %>
+      </div>
+      <div id="title" class="field">
+        <span>Title</span>
+        <%= f.select :category, [], { include_blank: true }, id: 'select_title', class: 'index_page' %>
+      </div>
+    <% end %>
+    <select>
+      <option>選択してください</option>
+      <%= render partial: 'option', collection: @level_option, as: :option %>
+    </select>
+  </div>
+  <ul class="quizzes_list">
+    <%= render partial: 'quiz', collection: @quizzes, as: :quiz %>
+  </ul>
+</div>
