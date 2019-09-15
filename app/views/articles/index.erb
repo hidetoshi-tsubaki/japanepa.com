@@ -1,9 +1,0 @@
-<h1>Articles index </h1>
-<% if admin_signed_in? %>
-  <div>
-    <p><%= link_to "Create New article", create_articles_path %></p>
-  </div>
-<% end %>
-<div class="article_index jscroll">
-  <%= render 'index' %> 
-</div>

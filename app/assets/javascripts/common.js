@@ -48,27 +48,29 @@ $(function () {
       }
     });
   })
+  $(function(){
+
+  })
   //  通知の表示
   $(function(){
     setTimeout("$('#flash').fadeOut('slow')",2000);
   })
+
 // 動的セレクト（section）
   $('#select_level').on('change', function () {
-    var page = $('#select_section').attr('class');
-    var url = $('option:selected').data('quiz-select-path');
+    var page = $('#select_level').attr('class');
+    var url = $('#select_level').find('option:selected').attr('get-select-list-path');
     var value = $('option:selected').attr('value');
-    var selectSection = $('#select_section');
-    var selectTitle = $('#select_title');
-    selectSection.find('option').remove();
-    selectTitle.find('option').remove();
-    if (value==0) {
-        alert(url);
+    $('#select_section').find('option').remove();
+    $('#select_title').find('option').remove();
+    $('#select_title').append(($('<option />')).val(""));
+    if(value==0){
         $.ajax({
           url: url,
           type: 'get',
           dataType: "script"
         })
-    }else{
+      }else{
       if (url) {
         data = new FormData();
         data.append('page', page);
@@ -83,8 +85,8 @@ $(function () {
           dataType: "json"
         }).done(function (sections) {
           $(sections).each(function () {
-            selectSection.append($('<option />')
-              .attr('quiz-select-path', this.path)
+            $('#select_section').append($('<option />')
+              .attr('get-select-list-path', this.path)
               .val(this.value)
               .text(this.name)
             );
@@ -96,9 +98,9 @@ $(function () {
 // 動的セレクト（title）
   $('#select_section').on('change', function () {
     var page = $('#select_section').attr('class');
-    var url = $('#select_section').find('option:selected').attr('quiz-select-path');
-    var selectTitle = $('#select_title');
-    selectTitle.find('option').remove();
+    var url = $('#select_section').find('option:selected').attr('get-select-list-path');
+    var value = $('option:selected').attr('value');
+    $('#select_title').find('option').remove();
     if (value == 0) {
       $.ajax({
         url: url,
@@ -113,8 +115,8 @@ $(function () {
           dataType: "json"
         }).done(function (sections) {
           $(sections).each(function () {
-            selectTitle.append($('<option />')
-              .attr('quiz-select-path', this.path)
+            $('#select_title').append($('<option />')
+              .attr('get-select-list-path', this.path)
               .val(this.value)
               .text(this.name)
             );
@@ -125,10 +127,9 @@ $(function () {
   });
 //  quiz一覧の変更
   $('#select_title').on('change', function () {
-    var page = $('#select_section').attr('class');
+    var page = $('#select_title').attr('class');
     if (page == "index_page"){
-      var url = $('#select_title').find('option:selected').attr('quiz-select-path');
-      var selectTitle = $('#select_title');
+      var url = $('#select_title').find('option:selected').attr('get-select-list-path');
       $.ajax({
         url: url,
         type: 'get',

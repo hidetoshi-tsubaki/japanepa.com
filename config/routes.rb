@@ -27,8 +27,6 @@ Rails.application.routes.draw do
 
   resources :articles, only: [:show, :index] do
     collection do
-      post :image_upload
-      post :delete_image
       post :sort
       post :search
     end
@@ -59,6 +57,7 @@ Rails.application.routes.draw do
     resources :quizzes do
       collection do
         get :all
+        get :search
       end
       member do
         get :all_in_level
@@ -82,6 +81,7 @@ Rails.application.routes.draw do
         get :new_quiz
       end
     end
+    resources :articles
   end
 
   devise_for :users, controllers: {

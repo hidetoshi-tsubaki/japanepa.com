@@ -14,6 +14,8 @@
 
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require tag-it
 //= require jquery.remotipart
 //= require popper
 //= require bootstrap

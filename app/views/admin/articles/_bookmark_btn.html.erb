@@ -1,0 +1,9 @@
+<% if current_user.already_bookmark?(article) %>
+  <%= link_to remove_bookmark_path(article), class:"bookmark" ,remote: true do %>
+    <%= icon("fas", "star") %>
+  <% end %>
+<% else %>
+  <%= link_to bookmark_path(article), class:"bookmark",remote: true do %>
+    <%= icon("far", "star") %>
+  <% end %>
+<% end %>

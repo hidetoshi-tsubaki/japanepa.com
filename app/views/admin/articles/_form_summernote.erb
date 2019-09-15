@@ -1,4 +1,4 @@
-<%= form_with model: @article, local: true, builder: CustomFormBuilder do |f| %>
+<%= form_with model: [:admin, article], local: true, builder: CustomFormBuilder do |f| %>
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
@@ -6,6 +6,9 @@
   <div class="field" >
     <%= f.label :lead %><br>
     <%= f.text_area :lead %>
+  </div>
+  <div class="field">
+    <ul id="article-tags" class="tag_input"></ul>
   </div>
   <div class="field">
     <p>Top-Image</p>

@@ -70,7 +70,6 @@ $(function () {
   }
 
   function deleteFile(image_url){
-    // alert('this is' + image_url);
     data = new FormData();
     data.append('image_url',image_url);
     $.ajax({
@@ -88,5 +87,18 @@ $(function () {
       }
     })
   }
-
+  $(function () {
+    $('#article-tags').tagit({
+      fieldName: 'article[tag_list]',
+      singleField: true,
+      availableTags: gon.available_tags
+    });
+  })
+  if(gon.article_tags){
+    for (var i = 0; i < gon.article_tags.length; i++){
+      $('#article-tags').tagit(
+        'createTag', gon.article_tags[i]
+      )
+    }
+  }
 })
