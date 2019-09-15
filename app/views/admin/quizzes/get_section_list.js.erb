@@ -1,1 +1,1 @@
-$("＃select_section").html("<%= j(options_for_select(@section_list)) %>");
+$("＃select_section").html("<%= j(render partial: 'option', collection: @options, as: :option) %>");

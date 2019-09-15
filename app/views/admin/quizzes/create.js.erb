@@ -1,0 +1,3 @@
+$('#quiz_<%= @quiz.id %>').html("<%= j(render partial: 'quiz_content', locals: { quiz: @quiz }) %>");
+$('#modal').empty();
+$('#modalArea').fadeOut();

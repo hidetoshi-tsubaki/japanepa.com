@@ -16,14 +16,23 @@ class Admin::QuizzesController < ApplicationController
   end
 
   def index
-    @quizzes = Quiz.all
+    if params[:q] != nil
+      params[:q][:question_or_choice1_cont_any] = params[:q][:question_or_choice1_cont_any]
+                                                  .split(/p[{blank}\s]+/)
+      keyword = Quiz.rancsack(params[:q])
+      @quizzes = keyword.result
+    else
+      keyword = Quiz.ransack(params[:q])
+      @quizzes = keyword.result
+    end
     @options = get_levels("index")
-    p @options
-    @options.unshift(["All", 0, data: { quiz_select_path: all_admin_quizzes_path }])
+    @options.unshift({name: "All", value: 0, path: all_admin_quizzes_path })
   end
 
   def new
     @quiz = Quiz.new
+    @options = get_levels("new")
+    @options.unshift({name: "All", value: 0, path: all_admin_quizzes_path })
   end
 
   def create
@@ -33,28 +42,19 @@ class Admin::QuizzesController < ApplicationController
     else
       if @quiz.save
         flash.now[:notice] = "registered successfully"
-        redirect_to new_quiz_path
+        redirect_to admin_quizzes_path
       else
         flash.now[:notice] = "Failed to register.Try again"
-        render "quizzes/new"
-        #あとでflashを対応させる
+          @options = get_levels("index")
+          @options.unshift({name: "All", value: 0, path: all_admin_quizzes_path })
+        render "admin/quizzes/new"
       end
     end
   end
 
-  def quiz_title_index
-    # @n5_quiz = get_n5_Quiz
-  end
-
-  def edit_quiz_index
-    @quizzes = Quiz.all
-    @level_options = get_levels("index_page")
-    @level_options.unshift(["all level", 0, data: { quiz_select_path: all_admin_quiz_path }])
-  end
-
   def edit
     @quiz = Quiz.find(params[:id])
-    @level_options = get_levels("edit_page")
+    render 'edit_form'
   end
 
   def update
@@ -65,10 +65,8 @@ class Admin::QuizzesController < ApplicationController
     else
       if @quiz.save
         flash.now[:notice] = "updated successfully"
-        redirect_to edit_quizzes_path
       else
-        flash.now[:notice] = "Failed to update.Try again"
-        render "quizzes/edit_quiz_index"
+        render "quizzes/form"
       end
     end
   end
@@ -81,7 +79,13 @@ class Admin::QuizzesController < ApplicationController
       redirect_to admin_quiz_category_path(quiz.category_id)
     else
     flash.now[:notice] = "edited quiz successfully!"
+    redirect_to admin_quizzes_path
     end
+  end
+
+  def search
+    @q = Quiz.search(search_params)
+    @quizzes = @q.result(distinct: true)
   end
 
   def all
@@ -97,32 +101,31 @@ class Admin::QuizzesController < ApplicationController
 
   def all_in_section
     section = QuizCategory.find(params[:id])
-    p @quizzes
     @quizzes = section.quizzes
     render 'narrow_down'
   end
 
   def quizzes_in_title
     @quizzes = Quiz.get_quizzes_in(params[:id].to_i)
-    render 'narrow_down'
+    render 'admin/quizzes/narrow_down'
   end
 
   def get_section_list
     @level = QuizCategory.find(params[:id])
     current_page = params[:page]
-    @section_list = get_sections(@level,current_page)
+    @options = get_sections(@level,current_page)
     all_quizzes_in_level_path = "/all_quizzes_in_level/" + params[:id] + "/" + params[:page]
-    add_options(current_page, @section_list, all_in_level_admin_quiz_path)
-    render json: @section_list
+    add_options(current_page, @options, all_in_level_admin_quiz_path)
+    render json: @options
   end
 
   def get_title_list
     @section = QuizCategory.find(params[:id])
     current_page = params[:page]
-    @title_list = get_titles(@section,current_page)
+    @options = get_titles(@section,current_page)
     get_all_quizzes_in_section_path = "/all_quizzes_in_section/" + params[:id] + "/" + current_page
-    add_options(current_page, @title_list, all_in_section_admin_quiz_path)
-    render json: @title_list
+    add_options(current_page, @options, all_in_section_admin_quiz_path)
+    render json: @options
   end
 
   private
@@ -131,10 +134,14 @@ class Admin::QuizzesController < ApplicationController
     params.require(:quiz).permit(:category_id, :question, :choice1, :choice2, :choice3, :choice4)
   end
 
+  def searck_params
+    params.require(:q).permit(:question_cont)
+  end
+
   def get_levels(page)
     levels = (QuizCategory.where(depth: 0))
-    levels.map do |level|
-      [level.name, level.id, data: { quiz_select_path: admin_quiz_sections_path(id:level.id,page: page) }]
+    options = levels.map do |level|
+      { name: level.name, value: level.id, path: admin_quiz_sections_path(id: level.id, page: page) }
     end
   end
 
@@ -155,9 +162,9 @@ class Admin::QuizzesController < ApplicationController
       if page == "index"
         valiable.unshift({ name: "all",value: 0, path: path })
       end
-      valiable.unshift({ name: "選択してください" })
+      valiable.unshift({ name: "選択してください", value: '', path: ''})
     else
-      valiable.unshift({ name: "なし" })
+      valiable.unshift({ name: "なし", value: '', path: ''})
     end
   end
 
@@ -173,7 +180,7 @@ class Admin::QuizzesController < ApplicationController
       end
       render "admin/quiz_categories/show"
     else
-      render "admin/quiz_categories/quiz_form"
+      render "admin/quizzes/form"
     end
   end
 

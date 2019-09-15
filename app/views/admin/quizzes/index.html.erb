@@ -1,24 +1,22 @@
 <div class="quiz_index">
   <div class="narrow_down">
-    <%= form_with do |f| %>
-      <div id="level" class="field">
-        <span>Level</span>
-        <%= f.select :level, @options, { include_blank: false ,prompt: "選択してください" }, id: 'select_level', class: 'index_page' %>
-      </div>
-      <div id="section" class="field">
-        <span>Section</span>
-        <%= f.select :section,[], { include_blank: true }, id: 'select_section', class: 'index_page' %>
-      </div>
-      <div id="title" class="field">
-        <span>Title</span>
-        <%= f.select :category, [], { include_blank: true }, id: 'select_title', class: 'index_page' %>
-      </div>
-    <% end %>
-    <select>
+   <% search_form_for(@q, url: search_admin_quiz_path) do |f| %>
+     <p>検索</p>
+     <%= f.search_field :question_or_choice1_cont_any %>
+     <%= f.submit %>
+   <% end %>
+    <select id="select_level" class="index">
       <option>選択してください</option>
-      <%= render partial: 'option', collection: @level_option, as: :option %>
+      <%= render partial: 'option', collection: @options, as: :option %>
+    </select>
+    <select id="select_section">
+      <option>---</option>
+    </select>
+    <select id="select_title" class="index_page">
+      <option>---</option>
     </select>
   </div>
+  <p class="right"><%= link_to 'NEW', new_admin_quiz_path, class: 'new_button' %></p>
   <ul class="quizzes_list">
     <%= render partial: 'quiz', collection: @quizzes, as: :quiz %>
   </ul>

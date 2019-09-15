@@ -26,7 +26,7 @@ class Admin::QuizCategoriesController < ApplicationController
   def new_quiz
     @category = QuizCategory.find(params[:id])
     @quiz = Quiz.new
-    render 'quiz_form'
+    render 'quizzes/form'
   end
 
   def create
@@ -60,7 +60,7 @@ class Admin::QuizCategoriesController < ApplicationController
 
   def edit_quiz
     @quiz = Quiz.find(params[:id])
-    render 'quiz_form'
+    render 'quizzes/form'
   end
 
   def update
