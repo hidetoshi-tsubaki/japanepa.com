@@ -30,6 +30,11 @@ gem 'country_select', require: 'country_select_without_sort_alphabetical'
 gem 'impressionist'
 gem 'awesome_nested_set'
 gem 'acts_as_list'
+gem 'ransack'
+gem 'acts-as-taggable-on', '~> 6.0'
+gem 'jquery-ui-rails'
+gem 'flag_icon_css_rails'
+gem 'activerecord-precount'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'users/show'
   get 'users/index'
 
-  get '/home', to: 'static_pages#home'
+  get '/', to: 'static_pages#home'
   get '/top', to: 'static_pages#top'
   get '/japanepa/feed', to: 'communities#feed', as: 'feed'
 
@@ -82,6 +82,8 @@ Rails.application.routes.draw do
       end
     end
     resources :articles
+    resources :communities
+    resource :user, only: [:index, :delete]
   end
 
   devise_for :users, controllers: {

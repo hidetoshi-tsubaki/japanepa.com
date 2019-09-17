@@ -1,17 +1,6 @@
-<div class="head">
-  <h1>Log in to Japanepa.com ! </h1>
-</div>
-<div class="login_wrapper white">
-  <ul class="login_block">
-    <li class="inline">
-        <div class="provider">
-          <%= render 'devise/shared/social_login' %>
-        </div>
-    </li>
-    <li class="inline">
-        <div class="login_form" >
-          <%= render 'login_form' %>
-        </div>
-    </li>
-  </ul>
+
+<div class="user_form_wrapper">
+  <p class="center">~ Log in to Japanepa.com ! ~</p>
+  <%= render 'login_form' %>
+  <p class="right">You don't have any Acounts? <%= link_to "Create Acount", new_registration_path(resource_name) %></p>
 </div>

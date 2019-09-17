@@ -1,18 +1,36 @@
-<div>
-  <p>Profile</p>
-  <p><%= link_to 'edit profile', edit_user_registration_path(@user) %></p>
-</div>
-<div>
+<div class="profile_wrapper">
+  <p class="right"><%= link_to 'Edit', edit_user_registration_path(@user) %></p>
+  <p class="center">Profile</p>
   <% if @user.img %>
     <%= image_tag @user.img.to_s, class:'present_img' %>
   <% else %>
    <%= image_tag 'https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg' %>
   <% end %>
-  <p><%= @user.name %></p>
-  <p>Total Play Count<br>
-    <%= @user.score_records.count %></p>
-  <ul>
-    <li>Communities<br><%= @user.community_users.count %></li>
-    <li>Posts<br><%= @user.talks.count %></li>
-  </ul>
+  <table class="user_info">
+    <tr>
+      <td>Name:</td>
+      <td>121212121212121</td>
+    </tr>
+    <tr>
+      <td>Total Play Count:</td>
+      <td><%= @user.score_records.count %></td>
+    </tr>
+    <tr>
+      <td>Communities:</td>
+      <td><%= @user.community_users.count %></td>
+    </tr>
+    <tr>
+      <td>Posts:</td>
+      <td><%= @user.talks.count %></td>
+    </tr>
+    <tr>
+      <td>Country:</td>
+      <td><%= @user.country %> <i class="flag-icon flag-icon-<%= @user.country.downcase %>"></i></td>
+    </tr>
+    <tr>
+      <td>Address:</td>
+      <td><%= @user.current_address %> <i class="flag-icon flag-icon-<%= @user.current_address.downcase %>"></i></td>
+    </tr>
+  </table>
 </div>
+

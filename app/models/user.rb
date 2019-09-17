@@ -13,12 +13,21 @@ class User < ApplicationRecord
   has_many :articles, through: :bookmarks
   mount_uploader :img, ImgUploader
   validates :name, uniqueness: { case_sensitive: false }
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  validates :name, presence: true
+  validates :password_confirmation, presence: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :lockable, :timeoutable, :omniauthable,
+         :lockable, :timeoutable, :omniauthable,
          omniauth_providers: [:facebook, :twitter, :google_oauth2]
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["username = :value", { :value => username }]).first
+    else
+      where(conditions).first
+    end
+  end
 
   def self.from_omniauth(auth)
     find_or_create_by(provider: auth["provider"], uid: auth["uid"]) do |user|
@@ -36,6 +45,14 @@ class User < ApplicationRecord
     else
       super
     end
+  end
+
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
   end
 
   def already_joined?(community)
