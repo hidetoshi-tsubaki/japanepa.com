@@ -22,7 +22,7 @@ Rails.application.config.assets.precompile += %w( indexCharts.js )
 Rails.application.config.assets.precompile += %w( calendar.js )
 Rails.application.config.assets.precompile += %w( summernote.min.js )
 Rails.application.config.assets.precompile += %w( article.js )
-# treeを消したから、自動で読み込んでくれないので、ここに指定してあげる。
+Rails.application.config.assets.precompile += %w( community.js )
 
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 

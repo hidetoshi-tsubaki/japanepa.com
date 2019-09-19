@@ -1,44 +1,20 @@
 <div class="row ">
   <div class="col-md-4 ">
     <div class="card redBtn link">
-      <% if admin_signed_in? %>
-        <h1 class="text-center">Edit Quiz</h1>
-        <%= link_to "",quiz_title_index_path %>
-      <% else %>
-        <h1 class="text-center">Quiz</h1>
-        <%= link_to "",quiz_index_path %>
-      <% end %>
-    </div> 
-    <%= icon("far", "comment-dots") %>
-    <%= icon("fas", "edit") %>
-    <%= icon("fas", "user-cog") %>
-    <%= icon("fas", "chart-line") %>
-    <%= icon("fas", "trash-alt") %>
-    <%= icon("fas", "heart") %>
-    <%= icon("far", "heart") %>
-    <%= icon("fas", "star") %>
-    <%= icon("far", "star") %>
-    <%= icon("fas", "marker-alt") %>
-    <%= icon("fas", "comments") %>
-    <%= icon("fas", "id_card") %>
-    <%= icon("fas", "passport") %>
-    <%= icon("fas", "envelope") %>
-    <%= icon("fas", "key") %>
-    <%= icon("fas", "users") %>
-    <%= icon("fas", "sign-in-alt") %>
-    <%= icon("fas", "map-marker-alt") %>
-    <%= icon("fas", "user") %>
+      <h1 class="text-center">Quiz</h1>
+      <%= link_to "",quizzes_path %>
+    </div>
   </div >
   <div class="col-md-4 ">
     <div class="card yellowBtn link">
       <h1 class="text-center">Score</h1>
-      <%= link_to "", score_record_path %>
+      <%= link_to "", score_records_path %>
     </div>
   </div>
   <div class="col-md-4 ">
     <div class="card blue2Btn link">
         <h1 class="text-center">News</h1>
-        <%= link_to "",articles_index_path %>
+        <%= link_to "",articles_path %>
     </div>
   </div>
   <div class="col-md-4">
@@ -56,8 +32,9 @@
       <h1 class="text-center">Log Out</h1>
       <%= link_to "",destroy_user_session_path, method: :delete%>
     <% elsif admin_signed_in? %>
-    <h1 class="text-center">Admin Logout</h1>
-      <%= link_to "",destroy_admin_session_path , method: :delete%>
+      <%= link_to destroy_admin_session_path , method: :delete do %>
+        <h1 class="text-center">Admin Logout</h1>
+      <% end %>
     <% else %>
     <h1 class="text-center">Admin Login</h1>
       <%= link_to "",new_admin_session_path %>
