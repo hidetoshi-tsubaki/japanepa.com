@@ -1,4 +1,17 @@
 <h1>Articles index </h1>
-<div class="article_index jscroll">
-  <%= render partial: 'index', collection: @articles, as: :article %>
+<div class="section_wrapper">
+  <div class="main_section">
+    <div class="article_index jscroll">
+      <%= render partial: 'index', collection: @articles, as: :article %>
+    </div>
+  </div>
+  <div class="side_section">
+    <ul class="tags">
+      <% if @tags.present? %>
+        <%= render partial: 'tag', collection: @tags, as: :tag %>
+      <% else %>
+      <li>No tags....</li>
+      <% end %>
+    </ul>
+  </div>
 </div>
