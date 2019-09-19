@@ -88,17 +88,17 @@ $(function () {
     })
   }
   $(function () {
-    $('#article-tags').tagit({
+    $('#form-tags').tagit({
       fieldName: 'article[tag_list]',
       singleField: true,
       availableTags: gon.available_tags
     });
-  })
-  if(gon.article_tags){
-    for (var i = 0; i < gon.article_tags.length; i++){
-      $('#article-tags').tagit(
-        'createTag', gon.article_tags[i]
-      )
+    if (gon.article_tags) {
+      for (var i = 0; i < gon.article_tags.length; i++) {
+        $('#form-tags').tagit(
+          'createTag', gon.article_tags[i]
+        )
+      }
     }
-  }
+  })
 })

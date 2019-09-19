@@ -4,15 +4,29 @@ class Admin::ArticlesController < ApplicationController
   impressionist :actions => [:show]
 
   def index
-    @articles = Article.sorted
+    if params[:tag].present?
+      @article = Article.tagged_with(params[:tag])
+    elsif params[:q].present?
+      if words.present?
+        params[:q][:groupings] = []
+        words.split(/[ ]/).each_with_index do |word, index|
+          params[:q][:groupings][index] = [title_or_lead_cont: word]
+        end
+     end
+    else
+      @articles = Article.sorted
+    end
+    @tags = Article.tags_on(:tags).pluck(:name)
   end
 
   def show
     @article = Article.find(params[:id])
+    @tags = @article.tags_on(:tags)
   end
 
   def new
     @article = Article.new
+    gon.available_tags = Article.tags_on(:tags).pluck(:name)
   end
 
   def create
@@ -28,6 +42,8 @@ class Admin::ArticlesController < ApplicationController
 
   def edit
     @article = Article.find(params[:id])
+    gon.article_tags = @article.tag_list
+    gon.available_tags = @article.tag_list
   end
 
   def update
@@ -88,7 +104,7 @@ class Admin::ArticlesController < ApplicationController
   end
 
   def set_article_tags_to_gon
-    gon.article_tags = @article.tag_list
+    gon.article_tags = Article.tag_list
   end
 
 end

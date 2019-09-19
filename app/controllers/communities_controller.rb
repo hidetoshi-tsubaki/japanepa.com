@@ -4,8 +4,43 @@ class CommunitiesController < ApplicationController
   before_action :past_30days_after_signIn?, only: [:new, :create]
 
   def index
-    @communities = Community.includes(:talks).order('created_at desc')
-    # community.users.size
+    if params[:tag].present?
+      @communities = Community.tagged_with(params[:tag]).sorted
+    else
+      @communities = Community.sorted
+    end
+    @tags = Community.tags_on(:tags)
+  end
+
+  def new
+    @community = Community.new
+    gon.available_tags = Community.tags_on(:tags).pluck(:name)
+  end
+
+  def create
+    @community = current_user.communities.new(community_params)
+    if @community.save
+      current_user.join(@community)
+      redirect_to admin_community_path(@community)
+    else
+      render 'new'
+    end
+  end
+
+  def edit
+    @community = Community.find(params[:id])
+    gon.community_tags = @community.tag_list
+    gon.available_tags = Community.tags_on(:tags).pluck(:name)
+  end
+
+  def update
+    @community = Community.find(params[:id])
+    if @Community.update(community_params)
+      flash.now[:notice] = "community was updated"
+      redirect_to community_path(@community)
+    else
+      render 'edit'
+    end
   end
 
   def feed
@@ -13,44 +48,10 @@ class CommunitiesController < ApplicationController
     @talks = Talk.where(community_id: joined_Community).includes(:community).sort_and_paginate(10)
   end
 
-  def new
-    @community = Community.new
-  end
-
-  def create
-    @community = current_user.communities.new(community_params)
-    if @community.save
-      current_user.join(@community)
-      redirect_to show_community_path(@community)
-    else
-      render 'new.js.erb'
-    end
-  end
-
   def show
     @community = Community.find(params[:id])
-    @talks = Talk.includes(:users).where(community_id: params[:id]).sort_and_paginate(10)
-    # もしくはtalk.where("community_id = params[id]")
-  end
-
-  def edit
-    @community = Community.find(params[:id])
-  end
-
-  def update
-    if Community.update(community_params)
-      flash.now[:notice] = "community was updated"
-    end
-  end
-
-  def delete
-    if Community.find(params[:id]).destroy
-      @community = Community.sort_and_paginate(9)
-      render :index
-    else
-      flash.now[:notice] = "failed to delete... try again"
-      render :index
-    end
+    @talks = Talk.includes(:users).where(community_id: params[:id])
+    @tags = @community.tags_on(:tags)
   end
 
   def sort
@@ -59,13 +60,24 @@ class CommunitiesController < ApplicationController
 
   def search
     @communities = Community.search(params[:keyword])
-    render 'sort.js.erb'
+    render 'sort'
+  end
+
+  def join
+    @community = Community.find(params[:id])
+    current_user.join(@community)
+  end
+
+  def leave
+    @community = Community.find(params[:id])
+    current_user.leave(@community)
+    render 'join'
   end
 
   private
 
   def community_params
-    params.require(:community).permit(:name, :img, :introduction, :user_id)
+    params.require(:community).permit(:name, :img, :introduction, :user_id, :tag_list)
   end
 
 end

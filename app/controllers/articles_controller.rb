@@ -1,18 +1,17 @@
 class ArticlesController < ApplicationController
-  before_action :set_article_tags
   impressionist :actions => [:show]
   def index
-    @articles = Article.all
+    if params[:tag].present?
+      @article = Article.tagged_with(params[:tag])
+    else
+      @articles = Article.all
+    end
+    @tags = Article.tags_on(:tags)
   end
 
   def show
     @article = Article.find(params[:id])
+    @tags = @article.tags_on(:tags)
   end
-
-  private
-
-    def set_article_tags
-      @tags = Article.tags_on(:tags)
-    end
 
 end

@@ -25,7 +25,7 @@
                 pointBorderWidth: 1,  //点の周りの線の大きさ
                 pointRadius: 4, //点の大きさ
                 borderColor: '#fff',
-                borderWidth: 3,       
+                borderWidth: 3,
             }]
             },
             options: {

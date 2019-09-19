@@ -1,4 +1,5 @@
 class Community < ApplicationRecord
+  acts_as_taggable
   has_many :community_users, dependent: :destroy
   has_many :users, through: :community_users
   accepts_nested_attributes_for :community_users
@@ -6,7 +7,9 @@ class Community < ApplicationRecord
   belongs_to :user
   mount_uploader :img, ImgUploader
   validates :name, uniqueness: { case_sensitive: false }
-  validates :name, :introduction, :user_id, presence: true
+  validates :name, :introduction, presence: true
+  
+  # 文字制限を入れる
 
   def self.sorted_by(key)
     case key
@@ -36,16 +39,15 @@ class Community < ApplicationRecord
     end
   end
 
-  def self.search(keywords_params)
-    return communities = Community.all.order('created_at desc') if keywords_params == ""
-    keywords = keywords_params.split(/[[:blank:]]+/)
-    communities = []
-    keywords.each do |keyword|
-      next if keyword == ""
-        communities += Community.where('name LIKE ? OR introduction LIKE ?', "%#{keyword}%", "%#{keyword}%")
-      end
-    end
-    # uniq!だと、変更がないとnilを返してしまう
-    communities = communities.uniq
-  end
+  # def self.search(keywords_params)
+  #   return communities = Community.order('created_at desc') if keywords_params == ""
+  #   keywords = keywords_params.split(/[[:blank:]]+/)
+  #   communities = []
+  #   keywords.each do |keyword|
+  #     next if keyword == ""
+  #       communities += Community.where('name LIKE ? OR introduction LIKE ?', "%#{keyword}%", "%#{keyword}%")
+  #     end
+  #   end
+  #   # uniq!だと、変更がないとnilを返してしまう
+  #   communities = communities.uniq
 end

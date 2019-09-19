@@ -71,7 +71,6 @@ class Admin::QuizCategoriesController < ApplicationController
       flash.now[:notice] = "カテゴリーを編集しました。"
       redirect_to edit_quiz_category_path(params[:id])
     else
-      flash.now[:alert] = "編集に失敗しました。"
       render 'edit'
     end
   end
