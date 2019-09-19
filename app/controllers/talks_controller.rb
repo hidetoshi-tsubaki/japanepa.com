@@ -9,15 +9,13 @@ class TalksController < ApplicationController
     render :modal_talk_form
   end
   
-  # def index
-  # get_joined_communities
-  # @communities= current_user.community_users.includes(:community)
-  # #get_joined_communitiesId
-  # joined_communitiesId = current_user.community_users
-  # #get_talks
-  # @talks = Talk.where(community_id: joined_communitiesId).sort_and_paginate(10)
-  # @talk =Talk.new
-  # end
+  def index
+    @communities= current_user.communities
+    @talks = talks_in_feed(@communities)
+    @tags = Community.tags_on(:tags)
+    p @tags
+    p "#######"
+  end
 
   def show
     @talk = Talk.includes(:user).find(params[:id])
@@ -85,6 +83,15 @@ class TalksController < ApplicationController
     unless user_signed_in? || admin_signed_in?
       render :index
       flash.now[:notice] = "you don't have right to delete...."
+    end
+  end
+
+  def talks_in_feed(communities)
+    if communities.empty?
+      Talk.sorted
+    else
+      community_id = communities.map{ |community| community.id }
+      Talk.where(id: community_id).precount(:comments)
     end
   end
 end

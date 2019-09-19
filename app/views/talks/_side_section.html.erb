@@ -1,0 +1,22 @@
+<div class="side_content">
+  <% if past_30days_after_signIn? %>
+    <%= link_to "create community" ,new_community_path %>
+  <% else %>
+    <div class="warn_sentence">
+      <p>You can't create communities yet.</p>
+      <p>To prevent spam, Account must be at least 30 days old.</p>
+    </div>
+  <% end %>
+    <%= link_to "check communities", communities_path, class: "block center " %>
+    <%= link_to "Create talk", new_talk_path, class: "block center new_btn" %>
+</div>
+<div class="community_tags">
+  <p>・Tags</p>
+  <ul>
+    <% if @tag.present? %>
+      <%= render partial: 'tags', collection: @tags, as: :tag %>
+    <% else %>
+    <li>No tags....</li>
+    <% end %>
+  </ul>
+</div>

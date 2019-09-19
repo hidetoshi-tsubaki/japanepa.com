@@ -1,39 +1,37 @@
-<div class="talk_wrap">
+<div class="talk_wrapper">
   <ul class="talk_head">
-    <li><%= link_to show_community_path(talk.community_id) do %>
+    <li><%= link_to community_path(talk.community_id) do %>
           <%= talk.community.name %>
         <% end %>
     </li>
-    <li class="posted_time">Posted by <%= talk.user.name %> <%= time_ago_in_words(talk.created_at) %> ago</li>
+    <li class="posted_time">Posted by <%= link_to talk.user.name, user_path(talk.user) %> <%= time_ago_in_words(talk.created_at) %> ago</li>
   </ul>
+  <div class="talk_content_wrapper">
+    <%= simple_format(text_url_to_link(h(talk.content)).html_safe,class: 'talk_content') %>
     <% unless talk.img.to_s.empty? %>
-    <p><%= image_tag talk.img.to_s %></p>
+      <p><%= image_tag talk.img.to_s %></p>
     <% end %>
-  <div>
-    <p><%= simple_format(text_url_to_link(h(talk.content)).html_safe) %></p>
   </div>
   <ul class="talk_btns">
-    <li class="comment_mark">
-      <%= link_to talk_show_path(talk) , class:'comment_mark' do %>
+    <li class="comment_btn">
+      <%= link_to talk_path(talk) , class:'comment_mark' do %>
         <%= icon("fas", "comment-alt") %>  <%= talk.comments.count %>  <%= talk.comments.count > 1 ? "Comments" : "Comment" %>
       <% end %>
     </li>
-    <li id="like_btn_<%= talk.id %>" class="like">
+    <li id="like_btn_<%= talk.id %>" class="like_btn">
         <%= render partial:'talks/like_btn' ,locals: {talk: talk} %>
     </li>
-      <% if talk.user_id == current_user.id %>
-      <% if current_page?(feed_path) %>
+    <% if talk.user_id == current_user.id %>
+      <li>
+        <%= link_to edit_talks_path(talk), remote: true,class:"edit-btn" do %>
+          <%= icon("fas", "edit") %>
         <% end %>
-    <li>
-      <%= link_to edit_talks_path(talk), remote: true,class:"edit-btn" do %>
-        <%= icon("fas", "edit") %>
-      <% end %>
-    </li>
-    <li>
-    <%= link_to delete_talk_path(talk), remote: true,data: { confirm: 'Delete this post?' },method: :delete,class:"delete-btn" do %>
-        <%= icon("fas", "trash-alt") %>
-      <% end %>
-    </li>
+      </li>
+      <li>
+        <%= link_to delete_talk_path(talk), remote: true,data: { confirm: 'Delete this post?' },method: :delete,class:"delete-btn" do %>
+          <%= icon("fas", "trash-alt") %>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 </div>

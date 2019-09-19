@@ -1,14 +1,11 @@
-<div class="row">
-  <div class ="col-lg-3 container hidden" id="form_talk">
+<div class="section_wrapper">
+  <div class="main_section inline jscroll" id="talk_index">
+    <%= render partial: 'talk', collection: @talks, as: :talk %>
   </div>
-  <div class="col-lg-6 jscroll" id="talk_index">
-    <%= render 'index' %>
-  </div>
-  <div class="col-lg-3 create_community">
-    <p>Come here to check in with your favorite communities.</p>
-    <% if past_30days_after_signIn? %>
-      <%= link_to "create community" ,create_community_path %>
-    <% end %>
-    <%= link_to "check communities" ,communities_path %>
+  <div class="side_section">
+    <div class="community-section">
+      <%= render 'side_section' %>
+    </div>
+    <p><%= icon("fas", "arrow-circle-up") %></p>
   </div>
 </div>
