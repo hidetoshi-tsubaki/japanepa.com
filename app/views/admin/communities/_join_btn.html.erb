@@ -1,0 +1,9 @@
+<% if current_user.already_joined?(community) %>
+  <%= link_to leave_community_path(community), remote: true do %>
+    <button>Leave</button>
+  <% end %>
+<% else %>
+  <%= link_to join_community_path(community), remote: true do %>
+    <button>Join</button>
+  <% end %>
+<% end %>

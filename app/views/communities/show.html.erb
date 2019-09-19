@@ -1,16 +1,35 @@
+<%= link_to '戻る', articles_path %>
 <h1><%= @community.name %></h1>
-<p id="member_count_<%= @community.id %>"><%= render partial:'member_count', locals: {community: @community} %></p>
-<div id="join_btn_<%= @community.id %>">
-  <%= render partial:'join_btn' , locals: {community: @community} %>
-</div>
-<div class="row">
-  <div id="form_talk" class="col-md-4 ">
-    <%= link_to  create_talk_from_community_path(@community.id) ,class:'submit' ,remote: true do %>
-    <button>create talk</button>
+<p id="member_count_<%= @community.id %>">Member:<%= @community.users.count %></p>
+<div class="section_wrapper">
+  <div id="talk_index" class="main_section inline jscroll">
+    <% if @talks.present? %>
+       <%= render partial: 'talks/index', collection: @talks, as: :talk %> 
+    <% else %>
+      <p>no talks...</p>
     <% end %>
-    <p><%= link_to 'community_index', communities_path %></p>
   </div>
-  <div id="talk_index" class="col-md-8 jscroll">
-    <%= render 'talks/index' %> 
+  <div class="side_section inline">
+    <div class="side_content">
+      <div id="join_btn_<%= @community.id %>">
+        <%= render partial:'join_btn' , locals: {community: @community} %>
+      </div>
+      <p><%= @community.name %></p>
+      <p><%= @community.introduction %></p>
+      <p>member: <%= @community.users.count %></p>
+      <p>talks: <%= @community.talks.count %></p>
+      <p>community leader: </p>
+    </div>
+    <div class="side_content">
+      <%= link_to 'community_index', communities_path, class: "center block" %>
+      <p>・Tags</p>
+      <ul class="tags">
+        <% if @tags.present? %>
+          <%= render partial: 'tag', collection: @tags, as: :tag %>
+        <% else %>
+          <li>No tags....</li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

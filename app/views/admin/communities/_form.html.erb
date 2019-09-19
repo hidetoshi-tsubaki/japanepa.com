@@ -4,6 +4,9 @@
       <%= f.label :name %>
       <%= f.text_field :name %>
     </div>
+    <div class="field">
+      <ul id="form_tags" class="tag_input"></ul>
+    </div>
     <div class="upload">
       <p>Image</p>
     <div class="post_img_area upload_img">
@@ -27,3 +30,4 @@
   <% end %>
 </div>
 <%= javascript_include_tag "prev_img.js" %>
+<%= javascript_include_tag "community" %>

@@ -1,0 +1,13 @@
+<div id="community_<%= community.id %>">
+  <% link_to community_path(community) %>
+  <div class="community <%= community.id %> col-12 col-md-4">
+    <div>
+      <%= image_tag community.img.to_s if community.img%>
+      <p class="community_name"><%= community.name %></p>
+      <p class="community_intro"><%= community.introduction %></p>
+      <p id="member_count_<%= community.id %>"><%= render partial:'member_count', locals: {community: community} %></p>
+      <p>total-post:<%= community.talks.count %></p>
+      <%= link_to 'show', community_path(community) %>
+    </div>
+  </div>
+</div>

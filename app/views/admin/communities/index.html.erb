@@ -1,0 +1,27 @@
+<h1>community index</h1>
+<div>
+  <%= form_with url: sort_communities_path, id:'formSort' do |f| %>
+    <%= f.select :sort,[["All","All"],["Posts - Descending","Posts - Descending"],["Posts - Ascending","Posts - Ascending"],["Members - Descending","Members - Descending"],["Members - Aescending","Members - Ascending"],["Date - new to old","Date - new to old"],["Date - old to new","Date - old to new"]],id:"sort" %>
+  <% end %>
+</div>
+<%= form_with url: search_communities_path, id:'formSearch' do |f| %>
+  <%= f.text_field :keyword %>
+  <%= f.submit 'search' ,id:"search_btn" %>
+<% end %>
+<div>
+  <div class="col-12 col-md-4 create_community">
+    <p>Hi there! Come here to check in with your favorite communities
+      and learn japanese with our Members!</p>
+      <button id="form_community">create community</button>
+      <%= link_to 'create community', new_community_path, remote: true %>
+    <% if past_30days_after_signIn? %>
+      <button id="form_community">create community</button>
+    <% else %>
+      <p>can't create communities yet</p>
+      <p>To prevent spam,account must be at least 30 days old</p>
+    <% end %>
+  </div>
+  <div id="community_index">
+    <%= render partial: 'community', collection: @communities, as: :community %>
+  </div>
+</div>

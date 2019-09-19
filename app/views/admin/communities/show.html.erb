@@ -1,0 +1,23 @@
+<h1><%= @community.name %></h1>
+<p id="member_count_<%= @community.id %>"><%= render partial:'member_count', locals: {community: @community} %></p>
+<div id="join_btn_<%= @community.id %>">
+  <%= render partial:'join_btn' , locals: {community: @community} %>
+</div>
+<div>
+    <div id="join_btn_<%= community.id %>">
+      <%= render partial: 'join_btn' , locals: {community: community} %>
+    </div>
+  <div id="form_talk" class="col-md-4 ">
+    <%= link_to new_community_path(@community) ,class:'submit' ,remote: true do %>
+    <button>create talk</button>
+    <% end %>
+    <p><%= link_to 'community_index', communities_path %></p>
+  </div>
+  <div id="talk_index" class="col-md-8 jscroll">
+    <% if @talks.present? %>
+      <%= render 'talks/index' %>
+    <% else %>
+      <p>no talks...</p>
+    <% end %>
+  </div>
+</div>
