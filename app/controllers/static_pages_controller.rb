@@ -5,10 +5,4 @@ class StaticPagesController < ApplicationController
   def top
   end
 
-  def question
-  end
-
-  def score
-    gon.number = params[:id]
-  end
 end

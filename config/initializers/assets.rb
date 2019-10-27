@@ -20,9 +20,10 @@ Rails.application.config.assets.precompile += %w( prev_img.js )
 Rails.application.config.assets.precompile += %w( infinite_scroll.js )
 Rails.application.config.assets.precompile += %w( indexCharts.js )
 Rails.application.config.assets.precompile += %w( calendar.js )
-Rails.application.config.assets.precompile += %w( summernote.min.js )
-Rails.application.config.assets.precompile += %w( article.js )
+Rails.application.config.assets.precompile += %w( summernote-bs4.min.js )
+Rails.application.config.assets.precompile += %w( summernote.js )
 Rails.application.config.assets.precompile += %w( community.js )
+Rails.application.config.assets.precompile += %w( score_record.js )
 
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 

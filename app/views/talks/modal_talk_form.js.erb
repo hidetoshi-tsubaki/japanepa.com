@@ -1,2 +1,2 @@
-$("#modal").html("<%= j(render 'talk_form') %>");
+$("#modal").html("<%= j(render partial: 'talk_form', locals: { talk: @talk, communities: @communities }) %>");
 $('#modalArea').fadeIn();

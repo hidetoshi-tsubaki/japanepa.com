@@ -23,7 +23,7 @@
 
   function getLevelComment(level){
     if (level === 100){
-      return "Level: Amazing!Fantastic!Superb! you mastered completely "
+      return "Amazing!Fantastic!Superb! you mastered completely "
     }else if(level > 90){
       return "Oh! Great! we say again this. You are Great!" 
     }else if(level > 60){

@@ -1,9 +1,11 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     comment = current_user.comments.new(comment_params)
     talk = Talk.find(comment_params[:talk_id])
     if comment.save
-      @comments = Comment.where(talk_id: comment_params[:talk_id]).sort_and_paginate(10)
+      @comments = Comment.where(talk_id: comment_params[:talk_id]).sorted..page(params[:page])
       @comment = talk.comments.new
       @talk = Talk.find(comment_params[:talk_id])
       render :update_index
@@ -17,8 +19,8 @@ class CommentsController < ApplicationController
   end
 
   def update
-     Comment.update(comment_params)
-     render :update_index
+    Comment.update(comment_params)
+    render :update_index
   end
 
   def delete

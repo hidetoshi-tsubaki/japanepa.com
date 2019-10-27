@@ -1,10 +1,10 @@
-<%= link_to '戻る', articles_path %>
+<%= link_to '戻る', communities_path %>
 <h1><%= @community.name %></h1>
 <p id="member_count_<%= @community.id %>">Member:<%= @community.users.count %></p>
 <div class="section_wrapper">
   <div id="talk_index" class="main_section inline jscroll">
     <% if @talks.present? %>
-       <%= render partial: 'talks/index', collection: @talks, as: :talk %> 
+       <%= render partial: 'talks/talk', collection: @talks, as: :talk %> 
     <% else %>
       <p>no talks...</p>
     <% end %>

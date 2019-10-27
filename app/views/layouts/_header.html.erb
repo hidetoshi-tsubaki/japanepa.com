@@ -6,8 +6,8 @@
   <%= link_to 'News', articles_path %>
   <% if user_signed_in? %>
     <div class="header_btn user">
-      <% unless current_user.img.to_s.empty? %>
-        <%= image_tag current_user.img.to_s %>
+      <% if current_user.img.attached? %>
+        <%= image_tag current_user.img %>
       <% else %>
         <%= icon("fas", "user") %>
       <% end %>

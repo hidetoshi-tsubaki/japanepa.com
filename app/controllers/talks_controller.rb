@@ -1,40 +1,34 @@
 class TalksController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
-  before_action :authenticate_edit_delete, only: :delete
+  # before_action :authenticate_edit_delete, only: :delete
   # もしも、communityに参加していなかった時のためのbefore_action
 
   def new
     @talk = current_user.talks.new
-    @community = Community.find_by(id: params[:id]) || @communities = current_user.community_users.includes(:community)
-    render :modal_talk_form
+    get_communities_select(params[:id])
   end
   
   def index
-    @communities= current_user.communities
-    @talks = talks_in_feed(@communities)
+    @talks = talks_in_feed
     @tags = Community.tags_on(:tags)
-    p @tags
-    p "#######"
   end
 
   def show
     @talk = Talk.includes(:user).find(params[:id])
     @comments = @talk.comments.includes(:users).sort_and_paginate(10)
-    # @comment = @talk.comments.new(user_id: current_user.id) if current_user
     @comment = Comment.new
   end
 
   def create
     @talk = Talk.new(talk_params)
-    if @talk.save
+    if @talk.save!
       flash.now[:notice] = "talk was post"
       @talks = Talk.order('created_at DESC').page(params[:page]).per(10)
       @communities = current_user.community_users.includes(:community)
-      render :update_index
-    else
-      flash.now[:notice] = "failed to post.... try again"
-      @communities = current_user.community_users.includes(:community)
       render :index
+    else
+      @communities = current_user.communities
+      render :new
     end
   end
 
@@ -46,7 +40,6 @@ class TalksController < ApplicationController
 
   def update
     talk = Talk.find(params[:id])
-    p talk
     if talk.update(talk_params)
       flash.now[:notice] = "talk was updated"
       # get_joined_communities
@@ -86,12 +79,20 @@ class TalksController < ApplicationController
     end
   end
 
-  def talks_in_feed(communities)
-    if communities.empty?
+  def talks_in_feed
+    if current_user.communities.empty?
       Talk.sorted
     else
-      community_id = communities.map{ |community| community.id }
-      Talk.where(id: community_id).precount(:comments)
+      community_id = current_user.communities.pluck(:id)
+      Talk.where(id: community_id)
+    end
+  end
+
+  def get_communities_select(params)
+    if params == "new"
+      @communities = current_user.communities
+    else
+      @community = Community.find(params)
     end
   end
 end

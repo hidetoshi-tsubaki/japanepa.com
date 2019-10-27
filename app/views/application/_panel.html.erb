@@ -1,0 +1,5 @@
+<div class="panel <%= 'is-show' if level_counter.zero? %>">
+  <ul class="accordion">
+    <%= render partial: 'section', collection: level.children , as: :section %>
+  </ul>
+</div>

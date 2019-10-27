@@ -18,9 +18,9 @@
  *= require_tree
  *
  */
-@import "bootstrap-sprockets";
 @import 'bootstrap';
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
-@import "summernote";
+@import "summernote-bs4";
 @import 'jquery.tagit';
+@import "tempusdominus-bootstrap-4.css";

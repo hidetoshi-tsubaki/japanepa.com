@@ -1,27 +1,29 @@
-<%= form_with model: @talk, builder: CustomFormBuilder do |f| %>
+<%= form_with model: @talk, local: true, builder: CustomFormBuilder do |f| %>
     <div class="row">
       <div class="col-md-6">
         <div class="field select_communities">
         <%= f.label :community_id %><br>
         <% if @communities %>
-          <%= f.select :community_id, @communities.map{|c| [c.community.name,c.community.id]} %>
+          <%= f.collection_select :community_id, @communities, :id, :name %>
         <% else %>
           <%= f.hidden_field :community_id ,:value => @community.id %>
         <% end %>
           <%= f.hidden_field :user_id ,:value => current_user.id %>
         </div>
-        <div class="field img_uploader">
-          <p>Image</p>
+        <div class="field">
+          <p class="bold">Image</p>
           <div class="post_img_area">
-            <img id="prev_img" src="#" class='hidden' />
-            <% if @talk.img? %>
-              <%= image_tag @talk.img.to_s, class:'present_img' %>
-              <%= f.check_box :remove_img  ,class:'remove_img' %>
+            <% if @talk.img.attached? %>
+              <%= image_tag @talk.img, id: 'present_img' %>
             <% else %>
+              <img id="no_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
               <%= f.hidden_field :img_cache %>
-              <img class="present_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
             <% end %>
-            <%= f.file_field :img, id: 'post_img' %>
+            <img id="new_img" src="#" class='hidden' />
+            <label for="input_img" class="input_img">
+              <p class="center upload_btn">Upload</p>
+              <%= f.file_field :img, id: 'input_img' %>
+            </label>
           </div>
         </div>
       </div>

@@ -1,30 +1,12 @@
 class Admin::CommunitiesController < ApplicationController
   include CommunitiesHelper
-  before_action :authenticate_user!, only: [:create, :edit, :update, :delete]
-  before_action :past_30days_after_signIn?, only: [:new, :create]
+  before_action :authenticate_admin!
+  before_action :set_community_tags, only: [:index, :search, :tag_search]
+  before_action :set_available_tags_to_gon, only: [ :edit, :confirm ]
 
   def index
-    if params[:tag].present?
-      @communities = Community.tagged_with(:tag)
-    else
-      @communities = Community.sorted
-    end
-    @tags = Community.tags_on(:tags)
-  end
-
-  def new
-    @community = Community.new
-    gon.available_tags = Community.tags_on(:tags).pluck(:name)
-  end
-
-  def create
-    @community = current_user.communities.new(community_params)
-    if @community.save
-      current_user.join(@community)
-      redirect_to admin_community_path(@community)
-    else
-      render 'new'
-    end
+    @q = Community.ransack(params[:q])
+    @communities = @q.result(distinct: true).sorted.page(params[:page])
   end
 
   def show
@@ -35,42 +17,61 @@ class Admin::CommunitiesController < ApplicationController
   def edit
     @community = Community.find(params[:id])
     gon.community_tags = @community.tag_list
-    gon.available_tags = Community.tags_on(:tags).pluck(:name)
   end
 
   def update
     @community = Community.find(params[:id])
-    if @community.update(community_params)
-      redirect_to community_path(@community)
+    @community.update(community_params)
+    if @community.save
+      redirect_to admin_communities_path
       flash.now[:notice] = "community was updated"
     else
       render 'edit'
     end
   end
 
-  def delete
+  def destroy
     if Community.find(params[:id]).destroy
-      @community = Community.sort_and_paginate(9)
-      render :index
+      @community = Community.sorted
+      redirect_to admin_communities_path(anchor: "index")
     else
       flash.now[:notice] = "failed to delete... try again"
       render :index
     end
   end
 
-  def sort
-    @communities = Community.sorted_by(params[:sort])
+  def tag_search
+    @communities = Community.tagged_with(params[:tag]).page(params[:page])
+    @q = Community.ransack(params[:q])
+    render template: 'admin/communities/index'
   end
 
   def search
-    @communities = Community.search(params[:keyword])
-    render 'sort.js.erb'
+    if params[:q]['name_or_introduction_or_users_name_cont_any'] != nil
+      params[:q]['name_or_introduction_or_users_name_cont_any'] = params[:q]['name_or_introduction_or_users_name_cont_any'].split(/[ ]/)
+      @keywords = Community.ransack(params[:q])
+      @communities = @keywords.result.sorted.page(params[:page])
+      @q = Community.ransack(params[:q])
+    else
+      @q = Community.ransack(params[:q])
+      @communities = @q.result(distinct: true).sorted.page(params[:page])
+    end
+    render template: 'admin/communities/index'
   end
 
   private
 
   def community_params
     params.require(:community).permit(:name, :img, :introduction, :user_id, :tag_list)
+  end
+
+  def set_available_tags_to_gon
+    gon.available_tags = Community.tags_on(:tags).pluck(:name)
+  end
+
+
+  def set_community_tags
+    @tags = Community.tags_on(:tags)
   end
 
 end

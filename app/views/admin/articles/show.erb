@@ -6,16 +6,8 @@
   </div>
 <% end %>
 <div class="article_section white">
-  <div id="like_btn_<%= @article.id %>">
-    <%= render partial:'like_btn' , locals: {article: @article} %>
-  </div>
-  <% if user_signed_in? %>
-  <div id="bookmark_btn_<%= @article.id %>">
-    <%= render partial:'bookmark_btn' , locals: {article: @article} %>
-  </div>
-  <% end %>
   <div>
-    <p><%= image_tag @article.img.to_s ,class:"top_img" %></p>
+    <p><%= image_tag @article.img ,class:"top_img" %></p>
   </div>
   <div class="article-contents">
     <p class="posted-time"><%= @article.created_at.strftime('%Y/%m/%d') %></p>

@@ -1,0 +1,6 @@
+<li>
+  <p class="ac_btn inline"><%= section.name %></p>
+  <ul class="ac-inner">
+    <%= render partial: 'title', collection: section.children, as: :title %>
+  </ul>
+</li>

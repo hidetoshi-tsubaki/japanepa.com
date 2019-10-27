@@ -1,7 +1,7 @@
 <div id="community_<%= community.id %>" class="community_wraper">
   <%= link_to community_path(community), id: "community_#{community.id}", class: "community_wrapper block" do %>
     <div>
-      <%= image_tag community.img.to_s if community.img %>
+      <%= image_tag community.img if community.img.attached? %>
       <p class="community_name"><%= community.name %></p>
       <p class="community_intro"><%= community.introduction %></p>
       <p id="member_count_<%= community.id %>">Member:<%= community.users.count %></p>

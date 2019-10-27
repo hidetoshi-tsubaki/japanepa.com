@@ -1,0 +1,15 @@
+<li class="quiz_category">
+  <span><%= title.name %></span>
+  <%= link_to play_quiz_path(title), class: "edit_button inline" do %>
+    <%= icon("far", "play-circle") %>Play
+  <% end %>
+  <%= link_to play_mistakes_quiz_path(title), class: "delete_button inline" do %>
+    <%= icon("far", "play-circle") %>Mistakes
+  <% end %>
+  <p class="chart_button inline" id=<%= title.id %>">
+    <%= icon("fas", "chart-line") %>Score
+  </p>
+  <%= link_to mistake_path(title), class: "show_mistakes_button inline" do %>
+    <%= icon("fas", "tasks") %>records
+  <% end %>
+</li>

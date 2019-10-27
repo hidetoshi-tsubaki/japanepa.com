@@ -1,23 +1,54 @@
-<div class="quiz_index">
-  <div class="narrow_down">
-   <% search_form_for(@q, url: search_admin_quiz_path) do |f| %>
-     <p>検索</p>
-     <%= f.search_field :question_or_choice1_cont_any %>
-     <%= f.submit %>
-   <% end %>
-    <select id="select_level" class="index">
-      <option>選択してください</option>
-      <%= render partial: 'option', collection: @options, as: :option %>
-    </select>
-    <select id="select_section">
-      <option>---</option>
-    </select>
-    <select id="select_title" class="index_page">
-      <option>---</option>
-    </select>
+<div class="admin_quiz_wrapper">
+  <div class="search_wrapper">
+    <h2>Quizzes index </h2>
+    <div class="search" id="date_input">
+      <p class="bold">● ワード検索</p>
+      <%= search_form_for @q, url: search_admin_quizzes_path do |f| %>
+        <div class="field">
+          <%= f.text_field :question_or_choice1_cont_any, class: "keyword_search" %>
+          <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
+        </div>
+        <div class="date_search_wrapper">
+          <%= render 'date_search', f: f %>
+        </div>
+        <p id="clear_btn" class="bold right">全クリア</p>
+        <%= f.submit 'Search' %>
+      <% end %>
+    </div>
+    <div class="category_search">
+      <p class="bold">● カテゴリー検索</p>
+      <div>
+        <label>Level</label>
+        <select id="select_level" class="index">
+          <option>選択してください</option>
+          <%= render partial: 'option', collection: @options, as: :option %>
+        </select>
+      </div>
+      <div>
+        <label>Section</label>
+        <select id="select_section">
+          <option>---</option>
+        </select>
+      </div>
+      <div>
+        <label>Title</label>
+        <select id="select_title" class="index_page">
+          <option>---</option>
+        </select>
+      </div>
+      <p class="category_link right bold"><%= link_to 'カテゴリー作成', admin_quiz_categories_path %></p>
+    </div>
   </div>
-  <p class="right"><%= link_to 'NEW', new_admin_quiz_path, class: 'new_button' %></p>
-  <ul class="quizzes_list">
-    <%= render partial: 'quiz', collection: @quizzes, as: :quiz %>
-  </ul>
+  <p>
+    <%= link_to 'NEW', new_admin_quiz_path, class: 'new_btn' %>
+    <span><%= link_to '全件表示', admin_quizzes_path %></span>
+    </p>
+  <table class="index_table">
+    <thead>
+      <%= render 'columns' %>
+    </thead>
+    <tbody class="quizzes_list">
+      <%= render partial: 'quiz', collection: @quizzes, as: :quiz %>
+    </tbody>
+  </table>
 </div>

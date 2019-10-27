@@ -1,66 +1,53 @@
 class Admin::QuizCategoriesController < ApplicationController
-  
-  def levels
+  before_action :authenticate_admin!
+
+  def index
     @categories = QuizCategory.levels
-    render 'show'
   end
 
-  def show
+  def categories
     @parent = QuizCategory.find(params[:id])
     @ancestors = @parent.get_ancestors
     get_children_category(@parent)
     if @parent.is_title?
       @quizzes = @parent.quizzes
     end
+    render 'index'
   end
 
   def new_level
-    @quiz_category = QuizCategory.new
+    @category = QuizCategory.new
+    render :new_level
   end
 
   def new_category
     @parent = QuizCategory.find(params[:id])
-    @quiz_category = QuizCategory.new
+    @category = @parent.is_section? ? TitleQuizExperienceForm.new : QuizCategory.new
+    render :new_category
   end
 
   def new_quiz
     @category = QuizCategory.find(params[:id])
     @quiz = Quiz.new
-    render 'quizzes/form'
   end
 
   def create
-    @quiz_category = QuizCategory.new(category_params)
-    if @quiz_category.save
+    @category = title_form?(params) ? TitleQuizExperienceForm.new(title_quiz_experience_params) : QuizCategory.new(category_params)
+    if @category.save
+      set_categories(@category)
       flash.now[:notice] = "新しいカテゴリーを作成しました！"
-      @categories = QuizCategory.levels
+      render :create
     else
-      render "new"
-      flash.now[:notice] = "カテゴリー作成に失敗しました..."
-    end
-  end
-
-  def create_category
-    if @parent = QuizCategory.find(params[:parent_id])
-      @quiz_category = @parent.children.create(params[:name])
-      if @quiz_category.valid?
-        flash.now[:notice] = "新しいカテゴリーを作成しました！"
-        redirect_to edit_quiz_category_path(@parent)
-      else
-        render "new_children"
-        flash.now[:notice] = "カテゴリー作成に失敗しました..."
-      end
-    else
+      rendering(@category)
     end
   end
 
   def edit
-    @quiz_category = QuizCategory.find(params[:id])
+    @category = QuizCategory.find(params[:id])
   end
 
   def edit_quiz
     @quiz = Quiz.find(params[:id])
-    render 'quizzes/form'
   end
 
   def update
@@ -75,15 +62,28 @@ class Admin::QuizCategoriesController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     category = QuizCategory.find(params[:id])
     category.destroy
     flash.now[:notice] = '#{quiz_category.name}を削除しました。'
-    if category.level?
-      redirect_to category_levels_path
+    if category.is_level?
+      redirect_to admin_quiz_categories_path
     else
-      redirect_to edit_quiz_category_path(category.parent.id)
+      redirect_to categories_admin_quiz_category_path(category.parent_id)
     end
+  end
+
+def search
+    if params[:q]['name_or_introduction_or_users_name_cont_any'] != nil
+      params[:q]['name_or_introduction_or_users_name_cont_any'] = params[:q]['name_or_introduction_or_users_name_cont_any'].split(/[ ]/)
+      @keywords = Community.ransack(params[:q])
+      @communities = @keywords.result.sorted
+      @q = Community.ransack(params[:q])
+    else
+      @q = Community.ransack(params[:q])
+      @communities = @q.result(distinct: true).sorted
+    end
+    render template: 'admin/communities/index'
   end
 
   def sort
@@ -96,7 +96,11 @@ class Admin::QuizCategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:quiz_category).permit(:name)
+    params.require(:quiz_category).permit(:name, :parent_id)
+  end
+
+  def title_quiz_experience_params
+    params.require(:title_quiz_experience_form).permit(:name, :parent_id, :experience)
   end
 
   def get_children_category(category)
@@ -105,6 +109,28 @@ class Admin::QuizCategoriesController < ApplicationController
     else
       @quizzes = category.quizzes
     end
+  end
+
+  def rendering(category)
+    if category.parent_id
+      @parent = QuizCategory.find(category.parent_id)
+      render :new_category
+    else
+      render :new_level
+    end
+  end
+
+  def set_categories(category)
+    if category.parent_id
+      @parent = QuizCategory.find(category.parent_id)
+      @categories = @parent.children
+    else
+      @categories = QuizCategory.where(depth: 0)
+    end
+  end
+
+  def title_form?(params)
+    return params[:title_quiz_experience_form].present? ? true : false
   end
 
 end

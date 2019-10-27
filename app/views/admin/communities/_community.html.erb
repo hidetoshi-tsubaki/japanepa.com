@@ -1,13 +1,20 @@
-<div id="community_<%= community.id %>">
-  <% link_to community_path(community) %>
-  <div class="community <%= community.id %> col-12 col-md-4">
-    <div>
-      <%= image_tag community.img.to_s if community.img%>
-      <p class="community_name"><%= community.name %></p>
-      <p class="community_intro"><%= community.introduction %></p>
-      <p id="member_count_<%= community.id %>"><%= render partial:'member_count', locals: {community: community} %></p>
-      <p>total-post:<%= community.talks.count %></p>
-      <%= link_to 'show', community_path(community) %>
-    </div>
-  </div>
-</div>
+<%= link_to edit_admin_community_path(community) do %>
+  <tr class="index_content" id="commynity_#{community_id} %>">
+    <td><%= community.id %></td>
+    <td class="truncate_column"><%= community.name.truncate(20) %></td>
+    <td><%= number_with_delimiter(community.member_count) %></td>
+    <td><%= number_with_delimiter(community.talk_count) %></td>
+    <td><%= community.introduction %></td>
+    <td><%= community.founder.name %></td>
+    <td><%= community.created_at.strftime('%Y/%m/%d') %></td>
+    <td><%= community.updated_at.strftime('%Y/%m/%d') %></td>
+    <td>
+      <%= link_to edit_admin_community_path(community), class: "edit_btn inline" do %>
+        <%= icon("fas", "edit") %> 編集
+      <% end %>
+      <%= link_to admin_community_path(community), class: "delete_btn inline",data: { confirm: 'このコミュニティーを削除しますか?' } ,method: :delete do %>
+        <%= icon("fas", "trash-alt") %> 削除
+      <% end %>
+    </td>
+  </tr>
+<% end %>

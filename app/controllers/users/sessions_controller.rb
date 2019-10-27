@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  before_action :reset_session_before_login, only: [:create]
+  # before_action :reset_session_before_login, only: [ :create ]
+  # skip_before_action :verify_authenticity_token, only: [ :new ]
 
   # GET /resource/sign_in
   def new
@@ -30,4 +31,5 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+
 end

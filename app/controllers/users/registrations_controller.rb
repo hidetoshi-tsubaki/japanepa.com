@@ -10,9 +10,29 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    build_resource(sign_up_params)
+
+    resource.save
+    yield resource if block_given?
+    if resource.persisted?
+      if resource.active_for_authentication?
+        flash[:notice] = "Welcome to Japanepa.com!! Enjoy our Service!!!!"
+        sign_up(resource_name, resource)
+        respond_with resource, location: after_sign_up_path_for(resource)
+        
+        set_user_total_experience(resource)
+      else
+        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+        expire_data_after_sign_in!
+        respond_with resource, location: after_inactive_sign_up_path_for(resource)
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -58,16 +78,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  # アカウント編集後、プロフィール画面に移動する
   def after_update_path_for(resource)
     user_path(id: current_user.id)
+  end
+
+  def set_user_total_experience(user)
+    user_total_experience = UserTotalExperience.new(user_id: resource.id)
+    user_total_experience.save!
   end
 
   #  ログイン後、~~~~~~に移動する
   # def after_sign_in_path_for(resource)
   # end
   # 認証メール送信後、再送ページに遷移する。
-  def after_inactive_sign_up_path_for(resource)
-    new_user_confirmation_path(resource_name)
-  end
+  # def after_inactive_sign_up_path_for(resource)
+  #   new_user_confirmation_path(resource_name)
+  # end
+
+
 end

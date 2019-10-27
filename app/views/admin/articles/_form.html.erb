@@ -1,0 +1,38 @@
+<%= form_with model: [:admin, article], local: true, builder: CustomFormBuilder do |f| %>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field" >
+    <%= f.label :lead %><br>
+    <%= f.text_area :lead %>
+  </div>
+  <div class="field">
+    <p class="bold">Tags</p>
+    <ul id="form-tags" class="tag_input"></ul>
+  </div>
+  <div class="field">
+    <p class="bold">Top-Image</p>
+    <div class="post_img_area">
+      <% if @article.img.attached? %>
+        <%= image_tag @article.img, id: 'present_img' %>
+      <% else %>
+        <img id="no_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
+        <%= f.hidden_field :img_cache %>
+      <% end %>
+      <img id="new_img" src="#" class='hidden' />
+      <label for="input_img" class="input_img">
+        <p class="center upload_btn">Upload</p>
+        <%= f.file_field :img, id: 'input_img' %>
+      </label>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :contents %>
+    <%= f.text_area :contents, 'data-provider': :summernote %>
+  </div>
+  <div class="actions">
+    <%= f.submit "submit" %>
+  </div>
+<% end %>
+<%= javascript_include_tag 'summernote' %>

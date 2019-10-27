@@ -1,0 +1,25 @@
+<div class="mistakes_wrapper">
+  <div >
+    <h2>Mistakes index </h2>
+    <p><%= @category.name %></p>
+    <div id="date_input">
+      <%= search_form_for @q, url: search_mistakes_path do |f| %>
+        <div class="field">
+          <%= f.text_field :quiz_question_or_quiz_choice1_cont_any, class: "keyword_search" %>
+          <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
+        </div>
+        <%= f.hidden_field :title_id, value: @category.id %>
+        <%= f.submit 'Search' %>
+      <% end %>
+    </div>
+  </div>
+  <p><%= link_to "Show all", mistake_path(@category.id, anchor: "index"), class: 'new_btn' %></p>
+  <table class="index_table" id="index">
+    <thead>
+      <%= render 'columns' %>
+    </thead>
+    <tbody class="quizzes_list">
+      <%= render partial: 'mistake', collection: @mistakes, as: :mistake %>
+    </tbody>
+  </table>
+</div>

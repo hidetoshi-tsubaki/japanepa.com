@@ -1,5 +1,6 @@
 class CommunitiesUsersController < ApplicationController
-  before_action :authenticate_user!, only: [:join, :leave]
+  before_action :authenticate_user!
+
   def join
     @community = Community.find(params[:id])
     current_user.join(@community)

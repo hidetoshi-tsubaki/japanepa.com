@@ -1,0 +1,20 @@
+<%= link_to edit_admin_quiz_path(quiz) do %>
+  <tr class="index_content" id="quiz_#{quiz_id}">
+    <td><%= quiz.id %></td>
+    <td class="truncate_column"><%= get_first_sentence(quiz.question).truncate(20) %></td>
+    <td><%= quiz.choice1.truncate(20) %></td>
+    <td><%= quiz.choice2.truncate(20) %></td>
+    <td><%= quiz.choice3.truncate(20) %></td>
+    <td><%= quiz.choice4.truncate(20) %></td>
+    <td><%= quiz.updated_at.strftime('%Y/%m/%d') %></td>
+    <td><%= quiz.created_at.strftime('%Y/%m/%d') %></td>
+    <td>
+      <%= link_to edit_quiz_admin_quiz_categories_path(quiz), class: "edit_btn inline" do %>
+        <%= icon("fas", "edit") %> 編集
+      <% end %>
+      <%= link_to admin_quiz_path(quiz), class: "delete_btn inline",data: { confirm: 'このユーザーを削除しますか?' } ,method: :delete do %>
+        <%= icon("fas", "trash-alt") %> 削除
+      <% end %>
+    </td>
+  </tr>
+<% end %>

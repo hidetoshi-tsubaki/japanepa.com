@@ -1,15 +1,12 @@
 class CommunitiesController < ApplicationController
   include CommunitiesHelper
-  before_action :authenticate_user!, only: [:create, :edit, :update, :delete]
-  before_action :past_30days_after_signIn?, only: [:new, :create]
+  before_action :authenticate_user!
+  # before_action :past_30days_after_signIn?, only: [:new, :create]
+  before_action :set_community_tags, only: [:index, :search, :tag_search]
 
   def index
-    if params[:tag].present?
-      @communities = Community.tagged_with(params[:tag]).sorted
-    else
-      @communities = Community.sorted
-    end
-    @tags = Community.tags_on(:tags)
+    @q = Community.ransack(params[:q])
+    @communities = @q.result(distinct: true).sorted
   end
 
   def new
@@ -21,7 +18,7 @@ class CommunitiesController < ApplicationController
     @community = current_user.communities.new(community_params)
     if @community.save
       current_user.join(@community)
-      redirect_to admin_community_path(@community)
+      redirect_to community_path(@community)
     else
       render 'new'
     end
@@ -50,7 +47,7 @@ class CommunitiesController < ApplicationController
 
   def show
     @community = Community.find(params[:id])
-    @talks = Talk.includes(:users).where(community_id: params[:id])
+    @talks = Talk.where(community_id: params[:id])
     @tags = @community.tags_on(:tags)
   end
 
@@ -58,9 +55,23 @@ class CommunitiesController < ApplicationController
     @communities = Community.sorted_by(params[:sort])
   end
 
+  def tag_search
+    @communities = Community.tagged_with(params[:tag])
+    @q = Community.ransack(params[:q])
+    render template: 'communities/index'
+  end
+
   def search
-    @communities = Community.search(params[:keyword])
-    render 'sort'
+    if params[:q] != nil
+      params[:q]['name_or_introduction_cont_any'] = params[:q]['name_or_introduction_cont_any'].split(/[ ]/)
+      @keywords = Community.ransack(params[:q])
+      @communities = @keywords.result.sorted
+      @q = Community.ransack(params[:q])
+    else
+      @q = Community.ransack(params[:q])
+      @communities = @q.result(distinct: true).sorted
+    end
+    render template: 'communities/index'
   end
 
   def join
@@ -77,7 +88,11 @@ class CommunitiesController < ApplicationController
   private
 
   def community_params
-    params.require(:community).permit(:name, :img, :introduction, :user_id, :tag_list)
+    params.require(:community).permit(:name, :img, :introduction, :founder_id, :tag_list)
+  end
+
+  def set_community_tags
+    @tags = Community.tags_on(:tags)
   end
 
 end

@@ -1,0 +1,38 @@
+<div class="date_search">
+  <p class="bold">作成日</p>
+  <div class="form-group">
+    <div class="field input-group date date_form" id="creation_date_from" data-target-input="nearest">
+      <%= f.text_field :created_at_gteq, class: "form-control datetimepicker-input", id: "creation_date_from", data: {toggle: "from_date", target: "#creation_date_from"}, placeholder: "from..." %>
+      <div class="input-group-append" data-target="#creation_date_from" data-toggle="datetimepicker">
+        <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="field input-group date date_form" id="creation_date_to" data-target-input="nearest">
+      <%= f.text_field :created_at_lt, class: "form-control datetimepicker-input", id: "creation_date_to", data: {toggle: "to_date", target: "#creation_date_to"}, placeholder: "to..." %>
+      <div class="input-group-append" data-target="#creation_date_to" data-toggle="datetimepicker">
+        <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="date_search">
+  <p class="bold">更新日</p>
+  <div class="form-group">
+    <div class="field input-group date date_form" id="update_date_from" data-target-input="nearest">
+      <%= f.text_field :updated_at_gteq, class: "form-control datetimepicker-input", id: "update_date_from", data: {toggle: "from_date", target: "#update_date_from"}, placeholder: "from..." %>
+      <div class="input-group-append" data-target="#update_date_from" data-toggle="datetimepicker">
+        <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="field input-group date date_form" id="update_date_to" data-target-input="nearest">
+      <%= f.text_field :updated_at_lt, class: "form-control datetimepicker-input", id: "update_date_to", data: {toggle: "to_date", target: "#update_date_to"}, placeholder: "to..." %>
+      <div class="input-group-append" data-target="#update_date_to" data-toggle="datetimepicker">
+        <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 class ScoreRecord < ApplicationRecord
   belongs_to :user
-  validates :score, :quizTitle, :user_id, presence: true
+  counter_culture :user, column_name: 'play_count'
+  validates :score, :user_id, :title_id, presence: true
 end

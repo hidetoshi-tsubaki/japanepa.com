@@ -4,12 +4,20 @@
   <% if @user.img %>
     <%= image_tag @user.img.to_s, class:'present_img' %>
   <% else %>
-   <%= image_tag 'https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg' %>
+    <%= image_tag 'https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg' %>
   <% end %>
   <table class="user_info">
     <tr>
       <td>Name:</td>
-      <td>121212121212121</td>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <td>Lv:</td>
+      <td><%= @current_level %></td>
+    </tr>
+    <tr>
+      <td>total_experience:</td>
+      <td><%= @current_experience %></td>
     </tr>
     <tr>
       <td>Total Play Count:</td>

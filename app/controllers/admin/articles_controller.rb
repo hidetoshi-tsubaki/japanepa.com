@@ -1,32 +1,26 @@
 class Admin::ArticlesController < ApplicationController
-  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :delete]
-  before_action :set_article_tags_to_gon, only: [:edit]
-  impressionist :actions => [:show]
+  before_action :authenticate_admin!, only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :set_article_tags, only: [ :index, :search, :tag_search ]
+  before_action :set_available_tags_to_gon, only: [ :new, :edit, :confirm ]
 
   def index
-    if params[:tag].present?
-      @article = Article.tagged_with(params[:tag])
-    elsif params[:q].present?
-      if words.present?
-        params[:q][:groupings] = []
-        words.split(/[ ]/).each_with_index do |word, index|
-          params[:q][:groupings][index] = [title_or_lead_cont: word]
-        end
-     end
-    else
-      @articles = Article.sorted
-    end
-    @tags = Article.tags_on(:tags).pluck(:name)
+    @q = Article.ransack(params[:q])
+    @articles = @q.result(distinct: true).page(params[:page])
   end
 
   def show
-    @article = Article.find(params[:id])
+    @article = Article.find(params[:id]).page(params[:page])
     @tags = @article.tags_on(:tags)
   end
 
   def new
     @article = Article.new
-    gon.available_tags = Article.tags_on(:tags).pluck(:name)
+  end
+
+  def comfirm
+    @article = Article.new(article_params)
+    return if @article.valid?
+    render :new
   end
 
   def create
@@ -43,7 +37,6 @@ class Admin::ArticlesController < ApplicationController
   def edit
     @article = Article.find(params[:id])
     gon.article_tags = @article.tag_list
-    gon.available_tags = @article.tag_list
   end
 
   def update
@@ -58,14 +51,13 @@ class Admin::ArticlesController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     if Article.find(params[:id]).destroy
-      puts "delete Article successfully"
-      @articles = Article.all
-      redirect_to articles_index_path
+      @articles = Article.sorted
+      redirect_to admin_articles_path(anchor: "index")
     else
       flash.now[:notice] = "failed to delete Article......"
-      render 'edit'
+      render index
     end
   end
 
@@ -73,7 +65,7 @@ class Admin::ArticlesController < ApplicationController
     Article.includes(:bookmarks).references.(:bookmarks).where("bookmark.id", current_user.id).sort_and_paginate(10)
   end
 
-  def image_upload
+  def upload_image
     image_uploader = Article::ImageUploader.new(params[:upload_image])
     if image_uploader.upload_image
       object = image_uploader.get_bucket.object(image_uploader.get_key_name)
@@ -85,7 +77,6 @@ class Admin::ArticlesController < ApplicationController
   end
 
   def delete_image
-    # p params[:image_url]
     image_delete = Article::DeleteImage.new(params[:image_url])
     if image_delete.delete
       puts "deleted the image successfully"
@@ -93,18 +84,38 @@ class Admin::ArticlesController < ApplicationController
       head 400
     end
   end
+  
+  def search
+    if params[:q]['title_or_lead_cont_any'] != nil
+      params[:q]['title_or_lead_cont_any'] = params[:q]['title_or_lead_cont_any'].split(/[ ]/)
+      @keywords = Article.ransack(params[:q])
+      @articles = @keywords.result.page(params[:page])
+      @q = Article.ransack(params[:q])
+    else
+      @q = Article.ransack(params[:q])
+      @articles = @q.result(distinct: true).page(params[:page])
+    end
+    render template: 'admin/articles/index'
+  end
 
-  def admin_index
+  def tag_search
+    @articles = Article.tagged_with(params[:tag]).page(params[:page])
+    @q = Article.ransack(params[:q])
+    render template: 'admin/articles/index'
   end
 
   private
 
   def article_params
-    params.require(:article).permit(:title, :lead,:tag_list, :img, :img_cache, :remove_img, :contents)
+    params.require(:article).permit(:title, :lead, :tag_list, :img, :img_cache, :remove_img, :contents)
   end
 
-  def set_article_tags_to_gon
-    gon.article_tags = Article.tag_list
+  def set_available_tags_to_gon
+    gon.available_tags = Article.tags_on(:tags).pluck(:name)
+  end
+
+  def set_article_tags
+    @tags = Article.tags_on(:tags)
   end
 
 end

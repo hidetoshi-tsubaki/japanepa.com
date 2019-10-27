@@ -1,13 +1,4 @@
 <h1>community index</h1>
-<div>
-  <%= form_with url: sort_communities_path, id:'formSort' do |f| %>
-    <%= f.select :sort,[["All","All"],["Posts - Descending","Posts - Descending"],["Posts - Ascending","Posts - Ascending"],["Members - Descending","Members - Descending"],["Members - Aescending","Members - Ascending"],["Date - new to old","Date - new to old"],["Date - old to new","Date - old to new"]],id:"sort" %>
-  <% end %>
-</div>
-<%= form_with url: search_communities_path, id:'formSearch' do |f| %>
-  <%= f.text_field :keyword %>
-  <%= f.submit 'search' ,id:"search_btn" %>
-<% end %>
 <div class="section_wrapper">
   <div class="main_section inline">
     <div id="community_index">

@@ -8,8 +8,8 @@
   </ul>
   <div class="talk_content_wrapper">
     <%= simple_format(text_url_to_link(h(talk.content)).html_safe,class: 'talk_content') %>
-    <% unless talk.img.to_s.empty? %>
-      <p><%= image_tag talk.img.to_s %></p>
+    <% if talk.img.attached? %>
+      <p><%= image_tag talk.img %></p>
     <% end %>
   </div>
   <ul class="talk_btns">
@@ -19,16 +19,16 @@
       <% end %>
     </li>
     <li id="like_btn_<%= talk.id %>" class="like_btn">
-        <%= render partial:'talks/like_btn' ,locals: {talk: talk} %>
+        <%= render partial:'talks/like_btn' ,locals: { talk: talk } %>
     </li>
     <% if talk.user_id == current_user.id %>
       <li>
-        <%= link_to edit_talks_path(talk), remote: true,class:"edit-btn" do %>
+        <%= link_to edit_talk_path(talk), remote: true,class:"edit-btn" do %>
           <%= icon("fas", "edit") %>
         <% end %>
       </li>
       <li>
-        <%= link_to delete_talk_path(talk), remote: true,data: { confirm: 'Delete this post?' },method: :delete,class:"delete-btn" do %>
+        <%= link_to talks_path(talk), remote: true,data: { confirm: 'Delete this post?' },method: :delete,class:"delete-btn" do %>
           <%= icon("fas", "trash-alt") %>
         <% end %>
       </li>

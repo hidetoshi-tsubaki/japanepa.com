@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :communities, through: :community_users
   has_many :score_records, dependent: :destroy
   has_many :talks, dependent: :destroy
-  has_many :communities, dependent: :destroy
+  has_many :founded_communities, class_name: 'Community', foreign_key: 'founder_id', dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :like_talks, dependent: :destroy
   has_many :talks, through: :like_talks
@@ -11,7 +11,9 @@ class User < ApplicationRecord
   has_many :articles, through: :like_articles
   has_many :bookmarks, dependent: :destroy
   has_many :articles, through: :bookmarks
-  mount_uploader :img, ImgUploader
+  has_many :mistakes
+  has_many :user_total_experiences
+  has_one_attached :img
   validates :name, uniqueness: { case_sensitive: false }
   validates :name, presence: true
   validates :password_confirmation, presence: true

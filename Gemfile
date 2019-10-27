@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.4.1'
-gem 'rails', '~> 5.2.0.rc1'
-gem 'bootstrap-sass'
+gem 'rails', '~> 5.2.0'
+gem 'bootstrap'
 gem 'puma',         '3.9.1'
 gem 'sass-rails',   '5.0.6'
 gem 'uglifier',     '3.2.0'
@@ -17,14 +17,12 @@ gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'chart-js-rails', '~> 0.1.4'
 gem 'carrierwave'
-gem 'fog'
 gem 'mini_magick'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'dotenv-rails'
 gem 'remotipart', '~> 1.2'
 gem 'font-awesome-sass', '~> 5.8.1'
-gem 'aws-sdk-s3', '~> 1'
 gem 'kaminari'
 gem 'country_select', require: 'country_select_without_sort_alphabetical'
 gem 'impressionist'
@@ -34,11 +32,15 @@ gem 'ransack'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'jquery-ui-rails'
 gem 'flag_icon_css_rails'
-gem 'activerecord-precount'
+gem "bootstrap4-datetime-picker-rails"
+gem 'counter_culture'
+gem 'summernote-rails', '~> 0.8.12.0'
+gem 'activerecord-import'
+gem 'nokogiri'
+gem 'aws-sdk-s3', require: false
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
-  gem 'byebug',  '9.0.6', platform: :mri
 end
 
 group :development do

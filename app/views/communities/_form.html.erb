@@ -1,4 +1,5 @@
 <%= form_with model: @community, builder: CustomFormBuilder, local: true do |f| %>
+      <%= f.hidden_field :founder_id, value: current_user.id %>
   <div class="field">
   <%= f.label :name %><br>
   <%= f.text_field :name %>
@@ -7,16 +8,18 @@
     <ul id="form_tags" class="tag_input"></ul>
   </div>
   <div class="field">
-    <p>Image</p>
+    <p class="bold">Image</p>
     <div class="post_img_area">
-      <%= f.file_field :img, id: 'post_img' %>
-      <% if @community.img.present? %>
-        <%= image_tag @community.img.to_s, class: 'present_Img' %>
+      <% if @community.img.attached? %>
+        <%= image_tag @community.img, id: 'present_img' %>
       <% else %>
-        <%= f.hidden_field :img_cache %>
-      <img id="postImg_prev" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
-      <% end %> 
-      <p class="delete_img hidden">cancel</p>
+        <img id="no_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
+      <% end %>
+      <img id="new_img" src="#" class='hidden' />
+      <label for="input_img" class="input_img">
+        <p class="center upload_btn">Upload</p>
+        <%= f.file_field :img, id: 'input_img' %>
+      </label>
     </div>
   </div>
   <div class="field"> 

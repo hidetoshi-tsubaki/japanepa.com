@@ -1,27 +1,47 @@
-<h1>community index</h1>
-<div>
-  <%= form_with url: sort_communities_path, id:'formSort' do |f| %>
-    <%= f.select :sort,[["All","All"],["Posts - Descending","Posts - Descending"],["Posts - Ascending","Posts - Ascending"],["Members - Descending","Members - Descending"],["Members - Aescending","Members - Ascending"],["Date - new to old","Date - new to old"],["Date - old to new","Date - old to new"]],id:"sort" %>
-  <% end %>
-</div>
-<%= form_with url: search_communities_path, id:'formSearch' do |f| %>
-  <%= f.text_field :keyword %>
-  <%= f.submit 'search' ,id:"search_btn" %>
-<% end %>
-<div>
-  <div class="col-12 col-md-4 create_community">
-    <p>Hi there! Come here to check in with your favorite communities
-      and learn japanese with our Members!</p>
-      <button id="form_community">create community</button>
-      <%= link_to 'create community', new_community_path, remote: true %>
-    <% if past_30days_after_signIn? %>
-      <button id="form_community">create community</button>
-    <% else %>
-      <p>can't create communities yet</p>
-      <p>To prevent spam,account must be at least 30 days old</p>
-    <% end %>
+<div class="index_wrapper">
+  <div class="search_wrapper">
+    <h2>Quiz index </h2>
+    <div class="search" id="date_input">
+      <p class="bold">ワード検索</p>
+      <%= search_form_for @q, url: search_admin_communities_path do |f| %>
+        <div class="field">
+          <%= f.text_field :name_or_introduction_or_users_name_cont_any, class: "keyword_search" %>
+          <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
+        </div>
+        <div class="date_search_wrapper">
+          <%= render 'date_search', f: f %>
+        </div>
+        <p id="clear_btn" class="bold right">全クリア</p>
+        <%= f.submit 'Search' %>
+      <% end %>
+    </div>
+    <div class="tag_search">
+      <p class="bold">・Tags</p>
+      <ul class="tags_section tags">
+        <% if @tags.present? %>
+          <%= render partial: 'tag', collection: @tags, as: :tag %>
+        <% else %>
+          <li>No tags....</li>
+        <% end %>
+      </ul>
+    </div>
   </div>
-  <div id="community_index">
-    <%= render partial: 'community', collection: @communities, as: :community %>
+  <div class="communities_index jscroll ">
+    <p><%= link_to "全件表示", admin_communities_path(anchor: "index"), class: "show_all" %></p>
+    <table class="index_table" id="index">
+      <%= render 'column' %>
+    <tbody class="jscroll">
+      <% if @communities.present? %>
+        <%= render partial: 'community', collection: @communities, as: :community %>
+        <%= paginate @connumities %>
+      <% end %>
+    </tbody>
+    </table>
+    <% if @communities.blank? %>
+      <div class="no_result">
+        <h3 class="center">No communities....</h3>
+        <p class="center"><%= link_to '一覧表示', admin_communities_path %></p>
+      </div>
+    <% end %>
   </div>
 </div>

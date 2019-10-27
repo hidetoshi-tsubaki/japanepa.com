@@ -2,40 +2,53 @@ Rails.application.routes.draw do
   root "static_pages#home"
   get 'users/show'
   get 'users/index'
-
   get '/', to: 'static_pages#home'
   get '/top', to: 'static_pages#top'
   get '/japanepa/feed', to: 'communities#feed', as: 'feed'
+  get '/like_talk/:id', to: 'likes_talks#like', as: 'like_talk'
+  get '/remove_like_talk/:id', to: 'likes_talks#remove_like', as: 'remove_like_talk'
+  get '/like_article/:id', to: 'likes_articles#like', as: 'like_article'
+  get '/remove_like_article/:id', to: 'likes_articles#remove', as: 'remove_like_article'
+  get '/bookmark/:id', to: 'bookmarks#bookmark', as: 'bookmark'
+  get '/remove_bookmark/:id', to: 'bookmarks#remove_bookmark', as: 'remove_bookmark'
 
   resources :quizzes, only: [:show, :index] do
     collection do
       get :all_quizzes
+    end
+    member do
       get :play
+      get :play_mistakes
     end
   end
-
+  resources :mistakes, only: [:show, :destroy] do
+    collection do
+      get :search
+    end
+  end
   resources :score_records, only: [:index, :show, :create]
   resources :talks do
     collection do
-      post :sort
-      post :search
+      get :sort
+      get :search
+      get :tag_search
     end
     member do
       get :new, as:'talk_new_in_community_page'
     end
   end
-
   resources :articles, only: [:show, :index] do
     collection do
-      post :sort
-      post :search
+      get :sort
+      get :search
+      get :tag_search
     end
   end
-
   resources :communities do
     collection do
-      post :sort
-      post :search
+      get :sort
+      get :search
+      get :tag_search
     end
     member do
       get :join
@@ -43,17 +56,13 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/like_talk/:id', to: 'likes_talks#like', as: 'like_talk'
-  get '/remove_like_talk/:id', to: 'likes_talks#remove_like', as: 'remove_like_talk'
-
-  get '/like_article/:id', to: 'likes_articles#like', as: 'like_article'
-  get '/remove_like_article/:id', to: 'likes_articles#remove_like', as: 'remove_like_article'
-
-  get '/bookmark/:id', to: 'bookmarks#bookmark', as: 'bookmark'
-  get '/remove_bookmark/:id', to: 'bookmarks#remove_bookmark', as: 'remove_bookmark'
-
   namespace :admin do
-    get '/top', to: 'home#top'
+    get '/', to: 'home#top'
+    resources :users do
+      collection do
+        get :search
+      end
+    end
     resources :quizzes do
       collection do
         get :all
@@ -68,21 +77,39 @@ Rails.application.routes.draw do
     end
     get '/quizzes/section_list/:id/:page', to: 'quizzes#get_section_list', as: 'quiz_sections'
     get '/quizzes/title_list/:id/:page', to: 'quizzes#get_title_list', as: 'quiz_titles'
+    post 'title_quiz_experience_forms', to: 'quiz_categories#create'
     resources :quiz_categories do
       collection do
         get :levels
+        post :create_level
         get :new_level
-        get :create_categroy
+        get :new_quiz
+        get :edit_quiz
+        get :new_categroy
+        get :search
       end
       member do
         get :new_category
+        get :categories
         patch :sort
         get :edit_quiz
         get :new_quiz
       end
     end
-    resources :articles
-    resources :communities
+    resources :articles do
+      collection do
+        get :search
+        get :tag_search
+        post :upload_image
+        post :delete_image
+      end
+    end
+    resources :communities do
+      collection do
+        get :search
+        get :tag_search
+      end
+    end
     resource :user, only: [:index, :delete]
   end
 

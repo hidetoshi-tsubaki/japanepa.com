@@ -1,21 +1,10 @@
-<div class="row">
-  <% @n5_quiz.each do |section,quizTitles| %>
-    <div class="col-xs-12">
-      <h1>●<%= section %></h1>
-      <div>
-        <% quizTitles.each do |quizTitle| %>
-        <div class="col-xs-12 col-lg-4 ">
-          <div class=" card redBtn link">
-            <h1><%= quizTitle %></h1>
-            <%= link_to "",controller:"quizzes",action:"show",title:quizTitle %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+<div class="quiz_index">
+  <ul class="tab_wrapper">
+    <%= render partial: 'tab', collection: @levels, as: :level %>
+  </ul>
+  <div class="panel_wrapper">
+    <%= render partial: 'panel', collection: @levels, as: :level %>
+  </div>
 </div>
-
-
-
-
+<%= javascript_include_tag 'score_record.js' %>
+<%= javascript_include_tag 'show_charts.js' %>

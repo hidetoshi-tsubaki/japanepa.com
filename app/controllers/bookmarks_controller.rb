@@ -1,4 +1,6 @@
 class BookmarksController < ApplicationController
+  before_action :authenticate_user!
+
   def bookmark
     @article = Article.find(params[:id])
     current_user.bookmark(@article)

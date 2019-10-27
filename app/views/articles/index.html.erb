@@ -2,7 +2,12 @@
 <div class="section_wrapper">
   <div class="main_section">
     <div class="article_index jscroll">
-      <%= render partial: 'index', collection: @articles, as: :article %>
+      <% if @articles.present? %>
+        <%= render partial: 'article', collection: @articles, as: :article %>
+        <%= paginate @articles %>
+      <% else %>
+        <p class="center">No...article</p>
+      <% end %>
     </div>
   </div>
   <div class="side_section">
@@ -13,5 +18,9 @@
       <li>No tags....</li>
       <% end %>
     </ul>
+    <%= search_form_for @q, url: search_articles_path do |f| %>
+      <%= f.text_field :title_or_lead_cont_any %>
+      <%= f.submit 'Search' %>
+    <% end %>
   </div>
 </div>

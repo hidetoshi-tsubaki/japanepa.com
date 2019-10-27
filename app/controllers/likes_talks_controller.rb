@@ -1,4 +1,6 @@
 class LikesTalksController < ApplicationController
+  before_action :authenticate_user!
+
   def like
     @talk = Talk.find(params[:id])
     current_user.like_talk(@talk)

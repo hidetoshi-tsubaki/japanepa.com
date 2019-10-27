@@ -11,8 +11,9 @@ class Article::DeleteImage
   end
 
   def delete
-    @s3.object(@delete_image).delete
-    return true
+    begin
+      @s3.object(@delete_image).delete
+      return true
     rescue => e
         # Do nothing. Leave the now defunct file sitting in the bucket.
       return true

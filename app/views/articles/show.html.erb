@@ -2,23 +2,35 @@
 <div class="section_wrapper">
   <div class="main_section article-contents">
     <div>
-      <p><%= image_tag @article.img.to_s ,class:"top_img" %></p>
+      <p><%= image_tag @article.img ,class:"top_img" %></p>
     </div>
     <p class="posted-time"><%= @article.created_at.strftime('%Y/%m/%d') %></p>
-    <h1><%= @article.title %></h1>
+    <p class="article_title"><%= @article.title %></p>
     <hr>
-    <div class="">
+    <div id="like_btn_<%= @article.id %>">
+      <%= render partial:'articles/like_btn' , locals: {article: @article} %>
+    </div>
+    <% if user_signed_in? %>
+    <div id="bookmark_btn_<%= @article.id %>">
+      <%= render partial:'articles/bookmark_btn' , locals: {article: @article} %>
+    </div>
+    <% end %>
+    <div class="main_contents">
       <%= raw(@article.contents) %>
     </div>
   </div>
     <div class="side_section">
-      <div id="like_btn_<%= @article.id %>">
-        <%= render partial:'articles/like_btn' , locals: {article: @article} %>
-      </div>
-      <% if user_signed_in? %>
-      <div id="bookmark_btn_<%= @article.id %>">
-        <%= render partial:'articles/bookmark_btn' , locals: {article: @article} %>
-      </div>
+    <div class="article_ranking">
+      <ul>
+      <%= render partial: 'ranked_article', collection: @ranked_articles, as: :ranked_article %>
+      </ul>
+    </div>
+    <ul class="tags">
+      <% if @tags.present? %>
+        <%= render partial: 'tag', collection: @tags, as: :tag %>
+      <% else %>
+      <li>No tags....</li>
       <% end %>
+    </ul>
     </div>
 </div>

@@ -2,7 +2,7 @@
   <div class="col-md-4 eq-height">
     <div class="eq-hieght_content">
     <% if user_signed_in? %>
-     <%= link_to "profile",show_profile_path %>
+      <%= link_to "profile",show_profile_path %>
     <% elsif admin_signed_in? %>
       <%= link_to "Users", users_index_path%>
     <% else %>

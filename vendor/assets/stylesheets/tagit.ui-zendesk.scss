@@ -1,23 +1,19 @@
 /* Optional scoped theme for tag-it which mimics the zendesk widget. */
 
 ul.tagit {
-    border-style: solid;
-    border-width: 1px;
-    border-color: #ccc;
-    background: #fff;
+    border-bottom: 1px solid #cccccc;
+    background: #F8F8F8;
 }
 ul.tagit li.tagit-choice {
     -moz-border-radius: 6px;
     border-radius: 6px;
     -webkit-border-radius: 6px;
-    border: 1px solid #ccc;
-
-    background: none;
-
+    color: #fff;
+    background: #0089e0;
     font-weight: normal;
 }
 ul.tagit li.tagit-choice .tagit-label:not(a) {
-    color: #ccc;
+    color: #fff;
 }
 ul.tagit li.tagit-choice .tagit-label:not(a):hover {
     color: #fff;
@@ -36,7 +32,7 @@ ul.tagit li.tagit-choice .tagit-close .text-icon {
     font-family: arial, sans-serif;
     font-size: 16px;
     line-height: 16px;
-    color: #777;
+    color: #fff;
 }
 ul.tagit li.tagit-choice:hover, ul.tagit li.tagit-choice.remove {
     background-color: #bbcef1;

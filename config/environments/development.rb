@@ -26,7 +26,6 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
@@ -54,8 +53,8 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-
- # default url
+  config.active_storage.service = :amazon
+  # default url
   config.action_mailer.default_url_options = {  host: 'localhost', port: 3000 }
   # mail setting
   config.action_mailer.raise_delivery_errors = true
@@ -71,4 +70,5 @@ Rails.application.configure do
     :enable_starttls_auto => true
   }
 
+  config.session_store :cookie_store, key: "_eqipia_session_#{Rails.env}", domain: :all
 end

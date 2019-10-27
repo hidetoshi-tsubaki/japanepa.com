@@ -3,16 +3,19 @@
 </div>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), builder: CustomFormBuilder) do |f| %>
   <div class="field">
-    <p>:Email</p>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" , placeholder:" Enter email"%>
+    <p>:Name</p>
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" , placeholder:" Enter name"%>
   </div>
   <div class="field">
     <%= f.label :password %>
     <%= f.password_field :password, autocomplete: "current-password" , placeholder:" Enter password" %>
   </div>
-  <div class="field ">
-    <%= f.check_box :remember_me %><%= f.label :remember_me %>
-  </div>
+  <% if devise_mapping.rememberable? %>
+    <div class="field">
+      <p>: Remember me</p>
+      <%= f.check_box :remember_me %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit " Log in " %>
   </div>

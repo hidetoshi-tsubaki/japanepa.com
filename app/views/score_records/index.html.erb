@@ -1,0 +1,10 @@
+<div class="quiz_index">
+  <ul class="tab_wrapper">
+    <%= render partial: 'tab', collection: @levels, as: :level %>
+  </ul>
+  <div class="panel_wrapper">
+    <%= render partial: 'panel', collection: @levels, as: :level %>
+  </div>
+</div>
+<%= javascript_include_tag 'show_charts.js' %>
+<%= javascript_include_tag 'indexCharts.js' %>

@@ -1,0 +1,23 @@
+<p id="scoreLabel"></p>
+<p class="bold">Lv.<span id="current_level"></span></p>
+<% unless current_page?(quizzes_path) %>
+  <p>you got <span id="got_experience" class="bold"></span> pt</p>
+<% end %>
+<p>you need <span id="needed_experience"class="bold"></span> pt to next level</p>
+<p class="quiz_title center bold"></p>
+<div class="chart">
+  <div class="chart_wrapper1 inline">
+    <canvas id="linearChart"></canvas>
+  </div>
+  <div class="chart_wrapper2 inline">
+    <p id="coution"></p>
+    <canvas id="doughnutsChart"></canvas>
+    <p id="learningLevel"></p>
+  </div>
+</div>
+<% unless current_page?(quizzes_path) %>
+  <p class="center replay">
+    <span id="replay_btn" class="inline">Play Again</span>
+    <span><%= link_to 'Quiz Index Page', quizzes_path %></span>
+  </p>
+<% end %>

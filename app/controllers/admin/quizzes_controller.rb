@@ -1,38 +1,15 @@
 class Admin::QuizzesController < ApplicationController
-  # before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :delete, :edit_quiz_index]
-
-  def show
-    @quizzes = Quiz.where(title: params[:title])
-    # あとでsanitizeする
-    # ページのタイトルを呼び出せるし、ページでscoreのpramsを送るときに
-    # title: quizzes.unitTitleでいけるbjt@94563
-    gon.title = params[:title]
-    gon.user_id = current_user.id
-    gon.quizSet = []
-    @quizzes.each do |quiz|
-      gon.quizSet.push(q: "#{quiz.question}", c: ["#{quiz.choice1}", "#{quiz.choice2}", "#{quiz.choice3}", "#{quiz.choice4}"])
-    end
-    gon.quizSet.shuffle!
-  end
+  before_action :authenticate_admin!
+  before_action :set_level_options, only: [:index, :search]
 
   def index
-    if params[:q] != nil
-      params[:q][:question_or_choice1_cont_any] = params[:q][:question_or_choice1_cont_any]
-                                                  .split(/p[{blank}\s]+/)
-      keyword = Quiz.rancsack(params[:q])
-      @quizzes = keyword.result
-    else
-      keyword = Quiz.ransack(params[:q])
-      @quizzes = keyword.result
-    end
-    @options = get_levels("index")
-    @options.unshift({name: "All", value: 0, path: all_admin_quizzes_path })
+    @q = Quiz.includes(:category).ransack(params[:q])
+    @quizzes = @q.result(distinct: true).sorted
   end
 
   def new
     @quiz = Quiz.new
     @options = get_levels("new")
-    @options.unshift({name: "All", value: 0, path: all_admin_quizzes_path })
   end
 
   def create
@@ -44,9 +21,8 @@ class Admin::QuizzesController < ApplicationController
         flash.now[:notice] = "registered successfully"
         redirect_to admin_quizzes_path
       else
-        flash.now[:notice] = "Failed to register.Try again"
-          @options = get_levels("index")
-          @options.unshift({name: "All", value: 0, path: all_admin_quizzes_path })
+        @options = get_levels("index")
+        @options.unshift({name: "All", value: 0, path: all_admin_quizzes_path })
         render "admin/quizzes/new"
       end
     end
@@ -54,7 +30,6 @@ class Admin::QuizzesController < ApplicationController
 
   def edit
     @quiz = Quiz.find(params[:id])
-    render 'edit_form'
   end
 
   def update
@@ -65,6 +40,7 @@ class Admin::QuizzesController < ApplicationController
     else
       if @quiz.save
         flash.now[:notice] = "updated successfully"
+        redirect_to admin_quizzes_path
       else
         render "quizzes/form"
       end
@@ -84,30 +60,38 @@ class Admin::QuizzesController < ApplicationController
   end
 
   def search
-    @q = Quiz.search(search_params)
-    @quizzes = @q.result(distinct: true)
-  end
-
-  def all
-    @quizzes = Quiz.all
-    render 'narrow_down'
+    if params[:q]['question_or_choice1_cont_any'] != nil
+      params[:q]['question_or_choice1_cont_any'] = params[:q]['question_or_choice1_cont_any'].split(/[ ]/)
+      @keywords = Quiz.ransack(params[:q])
+      @quizzes = @keywords.result.sorted.page(params[:page])
+      @q = Quiz.ransack(params[:q])
+    else
+      @q = Quiz.ransack(params[:q])
+      @quizzes = @q.result(distinct: true).sorted.page(params[:page])
+    end
+    render template: 'admin/quizzes/index'
   end
 
   def all_in_level
     level = QuizCategory.find(params[:id])
-    @quizzes = level.quizzes
+    all_title_in_level = level.leaves
+    @q = Quiz.where(category_id: all_title_in_level).ransack(params[:q])
+    @quizzes = @q.result(distinct: true).page(params[:page])
     render 'narrow_down'
   end
 
   def all_in_section
     section = QuizCategory.find(params[:id])
-    @quizzes = section.quizzes
+    all_title_in_section = section.leaves
+    @q = Quiz.where(category_id: all_title_in_section).ransack(params[:q])
+    @quizzes = @q.result(distinct: true).page(params[:page])
     render 'narrow_down'
   end
 
   def quizzes_in_title
-    @quizzes = Quiz.get_quizzes_in(params[:id].to_i)
-    render 'admin/quizzes/narrow_down'
+    @q = Quiz.get_quizzes_in(params[:id].to_i).ransack(params[:q])
+    @quizzes = @q.result(distinct: true)
+    render 'narrow_down'
   end
 
   def get_section_list
@@ -131,11 +115,29 @@ class Admin::QuizzesController < ApplicationController
   private
 
   def quiz_params
-    params.require(:quiz).permit(:category_id, :question, :choice1, :choice2, :choice3, :choice4)
+    question = ''
+    extract_inner_text(params[:quiz][:question_html], question)
+    params.require(:quiz)
+          .permit(:category_id, :question_html, :choice1, :choice2, :choice3, :choice4)
+          .merge(question: question)
   end
 
-  def searck_params
+  def search_params
     params.require(:q).permit(:question_cont)
+  end
+
+  def extract_inner_text(html,question)
+    q = html
+    charset = nil 
+    doc = Nokogiri::HTML.parse(q,nil,charset)
+    doc.css('p').each do |f|
+      question << f.content
+    end
+  end
+
+  def set_level_options
+    @options = get_levels("index")
+    # @options.unshift({name: "All", value: 0, path: all_admin_quizzes_path })
   end
 
   def get_levels(page)
@@ -173,14 +175,13 @@ class Admin::QuizzesController < ApplicationController
   end
 
   def create_in_category_page(quiz)
-    if quiz.save
+    if quiz.save!
       @quizzes = Quiz.where(category_id: quiz.category_id)
-      respond_to do |format|
-        format.js { flash[:notice] = 'quiz was registered successfully' }
-      end
-      render "admin/quiz_categories/show"
+      flash.now[:notice] = "新しいクイズを作成しました！"
+      render 'admin/quiz_categories/create_quiz'
     else
-      render "admin/quizzes/form"
+      @category = QuizCategory.find(quiz.category_id)
+      render "admin/quiz_categories/new_quiz"
     end
   end
 

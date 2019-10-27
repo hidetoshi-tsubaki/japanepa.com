@@ -1,0 +1,19 @@
+<%= link_to edit_admin_article_path(article) do %>
+  <tr class="index_content" id="article_#{article_id}">
+    <td><%= article.id %></td>
+    <td class="truncate_column"><%= article.title.truncate(20) %></td>
+    <td><%= number_with_delimiter(article.impressions_count) %></td>
+    <td><%= number_with_delimiter(article.likes_count) %></td>
+    <td><%= number_with_delimiter(article.bookmarks_count) %></td>
+    <td><%= article.created_at.strftime('%Y/%m/%d') %></td>
+    <td><%= article.updated_at.strftime('%Y/%m/%d') %></td>
+    <td>
+      <%= link_to edit_admin_article_path(article), class: "edit_btn inline" do %>
+        <%= icon("fas", "edit") %> 編集
+      <% end %>
+      <%= link_to admin_article_path(article), class: "delete_btn inline",data: { confirm: 'この記事を削除しますか?' } ,method: :delete do %>
+        <%= icon("fas", "trash-alt") %> 削除
+      <% end %>
+    </td>
+  </tr>
+<% end %>

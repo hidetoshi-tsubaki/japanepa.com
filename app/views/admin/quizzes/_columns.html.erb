@@ -1,0 +1,11 @@
+<tr class="index_head">
+  <th><%= sort_link(@q, :id, "No.", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :question, "Question", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :choice1, "Answer", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :choice2, "C2", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :choice3, "C3", default_order: :desc, anchor: "index")%></th>
+  <th><%= sort_link(@q, :choice4, "C4", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :created_at, "Creation Data", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :updated_at, "Update Date", default_order: :desc, anchor: "index") %></th>
+  <th class="notes">※ソート可（カラム名をクリック）</th>
+</tr>
