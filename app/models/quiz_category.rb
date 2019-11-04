@@ -7,6 +7,7 @@ class QuizCategory < ApplicationRecord
   has_many :quiz_experiences, foreign_key: 'title_id'
   belongs_to :parent, foreign_key: "parent_id", optional: true
 
+  validates :name, presence: true
   scope :levels, -> { where(depth:0).order(position: :asc) }
   scope :sections_in, ->(level) { level.children }
   scope :titles_in, ->(section) {section.children}
@@ -16,8 +17,6 @@ class QuizCategory < ApplicationRecord
 
     where(left_condition).where(right_condition)
   end
-
-  validates :name, presence: true
 
   def all_quizzes
     scope = Quiz.joins(:category)

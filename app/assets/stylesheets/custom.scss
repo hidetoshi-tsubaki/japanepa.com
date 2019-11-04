@@ -379,6 +379,7 @@ COMMON FORM
 .form_wrapper{
   width: 75%;
   margin: 30px auto;
+  background-color: #fff;
 }
 .form_wrapper label{
   font-weight: bold;
@@ -437,9 +438,9 @@ label input{
   display: none;
 }
 /*---------------
-USER_FORM
+USER_FORM ADMIN_FORM
 ---------------*/
-.user_form_wrapper{
+.login_form_wrapper{
   width: 600px;
   margin: 0 auto;
   padding:30px 60px;

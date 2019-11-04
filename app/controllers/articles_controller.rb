@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article_tags, only: [:index, :search, :tag_search]
+  before_action :set_ranked_articles, only: [:index]
   impressionist :actions => [:show]
 
   def index
@@ -37,4 +38,9 @@ class ArticlesController < ApplicationController
     @tags = Article.tags_on(:tags)
   end
 
+  def set_ranked_articles
+    @viewed_top_3 = Article.viewed_top_3
+    @bookmarked_top_3 = Article.bookmarked_top_3
+    @liked_top_3 = Article.liked_top_3
+  end
 end

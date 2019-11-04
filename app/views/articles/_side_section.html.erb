@@ -1,0 +1,16 @@
+<div>
+  <ul class="tags">
+    <% if @tags.present? %>
+      <%= render partial: 'tag', collection: @tags, as: :tag %>
+    <% else %>
+    <li>No tags....</li>
+    <% end %>
+  </ul>
+</div>
+<div>
+  <%= search_form_for @q, url: search_articles_path do |f| %>
+    <%= f.text_field :title_or_lead_cont_any %>
+    <%= f.submit 'Search' %>
+  <% end %>
+</div>
+<%= render 'ranked_articles' %>

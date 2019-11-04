@@ -1,10 +1,9 @@
 <%= link_to '戻る', communities_path %>
 <h1><%= @community.name %></h1>
-<p id="member_count_<%= @community.id %>">Member:<%= @community.users.count %></p>
 <div class="section_wrapper">
   <div id="talk_index" class="main_section inline jscroll">
     <% if @talks.present? %>
-       <%= render partial: 'talks/talk', collection: @talks, as: :talk %> 
+      <%= render partial: 'talks/talk', collection: @talks, as: :talk %> 
     <% else %>
       <p>no talks...</p>
     <% end %>
@@ -12,13 +11,13 @@
   <div class="side_section inline">
     <div class="side_content">
       <div id="join_btn_<%= @community.id %>">
-        <%= render partial:'join_btn' , locals: {community: @community} %>
+        <%= render partial:'join_btn' , locals: {community: @community} if current_user.is_founder?(@community) %>
       </div>
       <p><%= @community.name %></p>
       <p><%= @community.introduction %></p>
       <p>member: <%= @community.users.count %></p>
       <p>talks: <%= @community.talks.count %></p>
-      <p>community leader: </p>
+      <p>community leader:<%= @community.founder.name %></p>
     </div>
     <div class="side_content">
       <%= link_to 'community_index', communities_path, class: "center block" %>

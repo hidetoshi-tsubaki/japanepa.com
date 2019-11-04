@@ -2,11 +2,11 @@
   <p>Hi there! Come here to check in with your favorite communities
     and learn japanese with our Members!</p>
   <% if past_30days_after_signIn? %>
+    <%= link_to 'create community', new_community_path, class: 'block center new_btn' %>
   <% else %>
     <p>can't create communities yet</p>
     <p>To prevent spam,account must be at least 30 days old</p>
   <% end %>
-  <%= link_to 'create community', new_community_path, class: 'block center new_btn' %>
 </div>
 <div>
   <%= search_form_for @q, url: search_communities_path do |f| %>

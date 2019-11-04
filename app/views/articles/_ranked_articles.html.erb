@@ -1,0 +1,24 @@
+<div>
+  <p>Most Viewed article</p>
+  <% if @views_top_3.present? %>
+    <%= render partial: ranked_article, collection: @views_top_3, as: :article %>
+  <% else %>
+    <p>No Data</p>
+  <% end %>
+</div>
+<div>
+  <p>Most Bookmarked article</p>
+  <% if @bookmarked_top_3.present? %>
+    <%= render partial: ranked_article, collection: @bookmarked_top_3, as: :article %>
+  <% else %>
+    <p>No Data</p>
+  <% end %>
+</div>
+<div>
+  <p>Most Liked article</p>
+  <% if @liked_top_3.present? %>
+    <%= render partial: ranked_article, collection: @liked_top_3, as: :article %>
+  <% else %>
+    <p>No Data</p>
+  <% end %>
+</div>

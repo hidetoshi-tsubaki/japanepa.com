@@ -5,4 +5,17 @@ class ApplicationRecord < ActiveRecord::Base
   scope :sort_and_paginate,-> (number) do
     order('created_at DESC').page(params[:page]).per(number)
   end
+
+  def img_presence
+    unless self.img.attached?
+      errors.add(:img, 'must upload image')
+    end
+  end
+
+  def image_content_type
+    if self.img.attached?
+      extension = ['image/png', 'image/jpg', 'image/jpeg']
+      errors.add(:img, "can upload only png, jpg and jpeg") unless img.content_type.in?(extension)
+    end
+  end
 end

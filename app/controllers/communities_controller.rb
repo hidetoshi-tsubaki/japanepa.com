@@ -46,7 +46,7 @@ class CommunitiesController < ApplicationController
   end
 
   def show
-    @community = Community.find(params[:id])
+    @community = Community.includes(:founder).find(params[:id])
     @talks = Talk.where(community_id: params[:id])
     @tags = @community.tags_on(:tags)
   end

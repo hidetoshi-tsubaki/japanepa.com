@@ -11,16 +11,6 @@
     </div>
   </div>
   <div class="side_section">
-    <ul class="tags">
-      <% if @tags.present? %>
-        <%= render partial: 'tag', collection: @tags, as: :tag %>
-      <% else %>
-      <li>No tags....</li>
-      <% end %>
-    </ul>
-    <%= search_form_for @q, url: search_articles_path do |f| %>
-      <%= f.text_field :title_or_lead_cont_any %>
-      <%= f.submit 'Search' %>
-    <% end %>
+   <%= render 'side_section' %>
   </div>
 </div>

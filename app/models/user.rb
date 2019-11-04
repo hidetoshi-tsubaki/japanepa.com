@@ -15,8 +15,7 @@ class User < ApplicationRecord
   has_many :user_total_experiences
   has_one_attached :img
   validates :name, uniqueness: { case_sensitive: false }
-  validates :name, presence: true
-  validates :password_confirmation, presence: true
+  validates :name, :password, :password_confirmation, presence: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :lockable, :timeoutable, :omniauthable,
@@ -47,6 +46,10 @@ class User < ApplicationRecord
     else
       super
     end
+  end
+
+  def is_founder?(community)
+    true if self.id == community.id
   end
 
   def email_required?
