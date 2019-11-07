@@ -1,8 +1,7 @@
   // モーダル開閉
 $(function () {
-  $('.user').on('click',function(){
+  $('.menu_btn').on('click',function(){
   $('.user_menu').fadeToggle(100);
-  // $('.user').toggleClass('active');
   });
   $('#openModal').on('click',function () {
     $('#modalArea').fadeIn();
@@ -50,7 +49,7 @@ $(function () {
     });
   })
   //  通知の表示
-  $(function(){
+  $(function flash(){
     setTimeout("$('#flash').fadeOut('slow')",2000);
   })
 // tab切り替え

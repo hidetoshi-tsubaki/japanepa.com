@@ -1,19 +1,20 @@
 <div class="profile_wrapper">
   <p class="right"><%= link_to 'Edit', edit_user_registration_path(@user) %></p>
   <p class="center">Profile</p>
-  <% if @user.img %>
+  <% if @user.img.attached? %>
     <%= image_tag @user.img.to_s, class:'present_img' %>
   <% else %>
     <%= image_tag 'https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg' %>
   <% end %>
   <table class="user_info">
+  <%= link_to "All talks", talks_path(@user) %>
     <tr>
       <td>Name:</td>
       <td><%= @user.name %></td>
     </tr>
     <tr>
       <td>Lv:</td>
-      <td><%= @current_level %></td>
+      <td><%= @current_level || "1" %></td>
     </tr>
     <tr>
       <td>total_experience:</td>

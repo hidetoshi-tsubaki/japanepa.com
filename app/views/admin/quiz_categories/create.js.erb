@@ -1,4 +1,2 @@
 $('.quiz_category_list').html("<%= j(render partial: 'admin/quiz_categories/category', collection: @categories, as: :category) %>");
 $('#modalArea').fadeOut();
-$("#flash_wrapper").html("<%= j(render 'layouts/flash') %>");
-setTimeout("$('#flash').fadeOut('slow')",2000);

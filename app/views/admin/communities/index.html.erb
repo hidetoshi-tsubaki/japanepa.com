@@ -26,17 +26,17 @@
       </ul>
     </div>
   </div>
-  <div class="communities_index jscroll ">
+  <div class="index">
     <p><%= link_to "全件表示", admin_communities_path(anchor: "index"), class: "show_all" %></p>
     <table class="index_table" id="index">
       <%= render 'column' %>
-    <tbody class="jscroll">
-      <% if @communities.present? %>
-        <%= render partial: 'community', collection: @communities, as: :community %>
-        <%= paginate @connumities %>
-      <% end %>
-    </tbody>
+      <tbody>
+        <% if @communities.present? %>
+          <%= render partial: 'community', collection: @communities, as: :community %>
+        <% end %>
+      </tbody>
     </table>
+    <%= paginate @communities, :params => { anchor: "index" } %>
     <% if @communities.blank? %>
       <div class="no_result">
         <h3 class="center">No communities....</h3>

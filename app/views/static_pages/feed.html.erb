@@ -1,0 +1,11 @@
+<div class="section_wrapper">
+  <div class="main_section inline jscroll" id="talk_index">
+    <%= render partial: 'talks/talk', collection: @talks, as: :talk %>
+  </div>
+  <div class="side_section">
+    <div class="community-section">
+      <%= render 'side_section' %>
+    </div>
+    <p><%= icon("fas", "arrow-circle-up") %></p>
+  </div>
+</div>

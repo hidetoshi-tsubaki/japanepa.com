@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :quiz_category do
-    name "category"
+    name { "category" }
   end
 end

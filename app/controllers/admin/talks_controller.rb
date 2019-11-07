@@ -23,43 +23,8 @@ class Admin::TalksController < ApplicationController
 
   def show
     @talk = Talk.includes(:user).find(params[:id])
-    @comments = @talk.comments.includes(:users).sort_and_paginate(10)
-    # @comment = @talk.comments.new(user_id: current_user.id) if current_user
+    @comments = @talk.comments.includes(:users)
     @comment = Comment.new
-  end
-
-  def create
-    @talk = Talk.new(talk_params)
-    if @talk.save
-      flash.now[:notice] = "talk was post"
-      @talks = Talk.order('created_at DESC').page(params[:page])
-      @communities = current_user.community_users.includes(:community)
-      render :update_index
-    else
-      flash.now[:notice] = "failed to post.... try again"
-      @communities = current_user.community_users.includes(:community)
-      render :index
-    end
-  end
-
-  def edit
-    @talk = Talk.find(params[:id])
-    @community = Community.find(@talk.community_id)
-    render :modal_talk_form
-  end
-
-  def update
-    talk = Talk.find(params[:id])
-    if talk.update(talk_params)
-      flash.now[:notice] = "talk was updated"
-      @communities = current_user.community_users.includes(:communities)
-      joined_communities_Id = current_user.community_users
-      @talks = Talk.where(community_id: joined_communities_Id).sorted.page(params[:page])
-      render :update_index
-    else
-      flash.now[:alert] = "failed to update.... try again"
-      render :edit
-    end
   end
 
   def delete
@@ -75,7 +40,7 @@ class Admin::TalksController < ApplicationController
   private
 
   def talk_params
-    params.require(:talk).permit(:user_id, :community_id, :content, :img, :remove_img, :img_cache)
+    params.require(:talk).permit(:user_id, :community_id, :content, :img)
   end
 
   def authenticate_edit_delete

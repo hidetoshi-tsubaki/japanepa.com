@@ -1,20 +1,15 @@
-<%= link_to edit_admin_user_path(user) do %>
-  <tr class="index_content" id="user_#{user_id}">
-    <td><%= user.id %></td>
-    <td class="truncate_column"><%= user.name.truncate(20) %></td>
-    <td><%= number_with_delimiter(user.play_count) %></td>
-    <td><%= number_with_delimiter(user.community_count) %></td>
-    <td><%= number_with_delimiter(user.talk_count) %></td>
-    <td><%= user.country %></td>
-    <td><%= user.current_address %></td>
-    <td><%= user.created_at.strftime('%Y/%m/%d') %></td>
-    <td>
-      <%= link_to user_path(user), class: "edit_btn inline" do %>
-        <%= icon("fas", "edit") %> 詳細
-      <% end %>
-      <%= link_to admin_user_path(user), class: "delete_btn inline",data: { confirm: 'このユーザーを削除しますか?' } ,method: :delete do %>
-        <%= icon("fas", "trash-alt") %> 削除
-      <% end %>
-    </td>
-  </tr>
-<% end %>
+<tr class="index_content" id="user_#{user_id}">
+  <td><%= user.id %></td>
+  <td class="truncate_column"><%= user.name.truncate(20) %></td>
+  <td><%= number_with_delimiter(user.play_count) %></td>
+  <td><%= number_with_delimiter(user.community_count) %></td>
+  <td><%= number_with_delimiter(user.talk_count) %></td>
+  <td><%= user.country %></td>
+  <td><%= user.current_address %></td>
+  <td><%= user.created_at.strftime('%Y/%m/%d') %></td>
+  <td>
+    <%= link_to user_path(user), class: "edit_btn inline" do %>
+      <%= icon("fas", "external-link-alt") %> 詳細
+    <% end %>
+  </td>
+</tr>

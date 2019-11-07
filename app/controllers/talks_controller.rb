@@ -5,11 +5,13 @@ class TalksController < ApplicationController
 
   def new
     @talk = current_user.talks.new
-    get_communities_select(params[:id])
+    @communities = current_user.communities
+    render :form
   end
   
   def index
-    @talks = talks_in_feed
+    @user = User.find(params[:id])
+    @talks = @user.talks.sorted
     @tags = Community.tags_on(:tags)
   end
 
@@ -21,55 +23,44 @@ class TalksController < ApplicationController
 
   def create
     @talk = Talk.new(talk_params)
-    if @talk.save!
+    if @talk.save
       flash.now[:notice] = "talk was post"
-      @talks = Talk.order('created_at DESC').page(params[:page]).per(10)
-      @communities = current_user.community_users.includes(:community)
-      render :index
     else
       @communities = current_user.communities
-      render :new
+      render :form
     end
   end
 
   def edit
     @talk = Talk.find(params[:id])
-    @community = Community.find(@talk.community_id)
-    render :modal_talk_form
+    @communities = current_user.communities
+    render :form
   end
 
   def update
-    talk = Talk.find(params[:id])
-    if talk.update(talk_params)
+    @talk = Talk.find(params[:id])
+    if @talk.update(talk_params)
       flash.now[:notice] = "talk was updated"
-      # get_joined_communities
-      @communities = current_user.community_users.includes(:communities)
-      # get_joined_communitiesId
-      joined_communities_Id = current_user.community_users
-      # get_talks
-      @talks = Talk.where(community_id: joined_communities_Id).sort_and_paginate(10)
-      # @talk = Talk.new
-      render :update_index
     else
       flash.now[:alert] = "failed to update.... try again"
       render :edit
     end
   end
 
-  def delete
-    if Talk.find(params[:id]).destroy
-      @talks = Talk.sort_and_paginate(10)
-      render :update_index
-    else
-      flash.now[:notice] = "failed to delete..."
-      render :index
-    end
+  def destroy
+    @talk = Talk.find(params[:id])
+    @talk.destroy
+  end
+
+  def destroy_img
+    @talk = Talk.find(params[:id])
+    @talk
   end
 
   private
 
   def talk_params
-    params.require(:talk).permit(:user_id, :community_id, :content, :img, :remove_img, :img_cache)
+    params.require(:talk).permit(:user_id, :community_id, :content, :img)
   end
 
   def authenticate_edit_delete

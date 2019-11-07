@@ -1,5 +1,7 @@
-<div>
-  <p><%= image_tag article.img %></p>
-  <p><%= article.title %></p>
-  <p><%= article.lead %></p>
-</div>
+<%= link_to article_path(article) do %>
+  <div>
+    <p><%= image_tag article.img %></p>
+    <p><%= article.title %></p>
+    <p><%= article.lead %></p>
+  </div>
+<% end %>

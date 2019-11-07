@@ -1,10 +1,10 @@
 <% if current_user.already_liked_article?(article) %>
   <%= link_to remove_like_article_path(article), remote: true do %>
-    <%= icon("fas", "heart") %><%= article.like_articles.size %>
+    <%= icon("fas", "heart") %><%= article.likes_count %>
   <% end %>
 <% else %>
   <%= link_to like_article_path(article), remote: true do %>
-    <%= icon("far", "heart") %><%= article.like_articles.size %>
+    <%= icon("far", "heart") %><%= article.likes_count %>
   <% end %>
 <% end %>
 

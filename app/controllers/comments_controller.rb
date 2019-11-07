@@ -1,21 +1,24 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
 
+  def new
+    @talk = Talk.find(params[:id])
+    @comment = current_user.comments.new
+    render :form
+  end
+
   def create
-    comment = current_user.comments.new(comment_params)
-    talk = Talk.find(comment_params[:talk_id])
-    if comment.save
-      @comments = Comment.where(talk_id: comment_params[:talk_id]).sorted..page(params[:page])
-      @comment = talk.comments.new
-      @talk = Talk.find(comment_params[:talk_id])
-      render :update_index
+    @comment = current_user.comments.new(comment_params)
+    @talk = Talk.find(comment_params[:talk_id])
+    if @comment.save
     else
-      render 'talk/show'
+      render :form
     end
   end
 
   def edit
     @comment = Comment.find(params[:id])
+    render :form
   end
 
   def update

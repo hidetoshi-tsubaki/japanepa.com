@@ -5,7 +5,7 @@
   <%= link_to 'Quiz', quizzes_path %>
   <%= link_to 'News', articles_path %>
   <% if user_signed_in? %>
-    <div class="header_btn user">
+    <div class="header_btn menu_btn">
       <% if current_user.img.attached? %>
         <%= image_tag current_user.img %>
       <% else %>

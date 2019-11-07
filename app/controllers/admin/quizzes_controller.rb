@@ -4,7 +4,7 @@ class Admin::QuizzesController < ApplicationController
 
   def index
     @q = Quiz.includes(:category).ransack(params[:q])
-    @quizzes = @q.result(distinct: true).sorted
+    @quizzes = @q.result(distinct: true).sorted.page(params[:page])
   end
 
   def new
@@ -137,7 +137,6 @@ class Admin::QuizzesController < ApplicationController
 
   def set_level_options
     @options = get_levels("index")
-    # @options.unshift({name: "All", value: 0, path: all_admin_quizzes_path })
   end
 
   def get_levels(page)

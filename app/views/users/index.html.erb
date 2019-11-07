@@ -1,2 +1,15 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<h1>Users Ranking</h1>
+<div class="section_wrapper">
+  <div class="main_section">
+    <div class="user_ranking jscroll">
+      <% if @users.present? %>
+        <%= render partial: 'user', collection: @users, as: :user %>
+      <% else %>
+        <p class="center">No...user</p>
+      <% end %>
+    </div>
+  </div>
+  <div class="side_section">
+    <%= render 'side_section' %>
+  </div>
+</div>

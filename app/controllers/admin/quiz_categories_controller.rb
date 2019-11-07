@@ -2,7 +2,7 @@ class Admin::QuizCategoriesController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @categories = QuizCategory.levels
+    @categories = QuizCategory.levels.page(params[:page])
   end
 
   def categories
@@ -77,11 +77,11 @@ def search
     if params[:q]['name_or_introduction_or_users_name_cont_any'] != nil
       params[:q]['name_or_introduction_or_users_name_cont_any'] = params[:q]['name_or_introduction_or_users_name_cont_any'].split(/[ ]/)
       @keywords = Community.ransack(params[:q])
-      @communities = @keywords.result.sorted
+      @communities = @keywords.result.sorted.page(params[:page])
       @q = Community.ransack(params[:q])
     else
       @q = Community.ransack(params[:q])
-      @communities = @q.result(distinct: true).sorted
+      @communities = @q.result(distinct: true).sorted.page(params[:page])
     end
     render template: 'admin/communities/index'
   end

@@ -43,27 +43,17 @@
       <%= f.submit 'Search' %>
     <% end %>
   </div>
-  <div class="index jscroll ">
+  <div class="index">
     <p><%= link_to "全件表示", admin_users_path(anchor: "index"), class: "new_btn" %></p>
-    <table class="index_table" id="index">
-      <tr class="index_head">
-        <th><%= sort_link(@q, :id, "No.", default_order: :desc, anchor: "index") %></th>
-        <th><%= sort_link(@q, :name, "Name", default_order: :desc, anchor: "index") %></th>
-        <th><%= sort_link(@q, :play_count, "play_count", default_order: :desc, anchor: "index") %></th>
-        <th><%= sort_link(@q, :community_count, "community", default_order: :desc, anchor: "index")%></th>
-        <th><%= sort_link(@q, :talk_count, "talks", default_order: :desc, anchor: "index") %></th>
-        <th><%= sort_link(@q, :country, "Country", default_order: :desc, anchor: "index")%></th>
-        <th><%= sort_link(@q, :current_address, "Address", default_order: :desc, anchor: "index")%></th>
-        <th><%= sort_link(@q, :created_at, "Creation Data", default_order: :desc, anchor: "index") %></th>
-        <th class="notes">※ソート可（カラム名をクリック）</th>
-      </tr>
-      <tbody class="jscroll">
+    <table class="index_table">
+          <%= render 'columns' %>
+      <tbody>
         <% if @users.present? %>
           <%= render partial: 'user', collection: @users, as: :user %>
         <% end %>
-        <%= pagenat @users %>
       </tbody>
     </table>
+    <%= paginate @users, :params => { anchor: "index" } %>
     <% if @users.blank? %>
       <div class="no_result">
         <h3 class="center">No users....</h3>

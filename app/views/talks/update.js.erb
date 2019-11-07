@@ -1,0 +1,2 @@
+$("#talk_<%= @talk.id %>").replaceWith("<%= j(render partial: 'talk', locals: { talk: @talk }) %>");
+$('#modalArea').fadeOut();

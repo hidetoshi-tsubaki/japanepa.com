@@ -42,7 +42,7 @@
   <p>
     <%= link_to 'NEW', new_admin_quiz_path, class: 'new_btn' %>
     <span><%= link_to '全件表示', admin_quizzes_path %></span>
-    </p>
+  </p>
   <table class="index_table">
     <thead>
       <%= render 'columns' %>
@@ -51,4 +51,5 @@
       <%= render partial: 'quiz', collection: @quizzes, as: :quiz %>
     </tbody>
   </table>
+  <%= paginate @quizzes, :params => { anchor: "index" } %>
 </div>

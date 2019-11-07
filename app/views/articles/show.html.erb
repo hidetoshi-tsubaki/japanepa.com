@@ -19,18 +19,18 @@
       <%= raw(@article.contents) %>
     </div>
   </div>
-    <div class="side_section">
-    <div class="article_ranking">
-      <ul>
-      <%= render partial: 'ranked_article', collection: @ranked_articles, as: :ranked_article %>
+  <div class="side_section">
+    <div>
+      <ul class="tags">
+        <% if @tags.present? %>
+          <%= render partial: 'tag', collection: @tags, as: :tag %>
+        <% else %>
+        <li>No tags....</li>
+        <% end %>
       </ul>
     </div>
-    <ul class="tags">
-      <% if @tags.present? %>
-        <%= render partial: 'tag', collection: @tags, as: :tag %>
-      <% else %>
-      <li>No tags....</li>
-      <% end %>
-    </ul>
+    <div class="article_ranking">
+      <%= render 'ranked_articles' %>
     </div>
+  </div>
 </div>

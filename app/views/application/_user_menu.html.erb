@@ -3,10 +3,12 @@
   <%= link_to user_path(current_user) do %>
   <p><%= icon("fas", "address-card") %> Profile</p>
   <% end %>
-  <%= link_to score_records_path do %>
-  <p><%= icon("fas", "chart-line") %> Score Record</p>
+  <%= link_to users_path do %>
+  <p><%= icon("fas", "crown") %> Ranking</p>
   <% end %>
-  <p><%= icon("fas", "star") %> Bookmarks</p>
+  <%= link_to bookmarks_path do %>
+    <p><%= icon("fas", "star") %> Bookmarks</p>
+  <% end %>
   <p><%= icon("fas", "question-circle") %> Help</p>
   <p><%= icon("fas", "info-circle") %> About us</p>
   <%= link_to destroy_user_session_path, method: :delete do %>

@@ -1,16 +1,7 @@
 Rails.application.routes.draw do
   root "static_pages#home"
-  get 'users/show'
-  get 'users/index'
   get '/', to: 'static_pages#home'
-  get '/top', to: 'static_pages#top'
-  get '/japanepa/feed', to: 'communities#feed', as: 'feed'
-  get '/like_talk/:id', to: 'likes_talks#like', as: 'like_talk'
-  get '/remove_like_talk/:id', to: 'likes_talks#remove_like', as: 'remove_like_talk'
-  get '/like_article/:id', to: 'likes_articles#like', as: 'like_article'
-  get '/remove_like_article/:id', to: 'likes_articles#remove', as: 'remove_like_article'
-  get '/bookmark/:id', to: 'bookmarks#bookmark', as: 'bookmark'
-  get '/remove_bookmark/:id', to: 'bookmarks#remove_bookmark', as: 'remove_bookmark'
+  get '/feed/:id', to: 'static_pages#feed', as: 'feed'
 
   resources :quizzes, only: [:show, :index] do
     collection do
@@ -27,16 +18,19 @@ Rails.application.routes.draw do
     end
   end
   resources :score_records, only: [:index, :show, :create]
-  resources :talks do
+  resources :talks, except: :index do
     collection do
       get :sort
       get :search
       get :tag_search
     end
     member do
-      get :new, as:'talk_new_in_community_page'
+      get :user
     end
   end
+  get '/like_talk/:id', to: 'likes_talks#like', as: 'like_talk'
+  get '/remove_like_talk/:id', to: 'likes_talks#remove_like', as: 'remove_like_talk'
+  resources :comments
   resources :articles, only: [:show, :index] do
     collection do
       get :sort
@@ -44,6 +38,11 @@ Rails.application.routes.draw do
       get :tag_search
     end
   end
+  get '/like_article/:id', to: 'likes_articles#create', as: 'like_article'
+  get '/remove_like_article/:id', to: 'likes_articles#destroy', as: 'remove_like_article'
+  resources :bookmarks, only: :index
+  get '/bookmark/:id', to: 'bookmarks#create', as: 'bookmark'
+  get '/remove_bookmark/:id', to: 'bookmarks#destroy', as: 'remove_bookmark'
   resources :communities do
     collection do
       get :sort
@@ -58,7 +57,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'home#top'
-    resources :users do
+    resources :users, only: [:index] do
       collection do
         get :search
       end

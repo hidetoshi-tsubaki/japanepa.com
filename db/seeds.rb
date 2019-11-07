@@ -16,13 +16,20 @@ max_level.times do |number|
   threshold_point = (prev_threshold + threshold2) / 2
   levels << Level.new( threshold: threshold_point)
 end
-
 Level.import levels
 
-
-
 Admin.create!(
-  email: 'tsubaki@japanepa',
+  name: 'japanepa.com',
   password: 'japanepa',
   password_confirmation: 'japanepa'
 )
+
+
+
+community = Community.new(
+  name: "japanepa.com",
+  introduction: "this is offical community of japanepa.com"
+  founder_id: 1
+)
+community.img.attach(io: File.open(Rails.root.join('app', 'images', 'project.png'), filename: 'project.png', content_type: 'image/png')
+community.save!

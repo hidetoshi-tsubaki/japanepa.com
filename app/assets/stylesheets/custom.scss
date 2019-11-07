@@ -130,21 +130,26 @@ body{
 /*-------------
 infinite scroll
 --------------*/
-.pagination{
-  display:none;
+// .pagination{
+//   display: block;
+// }
+.pagination {
+  justify-content: center;
+
 }
 .row-eq-height {
     display: flex;
     flex-wrap: wrap;
 }
-.no-gutters {
-  margin:0;
-  padding:0;
-}
-header h1{
-  text-align: center;
-  margin:10px 0 10px;
-}
+// .no-gutters {
+//   margin:0;
+//   padding:0;
+// }
+// header h1{
+//   text-align: center;
+//   margin:10px 0 10px;
+// }
+// 
 /*---------------
 2.1 HEADER
 ----------------*/
@@ -213,7 +218,7 @@ header >div{
   border: solid 3px #767676;
   border-radius: 3px
 }
-.user{
+.menu_btn{
   position: relative;
 }
 .user_menu{
@@ -463,7 +468,10 @@ COMMON INDEX PAGE
   margin: 0 auto;
 }
 .index_table{
-  margin-top: 15px;
+  margin: 15px 0 15px 0;
+}
+.create_btn_wrapper{
+  margin-bottom: 15px;
 }
 table{
   border-collapse: collapse;
@@ -577,6 +585,65 @@ COMMON SEARCH & SORT
   color: #59eb6d;
 }
 /*-----------
+USERS
+------------*/
+.user{
+  color: black;
+  position: relative;
+  background-color: #fff;
+  border-top: solid 1px #e7e7e7;
+  border-bottom: solid 1px #e7e7e7;
+}
+.user p{
+  font-size: 24px;
+  display: inline-block;
+}
+.user:hover{
+  background-color: #e6e6e6;
+}
+.rank_number{
+  position: relative;
+  width: 20%;
+}
+.user .fa-crown{
+  font-size: 28px;
+  position: absolute;
+  top:50%;
+  transform: translateY(-50%);
+  left: 15px;
+}
+#top_1 .fa-crown{
+  color: #efb700;
+}
+#top_2 .fa-crown{
+  color: #b9c7c9
+}
+#top_3 .fa-crown{
+  color: #C47022;
+}
+
+.user .name{
+  width: 30%;
+}
+.user .experience{
+  width: 48%;
+}
+.user a{
+  padding: 15px;
+}
+.user .edit_button{
+  position: absolute;
+  top:50%;
+  transform: translateY(-50%);
+  right: 10px;
+  font-size: 20px;
+  color: #388abd;
+}
+.user .edit_button:hover{
+  color: #fff;
+  background-color: #388abd;
+}
+/*-----------
 TALKS
 ------------*/
 .talk_wrapper{
@@ -669,7 +736,6 @@ TAG
 .tags a:hover:after {
 	border-color: transparent #555555 transparent transparent;
 }
-
 /*---------------
 QUIZ INDEX
 ----------------*/

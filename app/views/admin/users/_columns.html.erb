@@ -1,0 +1,11 @@
+<tr class="index_head">
+  <th><%= sort_link(@q, :id, "No.", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :name, "Name", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :play_count, "play_count", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :community_count, "community", default_order: :desc, anchor: "index")%></th>
+  <th><%= sort_link(@q, :talk_count, "talks", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :country, "Country", default_order: :desc, anchor: "index")%></th>
+  <th><%= sort_link(@q, :current_address, "Address", default_order: :desc, anchor: "index")%></th>
+  <th><%= sort_link(@q, :created_at, "Creation Data", default_order: :desc, anchor: "index") %></th>
+  <th class="notes">※ソート可（カラム名をクリック）</th>
+</tr>

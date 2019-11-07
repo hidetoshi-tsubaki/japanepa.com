@@ -63,8 +63,8 @@
       </ul>
     </div>
   </div>
-  <div class="article_index">
-    <p><%= link_to "Create New", new_admin_article_path, class: "new_btn" %><%= link_to "全件表示", admin_articles_path(anchor: "index"), class: "show_all" %></p>
+  <div class="article_index index">
+    <p class="create_btn_wrapper"><%= link_to "Create New", new_admin_article_path, class: "new_btn" %><%= link_to "全件表示", admin_articles_path(anchor: "index"), class: "show_all" %></p>
     <table class="index_table" id="index">
       <thead>
         <%= render 'columns' %>
@@ -75,6 +75,7 @@
         <% end %>
       </tbody>
     </table>
+    <%= paginate @articles, :params => { anchor: "index" } %>
     <% if @articles.blank? %>
       <div class="no_result">
         <h3 class="center">No articles....</h3>

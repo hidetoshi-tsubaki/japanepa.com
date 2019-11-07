@@ -23,10 +23,13 @@
             <%= render partial: 'admin/quizzes/quiz', collection: @quizzes, as: :quiz %>
           </tbody>
         </table>
+        <%= paginate @quizzes, :params => { anchor: "index" } %>
       <% else %>
+        <%= paginate @categories %>
         <ul id="sortable_list" class="quiz_category_list quizzes_list">
           <%= render partial: 'admin/quiz_categories/category', collection: @categories, as: :category %>
         </ul>
+        <%= paginate @categories, :params => { anchor: "index" } %>
         <%= hidden_field_tag :parent_id, @parent.id if @parent.present? %>
     <% end %>
   </div>

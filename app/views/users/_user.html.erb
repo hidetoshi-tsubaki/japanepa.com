@@ -1,0 +1,10 @@
+<%= link_to user_path(user), class: "user_wrapper" do %>
+  <div class="user" id="user_<%= user.id %> <%= add_emphasis(user) %>">
+    <p class="rank_number center" id="<%= is_top_3?(user_counter) %>">
+    <%= icon("fas", "crown") if user_counter < 3 %>
+    <%= user_counter + 1 %>
+    </p>
+    <p class="name"><%= user.name %></p>
+    <p class="experience"><%= show_total_experience(user) %></p>
+  </div>
+<% end %>

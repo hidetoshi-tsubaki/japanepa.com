@@ -1,12 +1,12 @@
 class LikesTalksController < ApplicationController
   before_action :authenticate_user!
 
-  def like
+  def create
     @talk = Talk.find(params[:id])
     current_user.like_talk(@talk)
   end
 
-  def remove_like
+  def delete
     @talk = Talk.find(params[:id])
     current_user.remove_like_talk(@talk)
     render: like
