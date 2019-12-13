@@ -11,8 +11,8 @@
       <p>Image</p>
       <div class="post_img_area upload_img">
         <%= f.file_field :img, id: 'post_img' %>
-        <% if @community.img.present? %>
-          <%= image_tag @community.img.to_s, class: 'present_Img' %>
+        <% if @community.img.attached? %>
+          <%= image_tag @community.img, class: 'present_Img' %>
         <% else %>
           <%= f.hidden_field :img_cache %>
           <img id="postImg_prev" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />

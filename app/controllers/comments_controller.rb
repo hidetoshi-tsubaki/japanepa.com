@@ -1,16 +1,15 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
 
-  def new
+  def index
     @talk = Talk.find(params[:id])
-    @comment = current_user.comments.new
-    render :form
+    @comments = @talk.comments.sorted.page(params[:page])
   end
 
   def create
     @comment = current_user.comments.new(comment_params)
     @talk = Talk.find(comment_params[:talk_id])
-    if @comment.save
+    if @comment.save!
     else
       render :form
     end
@@ -18,16 +17,16 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find(params[:id])
-    render :form
   end
 
   def update
-    Comment.update(comment_params)
-    render :update_index
+    @comment = Comment.find(params[:id])
+    @comment.update(comment_params)
   end
 
-  def delete
-    Comment.find(params[:id]).destroy
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
   end
 
   private

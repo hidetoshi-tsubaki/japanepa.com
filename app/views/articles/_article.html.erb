@@ -1,22 +1,14 @@
 <%= link_to article_path(article) do %>
-  <div class="articles">
-    <div class="col-xs-4 contain-thumbnail">
-      <p><%= image_tag article.img ,class:"thumbnails" %></p>
+  <div class="article">
+    <%= image_tag article.img , class: "thumbnails" %>
+    <div class="article_headline_wrapper inline">
+      <h4 class="title bold"><%= article.title %></h4>
+      <p class="lead"><%= article.lead %></p>
     </div>
-    <div class="col-xs-8">
-      <div class="article-lead">
-        <p class="posted-time">posted at <%= article.created_at.strftime('%Y/%m/%d') %></p>
-        <p><%= article.title %></p>
-        <p class="lead"><%= article.lead %></p>
-        <% if user_signed_in? %>
-          <div id="bookmark_btn_<%= article.id %>">
-          <%= render partial:'bookmark_btn' , locals: {article: article} %>
-          </div>
-        <% end %>
-        <div id="like_btn_<%= article.id %>">
-          <%= render partial:'like_btn' , locals: {article: article} %>
-        </div>
-      </div>
-    </div>
+    <p class="posted-time right">
+      <%= icon("fas", "star") %><%= article.bookmarks_count %>
+      <%= icon("fas", "heart") %><%= article.likes_count %>
+      <%= icon("far", "clock") %> <%= article.created_at.strftime('%Y/%m/%d') %>
+    </p>
   </div>
 <% end %>

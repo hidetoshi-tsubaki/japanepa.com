@@ -1,4 +1,5 @@
-<%= link_to '戻る', articles_path %>
+<% content_for(:html_title) { "Article-#{@article.title}" } %>
+<% breadcrumb :show_article, @article %>
 <div class="section_wrapper">
   <div class="main_section article-contents">
     <div>
@@ -20,17 +21,6 @@
     </div>
   </div>
   <div class="side_section">
-    <div>
-      <ul class="tags">
-        <% if @tags.present? %>
-          <%= render partial: 'tag', collection: @tags, as: :tag %>
-        <% else %>
-        <li>No tags....</li>
-        <% end %>
-      </ul>
-    </div>
-    <div class="article_ranking">
-      <%= render 'ranked_articles' %>
-    </div>
+    <%= render 'side_section' %>
   </div>
 </div>

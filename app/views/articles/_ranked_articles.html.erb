@@ -1,24 +1,30 @@
-<div>
-  <p>Most Viewed article</p>
-  <% if @viewed_top_3.present? %>
-    <%= render partial: "articles/ranked_article", collection: @viewed_top_3, as: :article %>
-  <% else %>
-    <p>No Data</p>
-  <% end %>
+<div class="side_content">
+  <h4><%= icon("far", "eye") %> Most Viewed</h4>
+  <div class="inner_article_content">
+    <% if @viewed_top_3.present? %>
+      <%= render partial: "articles/ranked_article", collection: @viewed_top_3, as: :article %>
+    <% else %>
+      <p>No Data</p>
+    <% end %>
+  </div>
 </div>
-<div>
-  <p>Most Bookmarked article</p>
-  <% if @bookmarked_top_3.present? %>
-    <%= render partial: "articles/ranked_article", collection: @bookmarked_top_3, as: :article %>
-  <% else %>
-    <p>No Data</p>
-  <% end %>
+<div class="side_content">
+  <h4><%= icon("fas", "star") %> Most Bookmarked</h4>
+  <div class="inner_article_content">
+    <% if @bookmarked_top_3.present? %>
+      <%= render partial: "articles/ranked_article", collection: @bookmarked_top_3, as: :article %>
+    <% else %>
+      <p>No Data</p>
+    <% end %>
+  </div>
 </div>
-<div>
-  <p>Most Liked article</p>
-  <% if @liked_top_3.present? %>
-    <%= render partial: "articles/ranked_article", collection: @liked_top_3, as: :article %>
-  <% else %>
-    <p>No Data</p>
-  <% end %>
+<div class="side_content">
+  <h4><%= icon("fas", "heart") %> Most Liked</h4>
+  <div class="inner_article_content">
+    <% if @liked_top_3.present? %>
+      <%= render partial: "articles/ranked_article", collection: @liked_top_3, as: :article %>
+    <% else %>
+      <p>No Data</p>
+    <% end %>
+  </div>
 </div>

@@ -10,7 +10,7 @@ class Admin::QuizCategoriesController < ApplicationController
     @ancestors = @parent.get_ancestors
     get_children_category(@parent)
     if @parent.is_title?
-      @quizzes = @parent.quizzes
+      @quizzes = @parent.quizzes.page(params[:page])
     end
     render 'index'
   end
@@ -22,7 +22,7 @@ class Admin::QuizCategoriesController < ApplicationController
 
   def new_category
     @parent = QuizCategory.find(params[:id])
-    @category = @parent.is_section? ? TitleQuizExperienceForm.new : QuizCategory.new
+    @category = @parent.is_section? ? CategoryWithExperienceForm.new : QuizCategory.new
     render :new_category
   end
 
@@ -32,7 +32,7 @@ class Admin::QuizCategoriesController < ApplicationController
   end
 
   def create
-    @category = title_form?(params) ? TitleQuizExperienceForm.new(title_quiz_experience_params) : QuizCategory.new(category_params)
+    @category = title_form?(params) ? CategoryWithExperienceForm.new(category_with_experience_params) : QuizCategory.new(category_params)
     if @category.save
       set_categories(@category)
       flash.now[:notice] = "新しいカテゴリーを作成しました！"
@@ -51,29 +51,27 @@ class Admin::QuizCategoriesController < ApplicationController
   end
 
   def update
-    @parent = QuizCategory.find(params[:id])
-    get_children_category(@parent)
-    @parent.update(category_params)
-    if @parent.save
-      flash.now[:notice] = "カテゴリーを編集しました。"
-      redirect_to edit_quiz_category_path(params[:id])
+    @category = QuizCategory.find(params[:id])
+    if @category.is_title?
+      @category = CategoryWithExperienceForm.new(category_params)
+      @category.update(category_params)
     else
-      render 'edit'
+      p "ssss"
+      @category.update(category_params)
+      if @category.save
+        flash.now[:notice] = "カテゴリーを編集しました。"
+      else
+        render :edit
+      end
     end
   end
 
   def destroy
-    category = QuizCategory.find(params[:id])
-    category.destroy
-    flash.now[:notice] = '#{quiz_category.name}を削除しました。'
-    if category.is_level?
-      redirect_to admin_quiz_categories_path
-    else
-      redirect_to categories_admin_quiz_category_path(category.parent_id)
-    end
+    @category = QuizCategory.find(params[:id]).destroy
   end
 
-def search
+  def search
+    is_pagination?(params)
     if params[:q]['name_or_introduction_or_users_name_cont_any'] != nil
       params[:q]['name_or_introduction_or_users_name_cont_any'] = params[:q]['name_or_introduction_or_users_name_cont_any'].split(/[ ]/)
       @keywords = Community.ransack(params[:q])
@@ -96,11 +94,11 @@ def search
   private
 
   def category_params
-    params.require(:quiz_category).permit(:name, :parent_id)
+    params.require(:quiz_category).permit(:name, :parent_id, :experience, :id)
   end
 
-  def title_quiz_experience_params
-    params.require(:title_quiz_experience_form).permit(:name, :parent_id, :experience)
+  def category_with_experience_params
+    params.require(:category_with_experience_form).permit(:name, :parent_id, :experience)
   end
 
   def get_children_category(category)
@@ -130,7 +128,13 @@ def search
   end
 
   def title_form?(params)
-    return params[:title_quiz_experience_form].present? ? true : false
+    return params[:category_with_experience_form].present? ? true : false
+  end
+
+  def is_pagination?(params)
+    if params[:q]['name_or_introduction_or_users_name_cont_any'].kind_of?(Array)
+      params[:q]['name_or_introduction_or_users_name_cont_any'] = params[:q]['name_or_introduction_or_users_name_cont_any'].join(" ")
+    end
   end
 
 end

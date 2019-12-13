@@ -13,9 +13,9 @@
     <% end %>
   </div>
   <ul class="talk_btns">
-    <li class="comment_btn">
-      <%= link_to new_comment_path(id: talk.id) , class:'comment_mark', remote: true do %>
-        <%= icon("fas", "comment-alt") %>  <%= talk.comments.count %>  <%= talk.comments.count > 1 ? "Comments" : "Comment" %>
+    <li id="comment_btn_<%= talk.id %>" class="comment_btn">
+      <%= link_to comments_path(id: talk.id), remote: true do %>
+        <%= icon("fas", "comment-alt") %>  <%= talk.comments_count %>  <%= talk.comments_count > 1 ? "Comments" : "Comment" %>
       <% end %>
     </li>
     <li id="like_btn_<%= talk.id %>" class="like_btn">
@@ -34,7 +34,13 @@
       </li>
     <% end %>
   </ul>
-</div>
-<div class="hidden comments_wrapper">
-  <div id="comments_in_talk_<%= talk.id %>"></div>
+  <div id="comments_wrapper_<%= talk.id%>" class="hidden comments_wrapper">
+    <%= form_with model: @comment do |f| %>
+      <%= f.text_field :contents, id: "comment_form_#{talk.id}", placeholder: "Comment ...." %>
+      <%= f.hidden_field :talk_id, value: talk.id %>
+    <% end %>
+    <div id="comments_of_talk<%= talk.id %>">
+    </div>
+    <div id="view_more_<%= talk.id %>" class="center view_more"></div>
+  </div>
 </div>

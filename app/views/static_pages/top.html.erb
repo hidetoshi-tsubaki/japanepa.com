@@ -1,57 +1,37 @@
-<div class="row">
-  <div class="col-md-4 eq-height">
-    <div class="eq-hieght_content">
-    <% if user_signed_in? %>
-      <%= link_to "profile",show_profile_path %>
-    <% elsif admin_signed_in? %>
-      <%= link_to "Users", users_index_path%>
-    <% else %>
-      <p>New Account</p>
-    <% end %>
+<div>
+  <section class="quiz">
+  <div>
+    <p>introduction></p>
+    <%= link_to "Let's Start", new_user_session_path, class: "top_login" %>
+  </div>
+  <img id="no_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
+  </section>
+  <section class="experience">
+    <div>
+      <p>introduction></p>
+      <%= link_to "Let's Start", new_user_session_path, class: "top_login" %>
     </div>
-    <div class="eq-hieght_content">
-      <% if user_signed_in? %>
-        <%= link_to "Score Board", score_board_path %>
-      <% elsif admin_signed_in? %>
-        <%= link_to "Access Analysis",users_index_path %>
-      <% else %>
-        <%= link_to "LogIn",new_user_session_path %>
-      <% end %>
+    <img id="no_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
+  </section>
+  <section class="chart">
+    <div>
+      <p>introduction></p>
+      <%= link_to "Let's Start", new_user_session_path, class: "top_login" %>
     </div>
-    <div class="eq-hieght_content">
-      <% if user_signed_in? %>
-        <%= link_to "Request", score_board_path %>
-      <% elsif admin_signed_in? %>
-        <%= link_to "Requests",users_index_path %>
-      <% else %>
-        <%= icon("fas", "fa-user-cogs") %><%= link_to "Admin Login",new_user_session_path %>
-      <% end %>
+    <img id="no_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
+  </section>
+  <section class="article">
+    <div>
+      <p>introduction></p>
+      <%= link_to "Let's Start", new_user_session_path, class: "top_login" %>
     </div>
-  </div>
-  <div class="col-md-8">
-    <p>ss</p>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4">
-    <% if admin_signed_in? %>
-      <%= link_to  "Quiz",edit_quiz_index_path, class:"edit" %>
-    <% else %>
-      <%= link_to  "Quiz",quiz_index_path %>
-    <% end %>
-  </div>
-  <div class="col-md-4">
-    <% if admin_signed_in? %>
-      <%= link_to  "News",edit_quiz_index_path, class:"edit" %>
-    <% else %>
-      <%= link_to  "News",quiz_index_path %>
-    <% end %>
-  </div>
-  <div class="col-md-4">
-    <% if admin_signed_in? %>
-      <%= link_to  "Talk",edit_quiz_index_path ,class:"edit" %>
-    <% else %>
-      <%= link_to  "Talk",quiz_index_path %>
-    <% end %>
-  </div>
+    <img id="no_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
+  </section>
+  <section class="talk">
+    <div>
+      <p>introduction></p>
+      <%= link_to "Let's Start", new_user_session_path, class: "top_login" %>
+    </div>
+    <img id="no_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
+  </section>
 </div>

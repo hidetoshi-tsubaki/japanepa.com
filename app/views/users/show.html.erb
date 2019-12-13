@@ -1,4 +1,4 @@
-<div class="profile_wrapper">
+<% content_for(:html_title) { "Profile - @user.name" } %>
   <p class="right"><%= link_to 'Edit', edit_user_registration_path(@user) %></p>
   <p class="center">Profile</p>
   <% if @user.img.attached? %>
@@ -7,7 +7,7 @@
     <%= image_tag 'https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg' %>
   <% end %>
   <table class="user_info">
-  <%= link_to "All talks", talks_path(@user) %>
+  <%= link_to "All talks", talks_path(id: @user.id) %>
     <tr>
       <td>Name:</td>
       <td><%= @user.name %></td>

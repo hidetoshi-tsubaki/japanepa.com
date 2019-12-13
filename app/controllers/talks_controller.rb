@@ -2,17 +2,17 @@ class TalksController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
   # before_action :authenticate_edit_delete, only: :delete
   # もしも、communityに参加していなかった時のためのbefore_action
+  before_action :set_ranked_talks, only: [:index]
 
   def new
     @talk = current_user.talks.new
     @communities = current_user.communities
-    render :form
+    render 'form'
   end
   
   def index
-    @user = User.find(params[:id])
-    @talks = @user.talks.sorted
-    @tags = Community.tags_on(:tags)
+    @talks = current_user.own_talks.sorted.page(params[:page])
+    @comment = Comment.new
   end
 
   def show
@@ -22,19 +22,19 @@ class TalksController < ApplicationController
   end
 
   def create
-    @talk = Talk.new(talk_params)
+    @talk = current_user.talks.new(talk_params)
     if @talk.save
       flash.now[:notice] = "talk was post"
     else
       @communities = current_user.communities
-      render :form
+      render 'form'
     end
   end
 
   def edit
     @talk = Talk.find(params[:id])
     @communities = current_user.communities
-    render :form
+    render 'form'
   end
 
   def update
@@ -54,7 +54,6 @@ class TalksController < ApplicationController
 
   def destroy_img
     @talk = Talk.find(params[:id])
-    @talk
   end
 
   private
@@ -86,4 +85,9 @@ class TalksController < ApplicationController
       @community = Community.find(params)
     end
   end
+    def set_ranked_talks
+    @commented_top_3 = Talk.commented_top_3
+    @liked_top_3 = Talk.liked_top_3
+  end
+
 end

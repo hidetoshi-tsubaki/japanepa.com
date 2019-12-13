@@ -5,3 +5,4 @@
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 <%= Gon::Base.render_data %>
 <%= include_gon %>
+<title><%= content_for?(:html_title) ? yield(:html_title) : "Japanepa.com" %></title>

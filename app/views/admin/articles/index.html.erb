@@ -1,6 +1,8 @@
+<% content_for(:html_title) { 'Articles Index' } %>
+<% breadcrumb :admin_articles, @articles %>
 <div class="index_wrapper">
   <div class="search_wrapper">
-    <h2>Articles index </h2>
+    <h2><%= icon("fas","newspaper") %>Articles index </h2>
     <div class="search" id="date_input">
       <p class="bold">ワード検索</p>
       <%= search_form_for @q, url: search_admin_articles_path do |f| %>
@@ -53,7 +55,7 @@
       <% end %>
     </div>
     <div class="tag_search">
-      <p class="bold">・Tags</p>
+      <p class="bold">・タグ検索</p>
       <ul class="tags_section tags">
         <% if @tags.present? %>
           <%= render partial: 'tag', collection: @tags, as: :tag %>

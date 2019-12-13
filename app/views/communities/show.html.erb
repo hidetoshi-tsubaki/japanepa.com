@@ -1,27 +1,32 @@
-<%= link_to '戻る', communities_path %>
-<h1><%= @community.name %></h1>
+<% content_for(:html_title) { "Community-#{@community.name}" } %>
+<% breadcrumb :show_community, @community %>
 <div class="section_wrapper">
-  <div id="talk_index" class="main_section inline jscroll">
-    <% if @talks.present? %>
-      <%= render partial: 'talks/talk', collection: @talks, as: :talk %> 
-    <% else %>
-      <p>no talks...</p>
-    <% end %>
+  <div class="main_section">
+    <h1 class="center bold page_title"><%= @community.name %></h1>
+    <div class="talk_index jscroll" class="main_section inline jscroll">
+      <% if @talks.present? %>
+        <%= render partial: 'talks/talk', collection: @talks, as: :talk %>
+      <% else %>
+        <p>no talks...</p>
+      <% end %>
+    </div>
   </div>
   <div class="side_section inline">
     <div class="side_content">
+      <%= link_to 'Create Talk', new_talk_path, class: 'block center create_btn', remote: true %>
+    </div>
+    <div class="side_content">
+      <h4>Community Information</h4>
       <div id="join_btn_<%= @community.id %>">
-        <%= render partial:'join_btn' , locals: {community: @community} if current_user.is_founder?(@community) %>
+        <%= render partial:'join_btn' , locals: { community: @community } if current_user.is_founder?(@community) %>
       </div>
-      <p><%= @community.name %></p>
       <p><%= @community.introduction %></p>
       <p>member: <%= @community.users.count %></p>
       <p>talks: <%= @community.talks.count %></p>
-      <p>community leader:<%= @community.founder.name %></p>
+      <p>Founder:<%= @community.founder.name %></p>
     </div>
     <div class="side_content">
-      <%= link_to 'community_index', communities_path, class: "center block" %>
-      <p>・Tags</p>
+      <h4><%= icon("fas", "tags") %> Tags(タグ)</h4>
       <ul class="tags">
         <% if @tags.present? %>
           <%= render partial: 'tag', collection: @tags, as: :tag %>

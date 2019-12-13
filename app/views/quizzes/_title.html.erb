@@ -9,7 +9,7 @@
   <p class="chart_button inline" id=<%= title.id %>">
     <%= icon("fas", "chart-line") %>Score
   </p>
-  <%= link_to mistake_path(title), class: "show_mistakes_button inline" do %>
+  <%= link_to mistakes_path(id: title.id), class: "show_mistakes_button inline" do %>
     <%= icon("fas", "tasks") %>records
   <% end %>
 </li>

@@ -1,0 +1,22 @@
+<div class="form_wrapper">
+  <p class="center bold">Category Form</p>
+  <%= form_with model: [:admin, category], builder: CustomFormBuilder do |f| %>
+    <%= f.hidden_field :id, value: category.id %>
+    <div class="field" >
+      <p class="bold"><%= get_category(category) %></p>
+      <%= f.text_field :name , id: 'form_input' %>
+    </div>
+    <% if category.is_title? %>
+      <div class="field" >
+        <p class="bold">経験値</p>
+        <%= f.select :experience, experience_array, id: 'form_input', selected: category.quiz_experience.experience %>
+      </div>
+    <% end %>
+    <div class="form_btn">
+      <%= f.submit '作成',id: 'form_btn'%>
+    </div>
+    <% if defined?(parent) %>
+      <%= f.hidden_field :parent_id, value: parent.id %>
+    <% end %>
+  <% end %>
+</div>

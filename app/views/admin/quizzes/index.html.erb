@@ -1,8 +1,10 @@
+<% content_for(:html_title) { "Quiz Index" } %>
 <div class="admin_quiz_wrapper">
+  <% breadcrumb :admin_quizzes, @quizzes %>
   <div class="search_wrapper">
-    <h2>Quizzes index </h2>
+    <h2><%= icon("fas","question") %>Quizzes index </h2>
     <div class="search" id="date_input">
-      <p class="bold">● ワード検索</p>
+      <p class="bold">・ワード検索</p>
       <%= search_form_for @q, url: search_admin_quizzes_path do |f| %>
         <div class="field">
           <%= f.text_field :question_or_choice1_cont_any, class: "keyword_search" %>
@@ -16,7 +18,7 @@
       <% end %>
     </div>
     <div class="category_search">
-      <p class="bold">● カテゴリー検索</p>
+      <p class="bold">・カテゴリー検索</p>
       <div>
         <label>Level</label>
         <select id="select_level" class="index">
@@ -39,17 +41,19 @@
       <p class="category_link right bold"><%= link_to 'カテゴリー作成', admin_quiz_categories_path %></p>
     </div>
   </div>
-  <p>
-    <%= link_to 'NEW', new_admin_quiz_path, class: 'new_btn' %>
-    <span><%= link_to '全件表示', admin_quizzes_path %></span>
-  </p>
-  <table class="index_table">
-    <thead>
-      <%= render 'columns' %>
-    </thead>
-    <tbody class="quizzes_list">
-      <%= render partial: 'quiz', collection: @quizzes, as: :quiz %>
-    </tbody>
-  </table>
-  <%= paginate @quizzes, :params => { anchor: "index" } %>
+  <div id="index">
+    <p>
+      <%= link_to 'NEW', new_admin_quiz_path, class: 'new_btn' %>
+      <span><%= link_to '全件表示', admin_quizzes_path %></span>
+    </p>
+    <table class="index_table">
+      <thead>
+        <%= render 'columns' %>
+      </thead>
+      <tbody class="quizzes_list">
+        <%= render partial: 'quiz', collection: @quizzes, as: :quiz %>
+      </tbody>
+    </table>
+    <%= paginate @quizzes, :params => { anchor: "index" } %>
+    </div>
 </div>

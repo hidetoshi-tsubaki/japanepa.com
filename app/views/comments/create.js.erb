@@ -1,2 +1,2 @@
-$("#comments_in_talk_<%= @talk.id %>").prepend("<%= j(render partial: 'comment', locals: { comment: @comment }) %>");
-$('#modalArea').fadeOut();
+$("#comments_of_talk<%= @talk.id %>").prepend("<%= j(render partial: 'comment', locals: { comment: @comment }) %>");
+$("#comment_form_<%= @talk.id %>").val('');

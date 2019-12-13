@@ -1,11 +1,17 @@
-<h1>community index</h1>
+<% content_for(:html_title) { "Communities Index" } %>
+<% breadcrumb :communities, @communities %>
 <div class="section_wrapper">
-  <div class="main_section inline">
-    <div id="community_index">
+  <div class="main_section">
+    <h1 class="center bold page_title">Communities index</h1>
+    <div class="community_index jscroll">
+      <% if @communities.present? %>
       <%= render partial: 'community', collection: @communities, as: :community %>
+      <% else %>
+        <p class="center">No...community</p>
+      <% end %>
     </div>
   </div>
-  <div class="side_section inline">
-    <%= render partial: 'side_section' %>
+  <div class="side_section">
+    <%= render 'side_section' %>
   </div>
 </div>

@@ -1,14 +1,14 @@
 class MistakesController < ApplicationController
   before_action :authenticate_user!
 
-  def show
+  def index
     @category = QuizCategory.find(params[:id])
     set_valiables(params[:q],@category.id)
     @mistakes = @q.result(distinct: true).sorted
   end
 
   def destroy
-    Mistake.find(params[:id]).destroy
+    @mistake = Mistake.find(params[:id]).destroy
   end
 
   def search
@@ -20,7 +20,7 @@ class MistakesController < ApplicationController
       set_valiables(params[:q],@category.id)
       @mistakes = @q.result(distinct: true).sorted
     end
-    render template: 'mistakes/show'
+    render template: 'mistakes/index'
   end
 
   private

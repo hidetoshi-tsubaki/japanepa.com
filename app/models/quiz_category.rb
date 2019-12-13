@@ -4,7 +4,7 @@ class QuizCategory < ApplicationRecord
   has_many :quizzes, foreign_key: "category_id"
   has_many :categories, -> { order(position: :asc) },foreign_key: 'parent_id', class_name: 'QuizCategory'
   has_many :mistakes, foreign_key: "title_id"
-  has_many :quiz_experiences, foreign_key: 'title_id'
+  has_one :quiz_experience, foreign_key: 'title_id'
   belongs_to :parent, foreign_key: "parent_id", optional: true
 
   validates :name, presence: true

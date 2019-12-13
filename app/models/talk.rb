@@ -10,9 +10,13 @@ class Talk < ApplicationRecord
 
   validates :content, :user_id, :community_id, presence: true
   validate :image_content_type
+  
   scope :in_joined_communities, -> (user) do
     includes(community: :community_users).
     where(community_users: { user_id: user.id })
     .sorted
   end
+  scope :commented_top_3, -> { with_attached_img.order(likes_count: :desc).limit(3) }
+  scope :liked_top_3, -> { with_attached_img.order(comments_count: :desc).limit(3) }
+
 end

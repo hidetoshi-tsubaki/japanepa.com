@@ -1,6 +1,5 @@
 <div class="quiz_form_wrapper">
   <%= form_with model: [:admin, quiz], local:true, builder: CustomFormBuilder do |f| %>
-    
     <% if defined?(category) %>
       <%= f.hidden_field :category_id, value: category.id %>
     <% else %>

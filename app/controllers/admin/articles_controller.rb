@@ -9,7 +9,7 @@ class Admin::ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id]).page(params[:page])
+    @article = Article.find(params[:id])
     @tags = @article.tags_on(:tags)
   end
 
@@ -52,13 +52,7 @@ class Admin::ArticlesController < ApplicationController
   end
 
   def destroy
-    if Article.find(params[:id]).destroy
-      @articles = Article.sorted
-      redirect_to admin_articles_path(anchor: "index")
-    else
-      flash.now[:notice] = "failed to delete Article......"
-      render index
-    end
+    @article = Article.find(params[:id]).destroy
   end
 
   def bookmark_articles
@@ -84,8 +78,9 @@ class Admin::ArticlesController < ApplicationController
       head 400
     end
   end
-  
+
   def search
+    is_pagination?(params)
     if params[:q]['title_or_lead_cont_any'] != nil
       params[:q]['title_or_lead_cont_any'] = params[:q]['title_or_lead_cont_any'].split(/[ ]/)
       @keywords = Article.ransack(params[:q])
@@ -115,7 +110,13 @@ class Admin::ArticlesController < ApplicationController
   end
 
   def set_article_tags
-    @tags = Article.tags_on(:tags)
+    @tags = Article.all_tags
+  end
+
+  def is_pagination?(params)
+    if params[:q]['title_or_lead_cont_any'].kind_of?(Array)
+      params[:q]['title_or_lead_cont_any'] = params[:q]['title_or_lead_cont_any'].join(" ")
+    end
   end
 
 end

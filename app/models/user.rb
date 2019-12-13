@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_many :community_users, dependent: :destroy
   has_many :communities, through: :community_users
   has_many :score_records, dependent: :destroy
-  has_many :talks, dependent: :destroy
+  has_many :own_talks, class_name: 'Talk', foreign_key: 'user_id', dependent: :destroy
   has_many :founded_communities, class_name: 'Community', foreign_key: 'founder_id', dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :like_talks, dependent: :destroy

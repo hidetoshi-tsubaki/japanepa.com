@@ -1,8 +1,0 @@
-<%= form_with model: category,url:edit_quiz_admin_quiz_category_path(category), builder: CustomFormBuilder do |f| %>
-  <div class="field" >
-    <%= f.text_field :name ,id: 'form_input' %>
-  </div>
-  <div class="form_btn">
-    <%= f.submit '変更',id: 'form_btn'%>
-  </div>
-<% end %>

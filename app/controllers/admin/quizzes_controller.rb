@@ -60,6 +60,7 @@ class Admin::QuizzesController < ApplicationController
   end
 
   def search
+    is_pagination?(params)
     if params[:q]['question_or_choice1_cont_any'] != nil
       params[:q]['question_or_choice1_cont_any'] = params[:q]['question_or_choice1_cont_any'].split(/[ ]/)
       @keywords = Quiz.ransack(params[:q])
@@ -184,5 +185,10 @@ class Admin::QuizzesController < ApplicationController
     end
   end
 
+  def is_pagination?(params)
+    if params[:q]['question_or_choice1_cont_any'].kind_of?(Array)
+      params[:q]['question_or_choice1_cont_any'] = params[:q]['question_or_choice1_cont_any'].join(" ")
+    end
+  end
 end
 

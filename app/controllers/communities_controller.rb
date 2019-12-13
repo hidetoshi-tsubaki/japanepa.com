@@ -7,6 +7,7 @@ class CommunitiesController < ApplicationController
   def index
     @q = Community.ransack(params[:q])
     @communities = @q.result(distinct: true).sorted
+    @comment = Comment.new
   end
 
   def new
@@ -43,12 +44,16 @@ class CommunitiesController < ApplicationController
   def feed
     joined_Community = current_user.community_users.pluck(:community_id)
     @talks = Talk.where(community_id: joined_Community).includes(:community).sort_and_paginate(10)
+    @comment = Comment.new
   end
 
   def show
     @community = Community.includes(:founder).find(params[:id])
     @talks = Talk.where(community_id: params[:id])
     @tags = @community.tags_on(:tags)
+    @comment = Comment.new
+    @commented_top_3 = @community.talks.commented_top_3
+    @liked_top_3 = @community.talks.liked_top_3
   end
 
   def sort
@@ -92,7 +97,7 @@ class CommunitiesController < ApplicationController
   end
 
   def set_community_tags
-    @tags = Community.tags_on(:tags)
+    @tags = Community.all_tags
   end
 
 end

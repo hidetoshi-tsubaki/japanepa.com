@@ -1,4 +1,4 @@
-class LikesArticlesController < ApplicationController
+class LikeArticlesController < ApplicationController
   before_action :authenticate_user!
 
   def create
@@ -8,7 +8,7 @@ class LikesArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
+    @article = Article.find(params[:id].to_i)
     current_user.remove_like_article(@article)
     render 'like'
   end

@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_article_tags, only: [:index, :search, :tag_search]
   before_action :set_ranked_articles, only: [:show, :index, :search, :tag_search]
   impressionist :actions => [:show]
@@ -11,6 +12,7 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
     @tags = @article.tags_on(:tags)
+    @q = Article.with_attached_img.ransack(params[:q])
   end
 
   def tag_search
@@ -35,7 +37,7 @@ class ArticlesController < ApplicationController
   private
 
   def set_article_tags
-    @tags = Article.tags_on(:tags)
+    @tags = Article.all_tags
   end
 
   def set_ranked_articles

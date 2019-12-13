@@ -62,10 +62,12 @@ class ScoreRecordsController < ApplicationController
     if mistake_ids.present?
       @mistakes = []
       mistake_ids.each do |id|
-        miss = Mistake.find_or_create_by(quiz_id: id, user_id: current_user.id, title_id: title_id)
+        miss = Mistake.find_or_initialize_by(quiz_id: id, user_id: current_user.id, title_id: title_id)
         if miss.new_record?
           @mistakes << miss
+          p "new"
         else
+          p "add"
           miss.count += 1
           @mistakes << miss
         end

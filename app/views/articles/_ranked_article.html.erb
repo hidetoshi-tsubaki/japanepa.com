@@ -1,7 +1,6 @@
 <%= link_to article_path(article) do %>
-  <div>
-    <p><%= image_tag article.img %></p>
-    <p><%= article.title %></p>
-    <p><%= article.lead %></p>
+  <div class="inner_article">
+    <p class="inline"><%= image_tag article.img ,class:"thumbnails" %></p>
+    <p class="inner_article_title inline"><%= article.title %></p>
   </div>
 <% end %>

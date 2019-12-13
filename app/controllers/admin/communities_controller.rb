@@ -31,13 +31,7 @@ class Admin::CommunitiesController < ApplicationController
   end
 
   def destroy
-    if Community.find(params[:id]).destroy
-      @community = Community.sorted
-      redirect_to admin_communities_path(anchor: "index")
-    else
-      flash.now[:notice] = "failed to delete... try again"
-      render :index
-    end
+    @Community = Community.find(params[:id]).destroy
   end
 
   def tag_search
@@ -47,8 +41,9 @@ class Admin::CommunitiesController < ApplicationController
   end
 
   def search
-    if params[:q]['name_or_introduction_or_users_name_cont_any'] != nil
-      params[:q]['name_or_introduction_or_users_name_cont_any'] = params[:q]['name_or_introduction_or_users_name_cont_any'].split(/[ ]/)
+    is_pagination?(params)
+    if params[:q]['name_or_introduction_or_user_name_cont_any'] != nil
+      params[:q]['name_or_introduction_or_user_name_cont_any'] = params[:q]['name_or_introduction_or_user_name_cont_any'].split(/[ ]/)
       @keywords = Community.ransack(params[:q])
       @communities = @keywords.result.sorted.page(params[:page])
       @q = Community.ransack(params[:q])
@@ -71,7 +66,13 @@ class Admin::CommunitiesController < ApplicationController
 
 
   def set_community_tags
-    @tags = Community.tags_on(:tags)
+    @tags = Community.all_tags
+  end
+
+  def is_pagination?(params)
+    if params[:q]['title_or_lead_cont_any'].kind_of?(Array)
+      params[:q]['title_or_lead_cont_any'] = params[:q]['title_or_lead_cont_any'].join(" ")
+    end
   end
 
 end

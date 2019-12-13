@@ -19,5 +19,6 @@
   <p class="center replay">
     <span id="replay_btn" class="inline">Play Again</span>
     <span><%= link_to 'Quiz Index Page', quizzes_path %></span>
+    <span><%= link_to 'show Mistakes', mistakes_path(id: @category.id) if defined?(@category) %></span>
   </p>
 <% end %>

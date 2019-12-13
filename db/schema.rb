@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_234524) do
+ActiveRecord::Schema.define(version: 2019_11_10_131849) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -234,8 +234,8 @@ ActiveRecord::Schema.define(version: 2019_11_04_234524) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "community_id"
-    t.integer "likes_count"
-    t.integer "comments_count"
+    t.integer "likes_count", default: 0
+    t.integer "comments_count", default: 0
     t.index ["community_id"], name: "index_talks_on_community_id"
     t.index ["user_id"], name: "index_talks_on_user_id"
   end

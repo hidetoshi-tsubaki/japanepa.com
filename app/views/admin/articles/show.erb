@@ -1,8 +1,9 @@
+<% content_for(:html_title) { "Article-#{@article.title}" } %>
 <% if admin_signed_in? %>
   <div >
-    <%= link_to "edit",edit_articles_path(@article) %>
-    <%= link_to "delete",delete_article_path(@article),data: {confirm: 'Delete Article?'},method: :delete %>
-    <%= link_to "back to index",articles_index_path %>
+    <%= link_to "edit", edit_admin_article_path(@article) %>
+    <%= link_to "delete", admin_article_path(@article), data: { confirm: 'Delete Article?' }, method: :delete %>
+    <%= link_to "back to index", admin_articles_path %>
   </div>
 <% end %>
 <div class="article_section white">

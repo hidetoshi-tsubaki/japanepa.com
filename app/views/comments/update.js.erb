@@ -1,0 +1,2 @@
+$("#comment_<%= @comment.id %>").children('p').not('.font-s').text("  <%= simple_format(text_url_to_link(h(@comment.contents)).html_safe) %>");
+$('#modalArea').fadeOut();

@@ -1,3 +1,4 @@
+<% content_for(:html_title) { "Quiz Category Index" } %>
 <div class="quiz_categories">
   <div class="quiz_category_parent">
     <% unless @parent %>
@@ -17,20 +18,19 @@
         <%= link_to 'NEW', new_level_admin_quiz_categories_path, class: 'new_button', remote: true %>
       <% end %>
     </p>
-      <% if @parent.present? && @parent.is_title? %>
+    <% if @parent.present? && @parent.is_title? %>
+      <div id="index">
         <table>
           <tbody id ="quizzes_index">
             <%= render partial: 'admin/quizzes/quiz', collection: @quizzes, as: :quiz %>
           </tbody>
         </table>
-        <%= paginate @quizzes, :params => { anchor: "index" } %>
       <% else %>
-        <%= paginate @categories %>
         <ul id="sortable_list" class="quiz_category_list quizzes_list">
           <%= render partial: 'admin/quiz_categories/category', collection: @categories, as: :category %>
         </ul>
-        <%= paginate @categories, :params => { anchor: "index" } %>
         <%= hidden_field_tag :parent_id, @parent.id if @parent.present? %>
     <% end %>
+    </div>
   </div>
 </div>

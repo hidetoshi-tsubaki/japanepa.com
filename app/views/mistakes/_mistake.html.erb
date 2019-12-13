@@ -1,4 +1,4 @@
-<tr class="index_content" id="quiz_<%= mistake.quiz_id %>">
+<tr class="index_content" id="mistake_<%= mistake.id %>">
   <td><%= mistake.count %></td>
   <td class="truncate_column"><%= mistake.quiz.question.truncate(20) %></td>
   <td><%= mistake.quiz.choice1.truncate(20) %></td>
@@ -6,7 +6,7 @@
   <td><%= mistake.quiz.choice3.truncate(20) %></td>
   <td><%= mistake.quiz.choice4.truncate(20) %></td>
   <td>
-    <%= link_to mistake_path(mistake), class: "delete_btn inline",data: { confirm: 'Are you sure to delete this record?' } ,method: :delete do %>
+    <%= link_to mistake_path(mistake), class: "delete_btn inline",data: { confirm: 'Are you sure to delete this record?' }, remote: true, method: :delete do %>
       <%= icon("fas", "trash-alt") %> Clear
     <% end %>
   </td>

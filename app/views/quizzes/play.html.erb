@@ -1,3 +1,5 @@
+<% content_for(:html_title) { "Quiz - #{@category.name}" } %>
+<% breadcrumb :show_category, @category %>
 <div class="quiz_wrapper">
   <div class="blackboard-box">
     <p id="quizCount"></P>

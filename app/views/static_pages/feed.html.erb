@@ -1,6 +1,20 @@
+<% content_for(:html_title) { "Feed page" } %>
+<div class="breadcrumbs">
+  <%= icon("fas", "map-marker-alt") %> 
+  <%= link_to "home", root_path  %>
+    >
+  <span>Feed</span>
+</div> 
 <div class="section_wrapper">
-  <div class="main_section inline jscroll" id="talk_index">
-    <%= render partial: 'talks/talk', collection: @talks, as: :talk %>
+  <div class="main_section">
+    <h1 class="center bold page_title">Feed</h1>
+    <div class="talk_index jscroll" class="main_section inline jscroll">
+      <% if @talks.present? %>
+        <%= render partial: 'talks/talk', collection: @talks, as: :talk %>
+      <% else %>
+        <p>no talks...</p>
+      <% end %>
+    </div>
   </div>
   <div class="side_section">
     <div class="community-section">

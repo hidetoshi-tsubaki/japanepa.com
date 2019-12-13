@@ -1,17 +1,25 @@
 class Admin::TalksController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authenticate_edit_delete, only: :delete
-  # もしも、communityに参加していなかった時のためのbefore_action
+  before_action :authenticate_admin!
 
-  def new
-    @talk = current_user.talks.new
-    @community = Community.find_by(id: params[:id]) || @communities = current_user.community_users.includes(:community)
-    render :modal_talk_form
-  end
-  
   def index
-    if params[:q] != nil
-      params[:q]['name_or_introduction_cont_any'] = params[:q]['title_or_lead_cont_any'].split(/[ ]/)
+    @q = Talk.ransack(params[:q])
+    @talks = @q.result(distinct: true).sorted.page(params[:page])
+  end
+
+  def show
+    @talk = Talk.find(params[:id])
+  end
+
+  def destroy
+    talk = Talk.find(params[:id])
+    @talk = talk
+    talk.destroy
+  end
+
+  def search
+    is_pagination?(params)
+    if params[:q]['user_name_or_content_cont_any'] != nil
+      params[:q]['user_name_or_content_cont_any'] = params[:q]['user_name_or_content_cont_any'].split(/[ ]/)
       @keywords = Talk.ransack(params[:q])
       @talks = @keywords.result.sorted.page(params[:page])
       @q = Talk.ransack(params[:q])
@@ -19,22 +27,7 @@ class Admin::TalksController < ApplicationController
       @q = Talk.ransack(params[:q])
       @talks = @q.result(distinct: true).sorted.page(params[:page])
     end
-  end
-
-  def show
-    @talk = Talk.includes(:user).find(params[:id])
-    @comments = @talk.comments.includes(:users)
-    @comment = Comment.new
-  end
-
-  def delete
-    if Talk.find(params[:id]).destroy
-      @talks = Talk.sort_and_paginate(10)
-      render :update_index
-    else
-      flash.now[:notice] = "failed to delete..."
-      render :index
-    end
+    render template: 'admin/talks/index'
   end
 
   private
@@ -56,6 +49,12 @@ class Admin::TalksController < ApplicationController
     else
       community_id = communities.map{ |community| community.id }
       Talk.where(id: community_id).precount(:comments)
+    end
+  end
+
+  def is_pagination?(params)
+    if params[:q]['user_name_or_content_cont_any'].kind_of?(Array)
+      params[:q]['user_name_or_content_cont_any'] = params[:q]['user_name_or_content_cont_any'].join(" ")
     end
   end
 end

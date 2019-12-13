@@ -2,5 +2,10 @@
   <li><%= link_to "クイズカテゴリー TOP", admin_quiz_categories_path %></li>
   <%= render partial: 'breadcrumbs_list', collection: ancestors, as: :ancestor %>
 </ul>
-<p class="parent_name center"><%= parent.name %></p>
-<%= render partial: 'edit_quiz_category_form', locals: {category: parent} %>
+<p class="parent_name center">
+  <span id="category_name"><%= parent.name %></span>
+  <%= link_to "編集", edit_admin_quiz_category_path(parent), remote: true, id: "category_edit_btn" %>
+</p>
+<% if parent.is_title? %>
+  <p class="center" >経験値 <span id ="quiz_experience"><%= parent.quiz_experience.experience %></span></p>
+<% end %>

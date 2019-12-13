@@ -1,4 +1,4 @@
-class LikesTalksController < ApplicationController
+class LikeTalksController < ApplicationController
   before_action :authenticate_user!
 
   def create

@@ -12,13 +12,13 @@ Rails.application.routes.draw do
       get :play_mistakes
     end
   end
-  resources :mistakes, only: [:show, :destroy] do
+  resources :mistakes, only: [:index, :destroy] do
     collection do
       get :search
     end
   end
   resources :score_records, only: [:index, :show, :create]
-  resources :talks, except: :index do
+  resources :talks do
     collection do
       get :sort
       get :search
@@ -28,8 +28,7 @@ Rails.application.routes.draw do
       get :user
     end
   end
-  get '/like_talk/:id', to: 'likes_talks#like', as: 'like_talk'
-  get '/remove_like_talk/:id', to: 'likes_talks#remove_like', as: 'remove_like_talk'
+  resources :like_talks, only: [:create, :destroy]
   resources :comments
   resources :articles, only: [:show, :index] do
     collection do
@@ -38,11 +37,8 @@ Rails.application.routes.draw do
       get :tag_search
     end
   end
-  get '/like_article/:id', to: 'likes_articles#create', as: 'like_article'
-  get '/remove_like_article/:id', to: 'likes_articles#destroy', as: 'remove_like_article'
-  resources :bookmarks, only: :index
-  get '/bookmark/:id', to: 'bookmarks#create', as: 'bookmark'
-  get '/remove_bookmark/:id', to: 'bookmarks#destroy', as: 'remove_bookmark'
+  resources :like_articles, only: [:create, :destroy]
+  resources :bookmarks, only: [:index, :create, :destroy]
   resources :communities do
     collection do
       get :sort
@@ -76,7 +72,7 @@ Rails.application.routes.draw do
     end
     get '/quizzes/section_list/:id/:page', to: 'quizzes#get_section_list', as: 'quiz_sections'
     get '/quizzes/title_list/:id/:page', to: 'quizzes#get_title_list', as: 'quiz_titles'
-    post 'title_quiz_experience_forms', to: 'quiz_categories#create'
+    post 'category_with_experience_forms', to: 'quiz_categories#create'
     resources :quiz_categories do
       collection do
         get :levels
@@ -107,6 +103,11 @@ Rails.application.routes.draw do
       collection do
         get :search
         get :tag_search
+      end
+    end
+    resources :talks do
+      collection do
+        get :search
       end
     end
     resource :user, only: [:index, :delete]

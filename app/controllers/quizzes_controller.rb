@@ -1,4 +1,5 @@
 class QuizzesController < ApplicationController
+  before_action :authenticate_user!
   include QuizzesHelper
 
   before_action :authenticate_user!
@@ -7,7 +8,6 @@ class QuizzesController < ApplicationController
     @category = QuizCategory.find(params[:id])
     @quizzes = Quiz.where(category_id: params[:id])
     set_quizzes(@categroy)
-    
   end
 
   def play_mistakes

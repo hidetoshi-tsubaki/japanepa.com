@@ -1,3 +1,5 @@
+<% content_for(:html_title) { "Edit Article-#{@article.title}" } %>
+<% breadcrumb :edit_article, @article %>
 <h1>Edit Article</h1>
 <div class="form_wrapper">
   <%= render partial: 'form', locals: { article: @article } %>

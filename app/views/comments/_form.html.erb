@@ -1,5 +1,4 @@
-<%= form_with model: @comment do |f| %>
-  <%= f.hidden_field :talk_id ,:value => @talk.id %>
+<%= form_with model: comment do |f| %>
   <%= f.label :contents %><br>
-  <%= f.text_field :contents %> <%= f.submit "Comment" %>
+  <%= f.text_area :contents %> <%= f.submit "Comment" %>
 <% end %>

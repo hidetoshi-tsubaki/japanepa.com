@@ -1,6 +1,8 @@
+<% content_for(:html_title) { "Users Index" } %>
 <div class="index_wrapper">
+  <% breadcrumb :admin_users, @users %>
   <div class="user_search search_wrapper">
-    <h2><%= icon("fas","address-card") %>Users index </h2>
+    <h2><%= icon("fas","user") %>Users index </h2>
     <%= search_form_for @q, url: search_admin_users_path do |f| %>
       <div class="search">
         <div class="field">
@@ -43,7 +45,7 @@
       <%= f.submit 'Search' %>
     <% end %>
   </div>
-  <div class="index">
+  <div id="index">
     <p><%= link_to "全件表示", admin_users_path(anchor: "index"), class: "new_btn" %></p>
     <table class="index_table">
           <%= render 'columns' %>

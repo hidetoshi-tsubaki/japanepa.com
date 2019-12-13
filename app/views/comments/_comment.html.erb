@@ -1,24 +1,19 @@
 <div class="comment_wrapper" id="comment_<%= comment.id %>">
-  <ul>
-    <li>comment by<%= link_to "#{comment.user.name}",user_path(current_user) %></li>
-      <li>
-    </li><%= time_ago_in_words(comment.created_at) %>ago<li>
-    </li>
-  </ul >
-  <p class="comment_text"><%= simple_format(text_url_to_link(h(comment.contents)).html_safe) %></p>
-  <% if @talk.user_id == current_user.id %>
-  <ul class="edit_delete_btn">
-    <li>
-      <%= link_to edit_talks_path(@talk), remote: true,class:"edit-btn" do %>
-        <%= icon("fas", "edit") %>
-      <% end %>
-    </li>
-    <li >
-    <%= link_to delete_talk_path(@talk), remote: true,data: { confirm: 'Delete this post?' },method: :delete,class:"delete-btn" do %>
-        <%= icon("fas", "trash-alt") %>
-      <% end %>
-    </li>
-  </ul>
-  <hr>
-  <% end %>
+  <p class="font-s">
+    <%= link_to "#{comment.user.name}",user_path(current_user) %>
+    <span> ・ <%= time_ago_in_words(comment.created_at) %> ago</span>
+    <% if comment.user_id == current_user.id %>
+      <span>
+        <%= link_to edit_comment_path(comment), remote: true do %>
+          <%= icon("fas", "edit") %>
+        <% end %>
+      </span>
+      <span>
+        <%= link_to comment_path(comment), remote: true, data: { confirm: 'Delete this comment?' }, method: :delete do %>
+          <%= icon("fas", "trash-alt") %>
+        <% end %>
+      </span>
+    <% end %>
+  </p>
+  <%= simple_format(text_url_to_link(h(comment.contents)).html_safe) %>
 </div>

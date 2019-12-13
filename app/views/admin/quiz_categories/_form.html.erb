@@ -1,7 +1,8 @@
 <div class="form_wrapper">
+  <p class="center bold">Category Form</p>
   <%= form_with model: [:admin, category], builder: CustomFormBuilder do |f| %>
     <div class="field" >
-      <p class="bold">カテゴリー名</p>
+      <p class="bold"><%= defined?(parent) ? form_title(parent) : "Level 名" %></p>
       <%= f.text_field :name ,id: 'form_input' %>
     </div>
       <% if defined?(parent) && parent.is_section? %>

@@ -1,14 +1,19 @@
 <%= form_with model: @community, builder: CustomFormBuilder, local: true do |f| %>
   <%= f.hidden_field :founder_id, value: current_user.id %>
-  <div class="field">
-  <%= f.label :name %><br>
+  <div class="field bold">
+  <%= f.label :name %>
   <%= f.text_field :name %>
   </div>
-  <div class="field">
+  <div class="field bold">
+    <p>Tag</p>
     <ul id="form_tags" class="tag_input"></ul>
   </div>
   <div class="field">
     <p class="bold">Image</p>
+    <label for="input_img" class="input_img">
+      <p class="center upload_btn">Upload</p>
+      <%= f.file_field :img, id: 'input_img' %>
+    </label>
     <div class="post_img_area">
       <% if @community.img.attached? %>
         <%= image_tag @community.img, id: 'present_img' %>
@@ -16,18 +21,11 @@
         <img id="no_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
       <% end %>
       <img id="new_img" src="#" class='hidden' />
-      <label for="input_img" class="input_img">
-        <p class="center upload_btn">Upload</p>
-        <%= f.file_field :img, id: 'input_img' %>
-      </label>
     </div>
   </div>
-  <div class="field"> 
+  <div class="field bold"> 
     <%= f.label :introduction %><br>
     <%= f.text_area :introduction %>
-  </div>
-  <div class="field">
-    <%= f.check_box :remove_img %>
   </div>
   <div class="actions">
     <%= f.submit "Create" %>

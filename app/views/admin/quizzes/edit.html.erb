@@ -1,3 +1,5 @@
+<% content_for(:html_title) { "Edit Quiz-#{@quiz.question}" } %>
+<% breadcrumb :edit_quiz, @quiz %>
 <div class="form_wrapper">
   <%= render partial: 'form', locals: { quiz: @quiz } %> 
 </div>

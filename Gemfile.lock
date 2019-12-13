@@ -166,6 +166,8 @@ GEM
       actionpack (>= 3.0)
       multi_json
       request_store (>= 1.0)
+    gretel (3.0.9)
+      rails (>= 3.1.0)
     guard (2.16.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -465,6 +467,7 @@ DEPENDENCIES
   font-awesome-sass (~> 5.8.1)
   fullcalendar-rails
   gon
+  gretel
   guard
   guard-livereload (~> 2.5)
   impressionist

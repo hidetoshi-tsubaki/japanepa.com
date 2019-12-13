@@ -1,3 +1,5 @@
+<% content_for(:html_title) { "Mistakes - #{@category.name}" } %>
+<% breadcrumb :show_mistake, @category %>
 <div class="mistakes_wrapper">
   <div >
     <h2>Mistakes index </h2>
@@ -13,7 +15,6 @@
       <% end %>
     </div>
   </div>
-  <p><%= link_to "Show all", mistake_path(@category.id, anchor: "index"), class: 'new_btn' %></p>
   <table class="index_table" id="index">
     <thead>
       <%= render 'columns' %>

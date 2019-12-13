@@ -1,6 +1,15 @@
+<% content_for(:html_title) { "Talks Index" } %>
+<% breadcrumb :talks, @talks %>
 <div class="section_wrapper">
-  <div class="main_section inline jscroll" id="talk_index">
-    <%= render partial: 'talk', collection: @talks, as: :talk %>
+  <div class="main_section inline" id="talk_index">
+    <h1 class="center bold page_title">Talks index</h1>
+    <div class="talk_index jscroll">
+      <% if @talks.present? %>
+        <%= render partial: 'talk', collection: @talks, as: :talk %>
+      <% else %>
+        <p class="center">No...talk</p>
+      <% end %>
+    </div> 
   </div>
   <div class="side_section">
     <div class="community-section">

@@ -63,6 +63,7 @@ RSpec.configure do |config|
   require 'database_cleaner'
   require 'factory_bot_rails'
   require 'counter_culture'
+  config.include ActiveSupport::Testing::TimeHelpers
   config.include FactoryBot::Syntax::Methods
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation

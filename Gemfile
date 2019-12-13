@@ -39,6 +39,7 @@ gem 'summernote-rails', '~> 0.8.12.0'
 gem 'activerecord-import'
 gem 'nokogiri'
 gem 'aws-sdk-s3', require: false
+gem 'gretel'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

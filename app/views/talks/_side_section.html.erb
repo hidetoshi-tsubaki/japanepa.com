@@ -1,4 +1,5 @@
 <div class="side_content">
+  <h4><%= icon("fas", "tags") %> Menu (メニュー)</h4>
   <% if past_30days_after_signIn? %>
     <%= link_to "create community" ,new_community_path %>
   <% else %>
@@ -8,15 +9,6 @@
     </div>
   <% end %>
     <%= link_to "check communities", communities_path, class: "block center " %>
-    <%= link_to "Create talk", new_talk_path, class: "block center new_btn" %>
+    <%= link_to "Create talk", new_talk_path, class: "block center new_btn", remote: true %>
 </div>
-<div class="community_tags">
-  <p>・Tags</p>
-  <ul>
-    <% if @tag.present? %>
-      <%= render partial: 'tags', collection: @tags, as: :tag %>
-    <% else %>
-    <li>No tags....</li>
-    <% end %>
-  </ul>
-</div>
+<%= render 'ranked_talks' %>

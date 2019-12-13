@@ -1,3 +1,5 @@
+<% content_for(:html_title) { "Quizzes Index" } %>
+<% breadcrumb :quizzes, @quizzes %>
 <div class="quiz_index">
   <ul class="tab_wrapper">
     <%= render partial: 'tab', collection: @levels, as: :level %>

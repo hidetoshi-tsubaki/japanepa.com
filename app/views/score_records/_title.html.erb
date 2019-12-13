@@ -1,9 +1,0 @@
-<li class="quiz_category">
-  <span><%= title.name %></span>
-  <%= link_to play_quiz_path(title), class: "edit_button inline" do %>
-    <%= icon("fas", "chart-line") %>Show Chart
-  <% end %>
-  <%= link_to play_mistakes_quiz_path(title),class: "delete_button inline" do %>
-    <%= icon("far", "play-circle") %>Mistakes
-  <% end %>
-</li>

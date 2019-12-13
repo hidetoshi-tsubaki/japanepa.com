@@ -24,7 +24,11 @@ Admin.create!(
   password_confirmation: 'japanepa'
 )
 
-
+User.create!(
+  name: 'japanepa_admin',
+  password: 'japanepa',
+  password_confirmation: 'japanepa'
+)
 
 community = Community.new(
   name: "japanepa.com",

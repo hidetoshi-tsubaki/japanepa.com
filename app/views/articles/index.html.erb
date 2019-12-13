@@ -1,6 +1,8 @@
-<h1>Articles index </h1>
+<% content_for(:html_title) { "Articles Index" } %>
+<% breadcrumb :articles, @articles %>
 <div class="section_wrapper">
   <div class="main_section">
+    <h1 class="center bold page_title">Articles index</h1>
     <div class="article_index jscroll">
       <% if @articles.present? %>
         <%= render partial: 'article', collection: @articles, as: :article %>
@@ -10,6 +12,6 @@
     </div>
   </div>
   <div class="side_section">
-   <%= render 'side_section' %>
+    <%= render 'side_section' %>
   </div>
 </div>
