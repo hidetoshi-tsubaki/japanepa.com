@@ -14,9 +14,9 @@ class Admin::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    super
+  end
 
   # protected
 
@@ -24,4 +24,13 @@ class Admin::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+
+    def after_sign_in_path_for(resource)
+    if (session[:previous_url] == "/admin/")
+      super
+    else
+      session[:previous_url] || "/admin/"
+    end
+  end
+
 end

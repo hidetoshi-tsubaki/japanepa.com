@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
+
   root "static_pages#home"
-  get '/', to: 'static_pages#home'
-  get '/feed/:id', to: 'static_pages#feed', as: 'feed'
 
   resources :quizzes, only: [:show, :index] do
     collection do
@@ -25,6 +24,7 @@ Rails.application.routes.draw do
       get :tag_search
     end
     member do
+      get :feed
       get :user
     end
   end
@@ -50,9 +50,14 @@ Rails.application.routes.draw do
       get :leave
     end
   end
+  resources :information, only: [:index, :show]
+  resources :events, only: [:index, :show]
+  # post '/like_talk/:id', to: 'like_talks#create', as: "like_talk"
+  # delete "/like_talk/:id", to: 'like_talks#delete', as: "delete_like_talk"
+
 
   namespace :admin do
-    get '/', to: 'home#top'
+    get '/', to: 'static_pages#home'
     resources :users, only: [:index] do
       collection do
         get :search
@@ -76,11 +81,11 @@ Rails.application.routes.draw do
     resources :quiz_categories do
       collection do
         get :levels
-        post :create_level
+        # post :create_level
         get :new_level
         get :new_quiz
-        get :edit_quiz
-        get :new_categroy
+        # get :edit_quiz
+        # get :new_category
         get :search
       end
       member do
@@ -105,27 +110,38 @@ Rails.application.routes.draw do
         get :tag_search
       end
     end
-    resources :talks do
+    resources :talks, only: [:index, :show, :destroy] do
       collection do
         get :search
       end
     end
-    resource :user, only: [:index, :delete]
+    resources :comments, only: [:index, :show, :destroy]
+    resources :information do
+      collection do
+        get :search
+        get :tag_search
+      end
+    end
+    resources :events do
+    collection do
+      get :search
+    end
+  end
+    resource :user, only: [:index, :destroy]
   end
 
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
     registrations: "users/registrations",
-    confirmations: "users/confirmations",
     sessions: "users/sessions",
     passwords: "users/passwords",
-    unlocks: "users/unlocks",
   }
 
   # deviseのroutesをカスタマイズで追加する
   devise_scope :user do
-    get '/users', to: 'users#index', as: 'users'
+    get '/ranking', to: 'users#index', as: 'ranking'
     get 'user/:id', to: 'users#show', as: 'user'
+    get '/user/:id/edit', to: 'users/registrations#edit', as: 'edit_profile'
   end
 
   # devise/~~~ をadmins/~~~に変える

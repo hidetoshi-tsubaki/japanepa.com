@@ -1,0 +1,44 @@
+<div class="upper_block">
+  <div>
+    <%= link_to articles_path, class: "menu_panel panel_article" do %>
+      <div class="menu_panel article_panel">
+        <div class="panel_inner_box">
+          <p class="menu_name">ARTICLE<br><%= icon("fas", "newspaper") %></p>
+        </div>
+      </div>
+    <% end %>
+    <%= link_to quizzes_path do %>
+      <div class="menu_panel quiz_panel">
+        <div class="panel_inner_box">
+          <p class="menu_name">QUIZ<br><%= icon("fas", "question") %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="new_information_panel">
+    <%= render 'new_information_panel' %>
+  </div>
+</div>
+<div class="under_block">
+  <%= link_to communities_path, class: "menu_panel panel_community" do %>
+    <div class="menu_panel community_panel">
+      <div class="panel_inner_box">
+        <p class="menu_name">COMMUNITY<br><%= icon("fas", "users") %></p>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to feed_talk_path(current_user), class: "menu_panel panel_talk" do %>
+    <div class="menu_panel talk_panel">
+      <div class="panel_inner_box">
+        <p class="menu_name">TALK<br><%= icon("fas", "comments") %></p>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to ranking_path, class: "menu_panel panel_ranking" do%>
+    <div class="menu_panel ranking_panel">
+      <div class="panel_inner_box">
+        <p class="menu_name">RANKING<br><%= icon("fas", "crown") %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

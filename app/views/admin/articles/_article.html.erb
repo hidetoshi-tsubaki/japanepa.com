@@ -1,4 +1,5 @@
 <tr class="index_content" id="article_<%= article.id %>">
+  <td class="status"><%= icon("fas", "#{contents_status(article)}") %></td>
   <td><%= article.id %></td>
   <td class="truncate_column"><%= article.title.truncate(20) %></td>
   <td><%= number_with_delimiter(article.impressions_count) %></td>

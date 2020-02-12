@@ -27,25 +27,28 @@
     }
     isAnswered = true;
     if ($(li).text() === quizSet[currentNum].choices[0]) {
-      $(li).addClass('correct');
+      $(li).addClass('correct_box');
+      $(li).prepend(`<p class="correct"></p>`);
       correct_ids.push(quizSet[currentNum].id)
       score++;
     } else {
       mistake_ids.push(quizSet[currentNum].id)
-      $(li).addClass('wrong');
+      $(li).addClass('wrong_box');
+      $(li).prepend(`<p class="wrong"></p>`);
     }
     $('#quiz_btn').removeClass('disabled');
   }
 
   function setQuiz() {
     isAnswered = false;
+    shuffle(quizSet);
     $('#quizCount').text(`${currentNum+1} / ${totalQuizNum}`);
     $('#question').html(quizSet[currentNum].question);
     $('#choices').empty();
     const shuffledChoices = shuffle([...quizSet[currentNum].choices]);
     shuffledChoices.forEach(function(value, index) {
-      $('#choices').append(`<li id='choice_${index+1}'></li>`);
-      $(`#choice_${index+1}`).text(value);
+      $('#choices').append(`<li id='choice_${index+1}'><p></p></li>`);
+      $(`#choice_${index+1} p`).text(value);
       $(`#choice_${index+1}`).on('click', function () {
         checkAnswer(this);
       });

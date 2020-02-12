@@ -1,8 +1,7 @@
 <% content_for(:html_title) { "Communitiy Form" } %>
 <% breadcrumb :new_community, @community %>
-<h1>Create Community</h1>
-<%= link_to '一覧に戻る', communities_path %>
 <div class="form_wrapper">
+  <h1 class="center">Create Community</h1>
   <%= render partial: 'form', locals: { community: @community } %>
 </div>
 <%= javascript_include_tag "community" %>

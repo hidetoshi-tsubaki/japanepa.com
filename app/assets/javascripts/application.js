@@ -22,6 +22,7 @@
 //= require summernote/summernote-bs4.min
 //= require Chart.min
 //= require form
+//= require moment
 //= require fullcalendar
 //= require fullcalendar/locale-all
 //= require common
@@ -29,7 +30,6 @@
 //= require jquery.jscroll.min
 //= require infinite_scroll
 //= require Sortable.min
-//= require moment
-//= require moment/ja.js
+
 //= require tempusdominus-bootstrap-4.js
 // require_tree .

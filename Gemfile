@@ -19,6 +19,7 @@ gem 'chart-js-rails', '~> 0.1.4'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fullcalendar-rails'
+gem 'simple_calendar', '~> 2.0'
 gem 'momentjs-rails'
 gem 'dotenv-rails'
 gem 'remotipart', '~> 1.2'
@@ -43,6 +44,8 @@ gem 'gretel'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
+  gem 'pry-rails'
+  gem 'pry-byebug'
 end
 
 group :development do
@@ -55,13 +58,14 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "awesome_print"
-  gem 'pry-byebug'
   gem "rack-livereload"
   gem 'rubocop-airbnb'
   gem 'rubocop-rspec'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
+  gem 'rails-controller-testing'
+  gem 'spring-commands-rspec'
 end
 
 group :production do

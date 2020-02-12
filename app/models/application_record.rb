@@ -15,7 +15,11 @@ class ApplicationRecord < ActiveRecord::Base
   def image_content_type
     if self.img.attached?
       extension = ['image/png', 'image/jpg', 'image/jpeg']
-      errors.add(:img, "can upload only png, jpg and jpeg") unless img.content_type.in?(extension)
+      errors.add(:img, "you can upload only png, jpg and jpeg") unless img.content_type.in?(extension)
     end
+  end
+
+  def was_attached?
+    self.img.attached?
   end
 end

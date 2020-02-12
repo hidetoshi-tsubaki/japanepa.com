@@ -3,22 +3,28 @@ class TalksController < ApplicationController
   # before_action :authenticate_edit_delete, only: :delete
   # もしも、communityに参加していなかった時のためのbefore_action
   before_action :set_ranked_talks, only: [:index]
-
-  def new
-    @talk = current_user.talks.new
-    @communities = current_user.communities
-    render 'form'
-  end
   
   def index
     @talks = current_user.own_talks.sorted.page(params[:page])
     @comment = Comment.new
   end
 
+  def feed
+    @talks = Talk.in_joined_communities(current_user)
+    @tags = Community.tags_on(:tags)
+  end
+
   def show
     @talk = Talk.includes(:user).find(params[:id])
     @comments = @talk.comments.includes(:users).sort_and_paginate(10)
     @comment = Comment.new
+  end
+
+  def new
+    @talk = current_user.talks.new
+    @community = Community.find(params[:id])
+    @communities = current_user.communities
+    render 'form'
   end
 
   def create

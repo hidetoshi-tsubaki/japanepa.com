@@ -1,8 +1,6 @@
 <%= form_with model: talk, builder: CustomFormBuilder do |f| %>
   <div class="field select_communities">
-  <%= f.label :community_id %><br>
-    <%= f.collection_select :community_id, communities, :id, :name %>
-    <%= f.hidden_field :user_id ,:value => current_user.id %>
+<%= render partial: 'community_id',locals: { community: @community, communities: @communities, f: f } %>
   </div>
   <div class="field">
     <p class="bold">Image</p>

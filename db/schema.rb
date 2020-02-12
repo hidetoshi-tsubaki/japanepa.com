@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_10_131849) do
+ActiveRecord::Schema.define(version: 2020_01_15_105537) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2019_11_10_131849) do
     t.integer "impressions_count", default: 0
     t.integer "bookmarks_count", default: 0, null: false
     t.integer "likes_count", default: 0, null: false
+    t.boolean "status", default: false
   end
 
   create_table "bookmarks", force: :cascade do |t|
@@ -98,6 +99,17 @@ ActiveRecord::Schema.define(version: 2019_11_10_131849) do
     t.index ["user_id"], name: "index_community_users_on_user_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.date "start_time"
+    t.date "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "detail"
+    t.integer "impressions_count", default: 0
+    t.boolean "status", default: false
+  end
+
   create_table "impressions", force: :cascade do |t|
     t.string "impressionable_type"
     t.integer "impressionable_id"
@@ -122,6 +134,15 @@ ActiveRecord::Schema.define(version: 2019_11_10_131849) do
     t.index ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index"
     t.index ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
     t.index ["user_id"], name: "index_impressions_on_user_id"
+  end
+
+  create_table "information", force: :cascade do |t|
+    t.string "title"
+    t.string "contents"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "impressions_count", default: 0
+    t.boolean "status", default: false
   end
 
   create_table "levels", force: :cascade do |t|

@@ -1,9 +1,9 @@
 class StaticPagesController < ApplicationController
+  before_action :admin_root
+
   def home
+    @events = Event.where(status: true)
+    @information = Information.where(status: true).sorted
   end
-  
-  def feed
-    @talks = Talk.in_joined_communities(current_user)
-    @tags = Community.tags_on(:tags)
-  end
+
 end

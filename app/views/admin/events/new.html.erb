@@ -1,0 +1,6 @@
+<% content_for(:html_title) { 'Event Form' } %>
+<% breadcrumb :new_event, @event %>
+<div class="form_wrapper">
+  <h1 class="center">Create Event</h1>
+  <%= render partial: 'form', locals: { event: @event, form_btn: "新規作成" } %>
+</div>

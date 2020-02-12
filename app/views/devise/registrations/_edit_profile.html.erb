@@ -1,0 +1,48 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, builder: CustomFormBuilder) do |f| %>
+  <p class="error_message"><%="Please input correct values" if @user.errors.any? %></p>
+  <div class="field">
+    <div class="user_img_area center">
+      <% if @user.img.attached? %>
+        <%= image_tag @user.img, id: 'present_user_img' %>
+      <% else %>
+        <img id="no_user_img" src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg" />
+      <% end %>
+      <img id="new_user_img" src="#" class='hidden' />
+      <label for="input_img" class="input_img">
+        <p class="center" id="img_upload_btn">Edit</p>
+        <%= f.file_field :img, id: 'input_img' %>
+      </label>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true, autocomplete: "email" ,placeholder:" Enter name"%>
+  </div>
+  <div class="field">
+    <%= f.label :country %>
+    <%= f.country_select :country,priority_countries: ["nepal"]%>
+  </div>
+  <div class="field">
+    <%= f.label :current_address %>
+    <%= f.country_select :current_address,priority_countries: ["nepal","JP"] %>
+  </div>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" ,placeholder:" Enter Email"%>
+  </div>
+  <div class="field">
+    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Change" %>
+  </div>
+<% end %>

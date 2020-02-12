@@ -10,6 +10,7 @@ max_level = 200
 levels = []
 prev_threshold = 100
 
+Level.new( threshold: 0)
 max_level.times do |number|
   prev_threshold *= 1.05
   threshold2 = number * 5

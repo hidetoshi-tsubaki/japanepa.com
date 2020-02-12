@@ -29,6 +29,11 @@ RSpec.describe Article, type: :model do
     expect(@article).not_to be_valid
   end
 
+  it "is invalid without status" do
+    @artile,status = nil
+    expect(@article).not_to be_valid
+  end
+
   describe "upload img exept specified extension" do
     it "is invalid without specified extension" do
       @article.img.purge

@@ -1,8 +1,8 @@
-<div class="login_form_wrapper">
+<div class="register_form_wrapper">
   <h3 class="center">~ Sign Up for Japanepa! ~</h3>
   <div class="provider">
     <%= render 'layouts/social_login' %>
   </div>
-  <%= render 'register_form' %>
+  <%= render 'register_form', button: "Sign Up" %>
   <p class="right">Are you already signed up? <%= link_to "Log in ", new_session_path(resource_name) %></p>
 </div>

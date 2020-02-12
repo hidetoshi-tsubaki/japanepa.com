@@ -1,0 +1,38 @@
+<% content_for(:html_title) { 'Talks Index' } %>
+<% breadcrumb :admin_talk, @talk %>
+<div class="admin_talk_wrapper" id="talk_<%= @talk.id%>">
+  <ul class="talk_head">
+    <li><%= link_to community_path(@talk.community_id) do %>
+          <%= @talk.community.name %>
+        <% end %>
+    </li>
+    <li class="posted_time">Posted by <%= link_to @talk.user.name, user_path(@talk.user) %> <%= time_ago_in_words(@talk.created_at) %> ago</li>
+  </ul>
+  <div class="talk_content_wrapper">
+    <%= simple_format(text_url_to_link(h(@talk.content)).html_safe,class: 'talk_content') %>
+    <% if @talk.img.attached? %>
+      <p><%= image_tag @talk.img %></p>
+    <% end %>
+  </div>
+  <ul class="talk_btns">
+    <li id="comment_btn_<%= @talk.id %>" class="comment_btn">
+      <%= link_to admin_comments_path(id: @talk.id), remote: true do %>
+        <%= icon("fas", "comment-alt") %>  <%= @talk.comments_count %>  <%= @talk.comments_count > 1 ? "Comments" : "Comment" %>
+      <% end %>
+    </li>
+    <li id="like_btn_<%= @talk.id %>" class="like_btn">
+        <%= icon("fas", "heart") %> <%= @talk.like_talks.count %>
+    </li>
+    <li>
+      <%= link_to admin_talk_path(@talk), remote: true, data: { confirm: 'Delete this post?' }, method: :delete, class: "delete-btn" do %>
+        <%= icon("fas", "trash-alt") %>
+      <% end %>
+    </li>
+  </ul>
+  <div id="comments_wrapper_<%= @talk.id%>" class="hidden comments_wrapper">
+
+    <div id="comments_of_talk<%= @talk.id %>">
+    </div>
+    <div id="view_more_<%= @talk.id %>" class="center view_more"></div>
+  </div>
+</div>

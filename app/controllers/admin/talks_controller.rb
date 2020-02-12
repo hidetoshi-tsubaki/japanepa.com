@@ -2,7 +2,7 @@ class Admin::TalksController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @q = Talk.ransack(params[:q])
+    @q = Talk.includes([:user, :community]).ransack(params[:q])
     @talks = @q.result(distinct: true).sorted.page(params[:page])
   end
 
@@ -18,13 +18,13 @@ class Admin::TalksController < ApplicationController
 
   def search
     is_pagination?(params)
-    if params[:q]['user_name_or_content_cont_any'] != nil
-      params[:q]['user_name_or_content_cont_any'] = params[:q]['user_name_or_content_cont_any'].split(/[ ]/)
-      @keywords = Talk.ransack(params[:q])
+    if params[:q]['community_name_or_user_name_or_content_cont_any'] != nil
+      params[:q]['community_name_or_user_name_or_content_cont_any'] = params[:q]['community_name_or_user_name_or_content_cont_any'].split(/[ ]/)
+      @keywords = Talk.includes([:user, :community]).ransack(params[:q])
       @talks = @keywords.result.sorted.page(params[:page])
-      @q = Talk.ransack(params[:q])
+      @q = Talk.includes([:user, :community]).ransack(params[:q])
     else
-      @q = Talk.ransack(params[:q])
+      @q = Talk.includes([:user, :community]).ransack(params[:q])
       @talks = @q.result(distinct: true).sorted.page(params[:page])
     end
     render template: 'admin/talks/index'
@@ -40,15 +40,6 @@ class Admin::TalksController < ApplicationController
     unless user_signed_in? || admin_signed_in?
       render :index
       flash.now[:notice] = "you don't have right to delete...."
-    end
-  end
-
-  def talks_in_feed(communities)
-    if communities.empty?
-      Talk.sorted
-    else
-      community_id = communities.map{ |community| community.id }
-      Talk.where(id: community_id).precount(:comments)
     end
   end
 

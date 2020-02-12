@@ -1,27 +1,28 @@
 FactoryBot.define do
-  factory :quiz_category do
-    name { "category" }
+  factory :category_parent, class: QuizCategory do
+    name { "category_parent" }
+
+    trait :invalid do
+      name { "" }
+    end
+
+    trait :created do
+      name { "category_parent_created" }
+    end
+
+    trait :update do
+      name { "category_parent_A"}
+    end
+  end
+  factory :category_child, class: QuizCategory do
+    name { "category_child" }
   end
 
-  factory :category_A, class: QuizCategory do
-    name { "category_a" }
-  end
+  factory :category_grandchild, class: QuizCategory do
+    name { "category_grandchild" }
 
-  factory :cotegory_B, class: QuizCategory do
-    name { "category_b" }
+    after(:create) do |quiz_category|
+      create(:quiz_experience, title_id: quiz_category.id, experience: "2.0")
+    end
   end
-
 end
-# t.string "name"
-# t.datetime "created_at", null: false
-# t.datetime "updated_at", null: false
-# t.integer "parent_id"
-# t.integer "lft"
-# t.integer "rgt"
-# t.integer "depth"
-# t.integer "children_count"
-# t.integer "position"
-# t.index ["depth"], name: "index_quiz_categories_on_depth"
-# t.index ["lft"], name: "index_quiz_categories_on_lft"
-# t.index ["parent_id"], name: "index_quiz_categories_on_parent_id"
-# t.index ["rgt"], name: "index_quiz_categories_on_rgt"

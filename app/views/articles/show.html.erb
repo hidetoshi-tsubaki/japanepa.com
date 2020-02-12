@@ -1,26 +1,21 @@
 <% content_for(:html_title) { "Article-#{@article.title}" } %>
 <% breadcrumb :show_article, @article %>
 <div class="section_wrapper">
-  <div class="main_section article-contents">
-    <div>
-      <p><%= image_tag @article.img ,class:"top_img" %></p>
-    </div>
-    <p class="posted-time"><%= @article.created_at.strftime('%Y/%m/%d') %></p>
-    <p class="article_title"><%= @article.title %></p>
-    <hr>
-    <div id="like_btn_<%= @article.id %>">
-      <%= render partial:'articles/like_btn' , locals: {article: @article} %>
-    </div>
-    <% if user_signed_in? %>
-    <div id="bookmark_btn_<%= @article.id %>">
-      <%= render partial:'articles/bookmark_btn' , locals: {article: @article} %>
-    </div>
-    <% end %>
-    <div class="main_contents">
-      <%= raw(@article.contents) %>
+  <div class="main_section">
+    <div class="article_contents">
+      <h1><%= @article.title %></h1>
+      <p class="posted_time right">
+        <%= render partial: 'posted_day', locals: { article: @article } %>
+        <%= render partial: "action_btns", locals: { article: @article } %>
+      </p>
+      <p class="center"><%= image_tag @article.img %></p>
+      <hr>
+      <div class="artcile_contents">
+        <%= raw(@article.contents) %>
+      </div>
     </div>
   </div>
-  <div class="side_section">
+  <div class="side_section article_page">
     <%= render 'side_section' %>
   </div>
 </div>

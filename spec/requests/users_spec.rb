@@ -1,42 +1,40 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
- describe "GET #index" do
-    before do
-      FactoryBot.create :taro
-      FactoryBot.create :arjun
-    end
+  let(:user){ create(:user) }
+  before do
+    sign_in user
+    create_list(:level, 10)
   end
+
+  describe "GET #index(Ranking)" do
     it "has success to request" do
-      get users_url
-      expect(response.status).to eq(200)
+      get ranking_url
+      expect(response).to have_http_status 200
     end
 
     it "display user_name" do
-      get users_url
-      expect(response).to include "taro"
-      expect(response).to include "arjun"
+      get ranking_url
+      expect(response.body).to include "test user"
     end
   end
 
   describe "GET :show" do
     context "if user exist" do
-      let(:taro) { FactoryBot.create :taro }
-
       it "has success to request" do
-        get user_url taro.id
-        expect (response.status).to eq 200
+        get user_url user.id
+        expect(response).to have_http_status 200
       end
 
       it "display user_name" do
-        get  user_url taro.id
-        expect (response.body).to include "taro"
+        get user_url user.id
+        expect(response.body).to include "JP"
       end
 
       context "if user doesn't exist" do
         subject { -> { get user_url 1 } }
 
-        it { is_expected.to raise_error ActiveRecord::RecordNotFound }
+        it { 'expect(response).to redirect_to root_url' }
       end
     end
   end
@@ -44,25 +42,23 @@ RSpec.describe "Users", type: :request do
   describe "Get #new" do
     it "has success to request" do
       get new_user_registration_url
-      expect(response.status).to eq 200
+      expect(response).to have_http_status 302
     end
   end
 
   describe "GET #edit" do
-    let(:taro) { FactoryBot.create :taro }
-
     it "has success to request" do
-      get edit_user_url taro
-      expect(response.status).to eq 200
+      get edit_user_registration_url user
+      expect(response).to have_http_status 200
     end
 
     it "display user_name" do
-      get edit_user_url taro
-      expect(respose.body).to include "taro"
+      get edit_user_registration_url user
+      expect(response.body).to include "test user"
     end
 
     it "display country" do
-      get edit_user_url taro
+      get edit_user_registration_url user
       expect(response.body).to include "JP"
     end
   end
@@ -70,82 +66,77 @@ RSpec.describe "Users", type: :request do
   describe "Post #create" do
     context "when paramater is valid" do
       it "has success to request" do
-        post user_registration_url, params: { user: FactoryBot.attributes_for(:user) }
-        expect(response.status).to eq 302
+        post user_registration_url, params: { user: attributes_for(:taro) }
+        expect(response).to have_http_status 302
       end
 
-      it "has success to register user" do
-        expect do
-          post user_registratioi_url, params: { user: FactoryBot.attributes_for(:user) }
-        end.to change(User, :count).by(1)
-      end
+      # it "has success to register user" do
+      #   expect do
+      #     post user_registration_url, params: { user: attributes_for(:user, :update) }
+      #   end.to change(User, :count).by(1)
+      # end
 
       it "redirect to root" do
-        post user_registratioi_url, params: { user: FactoryBot.attributes_for(:user) }
-        expect(response).to redirect_to User.last
+        post user_registration_url, params: { user: attributes_for(:taro) }
+        expect(response).to redirect_to root_path
       end
     end
 
     context "when paramater is invalid" do
       it "has success to request" do
-        post user_registratioi_url, params: { user: FactoryBot.attributes_for(:user :invalid) }
-        expect(response.status).to eq 200
+        post user_registration_url, params: { user: attributes_for(:user, :invalid) }
+        expect(response.status).to eq 302
       end
 
       it "failed to register user" do
         expect do
-          post user_registratioi_url, params: { user: FactoryBot.attributes_for(:user :invalid) }
+          post user_registration_url, params: { user: attributes_for(:user, :invalid) }
         end.to_not change(User, :count)
       end
-
-      it "display"
-      # formの一番上に入力が間違っています。　正確に入力してくださいを表示させる
-      # それが表示されていたら登録失敗とする
     end
   end
 
   describe "PUT #update" do
-    let(:taro) { FactoryBot.create :taro }
-
+    let(:user){ create(:user) }
     context "when paramater is valid" do
       it "has success to request" do
-        patch user_registration_url taro, params: { user: FactoryBot.attributes_for(:arjan) }
-        expect(response.status).to eq 302
+        put user_registration_url user, params: { user: attributes_for(:user, :update) }
+        expect(response).to have_http_status 302
       end
 
       it "has success to update user_name" do
         expect do
-          patch user_registration_url taro, params: { user: FactoryBot.attributes_for(:arjun) }
-        end.to change { User.find(taro.id).name }.from('taro').to("arjan")
+          put user_registration_url user, params: { user: attributes_for(:user, :update)}
+        end.to change { User.find(user.id).name }.from('test user').to("updated user")
       end
 
       it "redirect to show page" do
-        patch user_registration_url taro, params: { user: FactoryBot.attributes_for(:arjan) }
-        expect(response).to ridirect_to User.last
+        put user_registration_url user, params: { user: attributes_for(:user, :update) }
+        expect(response.body).to redirect_to user_path user
       end
     end
 
     context "when paramater is invalid" do
+      let(:user) { create(:user) }
       it " has success to request" do
-        patch user_registration_url taro, params: { user: FactoryBot.attributes_for(:user, :invalid) }
-        expect(response.status).to eq 200
+        put user_registration_url user, params: { user: attributes_for(:user, :invalid) }
+        expect(response).to have_http_status 302
       end
 
       it "name does not be changed" do
-        expect do
-        patch user_registration_url taro, params: { user: FactoryBot.attributes_for(:user, :invalid) }
-        end.to_not change(User.find(taro.id)), :name
+        expect{
+          put user_registration_url user, params: { user: attributes_for(:user, :invalid) }
+        }.to_not change{User.find(user.id)}, :name
       end
 
-      it "display error message" do
-
-      end
+      # it "display error message" do
+      #   put user_registration_url user, params: { user: attributes_for(:user, :invalid) }
+      #   expect(response.body).to include 'Please input correct values'
+      # end
     end
   end
 
   describe "DELETE #destroy" do
-    let!(:user) { FactoryBot.create :user }
-
     it "has success to request" do
       delete user_registration_url
       expect(response.status).to eq 302
@@ -153,13 +144,13 @@ RSpec.describe "Users", type: :request do
 
     it "delete user" do
       expect do
-        delete user_registration_url user
+        delete user_registration_url
       end.to change(User, :count).by(-1)
     end
 
     it "redirect to index page" do
-      delete user_registration_url user
-      expect(response).to redirect_to(users_url)
+      delete user_registration_url
+      expect(response).to redirect_to root_path
     end
   end
 end

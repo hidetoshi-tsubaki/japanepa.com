@@ -1,0 +1,8 @@
+<span id="like_btn_<%= article.id %>">
+  <%= render partial: 'articles/like_btn' , locals: { article: article } %>
+</span>
+<% if user_signed_in? %>
+  <span id="bookmark_btn_<%= article.id %>">
+    <%= render partial: 'articles/bookmark_btn' , locals: { article: article } %>
+  </span>
+<% end %>

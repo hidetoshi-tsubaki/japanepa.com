@@ -1,7 +1,7 @@
   // モーダル開閉
 $(function () {
   $('.menu_btn').on('click',function(){
-  $('.user_menu').fadeToggle(100);
+  $('.user_menu, .admin_menu').fadeToggle(100);
   });
   $('#openModal').on('click',function () {
     $('#modalArea').fadeIn();
@@ -14,6 +14,22 @@ $(function () {
   $('#openLoginModal').on('click', function () {
     $('#modalArea').fadeIn();
     $('#LoginModal').removeClass('hidden');
+  });
+  // トップへ戻る
+  $(function () {
+    var pageTop1 = $("#to_top_btn");
+    pageTop1.click(function () {
+      $('body, html').animate({ scrollTop: 0 }, 500);
+      return false;
+    });
+    $(window).scroll(function () {
+
+      if ($(this).scrollTop() >= 200) {
+        pageTop1.css("bottom", "30px");
+      } else {
+        pageTop1.css("bottom", "-85px");
+      }
+    });
   });
   //sortフォームの送信
   $('.select_sort').on('change', function () {
@@ -47,8 +63,8 @@ $(function () {
         alert('failed ....');
       }
     });
-  })
-  //  通知の表示
+  });
+  // 通知の表示
   $(function flash(){
     setTimeout("$('#flash').fadeOut('slow')",2000);
   })
@@ -166,30 +182,32 @@ $('.accordion p').on('click',function(){
       });
     }
   });
+  // 画像アップロード プレ画像
   function readURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
-        $('#new_img').attr('src', e.target.result);
+        $('#new_img, #new_user_img').attr('src', e.target.result);
       }
       reader.readAsDataURL(input.files[0]);
     }
   };
   $(function () {
     $('#input_img').on('change', function () {
-      $('#new_img').removeClass('hidden');
-      $('.present_img, #no_img').remove();
+      $('#new_img, #new_user_img').removeClass('hidden');
+      $('#present_img, #present_user_img, #no_img, #no_user_img').remove();
       readURL(this);
     });
   });
   $(function () {
     $('.date_form').datetimepicker({
-      format: 'L'
+      format: 'YYYY/MM/DD'
     });
   });
   // 作成日
   $(function () {
-    $('#creation_date_from').datetimepicker();
+    $('#creation_date_from').datetimepicker({
+    });
     $('#creation_date_to').datetimepicker({
       useCurrent: false
     });
@@ -248,5 +266,36 @@ $('.accordion p').on('click',function(){
       }
     })
   })
-
+  // calendar 詳細表示
+  $(".event").on('click', function () {
+    event_id = $(this).attr('id');
+    event_url = "/events/" + event_id
+    $.ajax({
+      url: event_url,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: 'get',
+      dataType: "script",
+      success: function () {
+        console.log('display event successfully');
+      }
+    })
+  });
+  // information 詳細表示
+  $(".info").on('click', function () {
+    info_id = $(this).attr('id');
+    info_url = "/information/" + info_id
+    $.ajax({
+      url: info_url,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: 'get',
+      dataType: "script",
+      success: function () {
+        console.log('display event successfully');
+      }
+    })
+  });
 });

@@ -1,6 +1,8 @@
 <% content_for(:html_title) { "Ranking" } %>
-<div class="section_wrapper">
+<% breadcrumb :users, @user %>
+<div class="section_wrapper center">
   <div class="main_section">
+    <h1 class="center ranking_title">Ranking</h1>
     <div class="user_ranking jscroll">
       <% if @users.present? %>
         <%= render partial: 'user', collection: @users, as: :user %>
@@ -8,8 +10,5 @@
         <p class="center">No...user</p>
       <% end %>
     </div>
-  </div>
-  <div class="side_section">
-    <%= render 'side_section' %>
   </div>
 </div>

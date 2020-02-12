@@ -1,5 +1,7 @@
 <div class="head">
   <h1>Forgot your password?</h1>
+  <p>before reseet password, you have to register your e-mail to your profile</p>
+  <p><%= link_to "register user e-mail now?", edit_user_registration_path(current_user) %>
 </div>
 <div class="form">
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, builder: CustomFormBuilder) do |f| %>

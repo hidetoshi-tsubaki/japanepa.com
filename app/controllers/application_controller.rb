@@ -19,8 +19,8 @@ class ApplicationController < ActionController::Base
     user_experience = current_user.user_total_experiences.first
     @current_experience = user_experience.total_experience
     @current_level = Level.where("threshold <= ?", @current_experience).order(threshold: :desc).limit(1).pluck(:id).first
-    @next_level = Level.where("threshold >= ?", @current_experience).order(:threshold).limit(1).first
-    @needed_experience_to_next_level = @next_level.threshold - @current_experience
+    next_level = Level.where("threshold > ?", @current_experience).first
+    @needed_experience_to_next_level = next_level.threshold - @current_experience
   end
 
   private
@@ -37,19 +37,25 @@ class ApplicationController < ActionController::Base
     store_location_for(:user, request.url) if request.get?
   end
 
-  def authenticate_user!
-    if user_signed_in?
-      super
-    else
-      redirect_to new_user_session_path, alert: 'Please Log in '
-    end
-  end
+  # def authenticate_user!(user)
+  #   puts user
+  #   if user_signed_in?
+  #     super
+  #   else
+  #     redirect_to new_user_session_path, alert: 'Please Log in '
+  #   end
+  # end
 
   def authenticate_admin!
+    unless admin_signed_in?
+      redirect_to root_path, alert: 'Are you Admin user?'
+    end
+  end
+  
+
+  def admin_root
     if admin_signed_in?
-      super
-    else
-      redirect_to new_user_session_path, alert: 'Are you Admin user?'
+      redirect_to "/admin/"
     end
   end
 end

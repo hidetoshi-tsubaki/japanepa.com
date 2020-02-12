@@ -4,12 +4,13 @@ class LikeTalksController < ApplicationController
   def create
     @talk = Talk.find(params[:id])
     current_user.like_talk(@talk)
+    render "like"
   end
 
-  def delete
+  def destroy
     @talk = Talk.find(params[:id])
     current_user.remove_like_talk(@talk)
-    render: like
+    render "like"
     # 修正必要 分岐
   end
 end

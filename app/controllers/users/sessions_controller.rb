@@ -5,9 +5,9 @@ class Users::SessionsController < Devise::SessionsController
   # skip_before_action :verify_authenticity_token, only: [ :new ]
 
   # GET /resource/sign_in
-  def new
-    super
-  end
+  # def new
+  #   super
+  # end
 
   # POST /resource/sign_in
   # def create

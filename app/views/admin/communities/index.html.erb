@@ -2,12 +2,12 @@
 <div class="index_wrapper">
   <% breadcrumb :admin_communities, @communities %>
   <div class="search_wrapper">
-    <h2><%= icon("fas","users") %>Community index </h2>
+    <h2><%= icon("fas","users") %> Community index </h2>
     <div class="search" id="date_input">
       <p class="bold">・ワード検索</p>
       <%= search_form_for @q, url: search_admin_communities_path do |f| %>
         <div class="field">
-          <%= f.text_field :name_or_introduction_or_users_name_cont_any, class: "keyword_search" %>
+          <%= f.text_field :name_or_introduction_or_founder_name_cont_any, class: "keyword_search" %>
           <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
         </div>
         <div class="date_search_wrapper">

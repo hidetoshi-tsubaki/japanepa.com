@@ -4,21 +4,21 @@
     <%= render 'layouts/head' %>
   </head>
   <body>
-  <header>
-  <%= render 'layouts/header' %>
-  </header>
-  <div id="flash_wrapper"></div>
-  <section id="modalArea" class="modalArea">
-    <%= render 'layouts/modal' %>
-  </section>
-  <div id="form" class="window"></div>
-  <div class="main_wrapper">
-    <p><%= breadcrumbs pretext: icon("fas", "map-marker-alt"),separator: " > " %></p>
-    <%= yield %>
-  </div>
-  <footer>
-    <p>&copy; <%= Time.current.year %> Japanepa.com</p>
-  </footer>
+    <header class="<%= header_color %>">
+    <%= render 'layouts/header' %>
+    </header>
+    <div id="flash_wrapper"></div>
+    <section id="modalArea" class="modalArea">
+      <%= render 'layouts/modal' %>
+    </section>
+    <div id="form" class="window"></div>
+    <div class="main_wrapper">
+      <p><%= breadcrumbs pretext: icon("fas", "map-marker-alt"),separator: " > " %></p>
+      <%= yield %>
+    </div>
+    <footer>
+      <p>&copy; <%= Time.current.year %> Japanepa.com</p>
+    </footer>
   </body>
 </html>
 

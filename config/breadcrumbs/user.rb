@@ -3,7 +3,7 @@ crumb :root do
 end
 
 crumb :users do
-  link "users", users_path
+  link "ranking", ranking_path
 end
 
 crumb :show_user do |user|

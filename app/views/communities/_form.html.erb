@@ -1,4 +1,5 @@
 <%= form_with model: @community, builder: CustomFormBuilder, local: true do |f| %>
+  <p class="error_message"><%= "please input value correctly..." if @community.errors.any? %></p>
   <%= f.hidden_field :founder_id, value: current_user.id %>
   <div class="field bold">
   <%= f.label :name %>

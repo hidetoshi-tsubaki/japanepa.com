@@ -11,8 +11,6 @@ crumb :show_article do |article|
   parent :articles
 end
 
-
-
 # Admin Article
 crumb :admin_articles do
   link "Articles", admin_articles_path

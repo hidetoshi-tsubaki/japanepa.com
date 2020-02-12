@@ -12,7 +12,7 @@ crumb :play_quiz do |quiz|
 end
 
 crumb :play_mistake_quiz do |quiz|
-  link article.title, play_mistakes_quiz_path(quiz)
+  link quiz.title, play_mistakes_quiz_path(quiz)
   parent :quizzes
 end
 
@@ -22,8 +22,8 @@ crumb :admin_quizzes do
 end
 
 crumb :edit_quiz do |quiz|
-  link "Edit #{quiz.question}", edit_admin_article_path
-  parent :admin_articles
+  link "Edit #{quiz.question}", edit_admin_quiz_path
+  parent :admin_quizzes
 end
 
 crumb :new_quiz do

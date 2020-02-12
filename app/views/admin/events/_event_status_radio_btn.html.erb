@@ -1,0 +1,10 @@
+<div class="inline_radio">
+  <div class="radio_button search_by_status">
+    <%= f.radio_button :status_eq, 1, checked: "checked" %>
+    <%= f.label :公開, class: "radio_status"%>
+  </div>
+  <div class="radio_button search_by_status">
+    <%= f.radio_button :status_eq, 0, class: "inline" %>
+    <%= f.label :非公開, class: "radio_status" %>
+  </div>
+</div>

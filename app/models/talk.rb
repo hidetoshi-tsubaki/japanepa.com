@@ -9,7 +9,7 @@ class Talk < ApplicationRecord
   counter_culture :community, column_name: 'talk_count'
 
   validates :content, :user_id, :community_id, presence: true
-  validate :image_content_type
+  validate :image_content_type, if: :was_attached?
   
   scope :in_joined_communities, -> (user) do
     includes(community: :community_users).

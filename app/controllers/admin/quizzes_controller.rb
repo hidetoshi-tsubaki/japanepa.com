@@ -42,14 +42,13 @@ class Admin::QuizzesController < ApplicationController
         flash.now[:notice] = "updated successfully"
         redirect_to admin_quizzes_path
       else
-        render "quizzes/form"
+        render 'edit'
       end
     end
   end
 
   def destroy
-    quiz = Quiz.find(params[:id])
-    quiz.destroy
+    Quiz.find(params[:id]).destroy
     if from_category_page?(request)
       flash.now[:notice] = "edited quiz successfully!"
       redirect_to admin_quiz_category_path(quiz.category_id)

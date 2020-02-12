@@ -6,6 +6,7 @@ class QuizzesController < ApplicationController
 
   def play
     @category = QuizCategory.find(params[:id])
+    # title表示のため
     @quizzes = Quiz.where(category_id: params[:id])
     set_quizzes(@categroy)
   end
@@ -47,7 +48,5 @@ class QuizzesController < ApplicationController
     @quizzes.each do |quiz|
       gon.quizSet.push(id: "#{quiz.id}", question: "#{quiz.question}", choices: ["#{quiz.choice1}", "#{quiz.choice2}", "#{quiz.choice3}", "#{quiz.choice4}"])
     end
-    gon.quizSet.shuffle!
   end
-
 end

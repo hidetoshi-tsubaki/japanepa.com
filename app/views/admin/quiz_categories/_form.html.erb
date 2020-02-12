@@ -1,5 +1,6 @@
 <div class="form_wrapper">
   <p class="center bold">Category Form</p>
+  <p class="error_message"><%= "入力値が正しくありません。" if category.errors.any? %></p>
   <%= form_with model: [:admin, category], builder: CustomFormBuilder do |f| %>
     <div class="field" >
       <p class="bold"><%= defined?(parent) ? form_title(parent) : "Level 名" %></p>

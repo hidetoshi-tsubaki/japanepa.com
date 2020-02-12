@@ -15,11 +15,23 @@ class User < ApplicationRecord
   has_many :user_total_experiences
   has_one_attached :img
   validates :name, uniqueness: { case_sensitive: false }
-  validates :name, :password, :password_confirmation, presence: true
+  validates :name, presence: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :lockable, :timeoutable, :omniauthable,
          omniauth_providers: [:facebook, :twitter, :google_oauth2]
+
+  def update_without_current_password(params, *options)
+    params.delete(:current_password)
+
+    if params[:password].blank? && params[:password_confirmation].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+    result = update_attributes(params, *options)
+    clean_up_passwords
+    result
+  end
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -49,7 +61,7 @@ class User < ApplicationRecord
   end
 
   def is_founder?(community)
-    true if self.id == community.id
+    self.id == community.founder_id
   end
 
   def email_required?

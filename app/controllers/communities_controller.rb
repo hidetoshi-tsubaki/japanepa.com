@@ -10,13 +10,26 @@ class CommunitiesController < ApplicationController
     @comment = Comment.new
   end
 
+  def show
+    @community = Community.includes([:founder, talks: :user]).find_by_id(params[:id])
+    @talks = Talk.where(community_id: params[:id])
+    @tags = @community.tags_on(:tags)
+    @comment = Comment.new
+    @commented_top_3 = @community.talks.commented_top_3
+    @liked_top_3 = @community.talks.liked_top_3
+  end
+
   def new
     @community = Community.new
     gon.available_tags = Community.tags_on(:tags).pluck(:name)
   end
 
   def create
-    @community = current_user.communities.new(community_params)
+    begin
+      @community = current_user.communities.new(community_params)
+    rescue => e
+      redirect_to root_path
+    end
     if @community.save
       current_user.join(@community)
       redirect_to community_path(@community)
@@ -33,7 +46,7 @@ class CommunitiesController < ApplicationController
 
   def update
     @community = Community.find(params[:id])
-    if @Community.update(community_params)
+    if @community.update(community_params) && current_user.is_founder?(@community)
       flash.now[:notice] = "community was updated"
       redirect_to community_path(@community)
     else
@@ -41,19 +54,16 @@ class CommunitiesController < ApplicationController
     end
   end
 
+  def destroy
+    @community = Community.find_by_id(params[:id])
+    @community.destroy if current_user.is_founder?(@community)
+    redirect_to communities_path
+  end
+
   def feed
     joined_Community = current_user.community_users.pluck(:community_id)
     @talks = Talk.where(community_id: joined_Community).includes(:community).sort_and_paginate(10)
     @comment = Comment.new
-  end
-
-  def show
-    @community = Community.includes(:founder).find(params[:id])
-    @talks = Talk.where(community_id: params[:id])
-    @tags = @community.tags_on(:tags)
-    @comment = Comment.new
-    @commented_top_3 = @community.talks.commented_top_3
-    @liked_top_3 = @community.talks.liked_top_3
   end
 
   def sort
@@ -93,7 +103,7 @@ class CommunitiesController < ApplicationController
   private
 
   def community_params
-    params.require(:community).permit(:name, :img, :introduction, :founder_id, :tag_list)
+    params.require(:community).permit(:name, :img, :introduction, :founder_id)
   end
 
   def set_community_tags

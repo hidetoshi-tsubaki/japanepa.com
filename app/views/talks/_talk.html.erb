@@ -37,6 +37,7 @@
   <div id="comments_wrapper_<%= talk.id%>" class="hidden comments_wrapper">
     <%= form_with model: @comment do |f| %>
       <%= f.text_field :contents, id: "comment_form_#{talk.id}", placeholder: "Comment ...." %>
+        <p class="error_message_#{comment.id}"></p>
       <%= f.hidden_field :talk_id, value: talk.id %>
     <% end %>
     <div id="comments_of_talk<%= talk.id %>">

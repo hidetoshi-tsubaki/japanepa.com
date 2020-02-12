@@ -2,22 +2,20 @@
   <%= link_to "Japanepa.com", "/", id: "logo" %>
 </div>
 <div class="header_link">
-  <%= link_to 'Quiz', quizzes_path %>
-  <%= link_to 'News', articles_path %>
   <% if user_signed_in? %>
     <div class="header_btn menu_btn">
       <% if current_user.img.attached? %>
-        <%= image_tag current_user.img %>
+        <%= image_tag current_user.img, id: "header_user_img" %>
       <% else %>
         <%= icon("fas", "user") %>
       <% end %>
     </div>
     <%= render 'user_menu'%>
   <% elsif admin_signed_in? %>
-    <div class="header_btn user">
+    <div class="header_btn menu_btn">
       <%= icon("fas", "user-cog") %>
     </div>
-    <%= render 'user_menu'%>
+    <%= render 'admin_menu'%>
   <% else %>
     <div class="inline">
       <%= link_to 'Log in', new_user_session_path, class: 'login bold' %>

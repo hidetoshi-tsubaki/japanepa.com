@@ -1,45 +1,50 @@
-<% content_for(:html_title) { "Profile - @user.name" } %>
-  <p class="right"><%= link_to 'Edit', edit_user_registration_path(@user) %></p>
-  <p class="center">Profile</p>
-  <% if @user.img.attached? %>
-    <%= image_tag @user.img.to_s, class:'present_img' %>
-  <% else %>
-    <%= image_tag 'https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg' %>
-  <% end %>
-  <table class="user_info">
-  <%= link_to "All talks", talks_path(id: @user.id) %>
-    <tr>
-      <td>Name:</td>
-      <td><%= @user.name %></td>
-    </tr>
-    <tr>
-      <td>Lv:</td>
-      <td><%= @current_level || "1" %></td>
-    </tr>
-    <tr>
-      <td>total_experience:</td>
-      <td><%= @current_experience %></td>
-    </tr>
-    <tr>
-      <td>Total Play Count:</td>
-      <td><%= @user.score_records.count %></td>
-    </tr>
-    <tr>
-      <td>Communities:</td>
-      <td><%= @user.community_users.count %></td>
-    </tr>
-    <tr>
-      <td>Posts:</td>
-      <td><%= @user.talks.count %></td>
-    </tr>
-    <tr>
-      <td>Country:</td>
-      <td><%= @user.country %> <i class="flag-icon flag-icon-<%= @user.country.downcase %>"></i></td>
-    </tr>
-    <tr>
-      <td>Address:</td>
-      <td><%= @user.current_address %> <i class="flag-icon flag-icon-<%= @user.current_address.downcase %>"></i></td>
-    </tr>
-  </table>
+<% content_for(:html_title) { "Profile - #{@user.name}" } %>
+<div class="profile_wrapper">
+  <p class="right edit_profile_btn">
+    <%= link_to 'Edit Your Profile', edit_profile_path(@user), id: "edit_profile_btn" %>
+  </p>
+  <div class="user_img_area center">
+    <% if @user.img.attached? %>
+      <%= image_tag @user.img, id:'present_user_img' %>
+    <% else %>
+      <%= image_tag 'https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg', id: 'no_user_img' %>
+    <% end %>
+  </div>
+  <ul class="profile_detail center">
+    <li>
+      <p>Name</p>
+      <p><%= @user.name %></p>
+    </li>
+    <li>
+      <p>Level</p>
+      <p><%= @current_level || "1" %></p>
+    </li>
+    <li>
+      <p>Total Experience</p>
+      <p><%= @current_experience %></p>
+    </li>
+    <li>
+      <p>Total Play Count</p>
+      <p><%= @user.score_records.count %></p>
+    </li>
+    <li>
+      <p>Communities</p>
+      <p><%= @user.community_users.count %></p>
+    </li>
+    <li>
+      <p>Total Posts</p>
+      <p><%= @user.talks.count %></p>
+    </li>
+    <li>
+      <p>Country</p>
+      <p><%= @user.country %> <i class="flag-icon flag-icon-<%= @user.country.downcase %>"></i></p>
+    </li>
+    <li>
+      <p>Address</p>
+      <p><%= @user.current_address %> <i class="flag-icon flag-icon-<%= @user.current_address.downcase %>"></i></p>
+    </li>
+  </ul>
+    <p class="right">
+      <%= link_to 'delete your account', user_registration_path(@user), method: :delete, id: "delete_account" %>
+    </p>
 </div>
-

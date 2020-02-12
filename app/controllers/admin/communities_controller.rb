@@ -5,7 +5,7 @@ class Admin::CommunitiesController < ApplicationController
   before_action :set_available_tags_to_gon, only: [ :edit, :confirm ]
 
   def index
-    @q = Community.ransack(params[:q])
+    @q = Community.includes(:founder).ransack(params[:q])
     @communities = @q.result(distinct: true).sorted.page(params[:page])
   end
 
@@ -31,7 +31,7 @@ class Admin::CommunitiesController < ApplicationController
   end
 
   def destroy
-    @Community = Community.find(params[:id]).destroy
+    @community = Community.find(params[:id]).destroy
   end
 
   def tag_search
@@ -42,8 +42,8 @@ class Admin::CommunitiesController < ApplicationController
 
   def search
     is_pagination?(params)
-    if params[:q]['name_or_introduction_or_user_name_cont_any'] != nil
-      params[:q]['name_or_introduction_or_user_name_cont_any'] = params[:q]['name_or_introduction_or_user_name_cont_any'].split(/[ ]/)
+    if params[:q]['name_or_introduction_or_founder_name_cont_any'] != nil
+      params[:q]['name_or_introduction_or_founder_name_cont_any'] = params[:q]['name_or_introduction_or_founder_name_cont_any'].split(/[ ]/)
       @keywords = Community.ransack(params[:q])
       @communities = @keywords.result.sorted.page(params[:page])
       @q = Community.ransack(params[:q])

@@ -1,10 +1,10 @@
 <tr class="index_head">
   <th><%= sort_link(@q, :id, "No.", default_order: :desc, anchor: "index") %></th>
-  <th><%= sort_link(@q, :name, "Name", default_order: :desc, anchor: "index") %></th>
-  <th><%= sort_link(@q, :likes_count, "likes_count", default_order: :desc, anchor: "index") %></th>
-  <th><%= sort_link(@q, :comments_count, "comments_count", default_order: :desc, anchor: "index")%></th>
+  <th><%= sort_link(@q, :communities_name, "Community", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :users_name, "User", default_order: :desc, anchor: "index") %></th>
   <th><%= sort_link(@q, :content, "content", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :likes_count, "Likes", default_order: :desc, anchor: "index") %></th>
   <th><%= sort_link(@q, :created_at, "Creation Data", default_order: :desc, anchor: "index") %></th>
-  <th><%= sort_link(@q, :updated_at, "Update Data", default_order: :desc, anchor: "index") %></th>
+  <th><%= sort_link(@q, :updated_at, "Update Date", default_order: :desc, anchor: "index") %></th>
   <th class="notes">※ソート可（カラム名をクリック）</th>
 </tr>

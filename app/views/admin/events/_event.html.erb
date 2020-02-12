@@ -1,0 +1,18 @@
+<tr class="index_content" id="event_<%= event.id %>">
+  <td class="status"><%= icon("fas", "#{contents_status(event)}") %></td>
+  <td><%= event.id %></td>
+  <td class="truncate_column"><%= event.name.truncate(20) %></td>
+  <td><%= number_with_delimiter(event.impressions_count) %></td>
+  <td><%= event.start_time.strftime('%Y/%m/%d') %></td>
+  <td><%= event.end_time.nil? ? '' : event.end_time.strftime('%Y/%m/%d') %></td>
+  <td><%= event.created_at.strftime('%Y/%m/%d') %></td>
+  <td><%= event.updated_at.strftime('%Y/%m/%d') %></td>
+  <td>
+    <%= link_to edit_admin_event_path(event), class: "edit_btn inline" do %>
+      <%= icon("fas", "edit") %> 編集
+    <% end %>
+    <%= link_to admin_event_path(event), class: "delete_btn inline", data: { confirm: 'この記事を削除しますか?' }, remote: true, method: :delete do %>
+      <%= icon("fas", "trash-alt") %> 削除
+    <% end %>
+  </td>
+</tr>

@@ -10,9 +10,12 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
-    @tags = @article.tags_on(:tags)
-    @q = Article.with_attached_img.ransack(params[:q])
+    if @article = Article.find_by_id(params[:id])
+      @tags = @article.tags_on(:tags)
+      @q = Article.with_attached_img.ransack(params[:q])
+    else
+      redirect_to articles_path
+    end
   end
 
   def tag_search

@@ -17,13 +17,13 @@ class Admin::QuizCategoriesController < ApplicationController
 
   def new_level
     @category = QuizCategory.new
-    render :new_level
+    render "new_level"
   end
 
   def new_category
     @parent = QuizCategory.find(params[:id])
     @category = @parent.is_section? ? CategoryWithExperienceForm.new : QuizCategory.new
-    render :new_category
+    render "new_category"
   end
 
   def new_quiz
@@ -36,7 +36,7 @@ class Admin::QuizCategoriesController < ApplicationController
     if @category.save
       set_categories(@category)
       flash.now[:notice] = "新しいカテゴリーを作成しました！"
-      render :create
+      render "create"
     else
       rendering(@category)
     end
@@ -56,7 +56,6 @@ class Admin::QuizCategoriesController < ApplicationController
       @category = CategoryWithExperienceForm.new(category_params)
       @category.update(category_params)
     else
-      p "ssss"
       @category.update(category_params)
       if @category.save
         flash.now[:notice] = "カテゴリーを編集しました。"
@@ -112,9 +111,9 @@ class Admin::QuizCategoriesController < ApplicationController
   def rendering(category)
     if category.parent_id
       @parent = QuizCategory.find(category.parent_id)
-      render :new_category
-    else
-      render :new_level
+      render "new_category"
+      else
+        render "new_level"
     end
   end
 

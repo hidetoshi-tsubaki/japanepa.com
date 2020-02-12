@@ -1,0 +1,50 @@
+
+<% content_for(:html_title) { 'Information Index' } %>
+<% breadcrumb :admin_information_index, @information %>
+<div class="index_wrapper">
+  <div class="search_wrapper">
+    <h2><%= icon("fas","info-circle") %> Information index </h2>
+    <div class="search" id="date_input">
+      <p class="bold">ワード検索</p>
+      <%= search_form_for @q, url: search_admin_information_index_path do |f| %>
+        <div class="field">
+          <%= f.text_field :title_or_contents_cont_any, class: "keyword_search" %>
+          <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
+        </div>
+        <%= render 'date_search', f: f %>
+        <p id="clear_btn" class="bold right">全クリア</p>
+        <%= f.submit 'Search' %>
+      <% end %>
+    </div>
+    <div class="tag_search">
+      <p class="bold">・タグ検索</p>
+      <ul class="tags_section tags">
+        <% if @tags.present? %>
+          <%= render partial: 'tag', collection: @tags, as: :tag %>
+        <% else %>
+          <li>No tags....</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="article_index index">
+    <p class="create_btn_wrapper"><%= link_to "Create New", new_admin_information_path, class: "new_btn" %><%= link_to "全件表示", admin_information_index_path(anchor: "index"), class: "show_all" %></p>
+    <table class="index_table" id="index">
+      <thead>
+        <%= render 'columns' %>
+      </thead>
+      <tbody>
+        <% if @information.present? %>
+          <%= render partial: 'info', collection: @information, as: :info %>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @information, :params => { anchor: "index" } %>
+    <% if @information.blank? %>
+      <div class="no_result">
+        <h3 class="center">No information....</h3>
+        <p class="center"><%= link_to '一覧表示', admin_information_index_path %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

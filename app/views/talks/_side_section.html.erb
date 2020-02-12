@@ -1,14 +1,18 @@
 <div class="side_content">
   <h4><%= icon("fas", "tags") %> Menu (メニュー)</h4>
-  <% if past_30days_after_signIn? %>
-    <%= link_to "create community" ,new_community_path %>
-  <% else %>
-    <div class="warn_sentence">
-      <p>You can't create communities yet.</p>
-      <p>To prevent spam, Account must be at least 30 days old.</p>
+  <div class="side_inner_box">
+    <div class="">
+      <%= link_to "Create talk", new_talk_path, class: "block center create_btn", remote: true %>
+      <% if past_30days_after_signIn? %>
+        <%= link_to "create community" ,new_community_path, class: "block center community_btn" %>
+      <% else %>
+        <div class="warn_sentence">
+          <p>You can't create communities yet.</p>
+          <p>To prevent spam, Account must be at least 30 days old.</p>
+        </div>
+      <% end %>
+      <%= link_to "check communities", communities_path, class: "block center community_btn" %>
     </div>
-  <% end %>
-    <%= link_to "check communities", communities_path, class: "block center " %>
-    <%= link_to "Create talk", new_talk_path, class: "block center new_btn", remote: true %>
+  </div>
 </div>
-<%= render 'ranked_talks' %>
+<%= render 'talks/ranked_talks' %>

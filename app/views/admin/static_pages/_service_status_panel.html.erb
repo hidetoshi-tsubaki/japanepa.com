@@ -1,0 +1,8 @@
+<%= month_calendar events: @events do |date, events| %>
+  <%= date.day %>
+  <% events.each do |event| %>
+    <p class="event <%= event_color(event.id) %>" id="<%= event.id %>">
+      <%= event.name %>
+    </p>
+  <% end %>
+<% end %>

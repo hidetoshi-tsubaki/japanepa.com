@@ -1,0 +1,7 @@
+<% if admin_signed_in? %>
+  <div class="admin_menu ">
+    <%= link_to destroy_admin_session_path, method: :delete do %>
+    <p><%= icon("fas", "sign-out-alt") %> Log out</p>
+    <% end %>
+  </div>
+<% end %>

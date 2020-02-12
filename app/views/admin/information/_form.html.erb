@@ -1,0 +1,18 @@
+<div class="info_form_wrapper">
+  <%= form_with model: [:admin, info], local:true, builder: CustomFormBuilder do |f| %>
+     <p class="error_message"><%= "入力値が正しくありません。" if info.errors.any? %></p>
+    <%= render "radio_button", f: f %>
+    <div class="field">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <div class="field">
+      <%= f.label :contents %>
+      <%= f.text_area :contents, class: 'question_input', 'data-provider': :summernote %>
+    </div>
+    <div class="actions">
+      <%= f.submit form_btn, data: { confirm: "送信しますか？"} %>
+    </div>
+  <% end %>
+  </div>
+<%= javascript_include_tag 'summernote' %>

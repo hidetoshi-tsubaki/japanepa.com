@@ -9,10 +9,6 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.new(comment_params)
     @talk = Talk.find(comment_params[:talk_id])
-    if @comment.save!
-    else
-      render :form
-    end
   end
 
   def edit

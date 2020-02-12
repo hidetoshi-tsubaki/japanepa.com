@@ -1,18 +1,18 @@
 <% if user_signed_in? %>
   <div class="user_menu ">
-  <%= link_to user_path(current_user) do %>
-  <p><%= icon("fas", "address-card") %> Profile</p>
-  <% end %>
-  <%= link_to users_path(anchor: current_user.id) do %>
-  <p><%= icon("fas", "crown") %> Ranking</p>
-  <% end %>
-  <%= link_to bookmarks_path do %>
-    <p><%= icon("fas", "star") %> Bookmarks</p>
-  <% end %>
-  <p><%= icon("fas", "question-circle") %> Help</p>
-  <p><%= icon("fas", "info-circle") %> About us</p>
-  <%= link_to destroy_user_session_path, method: :delete do %>
-  <p><%= icon("fas", "sign-out-alt") %> Log out</p>
-  <% end %>
+    <%= link_to user_path(current_user) do %>
+      <p><%= icon("fas", "address-card") %> Profile</p>
+    <% end %>
+    <%= link_to ranking_path(anchor: current_user.id) do %>
+      <p><%= icon("fas", "crown") %> Ranking</p>
+    <% end %>
+    <%= link_to bookmarks_path do %>
+      <p><%= icon("fas", "star") %> Bookmarks</p>
+    <% end %>
+    <p><%= icon("fas", "question-circle") %> Help</p>
+    <p><%= icon("fas", "info-circle") %> About us</p>
+    <%= link_to destroy_user_session_path, method: :delete do %>
+      <p><%= icon("fas", "sign-out-alt") %> Log out</p>
+    <% end %>
   </div>
 <% end %>

@@ -1,9 +1,9 @@
 <% if current_user.already_bookmark?(article) %>
-  <%= link_to bookmark_path(article), class:"bookmark" ,remote: true, method: :delete do %>
-    <%= icon("fas", "star") %>
+  <%= link_to bookmark_path(article), class: "bookmark_btn" ,remote: true, method: :delete do %>
+    <%= icon("fas", "star") %> <%= article.bookmarks.count %>
   <% end %>
 <% else %>
-  <%= link_to bookmarks_path(id: article.id), class:"bookmark", remote: true, method: :post do %>
-    <%= icon("far", "star") %>
+  <%= link_to bookmarks_path(id: article.id), class: "bookmark_btn", remote: true, method: :post do %>
+    <%= icon("far", "star") %> <%= article.bookmarks.count %>
   <% end %>
 <% end %>

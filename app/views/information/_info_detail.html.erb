@@ -1,0 +1,9 @@
+<div class="info_detail_wrapper">
+  <p class="info_date">
+    <%= info.created_at.strftime('%Y/%m/%d') %>
+  </p>
+  <h1 class="info_name bold"><%= info.title %></h1>
+  <div class="info_detail">
+    <%= raw(info.contents) %>
+  </div>
+</div>

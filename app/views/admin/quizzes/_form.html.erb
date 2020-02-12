@@ -1,7 +1,8 @@
 <div class="quiz_form_wrapper">
   <%= form_with model: [:admin, quiz], local:true, builder: CustomFormBuilder do |f| %>
-    <% if defined?(category) %>
-      <%= f.hidden_field :category_id, value: category.id %>
+    <p class="error_message"><%="入力値が正しくありません。" if quiz.errors.any? %></p>
+    <% unless quiz.category_id.nil? %>
+      <%= f.hidden_field :category_id, value: quiz.category_id %>
     <% else %>
       <div class="field">
         <%= f.label :category_id %>
@@ -29,7 +30,7 @@
       <%= f.text_field :choice4 %>
     </div>
     <div class="actions">
-      <%= f.submit "新規作成", data: { confirm: "送信しますか？"} %>
+      <%= f.submit  form_btn, data: { confirm: "送信しますか？"} %>
     </div>
   <% end %>
   </div>

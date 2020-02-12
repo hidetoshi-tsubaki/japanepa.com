@@ -1,165 +1,132 @@
 require 'rails_helper'
 
 RSpec.describe "Communities", type: :request do
-  describe "GET #index" do
-    before do
-      FactoryBot.create :community_A
-      FactoryBot.create :community_B
-    end
+  let(:user) { create(:user) }
+  let(:community) { create(:community, :with_founder) }
+  let(:founder) { create(:founder) }
+  before do
+    sign_in user
   end
+
+  describe "GET #index" do
     it "has success to request" do
       get communities_url
-      expect(response.status).to eq(200)
+      expect(response).to be_success
+      expect(response).to have_http_status 200
     end
 
-    it "display community names" do
+    it "display community name" do
+      community = create(:community, :with_founder)
       get communities_url
-      expect(response).to include "community_a"
-      expect(response).to include "community_b"
-    end
-  end
-
-  describe "GET :show" do
-    context "if community exist" do
-      let(:community_a) { FactoryBot.create :community_a }
-
-      it "has success to request" do
-        get user_url community_a.id
-        expect (response.status).to eq 200
-      end
-
-      it "display community_name" do
-        get  community_url community_a.id
-        expect (response.body).to include "community_test"
-      end
-
-      context "if community doesn't exist" do
-        subject { -> { get community_url 1 } }
-
-        it { is_expected.to raise_error ActiveRecord::RecordNotFound }
-      end
+      expect(response.body).to include "community_test"
     end
   end
 
   describe "Get #new" do
     it "has success to request" do
       get new_community_url
-      expect(response.status).to eq 200
+      expect(response).to be_success
+      expect(response).to have_http_status 200
     end
   end
 
   describe "GET #edit" do
-    let(:community_A) { FactoryBot.create :community_A }
-
     it "has success to request" do
-      get edit_community_url
-      expect(response.status).to eq 200
+      get edit_community_url community
+      expect(response).to be_success
+      expect(response).to have_http_status 200
     end
 
-    it "display community title" do
-      get edit_community_url community_A
-      expect(respose.body).to include "japan"
-    end
-
-    it "display country" do
-      get edit_admin_community_url community_A
-      expect(response.body).to include "japan"
+    it "display community name" do
+      get edit_community_url community
+      expect(response.body).to include "community_test"
     end
   end
 
   describe "Post #create" do
     context "when paramater is valid" do
       it "has success to request" do
-        post communities_url, params: { community: FactoryBot.attributes_for(:community) }
-        expect(response.status).to eq 302
+        post communities_url, params: { community: attributes_for(:community, :with_founder_2) }
+        expect(response).to have_http_status 302
       end
 
       it "has success to register community" do
-        expect do
-          post communities_url, params: { community: FactoryBot.attributes_for(:community) }
-        end.to change(community, :count).by(1)
+        expect {
+          post communities_url, params: { community: attributes_for(:community, :with_founder_2) }
+        }.to change(Community, :count).by(1)
       end
 
-      it "redirect to show page" do
-        post communities_url, params: { aticle: FactoryBot.attributes_for(:community) }
-        expect(response).to redirect_to Community.last
+      it "redirect to community index page" do
+        post communities_url, params: { community: attributes_for(:community, :with_founder_2) }
+        expect(response).to redirect_to community_url Community.last
       end
     end
 
     context "when paramater is invalid" do
       it "has success to request" do
-        post communities_url, params: { community: FactoryBot.attributes_for(:community :invalid) }
-        expect(response.status).to eq 200
+        post communities_url, params: { community: attributes_for(:community, :invalid) }
+        expect(response).to be_success
+        expect(response).to have_http_status 200
       end
 
-      it "failed to register user" do
+      it "failed to register community" do
         expect do
-          post admin_communities_url, params: { community: FactoryBot.attributes_for(:community :invalid) }
+          post communities_url, params: { community: attributes_for(:community, :invalid) }
         end.to_not change(Community, :count)
       end
-
-      it "display error massage"
-      # formの一番上に入力が間違っています。　正確に入力してくださいを表示させる
-      # それが表示されていたら登録失敗とする
     end
   end
 
   describe "PUT #update" do
-    let(:community_A) { FactoryBot.create :community_A }
-
     context "when paramater is valid" do
       it "has success to request" do
-        post community_url community_A, params: { community: FactoryBot.attributes_for(:cmmunity_B) }
-        expect(response.status).to eq 302
+        put community_url community, params: { community: attributes_for(:community, :update) }
+        expect(response).to have_http_status 302
       end
 
-      it "has success to update community title" do
+      it "has success to update community" do
         expect do
-          post community_url community_A, params: { community: FactoryBot.attributes_for(:community_B) }
-        end.to change { community.find(community_A.id).title }.from('japan').to("nepal")
+          put community_url community, params: { community: attributes_for(:community, :update) }
+        end.to change { Community.find(community.id).name }.from('community_test').to('updated_community')
       end
 
-      it "redirect to show page" do
-        post community_url community_A, params: { community: FactoryBot.attributes_for(:community_B) }
-        expect(response).to redirect_to community_A
+      it "redirect to index page" do
+        put community_url community, params: { community: attributes_for(:community, :update) }
+        expect(response).to redirect_to(community_url community)
       end
     end
 
     context "when paramater is invalid" do
-      it " has success to request" do
-        patch community_url community_A, params: { community: FactoryBot.attributes_for(:community, :invalid) }
-        expect(response.status).to eq 200
+      it "has success to request" do
+        put community_url community, params: { community: attributes_for(:community, :invalid) }
+        expect(response).to be_success
+        expect(response).to have_http_status 200
       end
 
       it "name does not be changed" do
-        expect do
-        patch community_url community_A, params: { community: FactoryBot.attributes_for(:community, :invalid) }
-        end.to_not change(community.find(community_A.id)), :name
-      end
-
-      it "display error message" do
-
+        expect {
+          put community_url community, params: { community: attributes_for(:community, :invalid) }
+        }.to_not change{ Community.find(community.id)}, :name
       end
     end
   end
 
   describe "DELETE #destroy" do
-    let!(:community) { FactoryBot.create :community}
-
     it "has success to request" do
       delete community_url community
-      expect(response.status).to eq 302
+      expect(response).to have_http_status 302
+    end
+
+    it "does not display deleted community" do
+      delete community_url community, xhr: true
+      expect(response).to have_http_status 302
     end
 
     it "delete community" do
-      expect do
+      community = create(:community)
+      expect {
         delete community_url community
-      end.to change(community, :count).by(-1)
-    end
-
-    it "should redirect to index page" do
-      delete community_url community
-      expect(response).to redirect_to(communities_url)
+      }.to change(Community, :count).by(-1)
     end
   end
 end

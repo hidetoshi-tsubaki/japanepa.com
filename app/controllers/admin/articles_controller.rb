@@ -1,5 +1,5 @@
 class Admin::ArticlesController < ApplicationController
-  before_action :authenticate_admin!, only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :authenticate_admin!, only: [ :index, :new, :create, :edit, :update, :destroy ]
   before_action :set_article_tags, only: [ :index, :search, :tag_search ]
   before_action :set_available_tags_to_gon, only: [ :new, :edit, :confirm ]
 
@@ -15,12 +15,6 @@ class Admin::ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-  end
-
-  def comfirm
-    @article = Article.new(article_params)
-    return if @article.valid?
-    render :new
   end
 
   def create
@@ -52,7 +46,12 @@ class Admin::ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id]).destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+    respond_to do |format|
+      format.html { redirect_to admin_articles_path }
+      format.js { render :action => "destroy" }
+    end
   end
 
   def bookmark_articles
@@ -102,7 +101,7 @@ class Admin::ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :lead, :tag_list, :img, :img_cache, :remove_img, :contents)
+    params.require(:article).permit(:title, :lead, :tag_list, :img, :img_cache, :remove_img, :contents, :status)
   end
 
   def set_available_tags_to_gon

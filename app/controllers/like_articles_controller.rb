@@ -8,7 +8,7 @@ class LikeArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id].to_i)
+    @article = Article.find(params[:id])
     current_user.remove_like_article(@article)
     render 'like'
   end

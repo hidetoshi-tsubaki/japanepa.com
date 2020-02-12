@@ -1,0 +1,16 @@
+<tr class="index_content" id="info_<%= info.id %>">
+  <td class="status"><%= icon("fas", "#{contents_status(info)}") %></td>
+  <td><%= info.id %></td>
+  <td class="truncate_column"><%= info.title.truncate(20) %></td>
+  <td><%= number_with_delimiter(info.impressions_count) %></td>
+  <td><%= info.created_at.strftime('%Y/%m/%d') %></td>
+  <td><%= info.updated_at.strftime('%Y/%m/%d') %></td>
+  <td>
+    <%= link_to edit_admin_information_path(info), class: "edit_btn inline" do %>
+      <%= icon("fas", "edit") %> 編集
+    <% end %>
+    <%= link_to admin_information_path(info), class: "delete_btn inline", data: { confirm: 'この記事を削除しますか?' }, remote: true, method: :delete do %>
+      <%= icon("fas", "trash-alt") %> 削除
+    <% end %>
+  </td>
+</tr>

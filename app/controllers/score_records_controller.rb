@@ -2,8 +2,9 @@ class ScoreRecordsController < ApplicationController
   before_action :authenticate_user!
 
   def create
+    redirect_to quizzes_path if params[:score_record][:score].empty?
     score_record = current_user.score_records.new(save_score_record_params)
-    score_record.save! unless request.referer&.include?("play_mistakes")
+    score_record.save! unless played_mistakes?
     score_record = current_user.score_records.where(get_score_record_params).last(50).pluck(:score)
     create_mistakes_record
     update_experience
@@ -29,8 +30,8 @@ class ScoreRecordsController < ApplicationController
     @score_record = current_user.score_records.where(title_id: params[:id]).last(50).pluck(:score)
     get_user_level
     respond_to do |format|
-      format.js { 
-        render json: {
+      format.js {
+          render json: {
           score_record: @score_record,
           quiz_category: @quiz_category,
           current_level: @current_level,
@@ -65,9 +66,7 @@ class ScoreRecordsController < ApplicationController
         miss = Mistake.find_or_initialize_by(quiz_id: id, user_id: current_user.id, title_id: title_id)
         if miss.new_record?
           @mistakes << miss
-          p "new"
         else
-          p "add"
           miss.count += 1
           @mistakes << miss
         end
@@ -77,11 +76,14 @@ class ScoreRecordsController < ApplicationController
   end
 
   def update_experience
-    category = QuizCategory.includes(:quiz_experiences).find(params[:score_record][:title_id])
-    quiz_experience = category.quiz_experiences.first
+    category = QuizCategory.includes(:quiz_experience).find(params[:score_record][:title_id])
+    quiz_experience = category.quiz_experience
     @new_experience = params[:score_record][:score] * quiz_experience.experience
     user_experience = UserTotalExperience.find_by(user_id: current_user.id)
     user_experience.increment!(:total_experience, @new_experience.to_i)
   end
 
+  def played_mistakes?
+    request.referer&.include?("play_mistakes")
+  end
 end

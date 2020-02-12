@@ -10,15 +10,13 @@
           <%= f.text_field :question_or_choice1_cont_any, class: "keyword_search" %>
           <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
         </div>
-        <div class="date_search_wrapper">
           <%= render 'date_search', f: f %>
-        </div>
         <p id="clear_btn" class="bold right">全クリア</p>
         <%= f.submit 'Search' %>
       <% end %>
     </div>
     <div class="category_search">
-      <p class="bold">・カテゴリー検索</p>
+      <p class="bold">・カテゴリーで絞り込む</p>
       <div>
         <label>Level</label>
         <select id="select_level" class="index">

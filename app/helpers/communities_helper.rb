@@ -4,7 +4,15 @@ module CommunitiesHelper
     past_days >= 30 || current_user.id  < 3
   end
 
-  def is_founder(comunity)
-    true if current_user.id == community.founder_id
+  def initial_color(community)
+    if community.id % 4 == 0
+      "initial_red"
+    elsif community.id % 3 == 0
+      "initial_blue"
+    elsif community.id % 2 == 0
+      "initial_green"
+    else
+      "initial_orange"
+    end
   end
 end

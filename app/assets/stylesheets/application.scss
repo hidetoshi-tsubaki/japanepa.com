@@ -11,10 +11,12 @@
  * It is generally better to create a new file per style scope.
  *
  
- *= require fullcalendar
+ 
  *= require jquery.tagit
  *= require tagit.ui-zendesk
  *= require_self
+ *= require fullcalendar
+ *= require simple_calendar
  *= require_tree
  *
  */

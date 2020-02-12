@@ -1,4 +1,7 @@
+<h1 class="center">Article Form</h1>
 <%= form_with model: [:admin, article], local: true, builder: CustomFormBuilder do |f| %>
+  <p class="error_message"><%="入力値が正しくありません。" if @article.errors.any? %></p>
+  <%= render "radio_button", f: f %>
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>

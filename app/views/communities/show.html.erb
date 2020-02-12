@@ -11,19 +11,34 @@
       <% end %>
     </div>
   </div>
-  <div class="side_section inline">
+  <div class="side_section inline community_page">
     <div class="side_content">
-      <%= link_to 'Create Talk', new_talk_path, class: 'block center create_btn', remote: true %>
+      <h4>Community Data</h4>
+      <div class="community_data">
+        <p class="center"><%= image_tag @community.img  if @community.img.attached? %></p>
+        <p>Founder: <%= link_to @community.founder.name, user_path(@community.founder.id) %></p>
+        <p class="counts_status">
+          <%= icon("fas","users") %> <%= @community.users.count %>
+          <%= icon("fas","comments") %> <%= @community.talks.count %>
+        </p>
+        <p><%= @community.introduction %></p>
+        <p id="join_btn_<%= @community.id %>">
+          <% unless current_user.is_founder?(@community) %>
+            <%= render partial:'join_btn' , locals: { community: @community } %>
+          <% end %>
+        </p>
+        <p class="right"><%= link_to 'Edit', edit_community_path(@community), id: "edit_community_btn" if current_user.is_founder?(@community) %></p>
+      </div>
     </div>
     <div class="side_content">
-      <h4>Community Information</h4>
-      <div id="join_btn_<%= @community.id %>">
-        <%= render partial:'join_btn' , locals: { community: @community } if current_user.is_founder?(@community) %>
+      <h4><%= icon("fas", "tags") %> Menu (メニュー)</h4>
+      <div class="side_inner_box">
+        <p>
+          Don't be shy! <br>
+          Let's chat with members.
+        </p>
+        <%= link_to 'Create Talk', new_talk_path(id: @community.id), class: 'block center create_btn', remote: true %>
       </div>
-      <p><%= @community.introduction %></p>
-      <p>member: <%= @community.users.count %></p>
-      <p>talks: <%= @community.talks.count %></p>
-      <p>Founder:<%= @community.founder.name %></p>
     </div>
     <div class="side_content">
       <h4><%= icon("fas", "tags") %> Tags(タグ)</h4>

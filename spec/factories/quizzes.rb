@@ -1,20 +1,26 @@
 FactoryBot.define do
   factory :quiz do
-    question { "あ" }
-    question_html { "<p>あ</p>" }
+    sequence(:question) { |n| "question_" + n.to_s }
+    sequence(:question_html) { |n| "<p>question_" + n.to_s + "</p>" }
     choice1 { "a" }
     choice2 { "i" }
     choice3 { "u" }
     choice4 { "o" }
     category_id { "1" }
+
+    trait :invalid do
+      question { "" }
+      choice1 { "" }
+    end
   end
 
   factory :quiz_A, class: Quiz do
-    title { "japan" }
-    lead { "study in japan" }
-    content { "<p>study in japan</p>" }
-    after(:build) do |article|
-      article.img.attach(io: File.open(Rails.root.join('spec', 'factories', 'images', 'q1.png')), filename: 'q1.png', content_type: 'image/png')
-    end
+    question { "カタカナ" }
+    question_html { "<p>カタカナ</p>" }
+    choice1 { "ア" }
+    choice2 { "イ" }
+    choice3 { "ウ" }
+    choice4 { "オ" }
+    category_id { "1" }
   end
 end

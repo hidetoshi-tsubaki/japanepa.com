@@ -1,12 +1,5 @@
 <% content_for(:html_title) { "Article-#{@article.title}" } %>
-<% if admin_signed_in? %>
-  <div >
-    <%= link_to "edit", edit_admin_article_path(@article) %>
-    <%= link_to "delete", admin_article_path(@article), data: { confirm: 'Delete Article?' }, method: :delete %>
-    <%= link_to "back to index", admin_articles_path %>
-  </div>
-<% end %>
-<div class="article_section white">
+<div class="article_section">
   <div>
     <p><%= image_tag @article.img ,class:"top_img" %></p>
   </div>
@@ -19,3 +12,4 @@
     </div>
   <div>
 </div>
+
