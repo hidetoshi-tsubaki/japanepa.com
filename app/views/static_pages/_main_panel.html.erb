@@ -1,0 +1,12 @@
+<div class="inner_header right">
+  <%= link_to information_index_path, class: "info_link" do %>
+    <div class="info_link_box inline">
+      <p>Information</p>
+      <p class="unread_info_count center"><%= @unread_info_count.nonzero? %></p>
+    </div>
+  <% end %>
+  <div class="inline">
+    <%= render "user_menu_btn" %>
+  </div>
+</div>
+<p class="title bold">Japanepa.com!</p>

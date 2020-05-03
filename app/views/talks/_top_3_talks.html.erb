@@ -1,0 +1,20 @@
+<div class="side_content">
+  <h4><%= icon("fas", "comment-alt") %> Most Commented</h4>
+  <div class="top_3_talk_wrapper">
+    <% if @commented_top_3.present? %>
+      <%= render partial: "ranked_talk", collection: @commented_top_3, as: :talk %>
+    <% else %>
+      <p>No Data</p>
+    <% end %>
+  </div>
+</div>
+<div class="side_content">
+  <h4><%= icon("fas", "heart") %> Most Liked</h4>
+  <div class="top_3_talk_wrapper">
+    <% if @liked_top_3.present? %>
+      <%= render partial: "ranked_talk", collection: @liked_top_3, as: :talk %>
+    <% else %>
+      <p>No Data</p>
+    <% end %>
+  </div>
+</div>

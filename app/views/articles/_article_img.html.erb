@@ -1,0 +1,9 @@
+<div class="inline article_img_wrapper">
+  <% if article.img.attached? %>
+    <p><%= image_tag article.img, class:"thumbnails" if article.img.attached? %></p>
+  <% else %>
+    <div class="inline thumbnails <%= thumbnails_color(article) %>">
+      <p>Japanepa</p>
+    </div>
+  <% end %>
+</div>

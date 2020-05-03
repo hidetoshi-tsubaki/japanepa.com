@@ -1,0 +1,15 @@
+<% content_for(:html_title) { "Edit Talk " } %>
+<% if defined?(@community) %>
+  <%= render 'breadcrumbs', action: "Edit" %>
+<% else %>
+  <% breadcrumb :edit_talk, @talk %>
+<% end %>
+<div class="form_wrapper">
+  <%= render partial: 'form', locals: { talk: @talk, communities: @communities, action: 'Update' } %>
+</div>
+<div class="hidden user_menu_section">
+  <%= render 'user_menu_in_mobile' %>
+</div>
+<div class="user_menu_section talk_page hidden">
+  <%= render 'side_section' %>
+</div>

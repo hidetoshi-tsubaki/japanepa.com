@@ -1,0 +1,18 @@
+<p class="bold">Start date</p>
+<div class="form-group date_form">
+  <div class="field input-group date", id="start_time", data-target-input="nearest">
+    <%= f.text_field :start_time, class: "form-control datetimepicker-input start_time", data: { target: "#start_time" }, placeholder: "from..." %>
+    <div class="input-group-append" data-target="#start_time" data-toggle="datetimepicker">
+      <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+    </div>
+  </div>
+</div>
+<p class="bold">End date</p>
+<div class="form-group date_form">
+  <div class="field input-group date", id="end_time", data-target-input="nearest">
+    <%= f.text_field :end_time, class: "form-control datetimepicker-input end_time", data: { target: "#end_time" }, placeholder: "to..." %>
+    <div class="input-group-append" data-target="#end_time" data-toggle="datetimepicker">
+      <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+    </div>
+  </div>
+</div>

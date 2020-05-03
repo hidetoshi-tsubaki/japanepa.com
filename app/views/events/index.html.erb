@@ -1,0 +1,6 @@
+<% content_for(:html_title) { 'Calendar' } %>
+<% breadcrumb :calendar, @events %>
+<%= render 'calendar' %>
+<div class="user_menu_section hidden">
+  <%= render 'user_menu_in_mobile' %>
+</div>

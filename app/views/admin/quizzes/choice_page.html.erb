@@ -1,0 +1,11 @@
+<% content_for(:html_title) { "Quiz Index" } %>
+<% breadcrumb :admin_quizzes, @quizzes %>
+<div class="choice_wrapper center">
+  <h1>Choose index page<h1>
+    <%= link_to admin_quizzes_path, id: 'quiz_page_panel' do %>
+      <p class="inline">Quizzes</p>
+    <% end %>
+    <%= link_to admin_quiz_categories_path, id: 'category_page_panel' do %>
+      <p class="inline">Categories</p>
+    <% end %>
+</div>

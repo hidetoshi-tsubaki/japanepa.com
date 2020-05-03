@@ -1,0 +1,2 @@
+$("#communities_index").append("<%= j(render partial: 'community', collection: @communities, as: :community) %>");
+$("#see_more").html("<%= escape_javascript(link_to_next_page(@communities, '↓ scroll ↓', remote: true)) %>");

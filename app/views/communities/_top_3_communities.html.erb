@@ -1,0 +1,12 @@
+<div class="side_content">
+  <h4><%= icon("fas","users") %> Most User Joined</h4>
+  <ul class="ranked_communities">
+    <%= render partial: 'communities/ranked_community', collection: @most_members_top_3, as: :community %>
+  </ul>
+</div>
+<div class="side_content">
+  <h4><%= icon("fas","comments") %> Most Active</h4>
+  <ul class="ranked_communities">
+    <%= render partial: 'communities/ranked_community', collection: @most_talks_top_3, as: :community %>
+  </ul>
+</div>

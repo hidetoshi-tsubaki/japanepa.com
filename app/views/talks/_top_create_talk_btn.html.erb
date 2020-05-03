@@ -1,0 +1,11 @@
+<div id="top_create_talk_btn">
+  <% if community_page? %>
+    <%= link_to new_talk_path(talk: { from_community_page: community.id }) do %>
+      <%= icon("fas","pen") %>
+    <% end %>
+  <% else %>
+    <%= link_to new_talk_path(talk: { from_talk_page: true }) do %>
+      <%= icon("fas","pen") %>
+    <% end %>
+  <% end %>
+</div>

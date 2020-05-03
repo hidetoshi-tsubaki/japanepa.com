@@ -1,0 +1,7 @@
+<p class="breadcrumbs">
+  <%= icon("fas","map-marker-alt") %> 
+  <%= link_to "Home", root_path %> >  
+  <%= link_to "Communities", communities_path %> >
+  <%= link_to "#{@community.name}", community_path(@community) %> >
+  <%= action %>
+</p>

@@ -1,0 +1,2 @@
+$("#talks_index").append("<%= j(render partial: 'talks/talk', collection: @talks, as: :talk) %>");
+$("#see_more").html("<%= escape_javascript(link_to_next_page(@talks, '↓ scroll ↓', remote: true)) %>");

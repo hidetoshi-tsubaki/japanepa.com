@@ -1,0 +1,27 @@
+<% if own_talk?(talk) %>
+  <div class="action_talk_btn">
+    <% if community_page? %>
+      <p class="inline">
+        <%= link_to edit_talk_path(talk, talk: { from_community_page: talk.community.id }) do %>
+          <%= icon("fas", "edit") %>
+        <% end %>
+      </p>
+      <p class="inline">
+        <%= link_to talk_path(talk, talk: { from_community_page: talk.community.id }), remote: true, data: { confirm: 'Delete this post?' }, method: :delete do %>
+          <%= icon("fas", "trash-alt") %>
+        <% end %>
+      </p>
+    <% else %>
+      <p class="inline">
+        <%= link_to edit_talk_path(talk, talk: { from_talk_page: true }) do %>
+          <%= icon("fas", "edit") %>
+        <% end %>
+      </p>
+      <p class="inline">
+        <%= link_to talk_path(talk), remote: true, data: { confirm: 'Delete this post?' }, method: :delete do %>
+          <%= icon("fas", "trash-alt") %>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,19 @@
+<div class="field post_img_area">
+  <p>Image</p>
+  <div>
+    <%= image_tag model.img, id: 'present_img' if model.img.attached? %>
+    <img id="new_img" src="#" class='hidden' />
+  </div>
+  <label for="input_img" class="input_img inline">
+    <p class="center upload_btn inline">Upload</p>
+    <%= f.file_field :img, id: 'input_img', class: "hidden" %>
+  </label>
+  <div id="delete_img_wrapper" class="field inline">
+    <% if model.img.attached? %>
+        <%= f.label :delete_img, for:"delete_img", id: "delete_img_btn" %>
+        <%= f.check_box :delete_img, {}, true, nil %>
+    <% else %>
+      <p id="clear_img" class="hidden bold inline">Cancel Image</p>
+    <% end %>
+  </div>
+</div>

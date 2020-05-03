@@ -1,0 +1,9 @@
+<%= month_calendar events: @events do |date, events| %>
+  <%= date.day %>
+  <p class="new_event_btn center bold"><%= "+" if admin_signed_in? %></p>
+  <% events.each do |event| %>
+    <p class="<%= event_action %> <%= event_color(event.id) %> event_<%= event.id %>" id="<%= event.id %>">
+      <%= event.name %>
+    </p>
+  <% end %>
+<% end %>

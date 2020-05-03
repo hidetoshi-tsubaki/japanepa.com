@@ -1,0 +1,7 @@
+<% if community.img.attached? %>
+  <p class="center community_img_wrapper"><%= image_tag community.img, class: "community_img" if community.img.attached? %></p>
+<% else %>
+  <div class="center community_initial <%= thumbnails_color(community) %>">
+    <p class="bold inline"><%= community.name.upcase.slice(0) %></p>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<div class="header_btn menu_btn pc">
+  <% if current_user.img.attached? %>
+    <%= image_tag current_user.img, id: "user_img" %>
+  <% else %>
+    <%= icon("fas", "user") %>
+  <% end %>
+<%= render 'user_menu'%>
+</div>
+<div class="menu_btn_in_mobile sp">
+  <p>
+    <span class="close_menu_btn hidden"><%= icon("fas", "times") %></span>
+    <span><%= icon("fas", "bars") %></span>
+  </p>
+</div>

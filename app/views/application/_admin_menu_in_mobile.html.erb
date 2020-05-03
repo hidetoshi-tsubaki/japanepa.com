@@ -1,0 +1,30 @@
+<div class="admin_menu_wrapper">
+<%= link_to user_path(current_user) do %>
+  <div class="admin_menu_panel profile_panel">
+    <div class="panel_inner_box">
+      <p class="menu_name bold">Profile<%= icon("fas fa-fw", "address-card") %></p>
+    </div>
+  </div>
+<% end %>
+<%= link_to events_path do %>
+  <div class="admin_menu_panel calendar_panel">
+    <div class="panel_inner_box">
+      <p class="menu_name bold">Calendar<%= icon("fas fa-fw", "calendar-alt") %></p>
+    </div>
+  </div>
+<% end %>
+<%= link_to bookmarks_articles_path do %>
+  <div class="admin_menu_panel bookmarks_panel">
+    <div class="panel_inner_box">
+      <p class="menu_name bold">Bookmark<%= icon("fas fa-fw", "star") %></p>
+    </div>
+  </div>
+<% end %>
+<%= link_to destroy_user_session_path, method: :delete do %>
+  <div class="admin_menu_panel log_out_panel">
+    <div class="panel_inner_box">
+      <p class="menu_name bold">Log out<%= icon("fas fa-fw", "sign-out-alt") %></p>
+    </div>
+  </div>
+<% end %>
+</div>

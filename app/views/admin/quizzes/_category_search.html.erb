@@ -1,0 +1,27 @@
+<p class="category_sort_btn bold sp">
+  カテゴリーで絞り込む
+  <span class="open_accordion">▼</span>
+  <span class="close_accordion hidden">▲</span>
+</p>
+<div class="category_sort pc">
+  <p class="bold pc">・カテゴリーで絞り込む</p>
+  <div>
+    <label>Level</label>
+    <select id="select_level" class="index">
+      <option>選択してください</option>
+      <%= render partial: 'option', collection: @options, as: :option %>
+    </select>
+  </div>
+  <div>
+    <label>Section</label>
+    <select id="select_section">
+      <option>---</option>
+    </select>
+  </div>
+  <div>
+    <label>Title</label>
+    <select id="select_title" class="index_page">
+      <option>---</option>
+    </select>
+  </div>
+</div>

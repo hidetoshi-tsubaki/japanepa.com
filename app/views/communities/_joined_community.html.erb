@@ -1,0 +1,13 @@
+<li>
+  <%= link_to community_path(community) do %>
+    <div class="inner_community">
+      <%= render partial: "communities/community_img", locals: { community: community } %>
+      <div class="inner_community_data inline">
+      <p class="inner_community_name bold inline"><%= community.name %></p>
+      <p class="counts_status">
+        <%= icon("fas","users") %> <%= community.member_count %>
+        <%= icon("fas","comments") %> <%= community.talk_count %>
+      </p>
+    </div>
+  <% end %>
+</li>

@@ -1,0 +1,2 @@
+$("#article_index").append("<%= j(render partial: 'article', collection: @articles, as: :article) %>");
+$("#see_more").html("<%= escape_javascript(link_to_next_page(@articles, '↓ scroll ↓', remote: true)) %>");

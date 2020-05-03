@@ -1,0 +1,3 @@
+<% content_for(:html_title) { @info.title } %>
+<% breadcrumb :show_info, @info %>
+<%= render 'info_detail', info: @info %>
