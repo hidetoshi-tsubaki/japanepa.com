@@ -1,5 +1,6 @@
 module ApplicationHelper
   require "uri"
+
   def text_url_to_link(text)
     URI.extract(text, ['http', 'https']).uniq.each do |url|
       sub_text = ""
@@ -37,5 +38,9 @@ module ApplicationHelper
     else
       "home_header"
     end
+  end
+
+  def own_profile?(user)
+    current_user.id == user.id
   end
 end
