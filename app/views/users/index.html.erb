@@ -1,14 +1,15 @@
 <% content_for(:html_title) { "Ranking" } %>
 <% breadcrumb :users, @user %>
-<div class="section_wrapper center">
-  <div class="main_section">
-    <h1 class="center ranking_title">Ranking</h1>
+<div class="user_ranking_wrapper center">
+  <h1 class="center ranking_title">Ranking</h1>
+  <div class="your_ranking">
+    <h1>Your Rank is <%= @current_level || "1" %></h1>
+  </div>
     <div class="user_ranking jscroll">
       <% if @users.present? %>
         <%= render partial: 'user', collection: @users, as: :user %>
       <% else %>
         <p class="center">No...user</p>
       <% end %>
-    </div>
   </div>
 </div>

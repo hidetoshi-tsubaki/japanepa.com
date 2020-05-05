@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :only_login_user!
 
   def index
     @users = User.includes(:user_experience)
             .order("user_experiences.total_point desc")
+    get_current_level
   end
 
   def show
@@ -13,4 +14,5 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
   end
+
 end

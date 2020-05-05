@@ -1,8 +1,10 @@
 <% content_for(:html_title) { "Profile - #{@user.name}" } %>
 <div class="profile_wrapper">
+  <% if own_profile?(@user) %>
   <p class="right edit_profile_btn">
     <%= link_to 'Edit Your Profile', edit_profile_path(@user), id: "edit_profile_btn" %>
   </p>
+  <% end %>
   <div class="user_img_area center">
     <% if @user.img.attached? %>
       <%= image_tag @user.img, id:'present_user_img' %>
@@ -59,6 +61,6 @@
     </li>
   </ul>
     <p class="right">
-      <%= link_to 'delete your account', user_registration_path(@user), method: :delete, id: "delete_account" %>
+      <%= link_to 'delete your account', user_registration_path(@user), method: :delete, id: "delete_account" if own_profile?(@user) %>
     </p>
 </div>

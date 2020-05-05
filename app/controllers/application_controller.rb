@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception  
+  protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :store_action, unless: :devise_controller?
 
@@ -13,6 +13,12 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(resource)
     root_path
+  end
+
+  def get_current_level
+    user_experience = current_user.user_experience
+    @current_experience = user_experience.total_point
+    @current_level = Level.where("threshold <= ?", @current_experience).order(threshold: :desc).limit(1).pluck(:id).first
   end
 
   def get_user_level
@@ -37,21 +43,24 @@ class ApplicationController < ActionController::Base
     store_location_for(:user, request.url) if request.get?
   end
 
-  # def authenticate_user!(user)
-  #   puts user
-  #   if user_signed_in?
-  #     super
-  #   else
-  #     redirect_to new_user_session_path, alert: 'Please Log in '
-  #   end
-  # end
+  def only_login_user!
+    unless user_signed_in?
+      redirect_to new_user_session_path, alert: 'Please Log in '
+    end
+  end
 
   def authenticate_admin!
     unless admin_signed_in?
       redirect_to root_path, alert: 'Are you Admin user?'
     end
   end
-  
+
+  def only_private_user
+    user = User.find(params[:id])
+    unless user.id == current_user
+      redirect_to root_path, alert: "You can't access ..."
+    end
+  end
 
   def admin_root
     if admin_signed_in?
