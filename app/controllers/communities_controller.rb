@@ -1,6 +1,6 @@
 class CommunitiesController < ApplicationController
   include CommunitiesHelper
-  before_action :authenticate_user!
+  before_action :only_login_user!
   # before_action :past_30days_after_signIn?, only: [:new, :create]
   before_action :set_community_tags, only: [:index, :search, :tag_search]
 

@@ -1,8 +1,6 @@
 class QuizzesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :only_login_user!
   include QuizzesHelper
-
-  before_action :authenticate_user!
 
   def play
     @category = QuizCategory.find(params[:id])

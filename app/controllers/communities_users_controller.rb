@@ -1,5 +1,5 @@
 class CommunitiesUsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :only_login_user!
 
   def join
     @community = Community.find(params[:id])

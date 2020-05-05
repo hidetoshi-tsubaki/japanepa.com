@@ -1,5 +1,5 @@
 class ScoreRecordsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :only_login_user!
 
   def create
     redirect_to quizzes_path if params[:score_record][:score].empty?
