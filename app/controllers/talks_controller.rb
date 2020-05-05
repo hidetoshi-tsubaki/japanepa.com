@@ -1,7 +1,5 @@
 class TalksController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
-  # before_action :authenticate_edit_delete, only: :delete
-  # もしも、communityに参加していなかった時のためのbefore_action
+  before_action :only_login_user!
   before_action :set_ranked_talks, only: [:index]
   
   def index

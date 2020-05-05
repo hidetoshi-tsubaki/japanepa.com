@@ -1,5 +1,7 @@
 class InformationController < ApplicationController
+  before_action :only_login_user!
   impressionist :actions => [:show]
+
   def index
     @information = Information.sorted.limit(15)
   end

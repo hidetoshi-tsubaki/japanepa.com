@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :only_login_user!
   impressionist :actions => [:show]
 
   def show
