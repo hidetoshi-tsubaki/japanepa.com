@@ -37,11 +37,25 @@
     </li>
     <li>
       <p>Country</p>
-      <p><%= @user.country %> <i class="flag-icon flag-icon-<%= @user.country.downcase %>"></i></p>
+      <% unless @user.country.blank? %>
+        <p>
+          <%= @user.country %> 
+          <i class="flag-icon flag-icon-<%= @user.country.downcase %>"></i>
+        </p>
+      <% else %>
+        <p>Secret</p>
+      <% end %>
     </li>
     <li>
       <p>Address</p>
-      <p><%= @user.current_address %> <i class="flag-icon flag-icon-<%= @user.current_address.downcase %>"></i></p>
+      <% unless @user.current_address.blank? %>
+      <p>
+        <%= @user.current_address %> 
+        <i class="flag-icon flag-icon-<%= @user.current_address.downcase %>"></i>
+      </p>
+      <% else %>
+        <p>Secret</p>
+      <% end %>
     </li>
   </ul>
     <p class="right">

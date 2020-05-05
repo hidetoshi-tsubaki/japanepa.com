@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_15_105537) do
+ActiveRecord::Schema.define(version: 2020_05_02_153051) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,11 +53,11 @@ ActiveRecord::Schema.define(version: 2020_01_15_105537) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "lead"
-    t.string "img_cache"
     t.integer "impressions_count", default: 0
     t.integer "bookmarks_count", default: 0, null: false
     t.integer "likes_count", default: 0, null: false
     t.boolean "status", default: false
+    t.boolean "delete_img", default: false
   end
 
   create_table "bookmarks", force: :cascade do |t|
@@ -97,6 +97,16 @@ ActiveRecord::Schema.define(version: 2020_01_15_105537) do
     t.datetime "updated_at", null: false
     t.index ["community_id"], name: "index_community_users_on_community_id"
     t.index ["user_id"], name: "index_community_users_on_user_id"
+  end
+
+  create_table "countings", force: :cascade do |t|
+    t.integer "users"
+    t.integer "quiz_play"
+    t.integer "article_views"
+    t.integer "communities"
+    t.integer "talks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -143,6 +153,23 @@ ActiveRecord::Schema.define(version: 2020_01_15_105537) do
     t.datetime "updated_at", null: false
     t.integer "impressions_count", default: 0
     t.boolean "status", default: false
+  end
+
+  create_table "information_checks", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "information_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["information_id"], name: "index_information_checks_on_information_id"
+    t.index ["user_id"], name: "index_information_checks_on_user_id"
+  end
+
+  create_table "learning_levels", force: :cascade do |t|
+    t.integer "percentage", default: 0
+    t.integer "user_id"
+    t.integer "title_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "levels", force: :cascade do |t|
@@ -196,7 +223,7 @@ ActiveRecord::Schema.define(version: 2020_01_15_105537) do
 
   create_table "quiz_experiences", force: :cascade do |t|
     t.integer "title_id", null: false
-    t.decimal "experience", null: false
+    t.decimal "rate", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -261,9 +288,9 @@ ActiveRecord::Schema.define(version: 2020_01_15_105537) do
     t.index ["user_id"], name: "index_talks_on_user_id"
   end
 
-  create_table "user_total_experiences", force: :cascade do |t|
+  create_table "user_experiences", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "total_experience", default: 0
+    t.integer "total_point", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -297,6 +324,7 @@ ActiveRecord::Schema.define(version: 2020_01_15_105537) do
     t.integer "community_count", default: 0, null: false
     t.integer "talk_count", default: 0, null: false
     t.integer "play_count", default: 0, null: false
+    t.boolean "delete_img", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true

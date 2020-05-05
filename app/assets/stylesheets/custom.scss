@@ -1771,27 +1771,20 @@ login
 .action{
   margin:40px auto 0;
 }
-.socialBtn{
-  width: 320px;
+.social_btn{
   margin: 0 auto 15px;
-  color:$white;
+  color: $white;
   border-radius:3px;
   text-align: center;
-}
-.socialBtn a{
-  display: block;
+  a {
+    color: #fff;
+  }
 }
 .twitter{
   background-color: #4AB3F4;
-  color:$white;
 }
 .facebook{
   background-color: #4167B2;
-  color:$white;
-}
-.google{
-  background-color: #DC4B3A;
-  color:$white;
 }
 /*-------------------
 communityページ

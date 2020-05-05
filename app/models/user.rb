@@ -12,18 +12,17 @@ class User < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :articles, through: :bookmarks
   has_many :mistakes
-  has_many :user_total_experiences
+  has_one :user_experience, dependent: :destroy
   has_one_attached :img
   validates :name, uniqueness: { case_sensitive: false }
   validates :name, presence: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :lockable, :timeoutable, :omniauthable,
-         omniauth_providers: [:facebook, :twitter, :google_oauth2]
+         omniauth_providers: [:facebook, :twitter]
 
   def update_without_current_password(params, *options)
     params.delete(:current_password)
-
     if params[:password].blank? && params[:password_confirmation].blank?
       params.delete(:password)
       params.delete(:password_confirmation)
@@ -33,32 +32,24 @@ class User < ApplicationRecord
     result
   end
 
-  def self.find_first_by_auth_conditions(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions).where(["username = :value", { :value => username }]).first
-    else
-      where(conditions).first
-    end
-  end
-
   def self.from_omniauth(auth)
     find_or_create_by(provider: auth["provider"], uid: auth["uid"]) do |user|
       user.provider = auth["provider"]
       user.uid = auth["uid"]
-      user.name = auth["info"]["nickname"]
+      user.name = auth["info"]["name"]
+      user.password = Devise.friendly_token[0, 20]
     end
   end
 
-  def self.new_with_session(params, session)
-    if session["devise.user_attributes"]
-      new(session["devise.user_attributes"]) do |user|
-        user.attributes = params
-      end
-    else
-      super
-    end
-  end
+  # def self.new_with_session(params, session)
+  #   if session["devise.user_attributes"]
+  #     new(session["devise.user_attributes"]) do |user|
+  #       user.attributes = params
+  #     end
+  #   else
+  #     super
+  #   end
+  # end
 
   def is_founder?(community)
     self.id == community.founder_id

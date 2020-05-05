@@ -7,7 +7,7 @@ FactoryBot.define do
     password_confirmation { "japanepa19" }
     
     after(:create) do |user|
-      user.user_total_experiences << build(:user_total_experience)
+      user.user_experience << build(:user_experience)
     end
     
     trait :invalid do
@@ -21,26 +21,5 @@ FactoryBot.define do
     trait :founder do
       name { "founder" }
     end
-  end
-
-  factory :taro, class: User do
-    name { "taro" }
-    country { "JP" }
-    current_address { "JP" }
-    password { "japanepa20" }
-    password_confirmation { "japanepa20" }
-
-    after(:create) do |user|
-      user.user_total_experiences << build(:user_total_experience)
-    end
-
-  end
-
-  factory :arjan, class: User do
-    name { "arjun" }
-    country { "NP" }
-    current_address { "JP" }
-    password { "japanepa19" }
-    password_confirmation { "japanepa19" }
   end
 end

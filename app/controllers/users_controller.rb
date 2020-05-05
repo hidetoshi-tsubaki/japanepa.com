@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.includes(:user_total_experiences)
-            .order("user_total_experiences.total_experience desc")
+    @users = User.includes(:user_experience)
+            .order("user_experiences.total_point desc")
   end
 
   def show

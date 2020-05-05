@@ -1,6 +1,5 @@
-
 <div class="provider">
-  <%= render 'layouts/social_login' %>
+  <%= render 'social_login', action: "Sign In" %>
 </div>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 <% if resource.errors.any? %>
@@ -26,12 +25,6 @@
     <%= f.label :password %>
     <%= f.password_field :password, autocomplete: "current-password" , placeholder:" Enter password" %>
   </div>
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <p>: Remember me</p>
-      <%= f.check_box :remember_me %>
-    </div>
-  <% end %>
   <div class="actions">
     <%= f.submit " Log in " %>
   </div>
