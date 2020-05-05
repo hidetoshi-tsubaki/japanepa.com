@@ -93,11 +93,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     edit_user_registration_path
   end
 
-  def set_user_total_experience(user)
-    user_total_experience = UserTotalExperience.new(user_id: resource.id)
-    user_total_experience.save!
-  end
-
   def update_resource(resource, params)
     resource.update_without_current_password(params)
   end

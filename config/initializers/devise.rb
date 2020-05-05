@@ -303,5 +303,4 @@ config.timeout_in = 1.month
 # facebookログイン
   config.omniauth :facebook, ENV["FACEBOOK_API_ID"], ENV["FACEBOOK_API_KEY"]
   config.omniauth :twitter,ENV["TWITTER_API_ID"],ENV["TWITTER_API_KEY"]
-  config.omniauth :google_oauth2, ENV["GOOGLE_API_ID"], ENV["GOOGLE_API_KEY"]
 end

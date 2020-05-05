@@ -5,18 +5,6 @@
     <%= f.text_field :name, autofocus: true, autocomplete: "email" ,placeholder:" Enter name"%>
   </div>
   <div class="field">
-    <%= f.label :country %>
-    <%= f.country_select :country,priority_countries: ["nepal"]%>
-  </div>
-  <div class="field">
-    <%= f.label :current_address %>
-    <%= f.country_select :current_address,priority_countries: ["nepal","JP"] %>
-  </div>
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" ,placeholder:" Enter Email"%>
-  </div>
-  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
       <span>(<%= @minimum_password_length %> characters minimum)</span>

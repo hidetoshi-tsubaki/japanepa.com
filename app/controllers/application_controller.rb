@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
   end
 
   def get_user_level
-    user_experience = current_user.user_total_experiences.first
-    @current_experience = user_experience.total_experience
+    user_experience = current_user.user_experience
+    @current_experience = user_experience.total_point
     @current_level = Level.where("threshold <= ?", @current_experience).order(threshold: :desc).limit(1).pluck(:id).first
     next_level = Level.where("threshold > ?", @current_experience).first
     @needed_experience_to_next_level = next_level.threshold - @current_experience
@@ -26,10 +26,10 @@ class ApplicationController < ActionController::Base
   private
 
   def configure_permitted_parameters
-    added_attrs = [:email, :name, :country, :current_address, :password, :password_confirmation, :img]
+    added_attrs = [:name, :country, :current_address, :password, :password_confirmation, :img]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
-    devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:name, :password, :remember_me) }
+    devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:name, :password) }
   end
 
   def store_action
@@ -57,5 +57,10 @@ class ApplicationController < ActionController::Base
     if admin_signed_in?
       redirect_to "/admin/"
     end
+  end
+
+  def set_user_total_experience(user)
+    user_total_experience = UserExperience.new(user_id: user.id)
+    user_total_experience.save!
   end
 end

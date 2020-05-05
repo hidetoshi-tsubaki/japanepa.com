@@ -4,7 +4,7 @@ module UsersHelper
   end
 
   def show_total_experience(user)
-    user.user_total_experiences.first.total_experience
+    user.user_experience.total_point
   end
 
   def is_top_3?(user_counter)

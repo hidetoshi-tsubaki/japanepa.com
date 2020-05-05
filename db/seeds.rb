@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-max_level = 200
+max_level = 500
 levels = []
 prev_threshold = 100
 
@@ -24,17 +24,3 @@ Admin.create!(
   password: 'japanepa',
   password_confirmation: 'japanepa'
 )
-
-User.create!(
-  name: 'japanepa_admin',
-  password: 'japanepa',
-  password_confirmation: 'japanepa'
-)
-
-community = Community.new(
-  name: "japanepa.com",
-  introduction: "this is offical community of japanepa.com"
-  founder_id: 1
-)
-community.img.attach(io: File.open(Rails.root.join('app', 'images', 'project.png'), filename: 'project.png', content_type: 'image/png')
-community.save!
