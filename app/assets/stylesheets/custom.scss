@@ -20,6 +20,20 @@ $yellow: #F8C677;
 $orange: #F39653;
 $white : #fff;
 
+@mixin shadow {
+  box-shadow: 0 10px 20px -5px rgba(0,0,0,.2);
+  -moz-transform: translateY(-2px);
+  -webkit-transform: translateY(-2px);
+  transform: translateY(-2px);
+  transition: 0.2s linear;
+}
+
+@mixin center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
+}
 /* ------------------------------
 1. COMMON
 ------------------------------ */
@@ -1175,53 +1189,66 @@ COMMON SEARCH & SORT
 /*-----------
 Ranking(Users)
 ------------*/
-.ranking_title{
-  background-color: $orange;
-  color: $white;
+.user_ranking_wrapper {
+  width: 90%;
+  margin: auto;
+  background-color: #fff;
+  .ranking_title{
+    background-color: $orange;
+    color: $white;
+  }
+  .your_ranking {
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    background: -webkit-repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+    background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+  }
+  .user_ranking {
+    padding: 2%;
+    .user_ranking_info {
+      padding: 20px 0;
+      color: gray;
+      font-size: 24px;
+      p {
+        display: inline-block;
+      }
+      .user_rank_number {
+        .fa-crown{
+          font-size: 28px;
+        }
+      }
+      #top_1 .fa-crown{
+        color: #efb700;
+      }
+      #top_2 .fa-crown{
+        color: #b9c7c9
+      }
+      #top_3 .fa-crown{
+        color: #C47022;
+      }
+      .user_rank_number {
+        width: 15%;
+      }
+      .name {
+        width: 55%;
+      }
+      .experience {
+        width: 28%;
+      }
+    }
+    .user_ranking_info:hover {
+      @include shadow;
+    }
+  }
+  .user:hover{
+    background-color: #e6e6e6;
+  }
+  .user a{
+    padding: 15px;
+  }
 }
-.user{
-  position: relative;
-  background-color: $white;
-  border-top: solid 1px #e7e7e7;
-  border-bottom: solid 1px #e7e7e7;
-  color: gray;
-}
-.user p{
-  font-size: 24px;
-  display: inline-block;
-}
-.user:hover{
-  background-color: #e6e6e6;
-}
-.rank_number{
-  position: relative;
-  width: 20%;
-}
-.user .fa-crown{
-  font-size: 28px;
-  position: absolute;
-  top:50%;
-  transform: translateY(-50%);
-  left: 15px;
-}
-#top_1 .fa-crown{
-  color: #efb700;
-}
-#top_2 .fa-crown{
-  color: #b9c7c9
-}
-#top_3 .fa-crown{
-  color: #C47022;
-}
-.user .name{
-  width: 30%;
-}
-.user .experience{
-  width: 48%;
-}
-.user a{
-  padding: 15px;
-}
+
 .user .edit_button{
   position: absolute;
   top:50%;
