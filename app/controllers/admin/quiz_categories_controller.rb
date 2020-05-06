@@ -84,10 +84,14 @@ class Admin::QuizCategoriesController < ApplicationController
   end
 
   def sort
-    @category = QuizCategory.find(params[:id])
-    child = @category.categories[params[:from].to_i]
-    child.insert_at(params[:to].to_i + 1)
-    head :ok
+    if params[:id] == "undefined"
+      category = QuizCategory.levels[params[:from].to_i]
+      category.insert_at(params[:to].to_i + 1)
+    else
+      @category = QuizCategory.find(params[:id])
+      child = @category.categories[params[:from].to_i]
+      child.insert_at(params[:to].to_i + 1)
+    end
   end
 
   private
