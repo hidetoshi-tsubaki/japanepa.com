@@ -655,18 +655,64 @@ Home FOR MEMBER
   color: #B8845D;
 }
 /*---------------
+EVENT
+---------------*/
+.show_calendar {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: gray;
+}
+.calendar_wrapper {
+  width: 95%;
+  margin: auto;
+  .simple-calendar {
+    .calendar-heading {
+      .calendar-title {
+        margin: 0 10px;
+        font-size: 48px;
+      }
+      a {
+        font-size: 24px;
+      }
+    }
+    table {
+      background-color: $white;
+      td {
+        padding-bottom: 5px;
+      }
+    }
+    .day {
+      height: 12vh;
+      .event_name{
+        color: $white;
+      }
+      .event_name:hover {
+        transition: .2s;
+      }
+      position: relative;
+      .new_event_btn {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 5px;
+        a {
+          color: gray;
+        }
+      }
+      .new_event_btn a:hover {
+        color: $red;
+        cursor: pointer;
+      }
+    }
+    .day:hover  .new_event_btn {
+      display: block;
+    }
+  }
+}
+/*---------------
 CALENDAR
 ---------------*/
-.simple-calendar {
-  height: 90%;
-}
-.simple-calendar-heading {
-  height: 10%;
-}
-.simple-calendar table {
-  height: 90%;
-  background: $white;
-}
 .calendar_thead {
   height: 10%;
 }
@@ -1881,6 +1927,7 @@ ADMIN COMMON INDEX
 COMMON SEARCH & SORT
 ---------------*/
 .search_wrapper {
+  position: relative;
   display: flex;
   justify-content: space-around;
   background-color: $white;

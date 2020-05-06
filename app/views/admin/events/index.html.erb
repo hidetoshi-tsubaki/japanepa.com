@@ -4,6 +4,7 @@
   <h1 class="admin_index_title"><%= icon("fas","calendar-day") %> Events index </h1>
   <%= search_form_for @q, url: search_admin_events_path do |f| %>
     <div class="search_wrapper">
+      <%= link_to "カレンダー表示に切り替え", calendar_admin_events_path, class: "show_calendar bold" %>
       <div class="search" id="date_input">
         <p class="bold">ワード検索</p>
         <div class="field">

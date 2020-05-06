@@ -1,5 +1,6 @@
 <div class="info_form_wrapper">
   <%= form_with model: [:admin, event], local:true, builder: CustomFormBuilder do |f| %>
+    <%= hidden_field_tag :from_calendar, @from_calendar %>
     <p class="error_message"><%= "入力値が正しくありません。" if event.errors.any? %></p>
     <%= render "radio_button", f: f %>
     <%= render "event_date_form", f: f %>
@@ -15,5 +16,5 @@
       <%= f.submit form_btn, data: { confirm: "送信しますか？"} %>
     </div>
   <% end %>
-  </div>
+</div>
 <%= javascript_include_tag 'summernote' %>
