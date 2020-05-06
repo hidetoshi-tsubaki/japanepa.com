@@ -1,26 +1,19 @@
 <% content_for(:html_title) { "Quiz Category Index" } %>
+<%= render 'breadcrumbs' %>
 <div class="quiz_categories">
   <div class="quiz_category_parent">
     <% unless @parent %>
-      <p class="parent_name center">Quiz カテゴリー</p>
+      <p class="parent_name center"><%= icon("fas","mp-marker-alt") %> Quiz カテゴリー</p>
     <% else %>
       <%= render partial: 'category_info', locals: { parent: @parent, ancestors: @ancestors } %>
     <% end %>
   </div>
   <div class="category_children">
-    <p class="category_new">
-      <span><%= "※ ドラッグ＆ドロップで並び替え" unless title_index?(@parent) %></span>
-      <% if title_index?(@parent) %>
-        <%= link_to 'NEW', new_quiz_admin_quiz_category_path(@parent), class: 'quiz_create_btnn', remote: true %>
-      <% elsif @parent.present? %>
-        <%= link_to 'NEW', new_category_admin_quiz_category_path(@parent), class: 'category_create_btn', remote: true %>
-      <% else %>
-        <%= link_to 'NEW', new_level_admin_quiz_categories_path, class: 'category_create_btn', remote: true %>
-      <% end %>
-    </p>
+    <%= render 'create_btn', parent: @parent %>
     <% if title_index?(@parent) %>
-      <div id="index">
+      <div id="category index">
         <table>
+          <%= render 'quiz_columns' %>
           <tbody id ="quizzes_index">
             <%= render partial: 'admin/quizzes/quiz', collection: @quizzes, as: :quiz %>
           </tbody>

@@ -5,9 +5,9 @@
   <td><%= quiz.choice2.truncate(20) %></td>
   <td><%= quiz.choice3.truncate(20) %></td>
   <td><%= quiz.choice4.truncate(20) %></td>
-  <td><%= quiz.updated_at.strftime('%Y/%m/%d') %></td>
-  <td><%= quiz.created_at.strftime('%Y/%m/%d') %></td>
-  <td>
+  <td class="date_column"><%= quiz.updated_at.strftime('%Y/%m/%d') %></td>
+  <td class="date_column"><%= quiz.created_at.strftime('%Y/%m/%d') %></td>
+  <td class="action_column">
     <%= link_to edit_admin_quiz_path(quiz), class: "edit_btn inline" do %>
       <%= icon("fas", "edit") %> 編集
     <% end %>
