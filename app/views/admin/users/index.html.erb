@@ -1,12 +1,12 @@
 <% content_for(:html_title) { "Users Index" } %>
-<div class="index_wrapper">
-  <% breadcrumb :admin_users, @users %>
-  <div class="user_search search_wrapper">
-    <h2><%= icon("fas","user") %> Users index </h2>
-    <%= search_form_for @q, url: search_admin_users_path do |f| %>
+<% breadcrumb :admin_users, @users %>
+<div class="admin_index_wrapper">
+  <h1 class="admin_index_title"><%= icon("fas","user") %> Users index </h1>
+  <%= search_form_for @q, url: search_admin_users_path do |f| %>
+    <div class="search_wrapper">
       <div class="search">
         <div class="field">
-          <p class="bold"><%= icon("fas","search") %> ワード検索  <span class="notes">※複数ワードの場合、スペース区切りで入力</span></p>
+          <p class="bold"><%= icon("fas","search") %> ワード検索  <span class="notes">※複数ワードの場合、半角スペース区切りで入力</span></p>
           <%= f.text_field :name_cont, class: "keyword_search" %>
         </div>
         <div class="country_search">
@@ -20,35 +20,17 @@
           </div>
         </div>
       </div>
-      <div class="date_search_wrapper">
-        <div class="date_search">
-          <p class="bold"><%= icon("fas", "calender-day") %>作成日</p>
-          <div class="form-group">
-            <div class="field input-group date date_form" id="creation_date_from" data-target-input="nearest">
-              <%= f.text_field :created_at_gteq, class: "form-control datetimepicker-input", id: "creation_date_from", data: {toggle: "from_date", target: "#creation_date_from"}, placeholder: "from..." %>
-              <div class="input-group-append" data-target="#creation_date_from" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="field input-group date date_form" id="creation_date_to" data-target-input="nearest">
-              <%= f.text_field :created_at_lt, class: "form-control datetimepicker-input", id: "creation_date_to", data: {toggle: "to_date", target: "#creation_date_to"}, placeholder: "to..." %>
-              <div class="input-group-append" data-target="#creation_date_to" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="search">
+        <%= render "creation_date_search", f: f %>
+        <p id="clear_btn" class="bold right">全クリア</p>
       </div>
-      <p id="clear_btn" class="bold right">全クリア</p>
-      <%= f.submit 'Search' %>
-    <% end %>
-  </div>
-  <div id="index">
+    </div>
+    <%= f.submit 'Search' %>
+  <% end %>
+  <div class="index">
     <p><%= link_to "全件表示", admin_users_path(anchor: "index"), class: "new_btn" %></p>
     <table class="index_table">
-          <%= render 'columns' %>
+      <%= render 'columns' %>
       <tbody>
         <% if @users.present? %>
           <%= render partial: 'user', collection: @users, as: :user %>

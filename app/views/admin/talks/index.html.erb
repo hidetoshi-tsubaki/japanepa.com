@@ -1,21 +1,24 @@
 <% content_for(:html_title) { 'talks Index' } %>
 <% breadcrumb :admin_talks, @talks %>
-<div class="index_wrapper">
-  <div class="search_wrapper">
-    <h2><%= icon("fas","comments") %> talks index </h2>
-    <div class="search" id="date_input">
-      <p class="bold">ワード検索</p>
-      <%= search_form_for @q, url: search_admin_talks_path do |f| %>
+<div class="admin_index_wrapper">
+  <h1 class="admin_index_title"><%= icon("fas","comments") %> talks index </h1>
+  <%= search_form_for @q, url: search_admin_talks_path do |f| %>
+    <div class="search_wrapper">
+      <div class="search" id="date_input">
+        <p class="bold">ワード検索</p>
         <div class="field">
           <%= f.text_field :community_name_or_user_name_or_content_cont_any, class: "keyword_search" %>
-          <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
+          <p class="notes">※複数ワードの場合、半角スペース区切りで入力</p>
         </div>
-        <%= render 'date_search', f: f %>
+      </div>
+      <div class="search">
+        <%= render 'creation_date_search', f: f %>
+        <%= render 'update_date_search', f: f %>
         <p id="clear_btn" class="bold right">全クリア</p>
-        <%= f.submit 'Search' %>
-      <% end %>
+      </div>
     </div>
-  </div>
+    <%= f.submit 'Search' %>
+  <% end %>
   <div class="talks index">
     <p class="create_btn_wrapper">
       <%= link_to "全件表示", admin_talks_path(anchor: "index"), class: "show_all" %>

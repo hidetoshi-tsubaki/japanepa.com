@@ -1,28 +1,29 @@
 <% content_for(:html_title) { 'Events Index' } %>
 <% breadcrumb :admin_events, @events %>
-<div class="index_wrapper">
-  <div class="search_wrapper event_search">
-    <%= search_form_for @q, url: search_admin_events_path do |f| %>
-    <h2><%= icon("fas","calendar-day") %> Events index </h2>
-    <div class="search" id="date_input">
-      <p class="bold">ワード検索</p>
-      <div class="field">
-        <%= f.text_field :name_or_detail_cont_any, class: "keyword_search" %>
-        <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
+<div class="admin_index_wrapper">
+  <h1 class="admin_index_title"><%= icon("fas","calendar-day") %> Events index </h1>
+  <%= search_form_for @q, url: search_admin_events_path do |f| %>
+    <div class="search_wrapper">
+      <div class="search" id="date_input">
+        <p class="bold">ワード検索</p>
+        <div class="field">
+          <%= f.text_field :name_or_detail_cont_any, class: "keyword_search" %>
+          <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
+        </div>
+        <%= render "creation_date_search", f: f %>
+        <%= render "update_date_search", f: f %>
       </div>
-      <%= render 'date_search', f: f %>
+      <div class="search">
+        <%= render 'status_radio_btn', f: f %>
+        <%= render 'event_date_search', f: f %>
+      </div>
     </div>
-    <div class="search">
-      <%= render 'event_status_radio_btn', f: f %>
-      <%= render 'event_date_search', f: f %>
-    </div>
-      <%= f.submit 'Search', class: "center" %>
-    <% end %>
-  </div>
+    <%= f.submit 'Search', class: "center" %>
+  <% end %>
   <div class="events index">
     <p class="create_btn_wrapper">
-      <%= link_to "Create New", new_admin_event_path, class: "new_btn" %>
-      <%= link_to "全件表示", admin_events_path(anchor: "index"), class: "show_all" %>
+      <%= link_to "New", new_admin_event_path, class: "admin_create_btn" %>
+      <%= link_to "全件表示", admin_events_path(anchor: "index"), class: "admin_show_all_btn" %>
     </p>
     <table class="index_table" id="index">
       <thead>

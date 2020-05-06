@@ -1,8 +1,8 @@
 <% content_for(:html_title) { 'Articles Index' } %>
 <% breadcrumb :admin_articles, @articles %>
-<div class="index_wrapper">
+<div class="admin_index_wrapper">
+  <h1 class="admin_index_title"><%= icon("fas","newspaper") %> Articles index </h1>
   <div class="search_wrapper">
-    <h2><%= icon("fas","newspaper") %> Articles index </h2>
     <div class="search" id="date_input">
       <p class="bold">ワード検索</p>
       <%= search_form_for @q, url: search_admin_articles_path do |f| %>
@@ -10,7 +10,9 @@
           <%= f.text_field :title_or_lead_cont_any, class: "keyword_search" %>
           <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
         </div>
-        <%= render 'date_search', f: f %>
+        <%= render 'status_radio_btn', f: f %>
+        <%= render 'creation_date_search', f: f %>
+        <%= render 'update_date_search', f: f %>
         <p id="clear_btn" class="bold right">全クリア</p>
         <%= f.submit 'Search' %>
       <% end %>
@@ -28,8 +30,8 @@
   </div>
   <div class="articles index">
     <p class="create_btn_wrapper">
-      <%= link_to "Create New", new_admin_article_path, class: "new_btn" %>
-      <%= link_to "全件表示", admin_articles_path(anchor: "index"), class: "show_all" %>
+      <%= link_to "New", new_admin_article_path, class: "admin_create_btn" %>
+      <%= link_to "全件表示", admin_articles_path(anchor: "index"), class: "admin_show_all_btn" %>
     </p>
     <table class="index_table" id="index">
       <thead>

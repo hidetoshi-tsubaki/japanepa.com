@@ -5,7 +5,7 @@
   <th><%= sort_link(@q, :talk_count, "Talks", default_order: :desc, anchor: "index") %></th>
   <th><%= sort_link(@q, :introduction, "Introduction", default_order: :desc, anchor: "index")%></th>
   <th><%= sort_link(@q, :users_name, "Founder", default_order: :desc, anchor: "index") %></th>
-  <th><%= sort_link(@q, :created_at, "Creation Data", default_order: :desc, anchor: "index") %></th>
-  <th><%= sort_link(@q, :updated_at, "Update Date", default_order: :desc, anchor: "index") %></th>
-  <th class="notes">※ソート可（カラム名をクリック）</th>
+  <th class="date_column"><%= sort_link(@q, :created_at, "Creation Data", default_order: :desc, anchor: "index") %></th>
+  <th class="date_column"><%= sort_link(@q, :updated_at, "Update Date", default_order: :desc, anchor: "index") %></th>
+  <th class="action_column">※ソート可（カラム名をクリック）</th>
 </tr>
