@@ -1,5 +1,5 @@
 $('#category_name').text("<%= @category.name %>");
-<% if defined?(@category.experience) %>
-  $('#quiz_experience').text("<%= @category.experience %>");
- <% end %> 
+<% if defined?(@category.rate) %>
+  $('#quiz_experience').text("<%= @category.rate %>");
+<% end %> 
 $('#modalArea').fadeOut();

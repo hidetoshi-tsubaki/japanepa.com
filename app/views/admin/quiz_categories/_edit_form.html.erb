@@ -9,7 +9,7 @@
     <% if category.is_title? %>
       <div class="field" >
         <p class="bold">経験値</p>
-        <%= f.select :experience, experience_array, id: 'form_input', selected: category.quiz_experience.experience %>
+        <%= f.select :rate, experience_array, id: 'form_input', selected: category.quiz_experience.rate %>
       </div>
     <% end %>
     <div class="form_btn">
