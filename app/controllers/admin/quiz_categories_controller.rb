@@ -2,7 +2,7 @@ class Admin::QuizCategoriesController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @categories = QuizCategory.levels.page(params[:page])
+    @categories = QuizCategory.levels
   end
 
   def categories
@@ -10,7 +10,7 @@ class Admin::QuizCategoriesController < ApplicationController
     @ancestors = @parent.get_ancestors
     get_children_category(@parent)
     if @parent.is_title?
-      @quizzes = @parent.quizzes.page(params[:page])
+      @quizzes = @parent.quizzes
     end
     render 'index'
   end

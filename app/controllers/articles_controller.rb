@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
 
   def index
     @q = Article.with_attached_img.ransack(params[:q])
-    @articles = @q.result(distinct: true).sorted.page(params[:page])
+    @articles = @q.result(distinct: true).paginate(params[:page], 15)
   end
 
   def show

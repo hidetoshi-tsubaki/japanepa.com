@@ -3,7 +3,7 @@ class Admin::TalksController < ApplicationController
 
   def index
     @q = Talk.includes([:user, :community]).ransack(params[:q])
-    @talks = @q.result(distinct: true).sorted.page(params[:page])
+    @talks = @q.result(distinct: true).paginate(params[:page], 15)
   end
 
   def show
@@ -21,11 +21,11 @@ class Admin::TalksController < ApplicationController
     if params[:q]['community_name_or_user_name_or_content_cont_any'] != nil
       params[:q]['community_name_or_user_name_or_content_cont_any'] = params[:q]['community_name_or_user_name_or_content_cont_any'].split(/[ ]/)
       @keywords = Talk.includes([:user, :community]).ransack(params[:q])
-      @talks = @keywords.result.sorted.page(params[:page])
+      @talks = @keywords.result.paginate(params[:page], 15)
       @q = Talk.includes([:user, :community]).ransack(params[:q])
     else
       @q = Talk.includes([:user, :community]).ransack(params[:q])
-      @talks = @q.result(distinct: true).sorted.page(params[:page])
+      @talks = @q.result(distinct: true).paginate(params[:page], 15)
     end
     render template: 'admin/talks/index'
   end

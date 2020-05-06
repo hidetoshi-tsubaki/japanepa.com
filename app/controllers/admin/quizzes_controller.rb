@@ -4,7 +4,7 @@ class Admin::QuizzesController < ApplicationController
 
   def index
     @q = Quiz.includes(:category).ransack(params[:q])
-    @quizzes = @q.result(distinct: true).sorted.page(params[:page])
+    @quizzes = @q.result(distinct: true).paginate(params[:page], 15)
   end
 
   def new
@@ -63,11 +63,11 @@ class Admin::QuizzesController < ApplicationController
     if params[:q]['question_or_choice1_cont_any'] != nil
       params[:q]['question_or_choice1_cont_any'] = params[:q]['question_or_choice1_cont_any'].split(/[ ]/)
       @keywords = Quiz.ransack(params[:q])
-      @quizzes = @keywords.result.sorted.page(params[:page])
+      @quizzes = @keywords.result.paginate(params[:page], 15)
       @q = Quiz.ransack(params[:q])
     else
       @q = Quiz.ransack(params[:q])
-      @quizzes = @q.result(distinct: true).sorted.page(params[:page])
+      @quizzes = @q.result(distinct: true).paginate(params[:page], 15)
     end
     render template: 'admin/quizzes/index'
   end
@@ -76,7 +76,7 @@ class Admin::QuizzesController < ApplicationController
     level = QuizCategory.find(params[:id])
     all_title_in_level = level.leaves
     @q = Quiz.where(category_id: all_title_in_level).ransack(params[:q])
-    @quizzes = @q.result(distinct: true).page(params[:page])
+    @quizzes = @q.result(distinct: true).paginate(params[:page], 15)
     render 'narrow_down'
   end
 
@@ -84,7 +84,7 @@ class Admin::QuizzesController < ApplicationController
     section = QuizCategory.find(params[:id])
     all_title_in_section = section.leaves
     @q = Quiz.where(category_id: all_title_in_section).ransack(params[:q])
-    @quizzes = @q.result(distinct: true).page(params[:page])
+    @quizzes = @q.result(distinct: true).paginate(params[:page], 15)
     render 'narrow_down'
   end
 

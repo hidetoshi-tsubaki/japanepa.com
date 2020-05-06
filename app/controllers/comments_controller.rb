@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   def index
     @talk = Talk.find(params[:id])
-    @comments = @talk.comments.sorted.page(params[:page])
+    @comments = @talk.comments.paginate(params[:page], 15)
   end
 
   def create
