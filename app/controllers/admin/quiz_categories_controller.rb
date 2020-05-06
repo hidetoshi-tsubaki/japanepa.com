@@ -69,20 +69,6 @@ class Admin::QuizCategoriesController < ApplicationController
     @category = QuizCategory.find(params[:id]).destroy
   end
 
-  def search
-    is_pagination?(params)
-    if params[:q]['name_or_introduction_or_users_name_cont_any'] != nil
-      params[:q]['name_or_introduction_or_users_name_cont_any'] = params[:q]['name_or_introduction_or_users_name_cont_any'].split(/[ ]/)
-      @keywords = Community.ransack(params[:q])
-      @communities = @keywords.result.sorted.page(params[:page])
-      @q = Community.ransack(params[:q])
-    else
-      @q = Community.ransack(params[:q])
-      @communities = @q.result(distinct: true).sorted.page(params[:page])
-    end
-    render template: 'admin/communities/index'
-  end
-
   def sort
     if params[:id] == "undefined"
       category = QuizCategory.levels[params[:from].to_i]
@@ -97,11 +83,11 @@ class Admin::QuizCategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:quiz_category).permit(:name, :parent_id, :experience, :id)
+    params.require(:quiz_category).permit(:name, :parent_id, :rate, :id)
   end
 
   def category_with_experience_params
-    params.require(:category_with_experience_form).permit(:name, :parent_id, :experience)
+    params.require(:category_with_experience_form).permit(:name, :parent_id, :rate)
   end
 
   def get_children_category(category)
