@@ -21,4 +21,8 @@ module QuizCategoriesHelper
       "Title 名"
     end
   end
+
+  def title_index?(category)
+    category.present? && category.is_title?
+  end
 end

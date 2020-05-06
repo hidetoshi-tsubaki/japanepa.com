@@ -9,16 +9,16 @@
   </div>
   <div class="category_children">
     <p class="category_new">
-      <span>※ ドラッグ＆ドロップで並び替え</span>
-      <% if @parent.present? && @parent.is_title? %>
-        <%= link_to 'NEW', new_quiz_admin_quiz_category_path(@parent), class: 'new_button', remote: true %>
+      <span><%= "※ ドラッグ＆ドロップで並び替え" unless title_index?(@parent) %></span>
+      <% if title_index?(@parent) %>
+        <%= link_to 'NEW', new_quiz_admin_quiz_category_path(@parent), class: 'quiz_create_btnn', remote: true %>
       <% elsif @parent.present? %>
-        <%= link_to 'NEW', new_category_admin_quiz_category_path(@parent), class: 'new_button', remote: true %>
+        <%= link_to 'NEW', new_category_admin_quiz_category_path(@parent), class: 'category_create_btn', remote: true %>
       <% else %>
-        <%= link_to 'NEW', new_level_admin_quiz_categories_path, class: 'new_button', remote: true %>
+        <%= link_to 'NEW', new_level_admin_quiz_categories_path, class: 'category_create_btn', remote: true %>
       <% end %>
     </p>
-    <% if @parent.present? && @parent.is_title? %>
+    <% if title_index?(@parent) %>
       <div id="index">
         <table>
           <tbody id ="quizzes_index">
