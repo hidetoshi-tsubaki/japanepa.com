@@ -62,7 +62,10 @@ class CommunitiesController < ApplicationController
 
   def feed
     joined_Community = current_user.community_users.pluck(:community_id)
-    @talks = Talk.where(community_id: joined_Community).includes(:community).sort_and_paginate(10)
+    @talks = Talk.
+      where(community_id: joined_Community).
+      includes(:community).
+      paginate(params[:page], 15)
     @comment = Comment.new
   end
 

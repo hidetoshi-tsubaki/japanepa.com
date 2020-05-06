@@ -3,7 +3,7 @@ class Admin::CommentsController < ApplicationController
 
   def index
     @comments = Comment.includes(community: [:user, :talk])
-    @comments = @comments.comments.sorted.page(params[:page])
+    @comments = @comments.comments.paginate(params[:page], 15)
   end
 
   def show

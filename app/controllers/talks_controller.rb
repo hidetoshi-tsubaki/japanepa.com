@@ -3,7 +3,7 @@ class TalksController < ApplicationController
   before_action :set_ranked_talks, only: [:index]
   
   def index
-    @talks = current_user.own_talks.sorted.page(params[:page])
+    @talks = current_user.own_talks.paginate(params[:page], 15)
     @comment = Comment.new
   end
 
@@ -14,7 +14,7 @@ class TalksController < ApplicationController
 
   def show
     @talk = Talk.includes(:user).find(params[:id])
-    @comments = @talk.comments.includes(:users).sort_and_paginate(10)
+    @comments = @talk.comments.includes(:users).sort_and_page(10)
     @comment = Comment.new
   end
 

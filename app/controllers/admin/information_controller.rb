@@ -3,7 +3,7 @@ class Admin::InformationController < ApplicationController
 
   def index
     @q = Information.ransack(params[:q])
-    @information = @q.result(distinct: true).page(params[:page])
+    @information = @q.result(distinct: true).paginate(params[:page], 15)
   end
 
   def show
@@ -50,11 +50,11 @@ class Admin::InformationController < ApplicationController
     if params[:q]['title_or_contents_cont_any'] != nil
       params[:q]['title_or_contents_cont_any'] = params[:q]['title_or_contents_cont_any'].split(/[ ]/)
       @keywords = Information.ransack(params[:q])
-      @information = @keywords.result.page(params[:page])
+      @information = @keywords.result.paginate(params[:page], 15)
       @q = Information.ransack(params[:q])
     else
       @q = Information.ransack(params[:q])
-      @information = @q.result(distinct: true).page(params[:page])
+      @information = @q.result(distinct: true).paginate(params[:page], 15)
     end
     render template: 'admin/information/index'
   end

@@ -6,7 +6,7 @@ class Admin::CommunitiesController < ApplicationController
 
   def index
     @q = Community.includes(:founder).ransack(params[:q])
-    @communities = @q.result(distinct: true).sorted.page(params[:page])
+    @communities = @q.result(distinct: true).paginate(params[:page], 15)
   end
 
   def show
@@ -35,7 +35,7 @@ class Admin::CommunitiesController < ApplicationController
   end
 
   def tag_search
-    @communities = Community.tagged_with(params[:tag]).page(params[:page])
+    @communities = Community.tagged_with(params[:tag]).paginate(params[:page] 15)
     @q = Community.ransack(params[:q])
     render template: 'admin/communities/index'
   end
@@ -45,11 +45,11 @@ class Admin::CommunitiesController < ApplicationController
     if params[:q]['name_or_introduction_or_founder_name_cont_any'] != nil
       params[:q]['name_or_introduction_or_founder_name_cont_any'] = params[:q]['name_or_introduction_or_founder_name_cont_any'].split(/[ ]/)
       @keywords = Community.ransack(params[:q])
-      @communities = @keywords.result.sorted.page(params[:page])
+      @communities = @keywords.result.sorted.paginate(params[:page], 15)
       @q = Community.ransack(params[:q])
     else
       @q = Community.ransack(params[:q])
-      @communities = @q.result(distinct: true).sorted.page(params[:page])
+      @communities = @q.result(distinct: true).sorted.paginate(params[:page], 15)
     end
     render template: 'admin/communities/index'
   end

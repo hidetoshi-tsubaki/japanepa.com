@@ -5,7 +5,7 @@ class Admin::ArticlesController < ApplicationController
 
   def index
     @q = Article.ransack(params[:q])
-    @articles = @q.result(distinct: true).page(params[:page])
+    @articles = @q.result(distinct: true).paginate(params[:page], 15)
   end
 
   def show
@@ -55,7 +55,11 @@ class Admin::ArticlesController < ApplicationController
   end
 
   def bookmark_articles
-    Article.includes(:bookmarks).references.(:bookmarks).where("bookmark.id", current_user.id).sort_and_paginate(10)
+    Article.
+    includes(:bookmarks).
+    references.(:bookmarks).
+    where("bookmark.id", current_user.id)
+    .paginate(params[15]).sorted
   end
 
   def upload_image
@@ -83,17 +87,17 @@ class Admin::ArticlesController < ApplicationController
     if params[:q]['title_or_lead_cont_any'] != nil
       params[:q]['title_or_lead_cont_any'] = params[:q]['title_or_lead_cont_any'].split(/[ ]/)
       @keywords = Article.ransack(params[:q])
-      @articles = @keywords.result.page(params[:page])
+      @articles = @keywords.result.paginate(params[:page], 15)
       @q = Article.ransack(params[:q])
     else
       @q = Article.ransack(params[:q])
-      @articles = @q.result(distinct: true).page(params[:page])
+      @articles = @q.result(distinct: true).paginate(params[:page], 15)
     end
     render template: 'admin/articles/index'
   end
 
   def tag_search
-    @articles = Article.tagged_with(params[:tag]).page(params[:page])
+    @articles = Article.tagged_with(params[:tag]).paginate(params[:page], 15)
     @q = Article.ransack(params[:q])
     render template: 'admin/articles/index'
   end
