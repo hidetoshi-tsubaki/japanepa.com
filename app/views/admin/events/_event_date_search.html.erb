@@ -1,7 +1,7 @@
 <p class="bold">イベント日検索</p>
+<p class="bold">開始日</p>
 <div class="date_search">
-  <p class="bold">Start Date</p>
-  <div class="form-group date_form_input inline">
+  <div class="form-group date_form inline">
     <div class="field input-group date date_form" id="creation_date_from" data-target-input="nearest">
       <%= f.text_field :start_time_gteq, class: "form-control datetimepicker-input", id: "creation_date_from", data: {toggle: "from_date", target: "#creation_date_from"}, placeholder: "from..." %>
       <div class="input-group-append" data-target="#creation_date_from" data-toggle="datetimepicker">
@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  <div class="form-group date_form_input inline">
+  <div class="form-group date_form inline">
     <div class="field input-group date date_form" id="creation_date_to" data-target-input="nearest">
       <%= f.text_field :start_time_lt, class: "form-control datetimepicker-input", id: "creation_date_to", data: {toggle: "to_date", target: "#creation_date_to"}, placeholder: "to..." %>
       <div class="input-group-append" data-target="#creation_date_to" data-toggle="datetimepicker">
@@ -18,9 +18,9 @@
     </div>
   </div>
 </div>
+<p class="bold">終了日</p>
 <div class="date_search">
-  <p class="bold">End Date</p>
-  <div class="form-group date_form_input inline">
+  <div class="form-group date_form inline">
     <div class="input-group date date_form" id="update_date_from" data-target-input="nearest">
       <%= f.text_field :end_time_gteq, class: "form-control datetimepicker-input", id: "update_date_from", data: {toggle: "from_date", target: "#update_date_from"}, placeholder: "from..." %>
       <div class="input-group-append" data-target="#update_date_from" data-toggle="datetimepicker">
@@ -28,7 +28,7 @@
       </div>
     </div>
   </div>
-  <div class="form-group date_form_input inline">
+  <div class="form-group date_form inline">
     <div class="input-group date date_form" id="update_date_to" data-target-input="nearest">
       <%= f.text_field :end_time_lt, class: "form-control datetimepicker-input", id: "update_date_to", data: {toggle: "to_date", target: "#update_date_to"}, placeholder: "to..." %>
       <div class="input-group-append" data-target="#update_date_to" data-toggle="datetimepicker">

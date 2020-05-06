@@ -101,7 +101,7 @@ class Admin::ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :lead, :tag_list, :img, :img_cache, :remove_img, :contents, :status)
+    params.require(:article).permit(:title, :lead, :tag_list, :img, :delete_img, :contents, :status)
   end
 
   def set_available_tags_to_gon

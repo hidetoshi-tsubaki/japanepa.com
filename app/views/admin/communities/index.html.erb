@@ -1,8 +1,8 @@
 <% content_for(:html_title) { "Communities Index" } %>
-<div class="index_wrapper">
-  <% breadcrumb :admin_communities, @communities %>
+<% breadcrumb :admin_communities, @communities %>
+<div class="admin_index_wrapper">
+  <h1 class="admin_index_title"><%= icon("fas","users") %> Community index </h1>
   <div class="search_wrapper">
-    <h2><%= icon("fas","users") %> Community index </h2>
     <div class="search" id="date_input">
       <p class="bold">・ワード検索</p>
       <%= search_form_for @q, url: search_admin_communities_path do |f| %>
@@ -10,9 +10,8 @@
           <%= f.text_field :name_or_introduction_or_founder_name_cont_any, class: "keyword_search" %>
           <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
         </div>
-        <div class="date_search_wrapper">
-          <%= render 'date_search', f: f %>
-        </div>
+          <%= render 'creation_date_search', f: f %>
+          <%= render 'update_date_search', f: f %>
         <p id="clear_btn" class="bold right">全クリア</p>
         <%= f.submit 'Search' %>
       <% end %>
