@@ -1,9 +1,13 @@
 <%= month_calendar events: @events do |date, events| %>
   <%= date.day %>
-  <p class="new_event_btn center bold"><%= "+" if admin_signed_in? %></p>
+  <p class="new_event_btn center bold">
+    <%= link_to "+", new_admin_event_path(date: date, from_calendar: "true") if admin_signed_in? %></p>
+  <p class="calendar_date hidden"> <%= date %></p>
   <% events.each do |event| %>
-    <p class="<%= event_action %> <%= event_color(event.id) %> event_<%= event.id %>" id="<%= event.id %>">
-      <%= event.name %>
-    </p>
+    <%= link_to edit_admin_event_path(event, from_calendar: "true") do %>
+      <p class="<%= event_color(event.id) %> event_name" id="<%= event.id %>">
+        <%= event.name %>
+      </p>
+    <% end %>
   <% end %>
 <% end %>

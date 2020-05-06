@@ -2,8 +2,8 @@ class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
   scope :sorted, -> { order(created_at: :desc) }
-  scope :sort_and_paginate,-> (number) do
-    order('created_at DESC').page(params[:page]).per(number)
+  scope :paginate,-> (page,number) do
+    order('created_at DESC').page(page).per(number)
   end
 
   def img_presence

@@ -52,9 +52,6 @@ Rails.application.routes.draw do
   end
   resources :information, only: [:index, :show]
   resources :events, only: [:index, :show]
-  # post '/like_talk/:id', to: 'like_talks#create', as: "like_talk"
-  # delete "/like_talk/:id", to: 'like_talks#delete', as: "delete_like_talk"
-
 
   namespace :admin do
     get '/', to: 'static_pages#home'
@@ -81,11 +78,8 @@ Rails.application.routes.draw do
     resources :quiz_categories do
       collection do
         get :levels
-        # post :create_level
         get :new_level
         get :new_quiz
-        # get :edit_quiz
-        # get :new_category
         get :search
       end
       member do
@@ -125,6 +119,7 @@ Rails.application.routes.draw do
     resources :events do
     collection do
       get :search
+      get :calendar
     end
   end
     resource :user, only: [:index, :destroy]

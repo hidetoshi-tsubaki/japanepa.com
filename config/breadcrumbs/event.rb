@@ -3,13 +3,18 @@ crumb :root do
 end
 
 crumb :events do
-  link "events", events_path
+  link "Events", events_path
 end
 
 
 # Admin Article
 crumb :admin_events do
-  link "events", admin_events_path
+  link "Events", admin_events_path
+end
+
+crumb :admin_calendar do
+  link "Calendar", calendar_admin_events_path
+  parent :admin_events
 end
 
 crumb :edit_event do |event|

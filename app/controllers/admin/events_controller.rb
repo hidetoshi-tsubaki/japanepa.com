@@ -1,18 +1,23 @@
 class Admin::EventsController < ApplicationController
+  before_action :from_calendar?, except: [:index, :calendar, :search]
 
   def index
     @q = Event.ransack(params[:q])
-    @events = @q.result(distinct: true).page(params[:page])
+    @events = @q.result(distinct: true).paginate(params[:page], 15)
+  end
+
+  def calendar
+    @events = Event.published
   end
 
   def new
-    @event = Event.new
+    @event = Event.new(start_time: params[:date])
   end
 
   def create
     @event = Event.new(event_params)
     if @event.save
-      redirect_to admin_events_path
+      redirect_to_event_page
     else
       render 'new'
     end
@@ -26,7 +31,7 @@ class Admin::EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.update(event_params)
     if @event.save
-      redirect_to admin_events_path
+      redirect_to_event_page
     else
       render 'edit'
     end
@@ -36,7 +41,7 @@ class Admin::EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to admin_events_path }
+      format.html { redirect_to_event_page }
       format.js { render :action => "destroy" }
     end
   end
@@ -46,11 +51,11 @@ class Admin::EventsController < ApplicationController
     if params[:q]['name_or_detail_cont_any'] != nil
       params[:q]['name_or_detail_cont_any'] = params[:q]['name_or_detail_cont_any'].split(/[ ]/)
       @keywords = Event.ransack(params[:q])
-      @events = @keywords.result.page(params[:page])
+      @events = @keywords.result.paginate(params[:page], 15)
       @q = Event.ransack(params[:q])
     else
       @q = Event.ransack(params[:q])
-      @events = @q.result(distinct: true).page(params[:page])
+      @events = @q.result(distinct: true).paginate(params[:page], 15)
     end
     render template: 'admin/events/index'
   end
@@ -64,6 +69,18 @@ class Admin::EventsController < ApplicationController
   def is_pagination?(params)
     if params[:q]['name_or_detail_cont_any'].kind_of?(Array)
       params[:q]['name_or_detail_cont_any'] = params[:q]['name_or_detail_cont_any'].join(" ")
+    end
+  end
+
+  def from_calendar?
+    @from_calendar = params[:from_calendar]
+  end
+
+  def redirect_to_event_page
+    unless params[:from_calendar].blank?
+      redirect_to calendar_admin_events_path(start_date: @event.start_time)
+    else
+      redirect_to admin_events_path
     end
   end
 end
