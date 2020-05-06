@@ -11,8 +11,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def search
-    if params[:q]['name_cont'] != nil
-      params[:q]['name_cont'] = params[:q]['name_cont'].split(/[ ]/)
+    if params[:q]['name_cont_any'] != nil
+      params[:q]['name_cont_any'] = params[:q]['name_cont_any'].split(/[ ]/)
       @keywords = User.ransack(params[:q])
       @users = @keywords.result.page(params[:page])
       @q = User.ransack(params[:q])
