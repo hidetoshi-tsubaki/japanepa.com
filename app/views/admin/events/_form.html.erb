@@ -2,7 +2,7 @@
   <%= form_with model: [:admin, event], local:true, builder: CustomFormBuilder do |f| %>
     <p class="error_message"><%= "入力値が正しくありません。" if event.errors.any? %></p>
     <%= render "radio_button", f: f %>
-    <%= render "event/date_form", f: f %>
+    <%= render "event_date_form", f: f %>
     <div class="field">
       <%= f.label :name %>
       <%= f.text_field :name %>

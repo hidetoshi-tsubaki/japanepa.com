@@ -199,38 +199,52 @@ $('.accordion p').on('click',function(){
       readURL(this);
     });
   });
-  $(function () {
-    $('.date_form').datetimepicker({
-      format: 'YYYY/MM/DD'
-    });
+  // カレンダー入力共通設定
+  $('#creation_date_from, #update_date_from, #start_time_from, #end_time_from, #start_time').datetimepicker({
+    format: 'L',
+    format: 'YYYY/MM/DD'
+  });
+  $('#creation_date_to, #update_date_to, #start_time_to, #end_time_to, #end_time').datetimepicker({
+    useCurrent: false,
+    format: 'L',
+    format: 'YYYY/MM/DD'
   });
   // 作成日
-  $(function () {
-    $('#creation_date_from').datetimepicker({
-    });
-    $('#creation_date_to').datetimepicker({
-      useCurrent: false
-    });
-    $("#creation_date_from").on("change.datetimepicker", function (e) {
-      $('#creation_date_to').datetimepicker('minDate', e.date);
-    });
-    $("#creation_date_to").on("change.datetimepicker", function (e) {
-      $('#creation_date_from').datetimepicker('maxDate', e.date);
-    });
+  $("#creation_date_from").on("change.datetimepicker", function (e) {
+    $('#creation_date_to').datetimepicker('minDate', e.date);
+  });
+  $("#creation_date_to").on("change.datetimepicker", function (e) {
+    $('#creation_date_from').datetimepicker('maxDate', e.date);
   });
   // 更新日
-  $(function () {
-    $('#update_date_from').datetimepicker();
-    $(' #update_date_to').datetimepicker({
-      useCurrent: false
-    });
-    $("#update_date_from").on("change.datetimepicker", function (e) {
-      $('#update_date_to').datetimepicker('minDate', e.date);
-    });
-    $("#update_date_to").on("change.datetimepicker", function (e) {
-      $('#update_date_from').datetimepicker('maxDate', e.date);
-    });
+  $("#update_date_from").on("change.datetimepicker", function (e) {
+    $('#update_date_to').datetimepicker('minDate', e.date);
   });
+  $("#update_date_to").on("change.datetimepicker", function (e) {
+    $('#update_date_from').datetimepicker('maxDate', e.date);
+  });
+  // 開始日
+  $("#start_time_from").on("change.datetimepicker", function (e) {
+    $('#start_time_to').datetimepicker('minDate', e.date);
+  });
+  $("#start_time_to").on("change.datetimepicker", function (e) {
+    $('#start_time_from').datetimepicker('maxDate', e.date);
+  });
+// 終了日
+  $("#end_time_from").on("change.datetimepicker", function (e) {
+    $('#end_time_to').datetimepicker('minDate', e.date);
+  });
+  $("#end_time_to").on("change.datetimepicker", function (e) {
+    $('#end_time_from').datetimepicker('maxDate', e.date);
+  });
+// event_form
+  $("#start_time").on("change.datetimepicker", function (e) {
+    $('#end_time').datetimepicker('minDate', e.date);
+  });
+  $("#end_time").on("change.datetimepicker", function (e) {
+    $('#start_time').datetimepicker('maxDate', e.date);
+  });
+// クリアボタン
   $('#clear_btn').on('click', function () {
     $(".datetimepicker-input, .keyword_search, select").val("");
   });
