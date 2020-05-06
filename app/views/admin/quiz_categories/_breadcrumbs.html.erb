@@ -1,0 +1,12 @@
+<ul class="breadcrumbs_list">
+  <li><%= icon("fas","map-marker-alt") %> <%= link_to "Home", root_path %> ＞ <li>
+  <li><%= link_to "クイズカテゴリー TOP", admin_quiz_categories_path %></li>
+  <% if defined?(@parent) %>
+    <% unless @parent.is_level? %>
+      <% @ancestors.each do |ancestor| %>
+        <li>＞ <%= link_to ancestor.name, categories_admin_quiz_category_path(ancestor) %></li>
+      <% end %>
+    <% end %>
+    <li>＞ <%= @parent.name %></li>
+  <% end %>
+</ul>

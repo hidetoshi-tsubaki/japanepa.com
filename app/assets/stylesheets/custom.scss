@@ -21,7 +21,7 @@ $yellow: #F8C677;
 $orange: #F39653;
 $white : #fff;
 
-@mixin shadow  {
+@mixin shadow {
   box-shadow: 0 10px 20px -5px rgba(0,0,0,.2);
   -moz-transform: translateY(-2px);
   -webkit-transform: translateY(-2px);
@@ -29,7 +29,7 @@ $white : #fff;
   transition: 0.2s linear;
 }
 
-@mixin center  {
+@mixin center {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -47,16 +47,15 @@ $white : #fff;
 	border-style: initial;
 	-webkit-text-size-adjust: 100%;
 }
-html,body  {
+html,body {
 	height: 100%;
 	width: 100%;
 }
-body  {
+body {
   font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ', Meiryo,'ヒラギノ角ゴシック','Hiragino Sans',sans-serif;
 	line-height: 2;
-	// letter-spacing: ;s
 }
-a  {
+a {
 	text-decoration: none !important;
 	-webkit-transition: all linear 0.2s;
 	transition: all linear 0.2s;
@@ -64,12 +63,12 @@ a  {
 a:hover {
   opacity: .6;
 }
-img  {
+img {
 	height: auto;
   max-width: 100%;
   object-fit: cover;
 }
-input, button, select, textarea  {
+input, button, select, textarea {
 	-webkit-appearance: none;
 }
 p, h1, h2, h3,h4, ul, li {
@@ -206,7 +205,6 @@ body {
 .breadcrumbs {
   font-size: 20px;
   padding: 10px 0 20px 20px;
-
   a {
     color: gray;
   }
@@ -1537,8 +1535,21 @@ QUIZ CATEGORY
   margin: 50px auto;
   border-radius:5px;
 }
+.breadcrumbs_list {
+  padding: 10px 0 20px 20px;
+  font-size: 20px;
+  li {
+    display: inline-block;
+    a {
+      color: gray;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+}
 .quiz_category_parent {
-  background-color:$white;
+  background-color: $white;
 }
 .parent_name {
   font-size: 36px;
@@ -1934,13 +1945,12 @@ COMMON SEARCH & SORT
 .index_head {
   background-color: #303E58;
   color: #59D3EB;
-  .date_column {
-    width: 15%;
-  }
-  .action_column {
-    width: 12%;
-    font-size: 10px;
-  }
+}
+.date_column {
+  width: 15%;
+}
+.action_column {
+  width: 12%;
 }
 .sort_link {
   display: block;
