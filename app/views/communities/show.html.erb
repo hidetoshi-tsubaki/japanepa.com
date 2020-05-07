@@ -37,7 +37,7 @@
           Don't be shy! <br>
           Let's chat with members.
         </p>
-        <%= link_to 'Create Talk', new_talk_path(id: @community.id), class: 'block center create_btn', remote: true %>
+        <%= link_to 'Create Talk', new_talk_path(talk: { community_id: @community.id }), class: 'block center create_btn', remote: true %>
       </div>
     </div>
     <div class="side_content">

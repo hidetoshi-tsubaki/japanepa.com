@@ -43,4 +43,8 @@ module ApplicationHelper
   def own_profile?(user)
     current_user.id == user.id
   end
+
+  def own_talk?(talk)
+    current_user.id == talk.user_id
+  end
 end

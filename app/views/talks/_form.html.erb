@@ -1,6 +1,7 @@
 <%= form_with model: talk, builder: CustomFormBuilder do |f| %>
+  <%= hidden_field_tag :from_feed, @from_feed %>
   <div class="field select_communities">
-<%= render partial: 'community_id',locals: { community: @community, communities: @communities, f: f } %>
+    <%= render partial: 'community_id', locals: { community: @community, communities: @communities, f: f } %>
   </div>
   <div class="field input_content">
     <%= f.label :content %><br>

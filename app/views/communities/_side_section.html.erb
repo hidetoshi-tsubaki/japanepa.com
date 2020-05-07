@@ -6,7 +6,7 @@
         Hi there! Come here to check in with your favorite communities
         and learn japanese with our Members!
       </p>
-      <%= link_to 'create community', new_community_path, class: 'block center create_btn' %>
+      <%= link_to 'create community', new_community_path(id: @community.id), class: 'block center create_btn' %>
     </div>
   </div>
 </div>

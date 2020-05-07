@@ -1,7 +1,8 @@
 class TalksController < ApplicationController
   before_action :only_login_user!
   before_action :set_ranked_talks, only: [:index]
-  
+  before_action :from_feed?, :get_community_id, only: [:new, :create, :edit]
+
   def index
     @talks = current_user.own_talks.paginate(params[:page], 15)
     @comment = Comment.new
@@ -20,8 +21,6 @@ class TalksController < ApplicationController
 
   def new
     @talk = current_user.talks.new
-    @community = Community.find(params[:id])
-    @communities = current_user.communities
     render 'form'
   end
 
@@ -30,14 +29,12 @@ class TalksController < ApplicationController
     if @talk.save
       flash.now[:notice] = "talk was post"
     else
-      @communities = current_user.communities
       render 'form'
     end
   end
 
   def edit
     @talk = Talk.find(params[:id])
-    @communities = current_user.communities
     render 'form'
   end
 
@@ -46,18 +43,14 @@ class TalksController < ApplicationController
     if @talk.update(talk_params)
       @talk.img.purge if params[:talk][:delete_img].present?
     else
-      flash.now[:alert] = "failed to update.... try again"
-      render :edit
+      @community = Community.find(params[:talk][:community_id])
+      render 'form'
     end
   end
 
   def destroy
     @talk = Talk.find(params[:id])
     @talk.destroy
-  end
-
-  def destroy_img
-    @talk = Talk.find(params[:id])
   end
 
   private
@@ -77,19 +70,24 @@ class TalksController < ApplicationController
     if current_user.communities.empty?
       Talk.sorted
     else
-      community_id = current_user.communities.pluck(:id)
+      community_id = current_user.communities.ids
       Talk.where(id: community_id)
     end
   end
 
-  def get_communities_select(params)
-    if params == "new"
+  def get_community_id
+    if params[:from_feed] == "true"
       @communities = current_user.communities
     else
-      @community = Community.find(params)
+      @community = Community.find(params[:talk][:community_id])
     end
   end
-    def set_ranked_talks
+
+  def from_feed?
+    @from_feed = params[:from_feed]
+  end
+
+  def set_ranked_talks
     @commented_top_3 = Talk.commented_top_3
     @liked_top_3 = Talk.liked_top_3
   end
