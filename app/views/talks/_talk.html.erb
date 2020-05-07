@@ -1,11 +1,5 @@
 <div class="talk_wrapper" id="talk_<%= talk.id%>">
-  <ul class="talk_head">
-    <li><%= link_to community_path(talk.community_id) do %>
-          <%= talk.community.name %>
-        <% end %>
-    </li>
-    <li class="posted_time">Posted by <%= link_to talk.user.name, user_path(talk.user) %> <%= time_ago_in_words(talk.created_at) %> ago</li>
-  </ul>
+  <%= render 'talks/info_of_poster', talk: talk %>
   <div class="talk_content_wrapper">
     <%= simple_format(text_url_to_link(h(talk.content)).html_safe,class: 'talk_content') %>
     <% if talk.img.attached? %>

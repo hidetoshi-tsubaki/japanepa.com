@@ -10,7 +10,7 @@
     <%= link_to admin_talk_path(talk), class: "edit_btn inline" do %>
       <%= icon("fas", "edit") %> 詳細
     <% end %>
-    <%= link_to admin_talk_path(talk), class: "delete_btn inline",data: { confirm: 'この会話を削除しますか?' } ,remote: true, method: :delete do %>
+    <%= link_to admin_talk_path(talk), class: "delete_btn inline", data: { confirm: 'この会話を削除しますか?' } , remote: true, method: :delete do %>
       <%= icon("fas", "trash-alt") %> 削除
     <% end %>
   </td>
