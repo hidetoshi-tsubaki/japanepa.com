@@ -8,7 +8,7 @@ class ScoreRecordsController < ApplicationController
     score_record = current_user.score_records.where(get_score_record_params).last(50).pluck(:score)
     create_mistakes_record
     update_experience
-    get_user_level
+    get_user_level(current_user)
     respond_to do |format|
       format.js {
         render json: {
@@ -28,7 +28,7 @@ class ScoreRecordsController < ApplicationController
   def show
     @quiz_category = QuizCategory.find(params[:id])
     @score_record = current_user.score_records.where(title_id: params[:id]).last(50).pluck(:score)
-    get_user_level
+    get_user_level(current_user)
     respond_to do |format|
       format.js {
           render json: {

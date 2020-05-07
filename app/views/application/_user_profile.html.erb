@@ -1,20 +1,20 @@
-<% content_for(:html_title) { "Profile - #{@user.name}" } %>
+<% content_for(:html_title) { "Profile - #{user.name}" } %>
 <% if user_signed_in? %>
-  <% breadcrumb :show_user, @user %>
+  <% breadcrumb :show_user, user %>
 <% elsif admin_signed_in? %>
-  <% breadcrumb :admin_show_user, @user %>
+  <% breadcrumb :admin_show_user, user %>
 <% end %>
 <div class="profile_wrapper">
   <p class="right">
   <% if user_signed_in? %>
-    <%= link_to 'Edit Your Profile', edit_profile_path(@user), class: "edit_profile_btn" if own_page?(@user) %>
+    <%= link_to 'Edit Your Profile', edit_profile_path(user), class: "edit_profile_btn" if own_profile?(user) %>
   <% elsif admin_signed_in? %>
-    <%= link_to '削除', admin_user_path(@user), method: :delete, id: "delete_account" %>
+    <%= link_to '削除', admin_user_path(user), method: :delete, id: "delete_account" %>
   <% end %>
   </p>
   <div class="user_img_area center">
-    <% if @user.img.attached? %>
-      <%= image_tag @user.img, id:'present_user_img' %>
+    <% if user.img.attached? %>
+      <%= image_tag user.img, id:'present_user_img' %>
     <% else %>
       <%= image_tag 'https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg', id: 'no_user_img' %>
     <% end %>
@@ -22,7 +22,7 @@
   <ul class="profile_detail center">
     <li>
       <p>Name</p>
-      <p><%= @user.name %></p>
+      <p><%= user.name %></p>
     </li>
     <li>
       <p>Level</p>
@@ -34,28 +34,28 @@
     </li>
     <li>
       <p>Total Play Count</p>
-      <p><%= @user.score_records.count.to_s(:delimited) %></p>
+      <p><%= user.score_records.count.to_s(:delimited) %></p>
     </li>
     <li>
       <p>Communities</p>
-      <p><%= @user.community_users.count %></p>
+      <p><%= user.community_users.count %></p>
     </li>
     <li>
       <p>Total Posts</p>
-      <p><%= @user.talks.count %></p>
+      <p><%= user.talks.count %></p>
     </li>
     <li>
       <p>Country</p>
-      <% if @user.country %>
-        <p><%= @user.country %> <i class="flag-icon flag-icon-<%= @user.country.downcase %>"></i></p>
+      <% if user.country.present? %>
+        <p><%= user.country %> <i class="flag-icon flag-icon-<%= user.country.downcase %>"></i></p>
       <% else %>
         <p><%= icon("fas", "user-shield") %>Secret</p>
       <% end %>
     </li>
     <li>
       <p>Address</p>
-      <% if @user.current_address %>
-        <p><%= @user.current_address %> <i class="flag-icon flag-icon-<%= @user.current_address.downcase %>"></i></p>
+      <% if user.current_address.present? %>
+        <p><%= user.current_address %> <i class="flag-icon flag-icon-<%= user.current_address.downcase %>"></i></p>
       <% else %>
         <p><%= icon("fas", "user-shield") %>Secret</p>
       <% end %>
@@ -63,7 +63,7 @@
   </ul>
   <% if user_signed_in? %>
     <p class="right">
-      <%= link_to 'delete your account', user_registration_path(@user), method: :delete, id: "delete_account" %>
+      <%= link_to 'delete your account', user_registration_path(user), method: :delete, id: "delete_account" %>
     </p>
   <% end %>
 </div>

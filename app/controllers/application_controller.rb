@@ -17,16 +17,16 @@ class ApplicationController < ActionController::Base
 
   def get_current_level
     user_experience = current_user.user_experience
-    @current_experience = user_experience.total_point
-    @current_level = Level.where("threshold <= ?", @current_experience).order(threshold: :desc).limit(1).pluck(:id).first
+    @total_experience = user_experience.total_point
+    @current_level = Level.where("threshold <= ?", @total_experience).order(threshold: :desc).limit(1).pluck(:id).first
   end
 
-  def get_user_level
-    user_experience = current_user.user_experience
-    @current_experience = user_experience.total_point
-    @current_level = Level.where("threshold <= ?", @current_experience).order(threshold: :desc).limit(1).pluck(:id).first
-    next_level = Level.where("threshold > ?", @current_experience).first
-    @needed_experience_to_next_level = next_level.threshold - @current_experience
+  def get_user_level(user)
+    user_experience = user.user_experience
+    @total_experience = user_experience.total_point
+    @current_level = Level.where("threshold <= ?", @total_experience).order(threshold: :desc).limit(1).pluck(:id).first
+    next_level = Level.where("threshold > ?", @total_experience).first
+    @needed_experience_to_next_level = next_level.threshold - @total_experience
   end
 
   private
