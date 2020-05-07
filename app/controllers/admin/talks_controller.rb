@@ -11,9 +11,11 @@ class Admin::TalksController < ApplicationController
   end
 
   def destroy
-    talk = Talk.find(params[:id])
-    @talk = talk
-    talk.destroy
+    @talk = Talk.find(params[:id]).destroy
+    respond_to do |format|
+      format.html { redirect_to admin_talks_path }
+      format.js { render :action => "destroy" }
+    end
   end
 
   def search

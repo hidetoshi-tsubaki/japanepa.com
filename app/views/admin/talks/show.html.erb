@@ -1,13 +1,12 @@
 <% content_for(:html_title) { 'Talks Index' } %>
 <% breadcrumb :admin_talk, @talk %>
 <div class="admin_talk_wrapper" id="talk_<%= @talk.id%>">
-  <ul class="talk_head">
-    <li><%= link_to community_path(@talk.community_id) do %>
-          <%= @talk.community.name %>
-        <% end %>
-    </li>
-    <li class="posted_time">Posted by <%= link_to @talk.user.name, user_path(@talk.user) %> <%= time_ago_in_words(@talk.created_at) %> ago</li>
-  </ul>
+  <p>
+    <%= link_to admin_talk_path(@talk), data: { confirm: 'Delete this post?' }, class: "delete_btn", method: :delete do %>
+      <%= icon("fas", "trash-alt") %> 削除
+    <% end %>
+  </p>
+  <%= render 'talks/info_of_poster', talk: @talk %>
   <div class="talk_content_wrapper">
     <%= simple_format(text_url_to_link(h(@talk.content)).html_safe,class: 'talk_content') %>
     <% if @talk.img.attached? %>
@@ -23,14 +22,8 @@
     <li id="like_btn_<%= @talk.id %>" class="like_btn">
         <%= icon("fas", "heart") %> <%= @talk.like_talks.count %>
     </li>
-    <li>
-      <%= link_to admin_talk_path(@talk), remote: true, data: { confirm: 'Delete this post?' }, method: :delete, class: "delete-btn" do %>
-        <%= icon("fas", "trash-alt") %>
-      <% end %>
-    </li>
   </ul>
   <div id="comments_wrapper_<%= @talk.id%>" class="hidden comments_wrapper">
-
     <div id="comments_of_talk<%= @talk.id %>">
     </div>
     <div id="view_more_<%= @talk.id %>" class="center view_more"></div>
