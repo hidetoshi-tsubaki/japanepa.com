@@ -2,7 +2,7 @@
   <h4><%= icon("fas", "tags") %> Menu (メニュー)</h4>
   <div class="side_inner_box">
     <div class="">
-      <%= link_to "Create talk", new_talk_path, class: "block center create_btn", remote: true %>
+      <%= link_to "Create talk", new_talk_path(from_feed: "true"), class: "block center create_btn", remote: true %>
       <% if past_30days_after_signIn? %>
         <%= link_to "create community" ,new_community_path, class: "block center community_btn" %>
       <% else %>

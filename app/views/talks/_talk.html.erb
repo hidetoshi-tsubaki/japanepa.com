@@ -21,19 +21,8 @@
     <li id="like_btn_<%= talk.id %>" class="like_btn">
         <%= render partial:'talks/like_btn' ,locals: { talk: talk } %>
     </li>
-    <% if talk.user_id == current_user.id %>
-      <li>
-        <%= link_to edit_talk_path(talk), remote: true,class:"edit-btn" do %>
-          <%= icon("fas", "edit") %>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to talk_path(talk), remote: true,data: { confirm: 'Delete this post?' },method: :delete,class:"delete-btn" do %>
-          <%= icon("fas", "trash-alt") %>
-        <% end %>
-      </li>
-    <% end %>
   </ul>
+  <%= render 'talks/action_btns', talk: talk, community: @community  %>
   <div id="comments_wrapper_<%= talk.id%>" class="hidden comments_wrapper">
     <%= form_with model: @comment do |f| %>
       <%= f.text_field :contents, id: "comment_form_#{talk.id}", placeholder: "Comment ...." %>
