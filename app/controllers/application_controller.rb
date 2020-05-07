@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   private
 
   def configure_permitted_parameters
-    added_attrs = [:name, :country, :current_address, :password, :password_confirmation, :img]
+    added_attrs = [:name, :country, :current_address, :password, :password_confirmation, :img, :delete_img]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
     devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:name, :password) }

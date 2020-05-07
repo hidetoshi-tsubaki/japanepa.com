@@ -2,14 +2,11 @@
   <div>
     <h4><%= icon("fas", "tags") %> Menu (メニュー)</h4>
     <div class="side_inner_box">
-      <p>Hi there! Come here to check in with your favorite communities
-        and learn japanese with our Members!</p>
-      <% if past_30days_after_signIn? %>
-        <%= link_to 'create community', new_community_path, class: 'block center create_btn' %>
-      <% else %>
-        <p>can't create communities yet</p>
-        <p>To prevent spam,account must be at least 30 days old</p>
-      <% end %>
+      <p>
+        Hi there! Come here to check in with your favorite communities
+        and learn japanese with our Members!
+      </p>
+      <%= link_to 'create community', new_community_path, class: 'block center create_btn' %>
     </div>
   </div>
 </div>

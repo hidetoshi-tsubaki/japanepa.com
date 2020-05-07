@@ -2,21 +2,11 @@
   <div class="field select_communities">
 <%= render partial: 'community_id',locals: { community: @community, communities: @communities, f: f } %>
   </div>
-  <div class="field">
-    <p class="bold">Image</p>
-    <div class="post_img_area">
-      <%= image_tag talk.img, id: 'present_img' if talk.img.attached? %>
-      <img id="new_img" src="#" class='hidden' />
-      <label for="input_img" class="input_img">
-        <p class="center upload_btn">Upload</p>
-        <%= f.file_field :img, id: 'input_img' %>
-      </label>
-    </div>
-  </div>
-  <div class="field input_content"> 
+  <div class="field input_content">
     <%= f.label :content %><br>
     <%= f.text_area :content %>
   </div>
+  <%= render 'upload_img', model: talk, f: f %>
   <div class="actions">
     <%= f.submit "Post" %>
   </div>

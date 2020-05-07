@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :like_talks, dependent: :destroy
   has_many :talks, through: :like_talks
+  has_many :talks, dependent: :destroy
   has_many :like_articles, dependent: :destroy
   has_many :articles, through: :like_articles
   has_many :bookmarks, dependent: :destroy

@@ -44,7 +44,7 @@ class TalksController < ApplicationController
   def update
     @talk = Talk.find(params[:id])
     if @talk.update(talk_params)
-      flash.now[:notice] = "talk was updated"
+      @talk.img.purge if params[:talk][:delete_img].present?
     else
       flash.now[:alert] = "failed to update.... try again"
       render :edit
