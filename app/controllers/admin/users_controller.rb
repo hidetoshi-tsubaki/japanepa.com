@@ -8,7 +8,6 @@ class Admin::UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    get_user_level(@user)
   end
 
   def search

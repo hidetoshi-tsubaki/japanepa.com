@@ -122,7 +122,7 @@ Rails.application.routes.draw do
       get :calendar
     end
   end
-    resources :users, only: [:index, :show, :destroy]
+    resource :user, only: [:index, :destroy]
   end
 
   devise_for :users, controllers: {

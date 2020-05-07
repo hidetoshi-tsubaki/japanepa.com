@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def show
     if @user = User.find_by_id(params[:id])
-      get_user_level(current_user)
+      get_user_level
     else
       redirect_to root_path
     end

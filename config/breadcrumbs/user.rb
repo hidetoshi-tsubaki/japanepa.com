@@ -25,8 +25,3 @@ end
 crumb :admin_users do
   link "users", admin_users_path
 end
-
-crumb :admin_show_user do |user|
-  link user.name, admin_user_path(user)
-  parent :admin_users
-end
