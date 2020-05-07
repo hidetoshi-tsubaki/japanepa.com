@@ -47,7 +47,7 @@ class CommunitiesController < ApplicationController
   def update
     @community = Community.find(params[:id])
     if @community.update(community_params) && current_user.is_founder?(@community)
-      flash.now[:notice] = "community was updated"
+      @community.img.purge if params[:community][:delete_img]
       redirect_to community_path(@community)
     else
       render 'edit'

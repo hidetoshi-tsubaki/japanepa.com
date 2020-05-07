@@ -1005,30 +1005,26 @@ input[type="submit"], .upload_btn {
 label input {
   display: none;
 }
-.inline_radio  {
+.inline_radio {
   display: flex;
   margin-bottom: 30px;
   border-radius: 3px;
   overflow: hidden;
   border: 1px solid #b6b6b6;
-
   div {
     position: relative;
     flex: 1;
     font-size: 40px;
   }
-
   div:hover {
     cursor: pointer;
   }
-
   input  {
     width: 100%;
     height: 100%;
     opacity: 0;
   }
-
-  label  {
+  label {
     position: absolute;
     top: 0; left: 0;
     color: #b6b6b6;
@@ -1041,21 +1037,24 @@ label input {
     pointer-events: none;
     border-right: 1px solid #b6b6b6;
   }
-
   div:last-child label {
     border-right: 0;
   }
-
   input:checked + label {
     background: $red;
     font-weight: 500;
     color: $white;
   }
-
   input:hover {
     cursor: pointer;
   }
-
+}
+#cancel_img_btn, #delete_img_btn {
+  margin-left: 20px;
+}
+#cancel_img_btn:hover, #delete_img_btn:hover {
+  color: $red;
+  cursor: pointer;
 }
 /*---------------
 USER_FORM ADMIN_FORM

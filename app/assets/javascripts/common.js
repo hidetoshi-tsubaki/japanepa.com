@@ -182,23 +182,6 @@ $('.accordion p').on('click',function(){
       });
     }
   });
-  // 画像アップロード プレ画像
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        $('#new_img, #new_user_img').attr('src', e.target.result);
-      }
-      reader.readAsDataURL(input.files[0]);
-    }
-  };
-  $(function () {
-    $('#input_img').on('change', function () {
-      $('#new_img, #new_user_img').removeClass('hidden');
-      $('#present_img, #present_user_img, #no_img, #no_user_img').remove();
-      readURL(this);
-    });
-  });
   // カレンダー入力共通設定
   $('#creation_date_from, #update_date_from, #start_time_from, #end_time_from, #start_time').datetimepicker({
     format: 'L',

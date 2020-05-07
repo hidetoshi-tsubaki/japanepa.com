@@ -37,6 +37,7 @@ class Admin::ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.update(article_params)
     if @article.save
+      @article.img.purge if article_params[:delete_img].present?
       flash.now[:notice] = 'article was updated successfully'
       redirect_to admin_articles_path
     else
