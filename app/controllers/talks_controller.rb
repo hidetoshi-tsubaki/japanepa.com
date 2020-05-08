@@ -10,6 +10,7 @@ class TalksController < ApplicationController
 
   def feed
     @talks = Talk.in_joined_communities(current_user)
+    @comment = Comment.new
     @tags = Community.tags_on(:tags)
   end
 

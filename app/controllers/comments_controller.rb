@@ -8,16 +8,22 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.new(comment_params)
+    unless @comment.save
+      render 'form'
+    end
     @talk = Talk.find(comment_params[:talk_id])
   end
 
   def edit
     @comment = Comment.find(params[:id])
+    @talk = Talk.find(@comment.talk_id)
   end
 
   def update
     @comment = Comment.find(params[:id])
-    @comment.update(comment_params)
+    unless @comment.update(comment_params)
+      render 'form'
+    end
   end
 
   def destroy

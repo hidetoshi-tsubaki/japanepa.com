@@ -1,7 +1,7 @@
 <div class="talk_wrapper" id="talk_<%= talk.id%>">
   <%= render 'talks/info_of_poster', talk: talk %>
   <div class="talk_content_wrapper">
-    <%= simple_format(text_url_to_link(h(talk.content)).html_safe,class: 'talk_content') %>
+    <%= simple_format(text_url_to_link(h(talk.content)).html_safe, class: 'talk_content') %>
     <% if talk.img.attached? %>
       <p><%= image_tag talk.img %></p>
     <% end %>
@@ -16,13 +16,9 @@
         <%= render partial:'talks/like_btn' ,locals: { talk: talk } %>
     </li>
   </ul>
-  <%= render 'talks/action_btns', talk: talk, community: @community  %>
+  <%= render 'talks/action_btns', talk: talk, community: @community %>
   <div id="comments_wrapper_<%= talk.id%>" class="hidden comments_wrapper">
-    <%= form_with model: @comment do |f| %>
-      <%= f.text_field :contents, id: "comment_form_#{talk.id}", placeholder: "Comment ...." %>
-        <p class="error_message_#{comment.id}"></p>
-      <%= f.hidden_field :talk_id, value: talk.id %>
-    <% end %>
+    <%= render 'comments/form', comment: @comment, talk: talk %>
     <div id="comments_of_talk<%= talk.id %>">
     </div>
     <div id="view_more_<%= talk.id %>" class="center view_more"></div>
