@@ -1,9 +1,13 @@
-<% if current_user.already_liked_talk?(talk) %>
-  <%= link_to like_talk_path(talk), class:"like_btn" ,remote: true, method: :delete do %>
+<% if own_talk?(talk) %>
     <%= icon("fas", "heart") %> <%= talk.like_talks.count %>
-  <% end %>
 <% else %>
-  <%= link_to like_talks_path(id: talk.id), class:"like_btn" ,remote: true, method: :post do %>
-    <%= icon("far", "heart") %> <%= talk.like_talks.count %>
+  <% if current_user.already_liked_talk?(talk) %>
+    <%= link_to like_talk_path(talk), class:"like_btn" ,remote: true, method: :delete do %>
+      <%= icon("fas", "heart") %> <%= talk.like_talks.count %>
+    <% end %>
+  <% else %>
+    <%= link_to like_talks_path(id: talk.id), class:"like_btn" ,remote: true, method: :post do %>
+      <%= icon("far", "heart") %> <%= talk.like_talks.count %>
+    <% end %>
   <% end %>
 <% end %>
