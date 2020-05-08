@@ -1,4 +1,5 @@
 <div class="talk_wrapper" id="talk_<%= talk.id%>">
+  <%= render 'talks/action_btns', talk: talk, community: @community %>
   <%= render 'talks/info_of_poster', talk: talk %>
   <div class="talk_content_wrapper">
     <%= simple_format(text_url_to_link(h(talk.content)).html_safe, class: 'talk_content') %>
@@ -16,7 +17,6 @@
         <%= render partial:'talks/like_btn' ,locals: { talk: talk } %>
     </li>
   </ul>
-  <%= render 'talks/action_btns', talk: talk, community: @community %>
   <div id="comments_wrapper_<%= talk.id%>" class="hidden comments_wrapper">
     <%= render 'comments/form', comment: @comment, talk: talk %>
     <div id="comments_of_talk<%= talk.id %>">

@@ -15,6 +15,10 @@ $(function () {
     $('#modalArea').fadeIn();
     $('#LoginModal').removeClass('hidden');
   });
+  // コメント一覧の開閉
+  $('.comment_btn').on('click', function () {
+    $(this).parent().next().fadeToggle();
+  })
   // トップへ戻る
   $(function () {
     var pageTop1 = $("#to_top_btn");
