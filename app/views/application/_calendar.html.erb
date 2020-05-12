@@ -4,10 +4,18 @@
     <%= link_to "+", new_admin_event_path(date: date, from_calendar: "true") if admin_signed_in? %></p>
   <p class="calendar_date hidden"> <%= date %></p>
   <% events.each do |event| %>
-    <%= link_to edit_admin_event_path(event, from_calendar: "true") do %>
-      <p class="<%= event_color(event.id) %> event_name" id="<%= event.id %>">
-        <%= event.name %>
-      </p>
+    <% if admin_signed_in? %>
+      <%= link_to edit_admin_event_path(event, from_calendar: "true") do %>
+        <p class="<%= event_color(event.id) %> event_name" id="<%= event.id %>">
+          <%= event.name %>
+        </p>
+      <% end %>
+    <% else %>
+      <%= link_to event_path(event), remote: true do %>
+        <p class="<%= event_color(event.id) %> event_name" id="<%= event.id %>">
+          <%= event.name %>
+        </p>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

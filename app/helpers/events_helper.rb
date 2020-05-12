@@ -15,6 +15,7 @@ module EventsHelper
   end
 
   def continues_few_days?(event)
+    return unless event.end_time
     event.start_time != event.end_time
   end
 

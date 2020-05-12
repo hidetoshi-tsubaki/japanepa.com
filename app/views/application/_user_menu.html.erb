@@ -9,6 +9,9 @@
     <%= link_to bookmarks_path do %>
       <p><%= icon("fas", "star") %> Bookmarks</p>
     <% end %>
+    <%= link_to events_path do %>
+      <p><%= icon("fas fa-fw", "calendar-alt") %> Calendar</p>
+    <% end %>
     <p><%= icon("fas", "question-circle") %> Help</p>
     <p><%= icon("fas", "info-circle") %> About us</p>
     <%= link_to destroy_user_session_path, method: :delete do %>
