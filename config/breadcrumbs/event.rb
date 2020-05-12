@@ -2,8 +2,8 @@ crumb :root do
   link "Home", root_path
 end
 
-crumb :events do
-  link "Events", events_path
+crumb :calendar do
+  link "Calendar", events_path
 end
 
 
