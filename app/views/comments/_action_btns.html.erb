@@ -1,0 +1,14 @@
+<% if own_post?(comment) %>
+  <ul class="right">
+    <li class="inline">
+      <%= link_to edit_comment_path(comment), class: "edit_btn", remote: true do %>
+        <%= icon("fas", "edit") %> Edit
+      <% end %>
+    </li>
+    <li class="inline">
+      <%= link_to comment_path(comment), class: "delete_btn", remote: true, data: { confirm: 'Delete this comment?' }, method: :delete do %>
+        <%= icon("fas", "trash-alt") %> Delete
+      <% end %>
+    </li>
+  </ul>
+<% end %>

@@ -98,6 +98,9 @@ p, h1, h2, h3,h4, ul, li {
 .center {
   text-align: center;
 }
+.left {
+  text-align: start;
+}
 .right {
   text-align: right;
 }
@@ -110,6 +113,7 @@ p, h1, h2, h3,h4, ul, li {
 .block {
   display: block;
 }
+
 .ui-helper-hidden-accessible {
   display: none;
 }
@@ -233,7 +237,6 @@ body {
 }
 .like_btn {
   color:#E24E42;
-  font-size: 20px;
 }
 .like_btn:hover {
   color: #E24E42;
@@ -274,34 +277,6 @@ body {
 }
 .panel.is-show {
   display: block;
-}
-.action_menu_wrapper {
-  .open_action_menu_btn, .close_action_menu_btn {
-  position: absolute;
-  top: 50%;
-  right: 5px;
-  transform: translateY(-50%);
-  }
-  .open_action_menu_btn:hover, .close_action_menu_btn:hover {
-    cursor: pointer;
-    opacity: .7;
-  }
-  .close_action_menu_btn:hover {
-    color: $red;
-  }
-  .action_menu {
-    position: absolute;
-    bottom: -55px;
-    right: 0;
-    width: 90px;
-    background-color: $white;
-    li {
-      a {
-        display: block;
-        text-align: start;
-      }
-    }
-  }
 }
 /*-------------
 PAGINATION
@@ -1189,6 +1164,7 @@ Ranking(Users)
 TALKS
 ------------*/
 .talk_wrapper {
+  position: relative;
   background-color: $white;
   margin-bottom: 15px;
   padding: 10px;
@@ -1257,18 +1233,15 @@ ADMIN talk
 talk comment
 ----------------*/ 
 .comments_wrapper {
-  margin-left: 20px;
+  margin: 10px 0 0 10px;
   padding: 10px;
   background-color: #f5f4f4;
   .comment_form {
-    margin-bottom: 25px;
+    margin-bottom: 10px;
   }
 }
 .comment {
   margin-bottom: 25px;
-  .comment_info {
-    position: relative;
-  }
   .comment_contents {
     padding: 10px 0 0 5px;
   }

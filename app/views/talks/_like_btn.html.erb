@@ -1,4 +1,4 @@
-<% if own_talk?(talk) %>
+<% if own_post?(talk) %>
     <%= icon("fas", "heart") %> <%= talk.like_talks.count %>
 <% else %>
   <% if current_user.already_liked_talk?(talk) %>
