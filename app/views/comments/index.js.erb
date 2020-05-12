@@ -2,23 +2,3 @@ $("#comments_of_talk<%= @talk.id %>").append("<%= j(render partial: 'comment', c
 $("#view_more_<%= @talk.id %>").html("<%= escape_javascript(link_to_next_page(@comments, 'See More', remote: true, id: 'view_more')) %>");
 $("#comments_wrapper_<%= @talk.id %>").fadeIn();
 $("#comment_btn_<%= @talk.id %>").html('<%= icon("fas", "comment-alt") %> <%= @talk.comments_count %> comments');
-$('.open_action_menu_btn').on('click', function () {
-  $('.close_action_menu_btn').fadeOut(400);
-  $('.open_action_menu_btn').fadeIn(400);
-  $('.action_menu').fadeOut(400);
-  $(this).nextAll().fadeIn(400);
-  $(this).fadeOut(400);
-  $(this).nextAll().fadeIn(400);
-});
-$('.close_action_menu_btn').on('click', function () {
-  $(this).prev().fadeIn(400);
-  $(this).fadeOut(400);
-  $('.action_menu').fadeOut(400);
-});
-$(document).on('click touchend', function(e) {
-  if (!$(e.target).closest('.action_menu_wrapper').length) {
-    $('.close_action_menu_btn').fadeOut(400);
-    $('.action_menu').fadeOut(400);
-    $('.open_action_menu_btn').fadeIn(400);
-  }
-});

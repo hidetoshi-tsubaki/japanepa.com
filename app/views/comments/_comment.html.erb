@@ -2,26 +2,9 @@
   <div class="comment_info">
     <%= link_to "#{comment.user.name}",user_path(current_user), class: "comment_user" %>
     <span> ・ <%= time_ago_in_words(comment.created_at) %> ago</span>
-    <% if comment.user_id == current_user.id %>
-      <div class="action_menu_wrapper">
-        <p class="open_action_menu_btn"><%= icon("fas", "ellipsis-v") %></p>
-        <p class="close_action_menu_btn hidden">×</p>
-        <ul class="action_menu hidden">
-          <li>
-            <%= link_to edit_comment_path(comment), class: "edit_btn", remote: true do %>
-              <%= icon("fas", "edit") %> Edit
-            <% end %>
-          </li>
-          <li>
-            <%= link_to comment_path(comment), class: "delete_btn", remote: true, data: { confirm: 'Delete this comment?' }, method: :delete do %>
-              <%= icon("fas", "trash-alt") %> Delete
-            <% end %>
-          </li>
-        </ul>
-      </div>
-    <% end %>
   </div>
   <div class="comment_contents">
     <%= simple_format(text_url_to_link(h(comment.contents)).html_safe) %>
   </div>
+  <%= render 'action_btns', comment: comment %>
 </div>

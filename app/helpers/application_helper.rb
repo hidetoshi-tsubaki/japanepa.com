@@ -44,7 +44,7 @@ module ApplicationHelper
     current_user.id == user.id
   end
 
-  def own_talk?(talk)
-    current_user.id == talk.user_id
+  def own_post?(post)
+    current_user.id == post.user_id
   end
 end

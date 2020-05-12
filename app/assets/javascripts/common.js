@@ -27,7 +27,6 @@ $(function () {
       return false;
     });
     $(window).scroll(function () {
-
       if ($(this).scrollTop() >= 200) {
         pageTop1.css("bottom", "30px");
       } else {
