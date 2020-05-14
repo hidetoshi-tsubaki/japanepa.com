@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_02_153051) do
+ActiveRecord::Schema.define(version: 2020_05_13_042048) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -44,6 +44,24 @@ ActiveRecord::Schema.define(version: 2020_05_02_153051) do
     t.string "name"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "announcement_checks", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "announcement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["announcement_id"], name: "index_announcement_checks_on_announcement_id"
+    t.index ["user_id"], name: "index_announcement_checks_on_user_id"
+  end
+
+  create_table "announcements", force: :cascade do |t|
+    t.string "title"
+    t.string "contents"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "impressions_count", default: 0
+    t.boolean "status", default: false
   end
 
   create_table "articles", force: :cascade do |t|
@@ -144,24 +162,6 @@ ActiveRecord::Schema.define(version: 2020_05_02_153051) do
     t.index ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index"
     t.index ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
     t.index ["user_id"], name: "index_impressions_on_user_id"
-  end
-
-  create_table "information", force: :cascade do |t|
-    t.string "title"
-    t.string "contents"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "impressions_count", default: 0
-    t.boolean "status", default: false
-  end
-
-  create_table "information_checks", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "information_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["information_id"], name: "index_information_checks_on_information_id"
-    t.index ["user_id"], name: "index_information_checks_on_user_id"
   end
 
   create_table "learning_levels", force: :cascade do |t|

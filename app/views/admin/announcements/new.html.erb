@@ -1,0 +1,6 @@
+<% content_for(:html_title) { 'Announcement Form' } %>
+<% breadcrumb :new_announcement, @announce %>
+<div class="form_wrapper">
+  <h1 class="center">Announcement Form</h1>
+  <%= render partial: 'form', locals: { announce: @announce, form_btn: "新規作成" } %>
+</div>

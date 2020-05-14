@@ -29,6 +29,13 @@ class ApplicationController < ActionController::Base
     @needed_experience_to_next_level = next_level.threshold - @current_experience
   end
 
+  def get_unchecked_announce_count
+    user_registration_date = current_user.created_at
+    @unchecked_announce_count = Announcement.
+      where("updated_at > ?", user_registration_date).
+      length - current_user.announcement_checks.length
+  end
+
   private
 
   def configure_permitted_parameters

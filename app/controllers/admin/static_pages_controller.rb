@@ -3,6 +3,6 @@ class Admin::StaticPagesController < ApplicationController
 
   def home
     @events = Event.where(status: true)
-    @information = Information.where(status: true)
+    @anouncement = Announcement.where(status: true)
   end
 end

@@ -119,13 +119,13 @@ p, h1, h2, h3,h4, ul, li {
 }
 body {
   margin: 0;
-  padding: 72px 0 0 0;
+  padding: 60px 0 0 0;
   position: relative;
   background-color: #FEF5E1;
 }
 .main_wrapper {
   position:relative;
-  min-height: calc( 100vh - 72px );
+  min-height: calc( 100vh - 60px );
   color: gray;
 }
 .section_wrapper {
@@ -300,8 +300,9 @@ header {
   z-index: 999;
   width: 100%;
   line-height: 1.5;
-  font-size:48px;
+  font-size: 20px;
   text-align: right;
+  color: $white;
 }
 .articles_header {
   background-color: $blue;
@@ -326,34 +327,32 @@ header {
   top: 50%;
   left: 10px;
   transform: translateY(-50%);
+  z-index: 10;
   text-decoration: none;
   color: $white;
   font-size: 34px;
   font-weight: bold;
 }
-header >div {
+header > div {
   display: inline-block;
   cursor: pointer;
 }
 .header_link {
   position: relative;
-  margin-right: 20px;
+  margin: 18px 0;
+  li:not(:last-child) {
+    display: inline-block;
+    margin-right: 20px;
+  }
 }
 .header_link a {
-  font-size: 26px;
-  color:$white;
+  color: $white;
   vertical-align: middle;
   text-align: right;
 }
-.header_btn {
-  display:inline-block;
-  width: 48px;
-  height: 48px;
-  vertical-align: top;
-  text-align: center;
-}
-.header_btn:hover {
-  opacity: 0.65;
+.menu_btn {
+  position: relative;
+  vertical-align: bottom;
 }
 #header_quiz {
   width: 33px;
@@ -366,9 +365,13 @@ header >div {
   color: #767676;
 }
 #header_user_img {
+  position: absolute;
+  top: 50%;
+  left: -5px;
+  transform: translate(-100%, -50%);
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
 }
 .header_link .login {
   padding: 7px;
@@ -384,10 +387,7 @@ header >div {
   border: solid 3px #767676;
   border-radius: 3px
 }
-.menu_btn {
-  position: relative;
-}
-.user_menu,.admin_menu {
+.user_menu, .admin_menu {
   position: absolute;
   z-index: 30;
   text-align: start;
@@ -541,7 +541,7 @@ button  {
 Home FOR MEMBER
 ---------------*/
 .upper_block, .admin_upper_block {
-  height: calc( calc(100vh - 72px) * 0.6666 );
+  height: calc( calc(100vh - 60px) * 0.6666 );
   display: flex;
 }
 .under_block {
@@ -549,7 +549,7 @@ Home FOR MEMBER
 }
 .menu_panel {
   display: flex;
-  height: calc( calc(100vh - 72px) * 0.333333 );
+  height: calc( calc(100vh - 60px) * 0.333333 );
   width: calc(100vw * 0.3333);
   font-size: 42px;
   color: $white;
@@ -587,9 +587,9 @@ Home FOR MEMBER
   display: flex;
 }
 .admin_upper_block .menu_panel {
-  height: calc( calc(100vh - 72px) / 6 );
+  height: calc( calc(100vh - 60px) / 6 );
 }
-.service_status_panel, .new_information_panel {
+.service_status_panel, .new_announcement_panel {
   width: calc(100vw * 0.6666);
   overflow: scroll;
   padding: 15px;
@@ -641,11 +641,11 @@ Home FOR MEMBER
 .ranking_panel:hover, .users_panel:hover {
   color: $orange;
 }
-.info_panel {
+.announce_panel {
   background-color: #576875;
   border: 6px solid #576875;
 }
-.info_panel:hover {
+.announce_panel:hover {
   color: #576875;
 }
 .event_panel {
@@ -812,7 +812,7 @@ Home FOR NON-MEMBER
 ---------------*/
 .top_content {
   position: relative;
-  height: calc(100vh - 72px);
+  height: calc(100vh - 60px);
 }
 .top_content > div {
   position: absolute;
@@ -851,7 +851,7 @@ Home FOR NON-MEMBER
 }
 .feature_box {
   display: flex;
-  height: calc(100vh - 72px);
+  height: calc(100vh - 60px);
 }
 .feature_box > div {
   width: 50%;
@@ -1105,7 +1105,7 @@ Ranking(Users)
   }
   .user_ranking  {
     padding: 2%;
-    .user_ranking_info  {
+    .user_ranking_info {
       padding: 20px 0;
       color: gray;
       font-size: 24px;
@@ -1312,34 +1312,38 @@ TAG
 	border-color: transparent #555555 transparent transparent;
 }
 /*---------------
-INFORMATION
+announcement
 ----------------*/
-.information_index_wrapper {
+.announcement_index_wrapper {
   width: 75%;
   margin: 108px auto;
 }
-.information_index_wrapper h1 {
+.announcement_index_wrapper h1 {
   background-color: #576875;
   color: $white;
 }
-.information_index {
+.announcement_index {
   text-align: start;
 }
-.new_info_index {
+.new_announce_index {
   text-align: start;
 }
-.new_info_index td:first-child {
-  width: 15%;
-  padding-left: 15px;
+.new_announce_index{
+  td {
+    padding: 10px 0;
+  }
+  td:first-child {
+    width: 15%;
+  }
+  td:nth-child(2) {
+    width: 10%;
+  }
 }
-.info td:nth-child(2) {
-  width: 10%;
-}
-.info:nth-child(even) {
+.announce:nth-child(even) {
   background-color: #e7e7e7;
   transition: all linear 0.2s;
 }
-.info:hover {
+.announce:hover {
   opacity: .6;
   background-color: rgba(242, 145, 115, 0.459);
 }

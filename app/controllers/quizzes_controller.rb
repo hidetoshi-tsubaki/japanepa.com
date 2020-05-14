@@ -1,6 +1,7 @@
 class QuizzesController < ApplicationController
-  before_action :only_login_user!
   include QuizzesHelper
+  before_action :only_login_user!
+  before_action :get_unchecked_announce_count, :get_current_level
 
   def play
     @category = QuizCategory.find(params[:id])

@@ -10,7 +10,7 @@ $(function () {
     $('#modalArea').fadeOut();
     $('#linearChart, #doughnutsChart, #learningLevel, #coutionm .quiz_title').empty();
   });
-  //  logInModalの表示
+  // logInModalの表示
   $('#openLoginModal').on('click', function () {
     $('#modalArea').fadeIn();
     $('#LoginModal').removeClass('hidden');
@@ -283,18 +283,18 @@ $('.accordion p').on('click',function(){
     })
   });
   // information 詳細表示
-  $(".info").on('click', function () {
-    info_id = $(this).attr('id');
-    info_url = "/information/" + info_id
+  $(".announce").on('click', function () {
+    announce_id = $(this).attr('id');
+    announce_url = "/announcements/" + announce_id
     $.ajax({
-      url: info_url,
+      url: announce_url,
       cache: false,
       contentType: false,
       processData: false,
       type: 'get',
       dataType: "script",
       success: function () {
-        console.log('display event successfully');
+        console.log('display announcement successfully');
       }
     })
   });

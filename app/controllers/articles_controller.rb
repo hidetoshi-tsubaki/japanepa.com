@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :only_login_user!
+  before_action :get_unchecked_announce_count, :get_current_level
   before_action :set_article_tags, only: [:index, :search, :tag_search]
   before_action :set_ranked_articles, only: [:show, :index, :search, :tag_search]
   impressionist :actions => [:show]
