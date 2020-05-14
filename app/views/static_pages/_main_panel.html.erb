@@ -1,8 +1,8 @@
 <div class="inner_header right">
-  <%= link_to information_index_path, class: "info_link" do %>
-    <div class="info_link_box inline">
-      <p>Information</p>
-      <p class="unread_info_count center"><%= @unread_info_count.nonzero? %></p>
+  <%= link_to announcements_path, class: "announce_link" do %>
+    <div class="announcements_link_box inline">
+      <p>Announcements</p>
+      <p class="unread_announce_count center"><%= @unread_announcements_count.nonzero? %></p>
     </div>
   <% end %>
   <div class="inline">

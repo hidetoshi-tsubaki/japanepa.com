@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :articles, through: :bookmarks
   has_many :mistakes
+  has_many :announcement_checks, dependent: :destroy
   has_one :user_experience, dependent: :destroy
   has_one_attached :img
   validates :name, uniqueness: { case_sensitive: false }
@@ -32,6 +33,7 @@ class User < ApplicationRecord
     clean_up_passwords
     result
   end
+
 
   def self.from_omniauth(auth)
     find_or_create_by(provider: auth["provider"], uid: auth["uid"]) do |user|
@@ -110,5 +112,13 @@ class User < ApplicationRecord
 
   def remove_bookmark(article)
     bookmarks.find_by(article_id: article.id).destroy
+  end
+
+  def aleady_checked?(announce)
+    announcement_checks.find_by(announcement_id: announce.id)
+  end
+
+  def check_announce(announce)
+    announcement_checks.create!(announcement_id: announce.id)
   end
 end

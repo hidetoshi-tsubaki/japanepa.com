@@ -43,6 +43,7 @@ class ScoreRecordsController < ApplicationController
   end
 
   private
+
   def save_score_record_params
     params.require(:score_record).permit(:score, :title_id)
   end

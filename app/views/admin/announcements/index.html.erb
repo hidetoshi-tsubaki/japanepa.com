@@ -1,12 +1,12 @@
 
-<% content_for(:html_title) { 'Information Index' } %>
-<% breadcrumb :admin_information_index, @information %>
+<% content_for(:html_title) { 'announcement Index' } %>
+<% breadcrumb :admin_announcements_index, @announcement %>
 <div class="admin_index_wrapper">
-  <h1 class="admin_index_title><%= icon("fas","info-circle") %> Information index </h1>
+  <h1 class="admin_index_title><%= icon("fas","info-circle") %> announcement index </h1>
   <div class="search_wrapper">
     <div class="search" id="date_input">
       <p class="bold">ワード検索</p>
-      <%= search_form_for @q, url: search_admin_information_index_path do |f| %>
+      <%= search_form_for @q, url: search_admin_announcements_path do |f| %>
         <div class="field">
           <%= f.text_field :title_or_contents_cont_any, class: "keyword_search" %>
           <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
@@ -31,24 +31,24 @@
   </div>
   <div class="article_index index">
     <p class="create_btn_wrapper">
-      <%= link_to "New", new_admin_information_path, class: "admin_create_btn" %>
-      <%= link_to "全件表示", admin_information_index_path(anchor: "index"), class: "admin_show_all_btn" %>
+      <%= link_to "New", new_admin_announcement_path, class: "admin_create_btn" %>
+      <%= link_to "全件表示", admin_announcements_path(anchor: "index"), class: "admin_show_all_btn" %>
     </p>
     <table class="index_table" id="index">
       <thead>
         <%= render 'columns' %>
       </thead>
       <tbody>
-        <% if @information.present? %>
-          <%= render partial: 'info', collection: @information, as: :info %>
+        <% if @announcements.present? %>
+          <%= render partial: 'announce', collection: @announcements, as: :announce %>
         <% end %>
       </tbody>
     </table>
-    <%= paginate @information, :params => { anchor: "index" } %>
-    <% if @information.blank? %>
+    <%= paginate @announcements, :params => { anchor: "index" } %>
+    <% if @announcement.blank? %>
       <div class="no_result">
-        <h3 class="center">No information....</h3>
-        <p class="center"><%= link_to '一覧表示', admin_information_index_path %></p>
+        <h3 class="center">No announcement....</h3>
+        <p class="center"><%= link_to '一覧表示', admin_announcements_path %></p>
       </div>
     <% end %>
   </div>

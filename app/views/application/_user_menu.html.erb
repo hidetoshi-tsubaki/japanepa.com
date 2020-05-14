@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <div class="user_menu ">
+  <li class="user_menu hidden">
     <%= link_to user_path(current_user) do %>
       <p><%= icon("fas", "address-card") %> Profile</p>
     <% end %>
@@ -17,5 +17,5 @@
     <%= link_to destroy_user_session_path, method: :delete do %>
       <p><%= icon("fas", "sign-out-alt") %> Log out</p>
     <% end %>
-  </div>
+  </li>
 <% end %>

@@ -1,4 +1,4 @@
-<div class="info_form_wrapper">
+<div class="announce_form_wrapper">
   <%= form_with model: [:admin, event], local:true, builder: CustomFormBuilder do |f| %>
     <%= hidden_field_tag :from_calendar, @from_calendar %>
     <p class="error_message"><%= "入力値が正しくありません。" if event.errors.any? %></p>

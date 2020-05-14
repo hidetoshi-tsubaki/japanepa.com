@@ -1,5 +1,6 @@
 class TalksController < ApplicationController
   before_action :only_login_user!
+  before_action :get_unchecked_announce_count, :get_current_level
   before_action :set_ranked_talks, only: [:index]
   before_action :from_feed?, :get_community_id, only: [:new, :create, :edit]
 

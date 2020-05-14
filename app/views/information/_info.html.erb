@@ -1,9 +1,0 @@
-<tr class="info" id=<%= info.id %>>
-  <td><%= info.created_at.strftime('%Y.%m.%d') %></td>
-  <td class="center">
-    <% if month_ago?(info) %>
-      <span class="label_new bold"> NEW </span>
-    <% end %>
-  </td>
-  <td><%= info.title %></td>
-</tr>

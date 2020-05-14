@@ -50,7 +50,7 @@ Rails.application.routes.draw do
       get :leave
     end
   end
-  resources :information, only: [:index, :show]
+  resources :announcements, only: [:index, :show]
   resources :events, only: [:index, :show]
 
   namespace :admin do
@@ -110,7 +110,7 @@ Rails.application.routes.draw do
       end
     end
     resources :comments, only: [:index, :show, :destroy]
-    resources :information do
+    resources :announcements do
       collection do
         get :search
         get :tag_search

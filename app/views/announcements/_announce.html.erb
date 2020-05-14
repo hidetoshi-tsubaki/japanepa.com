@@ -1,0 +1,9 @@
+<tr class="announce" id=<%= announce.id %>>
+  <td class="center"><%= announce.created_at.strftime('%Y.%m.%d') %></td>
+  <td class="center" id="checked_status_<%= announce.id %>">
+    <% unless current_user.aleady_checked?(announce) %>
+      <span class="label_new bold"> NEW </span>
+    <% end %>
+  </td>
+  <td><%= announce.title %></td>
+</tr>

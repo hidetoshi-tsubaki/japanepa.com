@@ -10,9 +10,9 @@ module ApplicationHelper
     text
   end
 
-  def month_ago?(info)
+  def month_ago?(announce)
     today = Date.today
-    info.created_at > today.prev_month
+    announce.created_at > today.prev_month
   end
 
   def contents_status(contents)

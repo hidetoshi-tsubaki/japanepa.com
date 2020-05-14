@@ -1,6 +1,6 @@
-<div class="info_form_wrapper">
-  <%= form_with model: [:admin, info], local:true, builder: CustomFormBuilder do |f| %>
-     <p class="error_message"><%= "入力値が正しくありません。" if info.errors.any? %></p>
+<div class="announce_form_wrapper">
+  <%= form_with model: [:admin, announce], local:true, builder: CustomFormBuilder do |f| %>
+     <p class="error_message"><%= "入力値が正しくありません。" if announce.errors.any? %></p>
     <%= render "radio_button", f: f %>
     <div class="field">
       <%= f.label :title %>
