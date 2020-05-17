@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_current_level
+    return unless user_signed_in?
     user_experience = current_user.user_experience
     @current_experience = user_experience.total_point
     @current_level = Level.where("threshold <= ?", @current_experience).order(threshold: :desc).limit(1).pluck(:id).first
@@ -30,6 +31,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_unchecked_announce_count
+    return unless user_signed_in?
     user_registration_date = current_user.created_at
     @unchecked_announce_count = Announcement.
       where("updated_at > ?", user_registration_date).

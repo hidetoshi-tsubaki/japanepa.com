@@ -25,4 +25,27 @@ module QuizCategoriesHelper
   def title_index?(category)
     category.present? && category.is_title?
   end
+
+  def get_learning_level(user, category)
+    if learning_level = category.learning_levels.where(user_id: user.id).first
+      learning_level.percentage
+    else
+      0
+    end
+  end
+
+  def bar_color(user, category)
+    case get_learning_level(user, category)
+    when 0..29
+      "red_bg"
+    when 30..49
+      "yellow_bg"
+    when 50..79
+      "blue_bg"
+    when 80..99
+      "green_bg"
+    when 100
+      "gold_bg"
+    end
+  end
 end

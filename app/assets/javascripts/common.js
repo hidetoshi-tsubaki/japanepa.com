@@ -15,6 +15,8 @@ $(function () {
     $('#modalArea').fadeIn();
     $('#LoginModal').removeClass('hidden');
   });
+  // アコーディオンボタンの表示切り替え
+  
   // コメント一覧の開閉
   $('.comment_btn').on('click', function () {
     $(this).parent().next().fadeToggle();
@@ -80,9 +82,10 @@ $('.tab').on('click', function(){
   $(".panel").eq(index).addClass('is-show');
 })
 // quiz-accordion
-$('.accordion p').on('click',function(){
+$('.ac_btn').on('click',function(){
   $(this).next('.accordion .ac-inner').slideToggle();
-  $('.accordion p').not($(this)).next('.accordion ac-inner').slideUp();
+  $('.ac_btn').not($(this)).next('.accordion ac-inner').slideUp();
+  $(this).children('.open_ac_btn, .close_ac_btn').toggle();
 })
 // 動的セレクト（section）
   $('#select_level').on('change', function () {

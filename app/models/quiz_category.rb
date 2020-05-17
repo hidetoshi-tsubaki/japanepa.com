@@ -1,10 +1,11 @@
 class QuizCategory < ApplicationRecord
   acts_as_list scope: :parent_id
   acts_as_nested_set
-  has_many :quizzes, foreign_key: "category_id"
+  has_many :quizzes, foreign_key: "category_id", dependent: :destroy
   has_many :categories, -> { order(position: :asc) },foreign_key: 'parent_id', class_name: 'QuizCategory'
   has_many :mistakes, foreign_key: "title_id"
-  has_one :quiz_experience, foreign_key: 'title_id'
+  has_many :learning_levels, foreign_key: "title_id", dependent: :destroy
+  has_one :quiz_experience, foreign_key: 'title_id', dependent: :destroy
   belongs_to :parent, foreign_key: "parent_id", optional: true
 
   validates :name, presence: true

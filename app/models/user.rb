@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :articles, through: :bookmarks
   has_many :mistakes
   has_many :announcement_checks, dependent: :destroy
+  has_many :learning_levels, dependent: :destroy
   has_one :user_experience, dependent: :destroy
   has_one_attached :img
   validates :name, uniqueness: { case_sensitive: false }
@@ -64,6 +65,10 @@ class User < ApplicationRecord
 
   def email_changed?
     false
+  end
+
+  def get_learning_level(category)
+    learning_levels.where(title_id: category.id).first.percentage
   end
 
   def already_joined?(community)
