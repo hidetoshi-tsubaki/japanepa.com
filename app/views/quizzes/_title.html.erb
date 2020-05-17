@@ -4,7 +4,7 @@
       <%= get_learning_level(current_user, title) %>
     </span>
 　　</div>
-  <span><%= title.name %></span>
+  <span class="title_name bold center inline"><%= title.name %></span>
   <%= link_to play_quiz_path(title), class: "edit_button inline" do %>
     <%= icon("far", "play-circle") %>Play
   <% end %>

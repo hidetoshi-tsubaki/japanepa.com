@@ -1638,7 +1638,9 @@ QUIZ CATEGORY
   position: relative;
   border-top: solid 1px #e7e7e7;
   border-bottom: solid 1px #e7e7e7;
-  text-align: right;
+  .title_name {
+    width: 50%;
+  }
   .graph {
     position: relative;
     width: 300px;
