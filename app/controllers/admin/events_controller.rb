@@ -1,4 +1,5 @@
 class Admin::EventsController < ApplicationController
+  before_action :authenticate_admin!
   before_action :from_calendar?, except: [:index, :calendar, :search]
 
   def index
