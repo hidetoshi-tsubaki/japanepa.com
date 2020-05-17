@@ -3,20 +3,22 @@ class ScoreRecordsController < ApplicationController
 
   def create
     redirect_to quizzes_path if params[:score_record][:score].empty?
-    score_record = current_user.score_records.new(save_score_record_params)
-    score_record.save! unless played_mistakes?
-    score_record = current_user.score_records.where(get_score_record_params).last(50).pluck(:score)
+    current_user.score_records.create(save_score_record_params) unless played_mistakes?
+    score_records = current_user.score_records.where(get_score_record_params).last(50).pluck(:score)
     create_mistakes_record
+    update_learning_level(score_records)
     update_experience
     get_user_level
     respond_to do |format|
       format.js {
         render json: {
-          score_record: score_record,
+          score_records: score_records,
           current_level: @current_level,
           next_level: @next_level,
           new_experience: @new_experience,
-          needed_experience: @needed_experience_to_next_level }
+          needed_experience: @needed_experience_to_next_level,
+          learning_level: @percentage
+        }
       }
     end
   end
@@ -48,7 +50,6 @@ class ScoreRecordsController < ApplicationController
     params.require(:score_record).permit(:score, :title_id)
   end
 
-  
   def get_score_record_params
     params.require(:score_record).permit(:title_id)
   end
@@ -79,9 +80,41 @@ class ScoreRecordsController < ApplicationController
   def update_experience
     category = QuizCategory.includes(:quiz_experience).find(params[:score_record][:title_id])
     quiz_experience = category.quiz_experience
-    @new_experience = params[:score_record][:score] * quiz_experience.experience
-    user_experience = UserTotalExperience.find_by(user_id: current_user.id)
-    user_experience.increment!(:total_experience, @new_experience.to_i)
+    if played_mistakes?
+      @new_experience = calculate_experience(category)
+    else
+      @new_experience = params[:score_record][:score] * quiz_experience.rate
+    end
+    user_experience = UserExperience.find_by(user_id: current_user.id)
+    user_experience.increment!(:total_point, @new_experience.to_i)
+  end
+
+  def calculate_experience(category)
+    if correct_ids = params[:score_record][:correct_ids]
+      quizzes_count = category.quizzes.length
+      correct_ids.length / quizzes_count * 100 * category.quiz_experience.rate
+    else
+      0
+    end
+  end
+
+  def calculate_learning_level(score_records)
+    if score_records.length >= 5
+      score_records[-5, 5].sum/5
+    else
+      score_records.sum/score_records.length
+    end
+  end
+
+  def update_learning_level(score_records)
+    @percentage = calculate_learning_level(score_records)
+    learning_level = LearningLevel.find_or_initialize_by(title_id: params[:score_record][:title_id], user_id: current_user.id)
+    if learning_level.new_record?
+      learning_level.percentage = @percentage
+      learning_level.save!
+    else
+      learning_level.update_attributes!(percentage: @percentage)
+    end
   end
 
   def played_mistakes?

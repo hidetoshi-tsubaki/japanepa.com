@@ -24,7 +24,7 @@ class QuizzesController < ApplicationController
   end
 
   def index
-    @levels = QuizCategory.includes(categories: :quizzes).levels
+    @levels = QuizCategory.includes(:learning_levels, [categories: :quizzes]).levels
     get_user_level
   end
 

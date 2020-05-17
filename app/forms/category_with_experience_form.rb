@@ -9,7 +9,7 @@ class CategoryWithExperienceForm
     return false if invalid?
     @category = QuizCategory.new(name: name, parent_id: parent_id)
     @category.save
-    @experience = experience
+    @experience = rate
     quiz_experience = QuizExperience.new(title_id: @category.id, rate: @experience)
     quiz_experience.save
   end

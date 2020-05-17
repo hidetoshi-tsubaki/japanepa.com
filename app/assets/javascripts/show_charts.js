@@ -74,8 +74,8 @@
       }
     });
   }
-  function showDoughnutChart(data,chartID,level){
-    var space = 100 - level;
+  function showDoughnutChart(data, chartID, learning_level){
+    var space = 100 - learning_level;
     var ctx2 = document.getElementById(chartID).getContext('2d');
     if (myChart2) {
       myChart2.destroy();
@@ -85,7 +85,7 @@
       data: {
         labels: ["",""],//データセット
         datasets: [{
-          data: [level,space],
+          data: [learning_level, space],
           backgroundColor:[
             "#02c8a7",
             "#303E58",
