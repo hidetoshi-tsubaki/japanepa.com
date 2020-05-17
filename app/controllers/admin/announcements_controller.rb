@@ -1,5 +1,6 @@
 
 class Admin::AnnouncementsController < ApplicationController
+  before_action :authenticate_admin!
 
   def index
     @q = Announcement.ransack(params[:q])
