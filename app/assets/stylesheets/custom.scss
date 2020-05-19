@@ -383,7 +383,7 @@ header > div {
   width: 40px;
 }
 .fa-user-cog {
-  font-size: 48px;
+  font-size: 26px;
   color: #767676;
 }
 #header_user_img {
@@ -560,7 +560,7 @@ button  {
   font-size: 10px;
 }
 /*---------------
-Home FOR MEMBER
+Home Common
 ---------------*/
 .upper_block, .admin_upper_block {
   height: calc( calc(100vh - 60px) * 0.6666 );
@@ -595,7 +595,6 @@ Home FOR MEMBER
 	transition: all linear 0.4s;
   z-index: -1;
 }
-
 .menu_panel:hover:after {
   height: 240%;
   opacity: 1;
@@ -676,6 +675,39 @@ Home FOR MEMBER
 }
 .event_panel:hover {
   color: #B8845D;
+}
+/*---------------
+HOME FOR ADMIN USER
+---------------*/
+.counting_chart_wrapper {
+  position: relative;
+  height: 60%;
+  width: 100%;
+  margin-bottom: 15px;
+  padding-right: 15px;
+  background: $white;
+}
+.current_count {
+  position: absolute;
+  bottom: 15%;
+  right: 2%;
+  font-size: 48px;
+  opacity: .7;
+}
+#current_users_count {
+  color: $orange;
+}
+#current_quiz_play_count {
+  color: $pink;
+}
+#current_article_views_count {
+  color: $blue;
+}
+#current_communities_count {
+  color: $yellow;
+}
+#current_talks_count {
+  color: $green;
 }
 /*---------------
 EVENT

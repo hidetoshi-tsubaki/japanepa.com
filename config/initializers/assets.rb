@@ -24,6 +24,7 @@ Rails.application.config.assets.precompile += %w( summernote-bs4.min.js )
 Rails.application.config.assets.precompile += %w( summernote.js )
 Rails.application.config.assets.precompile += %w( community.js )
 Rails.application.config.assets.precompile += %w( score_record.js )
+Rails.application.config.assets.precompile += %w( counting_chart.js )
 
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
