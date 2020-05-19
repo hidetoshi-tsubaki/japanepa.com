@@ -2,9 +2,8 @@ $(function () {
   function showCountingChart(data, chartID, max_count, color) {
     // 最新の数値を表示
     var last_data = data[data.length-1];
-    var show_last_data_target = ".last_" + chartID + "_count"
+    var show_last_data_target = "#current_" + chartID + "_count"
     $(show_last_data_target).text(last_data);
-    // chartに表示する空のラベルを生成
     var scoreLabels = Array(data.length);
     scoreLabels.fill("");
     var labelArray = scoreLabels;
@@ -13,7 +12,6 @@ $(function () {
     if (myChart) {
       myChart.destroy();
     }
-
     var myChart = new Chart(ctx, {
       data: {
         labels: labelArray,

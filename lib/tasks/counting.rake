@@ -16,15 +16,19 @@ namespace :counting do
       communities: community_count,
       talks: talk_count
     )
+    time = Time.now
     if counting.save
-      number = Counting.count
-      p "it was successed to Batch prosessing(batch No.#{number})"
+      p "successed to Batch prosessing(#{time})"
     else
-      number = Countig.count
-      p "failed Batch prosessing failed（batch No.#{number+1}"
+      p "***********************************************************"
+      p "  failed Batch prosessing failed（#{time}) "
+      p "***********************************************************"
+      p ""
+      p "----------error messages------------"
       counting.errors.full_messages.each_with_index do |message, index|
         p "#{index}: #{message}"
       end
+      p "------------------------------------"
     end
   end
 end

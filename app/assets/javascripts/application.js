@@ -30,6 +30,7 @@
 //= require jquery.jscroll.min
 //= require infinite_scroll
 //= require Sortable.min
+//= require counting_chart
 
 //= require tempusdominus-bootstrap-4.js
 // require_tree .
