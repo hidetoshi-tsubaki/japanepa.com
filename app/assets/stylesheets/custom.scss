@@ -44,6 +44,9 @@ $bronze: -webkit-gradient(linear, left top, right bottom, from(#97461a), color-s
 .green_bg {
   background: $green;
 }
+.orange_bg {
+  background: $orange;
+}
 @mixin shadow {
   box-shadow: 0 10px 20px -5px rgba(0,0,0,.2);
   -moz-transform: translateY(-2px);
@@ -265,7 +268,6 @@ body {
 }
 .bookmark_btn {
   color: $yellow;
-  font-size: 20px;
 }
 .bookmark_btn:hover {
   color: $yellow;
@@ -1864,56 +1866,58 @@ communityページ
   background-color:  $deep_blue;
 }
 /*-----------
-article
+ARTICLE
 ------------*/
 .main {
   margin-right: 320px;
 }
 .article {
-  color: gray;
-}
-.article {
   margin-bottom:30px;
   background-color:$white;
   padding: 10px;
-
+  color: gray;
   h4 {
     padding: 0 0 3px 5px;
     border-bottom: solid 2px gray;
   }
-
-  img {
+  .thumbnail_img {
     height: 200px;
     width: 200px;
   }
+  .thumbnail_panel {
+    position: relative;
+    width: 200px;
+    padding-top: 200px;
+    color: $white;
+    p {
+      @include center;
+      font-size: 34px;
+    }
+  }
 }
 .article:hover {
-  box-shadow: 0 10px 20px -5px rgba(0,0,0,.2);
-  -moz-transform: translateY(-2px);
-  -webkit-transform: translateY(-2px);
-  transform: translateY(-2px);
-  transition: 0.2s linear;
+  @include shadow;
 }
 .article_headline_wrapper {
   position: relative;
   height: 200px;
   width: 414px;
   vertical-align: top;
-  padding: 20px 5px 5px 25px;
+  padding: 5px 5px 25px;
 
   .article_data {
     position: absolute;
     right: 0;
     bottom: 0;
   }
-}
-.article_headline_wrapper .title {
-  padding-bottom: 5px;
-  border-bottom: 1px solid black;
-}
-.article_headline_wrapper .lead {
-  font-size: 16px;
-  margin-top: 10px;
+  .title {
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+  }
+  .lead {
+    font-size: 16px;
+    margin-top: 10px;
+  }
 }
 .article_contents {
   background-color: $white;
@@ -1933,10 +1937,19 @@ article
 }
 .inner_article {
   padding: 5px;
-
-  img {
+  .thumbnail_img {
     width: 100px;
     height: 100px;
+  }
+  .thumbnail_panel {
+    position: relative;
+    width: 100px;
+    padding-top: 100px;
+    color: $white;
+    font-size: 20px;
+    p {
+      @include center;
+    }
   }
 }
 .inner_article:hover {
