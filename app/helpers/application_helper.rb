@@ -47,4 +47,18 @@ module ApplicationHelper
   def own_post?(post)
     current_user.id == post.user_id
   end
+
+  def thumbnails_color(article)
+    if article.id % 5 == 0
+      "yellow_bg"
+    elsif article.id % 4 == 0
+      "green_bg"
+    elsif article.id % 3 == 0
+      "orange_bg"
+    elsif article.id % 2 == 0
+      "red_bg"
+    else
+      "blue_bg"
+    end
+  end
 end
