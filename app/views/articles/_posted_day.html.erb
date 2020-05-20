@@ -1,5 +1,7 @@
-<% if updated?(article) %>
-  <%= icon("fas", "sync-alt") %> <%= article.updated_at.strftime('%Y/%m/%d') %>
-<% else %>
-  <%= icon("fas", "clock") %> <%= article.created_at.strftime('%Y/%m/%d') %>
-<% end %>
+<span class="posted_day">
+  <% if updated?(article) %>
+    <%= icon("fas", "sync-alt") %> <%= article.updated_at.strftime('%Y/%m/%d') %>
+  <% else %>
+    <%= icon("fas", "clock") %> <%= article.created_at.strftime('%Y/%m/%d') %>
+  <% end %>
+</span>
