@@ -1,5 +1,8 @@
 <%= link_to article_path(article) do %>
   <div class="inner_article">
+    <p class="rank_number center bold <%= top_3(article_counter) %>">
+      <span><%= article_counter + 1 %></span>
+    </p>
     <%= render "article_img", article: article %>
     <p class="inner_article_title inline"><%= article.title %></p>
   </div>
