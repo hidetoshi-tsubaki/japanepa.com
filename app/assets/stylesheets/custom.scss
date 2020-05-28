@@ -13,6 +13,7 @@ QUEZ CATEGORY
 color
 ------------------------------ */
 $red: #F29073;
+$alert_red: #F53240;
 $pink: #F2928D;
 $blue: #75C2F8;
 $deep_blue: #0089e0;
@@ -35,6 +36,9 @@ $bronze: -webkit-gradient(linear, left top, right bottom, from(#97461a), color-s
 .red_bg {
   background: $red;
 }
+.alert_red_bg{
+  background: $alert_red;
+}
 .yellow_bg {
   background: $yellow;
 }
@@ -54,7 +58,6 @@ $bronze: -webkit-gradient(linear, left top, right bottom, from(#97461a), color-s
   transform: translateY(-2px);
   transition: 0.2s linear;
 }
-
 @mixin center {
   position: absolute;
   top: 50%;
@@ -64,7 +67,7 @@ $bronze: -webkit-gradient(linear, left top, right bottom, from(#97461a), color-s
 /* ------------------------------
 1. COMMON
 ------------------------------ */
-*  {
+* {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-o-box-sizing: border-box;
@@ -97,7 +100,7 @@ img {
 input, button, select, textarea {
 	-webkit-appearance: none;
 }
-p, h1, h2, h3,h4, ul, li {
+p, h1, h2, h3, h4, ul, li {
 	list-style: none;
 	margin: 0;
   padding: 0;
@@ -201,7 +204,7 @@ body {
 .side_content .tags {
   padding: 5px;
 }
-.side_content a {
+.side_content .top_3_content a {
   color: gray;
 }
 .search_form {
@@ -242,21 +245,28 @@ body {
     border-bottom: solid 1px gray;
   }
 }
-#to_top_btn_wrapper {
-  margin-bottom: 30px;
-  font-size: 60px;
+#back_to_top_btn_wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  height: 85px;
+  width: 85px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $white;
+  #back_to_top_btn {
+    font-size: 90px;
+    color: $red;
+  }
 }
-.talk_top_btn {
-  color: $green;
-}
-.article_rr_top_btn {
-  color: $blue;
-}
-.create_btn, .join_btn {
+.create_talk_btn, .create_community_btn, .join_btn {
   margin: 10px 50px;
   border: 3px solid gray;
+  color: gray;
 }
-.create_btn:hover, .join_btn:hover {
+.create_talk_btn:hover, .create_community_btn:hover, .join_btn:hover {
   background: gray;
   color: $white;
 }
@@ -301,6 +311,18 @@ body {
 }
 .panel.is-show {
   display: block;
+}
+.rank_number {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  height: 30px;
+  width: 30px;
+  color: $white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /*-------------
 PAGINATION
@@ -458,7 +480,7 @@ footer p {
 /*---------------
 2.3 MODAL
 ----------------*/ 
-.modalArea {
+.modalArea, #score_modal_area {
   display: none;
   position: fixed;
   z-index: 10;
@@ -467,24 +489,21 @@ footer p {
   width: 100%;
   height: 100%;
 }
-.modalBg {
+.modalBg, #score_bg {
   width: 100%;
   height: 100%;
   background-color: rgba(30,30,30,0.3);
 }
-.modalWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-  width: 85%;
-  padding: 60px 30px;
+.modalWrapper{
+  @include center;
+  width: 95%;
+  padding: 60px 30px 30px;
   background-color: $white;
 }
 #modal {
   color: gray;
 }
-.closeModal  {
+.closeModal {
   position: absolute;
   z-index: 3;
   top: 0;
@@ -504,28 +523,25 @@ footer p {
   height:400px;
   width:400px;
 }
-button  {
-  display:fix;
+button {
+  display: fix;
   padding: 10px;
   background-color: $white;
   border: 1px solid #282828;
   border-radius: 2px;
   cursor: pointer;
 }
-#openModal  {
+#openModal {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform:translate(-50%,-50%);
+  transform: translate(-50%,-50%);
 }
 .modalWrapper {
   overflow:scroll;
 }
 .flex {
   display:flex;
-}
-.score_modal {
-  position: relative;
 }
 /*---------------
 2.4 FLASH
@@ -1086,7 +1102,7 @@ label input {
   div:hover {
     cursor: pointer;
   }
-  input  {
+  input {
     width: 100%;
     height: 100%;
     opacity: 0;
@@ -1239,13 +1255,16 @@ TALKS
 }
 .talk_content_wrapper {
   margin: 10px 0;
-  color: rgb(95, 95, 95);
+  color: #5f5f5f;
+  img {
+    width: 50%;
+  }
 }
 .talk_content {
   font-size: 18px;
-}
-.talk_content a:hover {
-  text-decoration: underline;
+  a:hover {
+    text-decoration: underline;
+  }
 }
 .talk_btns li, .talk_head li {
   display: inline-block;
@@ -1267,13 +1286,32 @@ TALKS
   border-radius: 5px;
   padding: 3px;
 }
-.community_btn {
-  margin: 10px 50px;
-  border: 3px solid $yellow;
-}
-.community_btn:hover {
-  background: $yellow;
-  color: $white;
+#check_community_bg {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30,30,30,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  #check_community_wrapper {
+    width: 70%;
+    padding: 40px 0;
+    background: $white;
+  }
+  .check_communities_btn {
+    width: 215px;
+    margin: 30px auto 0;
+    border: 3px solid gray;
+    color: gray;
+  }
+  .check_communities_btn:hover {
+    background: gray;
+    color: $white;
+  }
 }
 /*---------------
 ADMIN talk
@@ -1320,15 +1358,15 @@ talk comment
 /*-----------
 TAG
 ------------*/
-.tags li  {
+.tags li {
   display: inline-block;
 }
-.tags a  {
+.tags a {
 	line-height: 26px;
 	position: relative;
 	display: inline-block;
 	height: 26px;
-	margin: 0 0px 10px 10px;
+	margin-left: 10px;
 	padding: 0 20px 0 20px;
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
@@ -1404,7 +1442,7 @@ announcement
   background-color: rgba(242, 145, 115, 0.459);
 }
 .label_new {
-  color: #F53240;
+  color: $alert_red;
 }
 .see_more {
   color: $red;
@@ -1427,7 +1465,6 @@ QUIZ INDEX
   .tab_wrapper .is-active {
     background: $pink;
   }
-
 }
 .narrow_down, .quizzes_list {
   background-color: $white;
@@ -1527,93 +1564,117 @@ QUIZ PLAY
   background-color: $white;
 }
 #quiz_btn {
-  cursor: pointer;
-  background: #f9be02;
-  margin:50px 20% 0px;
+  background: $yellow;
+  width: 30%;
+  margin: 50px auto 0px;
   padding: 8px;
   border-radius: 12px;
   text-align: center;
   color: $white;
-  box-shadow: 0 9px 0 #d39803ab;
+  cursor: pointer;
 }
-#quiz_btn.disabled  {
+#quiz_btn.disabled {
   background: #ccc;
-  box-shadow: 0 9px 0 #bbb;
   opacity: 0.7;
 }
-#score_modal  {
-  margin: 0 auto;
-  transition:0.4s ease-out;
-}
-#score_modal.show {
-  top:100px;
-}
-#score_modal > a  {
-  display: block;
-  text-decoration: none;
-}
-.quiz_title {
-  font-size: 35px;
-}
-.chart_wrapper1 {
-  width: 68%;
-  height: 300px;
-}
-.chart_wrapper2 {
-  width: 30%;
-  height: 300px;
-}
-.chart {
-  background-color: #303E58;
-}
-#scoreLabel {
-  font-size: 20px;
-}
-.chart_wrapper2 {
-  position: relative;
-}
-#learning_level_box {
-  position: absolute;
-  top: 40%;
-  left: 0;
-  right: 0;
-  margin: auto;
-  text-align: center;
-  font-size: 5rem;
-  color: $white;
-  #learning_level {
-    font-size: 60px;
+#score_modal_wrapper {
+  @include center;
+  width: 95%;
+  #score_modal {
+    padding-bottom: 15px;
+    background: #FEF5E1;
+    .score_result_info {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 10px;
+      background: gray;
+      color: $white;
+      li {
+        position: relative;
+        display: inline-block;
+        width: 24%;
+        padding: 20px 10px 10px;
+        border: 2px solid $white;
+        span:first-child {
+          position: absolute;
+          top: -8px;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 0 5px;
+          background: gray;
+        }
+        span:last-child {
+          font-weight: bold;
+        }
+      }
+    }
   }
-  #percentage {
-    font-size: 24px;
+  #score_modal > a {
+    display: block;
+    text-decoration: none;
   }
-}
-#coution, .coution {
-  width:80%;
-  margin:0 auto;
-  text-align: center;
-  color:$white;
-  font-size:16px;
-}
-.replay {
-  margin-top: 15px;
-}
-#replay_btn {
-  margin-right: 15px;
-  padding: 3px 5px;
-  color: $white;
-  background-color: #F39C3F;
-}
-#replay_btn:hover {
-  cursor: pointer;
-  opacity: .7;
-  transition: all linear 0.2s;
+  .quiz_title {
+    margin-bottom: 10px;
+    font-size: 35px;
+    color: $white;
+    background: gray;
+  }
+  .chart_wrapper1 {
+    width: 68%;
+    height: 300px;
+  }
+  .chart_wrapper2 {
+    position: relative;
+    width: 30%;
+    height: 300px;
+  }
+  #learning_level_box {
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    font-size: 5rem;
+    color: $red;
+    #learning_level {
+      font-size: 70px;
+    }
+    #percentage {
+      font-size: 24px;
+    }
+  }
+  #quiz_action_btns {
+    display: flex;
+    justify-content: center;
+    padding: 0 15%;
+    li {
+      width: 25%;
+      padding: 10px;
+      color: $white;
+      text-align: center;
+    }
+    #replay_btn {
+      background-color: $yellow;
+    }
+    #replay_btn:hover {
+      cursor: pointer;
+      opacity: .7;
+      transition: all linear 0.2s;
+    }
+    #to_quiz_index a{
+      color: $blue;
+    }
+    #to_mistakes_index a{
+      color: $alert_red;
+    }
+  }
 }
 /*---------------
 MISTAKE INDEX
 ----------------*/
 .mistakes_wrapper {
-  width: 75%;
+  width: 95%;
   margin: auto;
 }
 /*---------------
@@ -1673,7 +1734,7 @@ QUIZ CATEGORY
   border-top: solid 1px #e7e7e7;
   border-bottom: solid 1px #e7e7e7;
   .title_name {
-    width: 50%;
+    width: 45%;
   }
   .graph {
     position: relative;
@@ -1722,11 +1783,11 @@ QUIZ CATEGORY
   }
   .delete_button {
     font-size: 20px;
-    color: #F53240;
+    color: $alert_red;
   }
   .delete_button:hover {
     color: $white;
-    background-color: #F53240;
+    background-color: $alert_red;
   }
 }
 .quiz_category:nth-child(odd), .quiz:nth-child(odd) {
@@ -1796,70 +1857,120 @@ login
 communityページ
 ---------------------*/
 .community {
-  border:1px solid #555;
-  border-radius:5px;
-  padding:20px;
-}
-.community_wrapper {
   position: relative;
-  background-color: $white;
   margin-bottom: 15px;
   padding: 10px;
+  background-color: $white;
   color: gray;
-  
-  img, .community_initial {
-    height: 300px;
-    width: 300px;
+  .thumbnail_img, .community_initial {
+    height: 200px;
+    width: 200px;
   }
   .community_initial {
     position: relative;
     vertical-align: top;
-
     p {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -webkit-transform : translate(-50%,-50%);
-      transform : translate(-50%,-50%);
+      @include center;
       font-size: 160px;
       color: $white;
     }
   }
-  .initial-red {
-    background-color: $red;
-  }
-  .initial_blue {
-    background-color: $blue;
-  }
-  .initial_green {
-    background-color: $green;
-  }
-  .initial_orange {
-    background-color: $orange;
-  }
-  .community_detail {
+  .community_detail_wrapper {
+    position: relative;
     vertical-align: top;
-    width: 50%;
+    height: 200px;
+    width: 414px;
     padding-left: 10px;
-
     .community_name {
       font-size:24px;
       font-weight:bold;
     }
   }
 }
-.counts_status {
+.ranked_community {
+  position: relative;
+  .thumbnail_img {
+    width: 100px;
+    height: 100px;
+  }
+  .community_initial {
+    position: relative;
+    width: 100px;
+    padding-top: 100px;
+    color: $white;
+    font-size: 20px;
+    p {
+      @include center;
+    }
+  }
+  .ranked_community_detail {
+    position: relative;
+    vertical-align: top;
+    height: 100px;
+    width: 185px;
+    padding-bottom:10px;
+  }
+}
+.inner_community_content a:not(:last-child) .ranked_community {
+  margin-bottom: 15px;
+}
+.community_wrapper:hover, .ranked_community:hover {
+  @include shadow;
+}
+.status_counts {
   color: $yellow;
 }
+.community_wrapper, .ranked_community {
+  .status_counts {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+}
+.inner_community_content {
+  padding: 10px;
+}
 .community_data {
+  position: relative;
   padding: 15px 10px 5px;
-
   img {
-    height: 250px;
-    width: 250px;
+    height: 292px;
+    width: 292px;
+    margin-bottom: 10px;
+  }
+  .community_initial {
+    position: relative;
+    width: 292px;
+    padding-top: 292px;
+    color: $white;
+    font-size: 150px;
+    p {
+      @include center;
+    }
+  }
+  .founder_name, .community_introduction {
+    position: relative;
+    padding: 15px;
+    margin-top: 20px;
+    border: 2px solid gray;
+    span {
+      position: absolute;
+      top: 0;
+      left: 10px;
+      transform: translateY(-50%);
+      padding: 0 5px;
+      background: $white;
+      font-weight: bold;
+    }
+  }
+  .status_counts {
+    font-size: 26px;
   }
 }
 #edit_community_btn {
+  position: absolute;
+  top: 0;
+  right: 0;
   margin: 3px;
   padding: 5px 10px;
   color: $white;
@@ -1880,48 +1991,46 @@ ARTICLE
     padding: 0 0 3px 5px;
     border-bottom: solid 2px gray;
   }
-  .thumbnail_img {
-    height: 200px;
-    width: 200px;
+  .article_img_wrapper {
+    display: inline-block;
+    .thumbnail_img {
+      height: 200px;
+      width: 200px;
+    }
+    .thumbnail_panel {
+      position: relative;
+      width: 200px;
+      padding-top: 200px;
+      color: $white;
+      p {
+        @include center;
+        font-size: 34px;
+      }
+    }
   }
-  .thumbnail_panel {
+  .article_headline_wrapper {
     position: relative;
-    width: 200px;
-    padding-top: 200px;
-    color: $white;
-    p {
-      @include center;
-      font-size: 34px;
+    height: 200px;
+    width: 414px;
+    vertical-align: top;
+    padding: 5px 5px 25px;
+    .article_data {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+    .title {
+      padding-bottom: 5px;
+      border-bottom: 1px solid black;
+    }
+    .lead {
+      font-size: 16px;
+      margin-top: 10px;
     }
   }
 }
 .article:hover {
   @include shadow;
-}
-.article_headline_wrapper {
-  position: relative;
-  height: 200px;
-  width: 414px;
-  vertical-align: top;
-  padding: 5px 5px 25px;
-
-  .article_data {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-  }
-  .title {
-    padding-bottom: 5px;
-    border-bottom: 1px solid black;
-  }
-  .lead {
-    font-size: 16px;
-    margin-top: 10px;
-  }
-}
-.article_contents {
-  background-color: $white;
-  padding: 20px;
 }
 .top_img {
   height: 300px;
@@ -1929,27 +2038,36 @@ ARTICLE
   margin: auto;
   object-fit: cover;
 }
-.inner_ranked_article {
-  vertical-align: top;
-}
 .inner_article_content {
   padding: 10px;
-}
-.inner_article {
-  padding: 5px;
-  .thumbnail_img {
-    width: 100px;
-    height: 100px;
-  }
-  .thumbnail_panel {
+  .inner_article {
     position: relative;
-    width: 100px;
-    padding-top: 100px;
-    color: $white;
-    font-size: 20px;
-    p {
-      @include center;
+    .article_img_wrapper {
+      display: inline-block;
+      .thumbnail_img {
+        width: 100px;
+        height: 100px;
+      }
+      .thumbnail_panel {
+        position: relative;
+        width: 100px;
+        padding-top: 100px;
+        color: $white;
+        font-size: 20px;
+        p {
+          @include center;
+        }
+      }
     }
+    .inner_article_title {
+      vertical-align: top;
+      height: 100px;
+      width: 175px;
+      padding: 5px 5px 5px 10px;
+    }
+  }
+  a:not(:last-child) .inner_article {
+    margin-bottom: 10px;
   }
 }
 .inner_article:hover {
@@ -1959,14 +2077,29 @@ ARTICLE
   transform: translateY(-2px);
   transition: 0.2s linear;
 }
-.inner_article_title {
-  vertical-align: top;
-  height: 100px;
-  width: 175px;
-  padding: 5px 5px 5px 10px;
-}
 .fa-sync-alt {
   color: $blue;
+}
+.article_contents {
+  background-color: $white;
+  padding: 20px;
+  .article_img_wrapper {
+    text-align: center;
+    .thumbnail_img {
+      width: 300px;
+      height: 300px;
+    }
+    .thumbnail_panel {
+      position: relative;
+      width: 300px;
+      padding-top: 300px;
+      color: $white;
+      font-size: 54px;
+      p {
+        @include center;
+      }
+    }
+  }
 }
 /*-------------------
 talkページ
@@ -1974,7 +2107,7 @@ talkページ
 #form_talk {
   background-color:$white;
 }
-form_talk li {
+.form_talk li {
   display:inline-block;
 }
 
@@ -2139,11 +2272,11 @@ table tr {
   background-color: #388abd;
 }
 .delete_btn {
-  color: #F53240;
+  color: $alert_red;
 }
 .delete_btn:hover {
   color: $white;
-  background-color: #F53240;
+  background-color: $alert_red;
 }
 .tags_section {
   height: 280px;
@@ -2153,5 +2286,5 @@ table tr {
   color: #388abd;
 }
 .fa-eye-slash {
-  color: #F53240;
+  color: $alert_red;
 }

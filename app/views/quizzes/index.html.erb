@@ -8,5 +8,6 @@
     <%= render partial: 'panel', collection: @levels, as: :level %>
   </div>
 </div>
+<%= render "score_modal" %>
 <%= javascript_include_tag 'score_record.js' %>
 <%= javascript_include_tag 'show_charts.js' %>
