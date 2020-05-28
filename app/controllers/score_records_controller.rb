@@ -14,8 +14,7 @@ class ScoreRecordsController < ApplicationController
         render json: {
           score_records: score_records,
           current_level: @current_level,
-          next_level: @next_level,
-          new_experience: @new_experience,
+          new_experience: @new_experience.floor,
           needed_experience: @needed_experience_to_next_level,
           learning_level: @percentage
         }
@@ -29,16 +28,16 @@ class ScoreRecordsController < ApplicationController
 
   def show
     @quiz_category = QuizCategory.find(params[:id])
-    @score_record = current_user.score_records.where(title_id: params[:id]).last(50).pluck(:score)
+    @score_records = current_user.score_records.where(title_id: params[:id]).last(50).pluck(:score)
+    @percentage = calculate_learning_level(@score_records)
     get_user_level
     respond_to do |format|
       format.js {
           render json: {
-          score_record: @score_record,
-          quiz_category: @quiz_category,
-          current_level: @current_level,
-          next_level: @next_level,
-          needed_experience: @needed_experience_to_next_level
+          score_records: @score_records,
+          quiz_category: @quiz_category.name,
+          needed_experience: @needed_experience_to_next_level,
+          learning_level: @percentage
         }
       }
     end
@@ -79,11 +78,11 @@ class ScoreRecordsController < ApplicationController
 
   def update_experience
     category = QuizCategory.includes(:quiz_experience).find(params[:score_record][:title_id])
-    quiz_experience = category.quiz_experience
+    experience_rate = category.quiz_experience.rate
     if played_mistakes?
       @new_experience = calculate_experience(category)
     else
-      @new_experience = params[:score_record][:score] * quiz_experience.rate
+      @new_experience = BigDecimal(params[:score_record][:score]) * experience_rate
     end
     user_experience = UserExperience.find_by(user_id: current_user.id)
     user_experience.increment!(:total_point, @new_experience.to_i)
@@ -92,7 +91,7 @@ class ScoreRecordsController < ApplicationController
   def calculate_experience(category)
     if correct_ids = params[:score_record][:correct_ids]
       quizzes_count = category.quizzes.length
-      correct_ids.length / quizzes_count * 100 * category.quiz_experience.rate
+      (correct_ids.length / quizzes_count.to_f * 100 * category.quiz_experience.rate).floor
     else
       0
     end
@@ -101,6 +100,8 @@ class ScoreRecordsController < ApplicationController
   def calculate_learning_level(score_records)
     if score_records.length >= 5
       score_records[-5, 5].sum/5
+    elsif score_records.length == 0
+      0
     else
       score_records.sum/score_records.length
     end

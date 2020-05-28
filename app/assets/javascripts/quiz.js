@@ -58,7 +58,7 @@
   }
 
   $('#replay_btn').on('click', function () {
-    $('#modalArea').fadeOut();
+    $('#score_modal_area').fadeOut();
     $('#linearChart, #doughnutsChart, #learningLevel').empty();
     currentNum = 0;
     score = 0;
@@ -101,11 +101,9 @@
       }).fail(function(){
         alert('score was not saved ......');
       })
-      $('#scoreLabel').text(`Score:  ${score} `);
-      $('#modalArea').fadeIn('show');
+      $('#score_label').text(`${score}`);
+      $('#score_modal_area').fadeIn('show');
       $('#score_modal').addClass('show');
-      $('#replay_btn').on('click', function () {
-      })
     } else {
       currentNum++;
       setQuiz();

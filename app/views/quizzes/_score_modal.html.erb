@@ -1,24 +1,33 @@
-<p id="scoreLabel"></p>
-<p class="bold">Lv.<span id="current_level"></span></p>
-<% unless current_page?(quizzes_path) %>
-  <p>you got <span id="got_experience" class="bold"></span> pt</p>
-<% end %>
-<p>you need <span id="needed_experience"class="bold"></span> pt to next level</p>
-<p class="quiz_title center bold"></p>
-<div class="chart">
-  <div class="chart_wrapper1 inline">
-    <canvas id="linearChart"></canvas>
-  </div>
-  <div class="chart_wrapper2 inline">
-    <p id="coution"></p>
-    <canvas id="doughnutsChart"></canvas>
-    <p id="learning_level_box"><span id="learning_level"></span><span id="percentage">%</span></p>
+
+<div id="score_modal_area">
+  <div id="score_bg"></div>
+  <div id="score_modal_wrapper">
+    <div class="hidden" id="score_modal">
+      <p class="quiz_title center bold"></p>
+      <% unless current_page?(quizzes_path) %>
+        <ul class="center score_result_info">
+          <li><span>Score</span><span id="score_label"></span></li>
+          <li><span>Experience</span><span id="got_experience"></span> pt</li>
+          <li><span>Your Level</span><span id="current_level"></span></li>
+          <li><span>Next level</span><span id="needed_experience"></span> pt</li>
+        </ul>
+      <% end %>
+      <div class="chart">
+        <div class="chart_wrapper1 inline">
+          <canvas id="linearChart"></canvas>
+        </div>
+        <div class="chart_wrapper2 inline">
+          <canvas id="doughnutsChart"></canvas>
+          <p id="learning_level_box"><span id="learning_level"></span><span id="percentage">%</span></p>
+        </div>
+      </div>
+      <% unless current_page?(quizzes_path) %>
+        <ul id="quiz_action_btns">
+          <li id="to_quiz_index"><%= link_to 'Back to Quiz index', quizzes_path %></li>
+          <li id="replay_btn" class="inline"><%= icon("fas","redo-alt") %> Replay</li>
+          <li id="to_mistakes_index"><%= link_to 'Check Mistakes', mistakes_path(id: @category.id) if defined?(@category) %></li>
+        </ul>
+      <% end %>
+    </div> 
   </div>
 </div>
-<% unless current_page?(quizzes_path) %>
-  <p class="center replay">
-    <span id="replay_btn" class="inline">Play Again</span>
-    <span><%= link_to 'Quiz Index Page', quizzes_path %></span>
-    <span><%= link_to 'show Mistakes', mistakes_path(id: @category.id) if defined?(@category) %></span>
-  </p>
-<% end %>

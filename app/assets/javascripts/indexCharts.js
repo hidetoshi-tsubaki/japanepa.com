@@ -61,15 +61,12 @@
         var idCoution = quizTitle +"coution";
         learningLevel = document.getElementById(idLearningLevel)
         coution = document.getElementById(idCoution);
-
         console.log(chart1);
         console.log(scoreArr);
         console.log(quizTitle);
         setChart(scoreArr);
-
       }
     }
   }
   showChart(scoreRecords);
-    
 }

@@ -1,65 +1,63 @@
-{
-  function showLinearChart(data,chartID){
-    // chartに表示するからのラベルを生成
-    var scoreLabels = Array(data.length);
-    scoreLabels.fill("");
-    var labelArray = scoreLabels;
-    var dataArray = data;
-    var ctx = document.getElementById(chartID).getContext('2d');
-    if (myChart) {
-      myChart.destroy();
-    }
+function showLinearChart(data, chartID){
+  var scoreLabels = Array(data.length);
+  scoreLabels.fill("");
+  var labelArray = scoreLabels;
+  var dataArray = data;
+  var ctx = document.getElementById(chartID).getContext('2d');
+  if (myChart) {
+    myChart.destroy();
+  }
 
-    var myChart = new Chart(ctx, {
-      data: {
-        labels: labelArray,
-      datasets: [{
-        data: dataArray,
-        type: 'line',
-        fill:false,
-        lineTension: 0,// 点の設定
-        pointBackgroundColor: '#59D3EB',
-        pointBorderColor: '#59D3EB', //点の周りの色
-        pointBorderWidth: 0,//点の周りの線の大きさ
-        pointRadius: 3, //点の大きさ
-        borderColor: '#59D3EB',
-        borderWidth: 3,
-      }]
+  var myChart = new Chart(ctx, {
+    data: {
+      labels: labelArray,
+    datasets: [{
+      data: dataArray,
+      type: 'line',
+      fill: false,
+      lineTension: 0,// 点の設定
+      pointBackgroundColor: '#F29073',
+      pointBorderColor: '#F29073', //点の周りの色
+      pointBorderWidth: 0,//点の周りの線の大きさ
+      pointRadius: 2, //点の大きさ
+      borderColor: '#F29073',
+      borderWidth: 3,
+    }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      title:{
+        display: true,
+        text: "Score Board",
+        fontColor: "#808080",
+        fontSize: 30
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        title:{
-          display:true,
-          text:"Score Board",
-          fontColor:"#fff",
-          fontSize:30
-        },
-        legend: {
-        display: false
-        },
-        animation: {
-          easing: 'linear'
-        },
-        scales: {
-          yAxes: [{
+      legend: {
+      display: false
+      },
+      animation: {
+        easing: 'linear'
+      },
+      scales: {
+        yAxes: [{
           ticks: {
-            fontColor: '#fff',
-            beginAtZero:true,
+            fontColor: '#808080',
+            beginAtZero: true,
             fontSize: 18,
             fontWeight: 'bold',
             max: 100
           },
           gridLines: {
-            color:'rgb(255,255,255,0.5)',
+            color: '#808080',
             borderDash: [5,5], //線の長さ、間隔
             lineWidth: 1,
             zeroLineWidth: 1,
-            zeroLineColor: 'rgb(255,255,255,0.5)', //x軸の最初の線
+            zeroLineColor: '#808080', //x軸の最初の線
             drawTicks: false
           }
-          }],
-          xAxes: [{
+        }],
+        xAxes: [{
           ticks: {
             fontColor: '#fff',
             fontSize: 18,
@@ -69,47 +67,46 @@
           gridLines: {
             display: false,
           }
-          }],
-        }
+        }],
       }
-    });
-  }
-  function showDoughnutChart(data, chartID, learning_level){
-    var space = 100 - learning_level;
-    var ctx2 = document.getElementById(chartID).getContext('2d');
-    if (myChart2) {
-      myChart2.destroy();
     }
-    var myChart2 = new Chart(ctx2,{
-      type: 'doughnut',//データの設定
-      data: {
-        labels: ["",""],//データセット
-        datasets: [{
-          data: [learning_level, space],
-          backgroundColor:[
-            "#02c8a7",
-            "#303E58",
-          ],
-          borderColor:"#303E58"
-        }]
+  });
+}
+function showDoughnutChart(data, chartID, learning_level){
+  var space = 100 - learning_level;
+  var ctx2 = document.getElementById(chartID).getContext('2d');
+  if (myChart2) {
+    myChart2.destroy();
+  }
+  var myChart2 = new Chart(ctx2,{
+    type: 'doughnut',//データの設定
+    data: {
+      labels: ["",""],//データセット
+      datasets: [{
+        data: [learning_level, space],
+        backgroundColor:[
+          "#F29073",
+          "#FEF5E1",
+        ],
+        borderColor: "#F29073"
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: false
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        title:{
+      title:{
         display:true,
         text: 'Learing Level',
-        fontColor: "#fff",
+        fontColor: "#808080",
         fontSize: 30
-        },
-        animation: {
-          easing: 'easeOutBounce'
-        },
-        cutoutPercentage:75,
-      }
-    });
-  }
+      },
+      animation: {
+        easing: 'easeOutBounce'
+      },
+      cutoutPercentage:75,
+    }
+  });
 }

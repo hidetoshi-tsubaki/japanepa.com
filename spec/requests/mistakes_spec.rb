@@ -19,7 +19,7 @@ RSpec.describe "Mistakes", type: :request do
       expect(response).to have_http_status 200
     end
 
-    it "display mistaked question" do
+    it "display mistook question" do
       get mistakes_url(id: category_grandchild)
       expect(response.body).to include "question_2"
     end
