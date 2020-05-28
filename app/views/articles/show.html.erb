@@ -8,7 +8,7 @@
         <%= render partial: 'posted_day', locals: { article: @article } %>
         <%= render partial: "action_btns", locals: { article: @article } %>
       </p>
-      <p class="center"><%= image_tag @article.img %></p>
+      <%= render "article_img", article: @article %>
       <hr>
       <div class="artcile_contents">
         <%= raw(@article.contents) %>
@@ -19,3 +19,4 @@
     <%= render 'side_section' %>
   </div>
 </div>
+<%= render "back_to_top_btn" %>
