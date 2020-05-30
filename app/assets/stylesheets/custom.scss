@@ -265,7 +265,6 @@ body {
   margin: 10px 50px;
   border: 3px solid gray;
   color: gray;
-  z-index: 10;
 }
 .create_talk_btn:hover, .create_community_btn:hover, .join_btn:hover {
   background: gray;
@@ -1974,6 +1973,7 @@ communityページ
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 10;
   margin: 3px;
   padding: 5px 10px;
   color: $white;

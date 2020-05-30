@@ -15,26 +15,23 @@ $(function () {
     $('#modalArea').fadeIn();
     $('#LoginModal').removeClass('hidden');
   });
-  // アコーディオンボタンの表示切り替え
-  
   // コメント一覧の開閉
   $('.comment_btn').on('click', function () {
     $(this).parent().next().fadeToggle();
   })
   // トップへ戻る
-  $(function () {
-    var pageTop1 = $("#to_top_btn");
-    pageTop1.click(function () {
-      $('body, html').animate({ scrollTop: 0 }, 500);
-      return false;
-    });
-    $(window).scroll(function () {
-      if ($(this).scrollTop() >= 200) {
-        pageTop1.css("bottom", "30px");
-      } else {
-        pageTop1.css("bottom", "-85px");
-      }
-    });
+  var back_to_top_btn = $('#back_to_top_btn_wrapper');
+  back_to_top_btn.hide();
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 100) {
+      back_to_top_btn.fadeIn();
+    } else {
+      back_to_top_btn.fadeOut();
+    }
+  });
+  back_to_top_btn.click(function () {
+    $('body, html').animate({ scrollTop: 0 }, 500);
+    return false;
   });
   //sortフォームの送信
   $('.select_sort').on('change', function () {
@@ -238,37 +235,31 @@ $('.ac_btn').on('click',function(){
     $(".datetimepicker-input, .keyword_search, select").val("");
   });
 // ARTICLE tag-form
-  $(function () {
-    $('#form-tags').tagit({
-      fieldName: 'article[tag_list]',
-      singleField: true,
-      availableTags: gon.available_tags
-    });
-    if (gon.article_tags) {
-      for (var i = 0; i < gon.article_tags.length; i++) {
-        $('#form-tags').tagit(
-          'createTag', gon.article_tags[i]
-        )
-      }
+  $('#form-tags').tagit({
+    fieldName: 'article[tag_list]',
+    singleField: true,
+    availableTags: gon.available_tags
+  });
+  if (gon.article_tags) {
+    for (var i = 0; i < gon.article_tags.length; i++) {
+      $('#form-tags').tagit(
+        'createTag', gon.article_tags[i]
+      )
     }
-  })
+  }
 // COMMUNITY tag-form
-  $(function () {
-    $(function () {
-      $('#form_tags').tagit({
-        fieldName: 'community[tag_list]',
-        singleField: true,
-        availableTags: gon.available_tags
-      });
-      if (gon.community_tags) {
-        for (var i = 0; i < gon.community_tags.length; i++) {
-          $('#form-tags').tagit(
-            'createTag', gon.article_tags[i]
-          )
-        }
-      }
-    })
-  })
+  $('#form_tags').tagit({
+    fieldName: 'community[tag_list]',
+    singleField: true,
+    availableTags: gon.available_tags
+  });
+  if (gon.community_tags) {
+    for (var i = 0; i < gon.community_tags.length; i++) {
+      $('#form-tags').tagit(
+        'createTag', gon.community_tags[i]
+      )
+    }
+  }
   // calendar 詳細表示
   $(".event").on('click', function () {
     event_id = $(this).attr('id');

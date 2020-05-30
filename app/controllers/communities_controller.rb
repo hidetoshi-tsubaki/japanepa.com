@@ -5,8 +5,8 @@ class CommunitiesController < ApplicationController
   # before_action :past_30days_after_signIn?, only: [:new, :create]
   before_action :get_community_tags, only: [:index, :search, :tag_search]
   before_action :get_available_tags, only: [:new, :edit]
-  before_action :get_ranked_communities, only: [:show, :index, :search, :tag_search]
-  before_action :get_joined_communities, onlu: [:index, :show]
+  before_action :get_ranked_communities, only: [:show, :index, :search, :tag_search, :joined]
+  before_action :get_joined_communities, only: [:index, :show, :joined]
   def index
     @q = Community.ransack(params[:q])
     @communities = @q.result(distinct: true).sorted
@@ -52,6 +52,12 @@ class CommunitiesController < ApplicationController
     @community = Community.find_by_id(params[:id])
     @community.destroy if current_user.is_founder?(@community)
     redirect_to communities_path
+  end
+
+  def joined
+    @q = Community.ransack(params[:q])
+    @communities = current_user.communities.limit(10)
+    render template: 'communities/index'
   end
 
   def sort
