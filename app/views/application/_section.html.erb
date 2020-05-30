@@ -1,9 +1,9 @@
 <li>
   <h2 class="ac_btn inline bold"><%= section.name %>
-    <span class="open_ac_btn">▼open</span>
-    <span class="close_ac_btn hidden">▲close</span>
+    <span class="open_ac_btn hidden">▼open</span>
+    <span class="close_ac_btn">▲close</span>
   </h2>
-  <ul class="ac-inner hidden">
+  <ul class="ac-inner">
     <%= render partial: 'title', collection: section.children, as: :title %>
   </ul>
 </li>

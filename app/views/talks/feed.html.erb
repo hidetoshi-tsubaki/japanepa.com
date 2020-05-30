@@ -1,9 +1,8 @@
 <% content_for(:html_title) { "Feed page" } %>
 <div class="breadcrumbs">
   <%= icon("fas", "map-marker-alt") %> 
-  <%= link_to "home", root_path  %>
-    >
-  <span>Feed</span>
+  <%= link_to "home", root_path %>
+  ><span>Feed</span>
 </div> 
 <div class="talk_index section_wrapper">
   <div class="main_section">
@@ -12,14 +11,23 @@
       <% if @talks.present? %>
         <%= render partial: 'talk', collection: @talks, as: :talk %>
       <% else %>
-        <p>no talks...</p>
+        <h2 class="center" id="no_talk">No talks...</h2>
       <% end %>
-    </div>
-    <div id="to_top_btn_wrapper" class="right">
-      <a href="#" id="talk_top_btn"><%= icon("fas", "arrow-circle-up") %></a>
     </div>
   </div>
   <div class="side_section talk_page">
-      <%= render 'talks/side_section' %>
+    <%= render 'talks/side_section' %>
   </div>
 </div>
+<%= render "back_to_top_btn" %>
+<% unless current_user.communities.any? %>
+  <div id="check_community_bg">
+    <div id="check_community_wrapper" class="center">
+      <h4>
+        You have not joined any communities yet.<br>
+        Let's find communities you are interested in!<br>
+      </h4>
+      <%= link_to "Check Communities", communities_path, class: "block check_communities_btn" %>
+    </div>
+  </div>
+<% end %>
