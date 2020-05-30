@@ -7,7 +7,7 @@
     <div id="date_input">
       <%= search_form_for @q, url: search_mistakes_path do |f| %>
         <div class="field">
-          <%= f.text_field :quiz_question_or_quiz_choice1_cont_any, class: "keyword_search" %>
+          <%= f.text_field :quiz_question_or_quiz_choice1_or_quiz_choice2_or_quiz_choice3_or_quiz_choice4_cont_any, class: "keyword_search" %>
           <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
         </div>
         <%= f.hidden_field :title_id, value: @category.id %>
