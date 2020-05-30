@@ -7,7 +7,7 @@
       <% if @talks.present? %>
         <%= render partial: 'talks/talk', collection: @talks, as: :talk %>
       <% else %>
-        <p>no talks...</p>
+        <h2 class="center" id="no_talk">no talks...</h2>
       <% end %>
     </div>
   </div>
@@ -15,19 +15,19 @@
     <div class="side_content">
       <h4>Community Data</h4>
       <div class="community_data">
-        <p class="center"><%= image_tag @community.img  if @community.img.attached? %></p>
-        <p>Founder: <%= link_to @community.founder.name, user_path(@community.founder.id) %></p>
-        <p class="counts_status">
+        <%= link_to 'Edit', edit_community_path(@community), id: "edit_community_btn" if current_user.is_founder?(@community) %>
+        <%= render "community_img", community: @community %>
+        <p class="status_counts">
           <%= icon("fas","users") %> <%= @community.users.count %>
           <%= icon("fas","comments") %> <%= @community.talks.count %>
         </p>
-        <p><%= @community.introduction %></p>
-        <p id="join_btn_<%= @community.id %>">
+        <p class="founder_name"><span>Founder</span> <%= link_to @community.founder.name, user_path(@community.founder.id) %></p>
+        <p class="community_introduction"><span>Introduction</span><%= @community.introduction %></p>
+        <div id="join_btn_<%= @community.id %>">
           <% unless current_user.is_founder?(@community) %>
             <%= render partial:'join_btn' , locals: { community: @community } %>
           <% end %>
-        </p>
-        <p class="right"><%= link_to 'Edit', edit_community_path(@community), id: "edit_community_btn" if current_user.is_founder?(@community) %></p>
+        </div>
       </div>
     </div>
     <div class="side_content">
@@ -37,7 +37,7 @@
           Don't be shy! <br>
           Let's chat with members.
         </p>
-        <%= link_to 'Create Talk', new_talk_path(talk: { community_id: @community.id }), class: 'block center create_btn', remote: true %>
+        <%= link_to 'Create Talk', new_talk_path(talk: { community_id: @community.id }), class: 'block center create_talk_btn', remote: true %>
       </div>
     </div>
     <div class="side_content">
@@ -50,5 +50,7 @@
         <% end %>
       </ul>
     </div>
+    <%= render "top_3_communities" %>
   </div>
 </div>
+<%= render "back_to_top_btn" %>

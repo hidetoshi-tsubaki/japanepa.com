@@ -1,13 +1,13 @@
-<div id="community_<%= community.id %>" class="community_wraper">
-  <%= link_to community_path(community), id: "community_#{community.id}", class: "community_wrapper block" do %>
-    <%= render partial: "community_image", locals: { community: community } %>
-    <div class="community_detail inline">
-      <p class="community_name"><%= community.name %></p>
-      <p class="counts_status">
+<%= link_to community_path(community), id: "community_#{community.id}", class: "community_wrapper block" do %>
+  <div class="community">
+    <%= render "community_img", community: community %>
+    <div class="community_detail_wrapper inline">
+      <p class="community_name"><%= community.name %></p><hr>
+      <p class="community_intro"><%= community.introduction %></p>
+      <p class="status_counts">
         <%= icon("fas","users") %> <%= community.users.count %>
         <%= icon("fas","comments") %> <%= community.talks.count %>
       </p>
-      <p class="community_intro"><%= community.introduction %></p>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

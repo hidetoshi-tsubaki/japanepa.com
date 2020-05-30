@@ -1,6 +1,6 @@
 <% content_for(:html_title) { "Edit Community-#{@community.name}" } %>
 <% breadcrumb :edit_community, @community %>
 <div class="form_wrapper">
-  <%= render partial: 'form', locals: { community: @community } %>
+  <h1 class="center">Edit Community</h1>
+  <%= render 'form', community: @community, action: "Update" %>
 </div>
-<%= javascript_include_tag "community" %>

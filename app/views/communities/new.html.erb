@@ -2,6 +2,5 @@
 <% breadcrumb :new_community, @community %>
 <div class="form_wrapper">
   <h1 class="center">Create Community</h1>
-  <%= render partial: 'form', locals: { community: @community } %>
+  <%= render 'form', community: @community, action: "Create" %>
 </div>
-<%= javascript_include_tag "community" %>
