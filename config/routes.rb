@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       get :sort
       get :search
       get :tag_search
+      get :joined
     end
     member do
       get :join
