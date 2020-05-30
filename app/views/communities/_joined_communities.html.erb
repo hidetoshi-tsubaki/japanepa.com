@@ -1,0 +1,22 @@
+<div class="side_content">
+  <h4><%= icon("fas","comments") %> Joined Communities</h4>
+  <div class="inner_community_content joined_community_content">
+    <% @joined_communities.each do |community| %>
+      <%= link_to community_path(community) do %>
+        <div class="joined_community">
+          <%= render "communities/community_img", community: community %>
+          <div class="joined_community_detail inline">
+            <p class="inner_community_name bold inline"><%= community.name %></p>
+            <p class="status_counts right">
+              <%= icon("fas","users") %> <%= community.member_count %>
+              <%= icon("fas","comments") %> <%= community.talk_count %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <% if @joined_communities.size > 10 %>
+      <p class="center"><%= link_to "See More", joined_communities_path %></p>
+    <% end %>
+  </div>
+</div>

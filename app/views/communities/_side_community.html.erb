@@ -1,0 +1,15 @@
+<%= link_to community_path(community) do %>
+  <div class="ranked_community">
+    <p class="rank_number center bold <%= top_3(community_counter) %>">
+      <span><%= community_counter + 1 %></span>
+    </p>
+    <%= render partial: "communities/community_img", locals: { community: community } %>    
+    <div class="ranked_community_detail inline">
+      <p class="inner_community_name bold inline"><%= community.name %></p>
+      <p class="status_counts right">
+        <%= icon("fas","users") %> <%= community.member_count %>
+        <%= icon("fas","comments") %> <%= community.talk_count %>
+      </p>
+    </div>
+  </div>
+<% end %>

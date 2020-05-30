@@ -3,34 +3,28 @@ class CommunitiesController < ApplicationController
   before_action :only_login_user!
   before_action :get_unchecked_announce_count, :get_current_level
   # before_action :past_30days_after_signIn?, only: [:new, :create]
-  before_action :set_community_tags, only: [:index, :search, :tag_search]
-
+  before_action :get_community_tags, only: [:index, :search, :tag_search]
+  before_action :get_available_tags, only: [:new, :edit]
+  before_action :get_ranked_communities, only: [:show, :index, :search, :tag_search]
+  before_action :get_joined_communities, onlu: [:index, :show]
   def index
     @q = Community.ransack(params[:q])
     @communities = @q.result(distinct: true).sorted
-    @comment = Comment.new
   end
 
   def show
-    @community = Community.includes([:founder, talks: :user]).find_by_id(params[:id])
+    @community = Community.includes([:founder, talks: :user]).find(params[:id])
     @talks = Talk.where(community_id: params[:id])
     @tags = @community.tags_on(:tags)
     @comment = Comment.new
-    @commented_top_3 = @community.talks.commented_top_3
-    @liked_top_3 = @community.talks.liked_top_3
   end
 
   def new
     @community = Community.new
-    gon.available_tags = Community.tags_on(:tags).pluck(:name)
   end
 
   def create
-    begin
-      @community = current_user.communities.new(community_params)
-    rescue => e
-      redirect_to root_path
-    end
+    @community = current_user.communities.new(community_params)
     if @community.save
       current_user.join(@community)
       redirect_to community_path(@community)
@@ -42,7 +36,6 @@ class CommunitiesController < ApplicationController
   def edit
     @community = Community.find(params[:id])
     gon.community_tags = @community.tag_list
-    gon.available_tags = Community.tags_on(:tags).pluck(:name)
   end
 
   def update
@@ -59,15 +52,6 @@ class CommunitiesController < ApplicationController
     @community = Community.find_by_id(params[:id])
     @community.destroy if current_user.is_founder?(@community)
     redirect_to communities_path
-  end
-
-  def feed
-    joined_Community = current_user.community_users.pluck(:community_id)
-    @talks = Talk.
-      where(community_id: joined_Community).
-      includes(:community).
-      paginate(params[:page], 15)
-    @comment = Comment.new
   end
 
   def sort
@@ -93,25 +77,26 @@ class CommunitiesController < ApplicationController
     render template: 'communities/index'
   end
 
-  def join
-    @community = Community.find(params[:id])
-    current_user.join(@community)
-  end
-
-  def leave
-    @community = Community.find(params[:id])
-    current_user.leave(@community)
-    render 'join'
-  end
-
   private
 
   def community_params
-    params.require(:community).permit(:name, :img, :introduction, :founder_id)
+    params.require(:community).permit(:name, :img, :introduction, :founder_id, :tag_list)
   end
 
-  def set_community_tags
+  def get_community_tags
     @tags = Community.all_tags
   end
 
+  def get_available_tags
+    gon.available_tags = Community.tags_on(:tags).pluck(:name)
+  end
+
+  def get_ranked_communities
+    @user_joined_top_3 = Community.user_joined_top_3
+    @active_top_3 = Community.active_top_3
+  end
+
+  def get_joined_communities
+    @joined_communities = current_user.communities
+  end
 end

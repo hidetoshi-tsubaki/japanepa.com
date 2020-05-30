@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       get :leave
     end
   end
+  resources :community_users, only: [:create, :destroy]
   resources :announcements, only: [:index, :show]
   resources :events, only: [:index, :show]
 

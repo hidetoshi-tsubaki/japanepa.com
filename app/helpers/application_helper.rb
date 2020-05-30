@@ -48,6 +48,17 @@ module ApplicationHelper
     current_user.id == post.user_id
   end
 
+  def top_3(counter)
+    case counter
+    when 0
+      "gold_bg"
+    when 1
+      "silver_bg"
+    when 2
+      "bronze_bg"
+    end
+  end
+
   def thumbnails_color(article)
     if article.id % 5 == 0
       "yellow_bg"

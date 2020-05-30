@@ -197,15 +197,15 @@ body {
 .side_content {
   background-color: $white;
   margin-bottom: 30px;
+  .tags {
+    padding: 5px;
+  }
+  .top_3_content a, .joined_community_content a {
+    color: gray;
+  }
 }
 .side_inner_box {
   padding: 10px;
-}
-.side_content .tags {
-  padding: 5px;
-}
-.side_content .top_3_content a {
-  color: gray;
 }
 .search_form {
   position: relative;
@@ -265,6 +265,7 @@ body {
   margin: 10px 50px;
   border: 3px solid gray;
   color: gray;
+  z-index: 10;
 }
 .create_talk_btn:hover, .create_community_btn:hover, .join_btn:hover {
   background: gray;
@@ -1887,7 +1888,7 @@ communityページ
     }
   }
 }
-.ranked_community {
+.ranked_community, .joined_community {
   position: relative;
   .thumbnail_img {
     width: 100px;
@@ -1903,7 +1904,7 @@ communityページ
       @include center;
     }
   }
-  .ranked_community_detail {
+  .ranked_community_detail, .joined_community_detail {
     position: relative;
     vertical-align: top;
     height: 100px;
@@ -1911,16 +1912,18 @@ communityページ
     padding-bottom:10px;
   }
 }
-.inner_community_content a:not(:last-child) .ranked_community {
-  margin-bottom: 15px;
+.inner_community_content a:not(:last-child) {
+  .ranked_community, .joined_community {
+    margin-bottom: 15px;
+  }
 }
-.community_wrapper:hover, .ranked_community:hover {
+.community_wrapper:hover, .ranked_community:hover, .joined_community:hover {
   @include shadow;
 }
 .status_counts {
   color: $yellow;
 }
-.community_wrapper, .ranked_community {
+.community_wrapper, .ranked_community, .joined_community {
   .status_counts {
     position: absolute;
     bottom: 5px;

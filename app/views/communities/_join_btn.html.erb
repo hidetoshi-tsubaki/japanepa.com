@@ -1,5 +1,5 @@
 <% if current_user.already_joined?(community) %>
-  <%= link_to 'Leave', leave_community_path(community), class: "block center join_btn", remote: true %>
+  <%= link_to 'Leave', community_user_path(community), class: "block center join_btn", remote: true, method: :delete %>
 <% else %>
-  <%= link_to 'Join', join_community_path(community), class: "block center join_btn",  remote: true %>
+  <%= link_to 'Join', community_users_path(id: community.id), class: "block center join_btn",  remote: true, method: :post %> 
 <% end %>
