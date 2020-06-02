@@ -1,7 +1,7 @@
 <div id="logo">
   <%= link_to "Japanepa.com", "/", id: "logo" %>
 </div>
-<ul class="header_link pc">
+<ul class="header_link">
   <% if user_signed_in? %>
     <li class="menu_btn">
       <% if current_user.img.attached? %>
@@ -11,15 +11,24 @@
       <% end %>
       <span><%= current_user.name %> (Lv.<%= @current_level || "1"%>)</span>
     </li>
-    <li>
+    <li class="announe_btn">
       <%= link_to announcements_path do %>
         <%= icon("fas", "bell") %> <span class="unchecked_announce_count"><%= @unchecked_announce_count.nonzero? %></span>
       <% end %>
     </li>
+    <li class="sp_menu_btn">
+      <%= icon("fas", "bars") %> <span class="unchecked_announce_count">
+    </li>
+    <li class="close_sp_menu_btn hidden">
+      Close
+    </li>
     <%= render 'user_menu'%>
   <% elsif admin_signed_in? %>
-    <li class="menu_btn">
+    <li class="menu_btn sp">
       <%= icon("fas", "user-cog") %>
+    </li>
+    <li class="menu_btn sp">
+      <%= icon("fas", "bars") %>
     </li>
     <%= render 'admin_menu'%>
   <% else %>

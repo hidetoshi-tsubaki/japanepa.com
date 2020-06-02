@@ -51,6 +51,9 @@ $bronze: -webkit-gradient(linear, left top, right bottom, from(#97461a), color-s
 .orange_bg {
   background: $orange;
 }
+.gray_bg {
+  background: gray;
+}
 @mixin shadow {
   box-shadow: 0 10px 20px -5px rgba(0,0,0,.2);
   -moz-transform: translateY(-2px);
@@ -157,12 +160,12 @@ body {
   color: gray;
 }
 .section_wrapper {
-  width: 990px;
+  width: 950px;
   margin: 0 auto;
 }
 .main_section {
   display: inline-block;
-  width: 640px;
+  width: 600px;
   vertical-align: top;
 }
 .page_title {
@@ -199,6 +202,7 @@ body {
   margin-bottom: 30px;
   .tags {
     padding: 5px;
+    background: $white;
   }
   .top_3_content a, .joined_community_content a {
     color: gray;
@@ -324,10 +328,41 @@ body {
   justify-content: center;
   align-items: center;
 }
+@media screen and (max-width: 959px) {
+  .pc {
+    display: none;
+  }
+  .sp {
+    display: block;
+  }
+  .main_wrapper {
+    .section_wrapper {
+      width: 95%;
+      .main_section {
+        width: 100%;
+      }
+    }
+  }
+  .rank_number {
+    height: 5vw;
+    width: 5vw;
+  }
+}
+@media screen and (max-width: 559px) {
+  .breadcrumbs {
+    fons-size: 14px;
+  }
+  .rank_number {
+    height: 9vw;
+    width: 9vw;
+    font-size: 5vw;
+  }
+}
+
 /*-------------
 PAGINATION
 --------------*/
-.pagination  {
+.pagination {
   margin-bottom: 30px;
   justify-content: center;
 }
@@ -379,6 +414,14 @@ header {
   font-size: 34px;
   font-weight: bold;
 }
+.menu_name {
+  width: 100%;
+  margin: auto;
+  i {
+    font-size: 90px;
+    margin: auto;
+  }
+}
 header > div {
   display: inline-block;
   cursor: pointer;
@@ -386,9 +429,14 @@ header > div {
 .header_link {
   position: relative;
   margin: 18px 0;
-  li:not(:last-child) {
-    display: inline-block;
+  li {
     margin-right: 20px;
+  }
+  .menu_btn, .announe_btn {
+    display: inline-block;
+  }
+  .sp_menu_btn {
+    display: none;
   }
 }
 .header_link a {
@@ -458,6 +506,60 @@ header > div {
 .user_menu p:hover, .admin_menu p:hover {
   background-color:#767676;
   color:#61C359;
+}
+@media screen and (max-width: 960px) {
+  .header_link {
+    .menu_btn, .announe_btn {
+      display: none;
+    }
+    .sp_menu_btn {
+      display: inline-block;
+    }
+  }
+  .user_menu_in_mobile {
+    position: fixed;
+    top: 62px;
+    left: 0;
+    z-index: 100;
+    height: calc(100vh - 62px);
+    width: 100vw;
+    padding: 20px 5%;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: scroll;
+    .user_img_area {
+      #present_user_img {
+        height: 20vw;
+        width: 20vw;
+        border-radius: 50%;
+      }
+    }
+    .user_info {
+      color: $white;
+    }
+    .user_menu_wrapper {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
+      a {
+        color: $white;
+        text-align: center;
+        .panel_inner_box {
+          height: 20vw;
+          max-height: 150px;
+          width: 20vw;
+          max-width: 150px;
+          font-size: 2.5vw;
+        }
+        .menu_name i {
+          font-size: 9vw;
+        }
+      }
+    }
+    .side_content {
+      background: none;
+      color: $white;
+    }
+  }
 }
 /*-----------
 2.2 FOOTER
@@ -632,14 +734,6 @@ Home Common
   width: calc(100vw * 0.6666);
   overflow: scroll;
   padding: 15px;
-}
-.menu_name {
-  width: 100%;
-  margin: auto;
-  i {
-    font-size: 90px;
-    margin: auto;
-  }
 }
 .admin_upper_block i {
   font-size: 60px;
@@ -951,34 +1045,33 @@ USER_PROFILE
   width: 60%;
   margin: 60px auto;
   background-color: $white;
-}
-.profile_detail {
-  padding: 5%;
-}
-.profile_detail li {
-  display: inline-block;
-  margin-bottom: 30px;
-  width: 45%;
-  background: $white;
-  border-left: 5px solid $orange;
-  box-sizing: border-box;
-  font-size: 30px;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
-}
-.profile_detail li:nth-child(odd) {
-  margin-right: 5%;
-}
-.user_img_area {
-  position: relative;
-  width: 300px;
-  margin: auto;
-}
-#no_user_img, #present_user_img, #new_user_img {
-  border-radius: 50%;
-  height: 100%;
-  width: 300px;
-  height: 300px;
-  margin: auto;
+  .profile_detail {
+    padding: 5%;
+    li {
+      display: inline-block;
+      margin-bottom: 30px;
+      width: 45%;
+      background: $white;
+      border-left: 5px solid $orange;
+      box-sizing: border-box;
+      font-size: 30px;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+    }
+    li:nth-child(odd) {
+      margin-right: 5%;
+    }
+  }
+  .user_img_area {
+    position: relative;
+    width: 300px;
+    margin: auto;
+    #no_user_img, #present_user_img, #new_user_img {
+      border-radius: 50%;
+      width: 300px;
+      height: 300px;
+      margin: auto;
+    }
+  }
 }
 #img_upload_btn {
   position: absolute;
@@ -1879,7 +1972,7 @@ communityページ
     position: relative;
     vertical-align: top;
     height: 200px;
-    width: 414px;
+    width: 374px;
     padding-left: 10px;
     .community_name {
       font-size:24px;
@@ -2014,14 +2107,9 @@ ARTICLE
   .article_headline_wrapper {
     position: relative;
     height: 200px;
-    width: 414px;
+    width: 374px;
     vertical-align: top;
     padding: 5px 5px 25px;
-    .article_data {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-    }
     .title {
       padding-bottom: 5px;
       border-bottom: 1px solid black;
@@ -2029,6 +2117,11 @@ ARTICLE
     .lead {
       font-size: 16px;
       margin-top: 10px;
+    }
+    .article_data {
+      position: absolute;
+      right: 0;
+      bottom: 0;
     }
   }
 }
@@ -2062,10 +2155,12 @@ ARTICLE
         }
       }
     }
-    .inner_article_title {
+    .inner_article_headline_wrapper {
+      position: relative;
+      display: inline-block;
       vertical-align: top;
       height: 100px;
-      width: 175px;
+      width: 185px;
       padding: 5px 5px 5px 10px;
     }
   }
@@ -2104,6 +2199,122 @@ ARTICLE
     }
   }
 }
+@media screen and (max-width: 959px) {
+  .article {
+    .article_img_wrapper {
+      .thumbnail_img {
+        height: 30vw;
+        width: 30vw;
+      }
+      .thumbnail_panel {
+        width: 30vw;
+        padding-top: 30vw;
+      }
+    }
+    .article_headline_wrapper {
+      height: 30vw;
+      width: 60vw;
+    }
+  }
+  .inner_article_content {
+    .inner_article {
+      background: #fff;
+      .article_img_wrapper {
+        .thumbnail_img {
+          height: 25vw;
+          width: 25vw;
+        }
+        .thumbnail_panel {
+          width: 25vw;
+          padding-top: 25vw;
+          p {
+            font-size: 4vw;
+          }
+        }
+      }
+      .inner_article_headline_wrapper {
+        height: 25vw;
+        width: 60vw;
+        padding: 5px 5px 5px 10px;
+        .inner_article_title {
+          padding-bottom: 5px;
+          border-bottom: 1px solid black;
+          font-size: 20px;
+        }
+        .inner_article_lead {
+          font-size: 16px;
+        }
+        .article_data {
+          position: absolute;
+          right: 1%;
+          bottom: 1%;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 559px) {
+  .article {
+    .article_img_wrapper {
+      display: block;
+      margin: auto;
+      .thumbnail_img {
+        height: 50vw;
+        width: 100%;
+      }
+      .thumbnail_panel {
+        width: 100%;
+        padding-top: 50vw;
+        p {
+          font-size: 12vw;
+        }
+      }
+    }
+    .article_headline_wrapper {
+      height: 30vw;
+      width: 100%;
+    }
+  }
+  .inner_article_content {
+    padding: 0;
+    .inner_article {
+      .article_img_wrapper {
+        display: block;
+        .thumbnail_img {
+          height: 30vw;
+          width: 100%;
+        }
+        .thumbnail_panel {
+          width: 100%;
+          padding-top: 30vw;
+          p {
+            font-size: 4vw;
+          }
+        }
+      }
+      .inner_article_headline_wrapper {
+        height: 30vw;
+        width: 100%;
+        padding: 5px 5px 5px 10px;
+        .inner_article_title {
+          padding-bottom: 5px;
+          border-bottom: 1px solid black;
+          font-size: 20px;
+        }
+        .inner_article_lead {
+          font-size: 16px;
+        }
+        .article_data {
+          position: absolute;
+          right: 1%;
+          bottom: 1%;
+        }
+      }
+    }
+  }
+}
+
+
 /*-------------------
 talkページ
 ---------------------*/

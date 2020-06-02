@@ -1,8 +1,12 @@
   // モーダル開閉
 $(function () {
-  $('.menu_btn').on('click',function(){
-  $('.user_menu, .admin_menu').fadeToggle(100);
+  $('.menu_btn').on('click', function() {
+    $('.user_menu, .admin_menu').fadeToggle(100);
   });
+  $('.sp_menu_btn, .close_sp_menu_btn ').on('click', function() {
+    $('.user_menu_in_mobile').fadeToggle(100);
+    $('.sp_menu_btn, .close_sp_menu_btn').toggle();
+  })
   $('#openModal').on('click',function () {
     $('#modalArea').fadeIn();
   });
