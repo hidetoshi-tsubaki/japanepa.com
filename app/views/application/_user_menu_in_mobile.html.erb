@@ -1,43 +1,41 @@
-<div class="user_menu_in_mobile sp">
-  <div class="user_img_area center">
-    <% if current_user.img.attached? %>
-      <%= image_tag current_user.img, id:'present_user_img' %>
-    <% else %>
-      <%= image_tag 'https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg', id: 'no_user_img' %>
-    <% end %>
-  </div>
-  <div class="user_info center">
-    <h1><%= current_user.name %></h1>
-    <h1>Lv.<%= @user_level %></h1>
-  </div>
-  <div class="user_menu_wrapper">
+<div class="user_img_area center">
+  <% if current_user.img.attached? %>
+    <%= image_tag current_user.img, id:'present_user_img' %>
+  <% else %>
+    <%= image_tag 'https://kukuhana.s3-ap-northeast-1.amazonaws.com/no_img.jpg', id: 'no_user_img' %>
+  <% end %>
+</div>
+<div class="user_info center">
+  <h2><%= current_user.name %></h2>
+  <h2>Lv.<%= @current_level %></h2>
+</div>
+<div class="user_menu_wrapper">
   <%= link_to user_path(current_user) do %>
-    <div class="user_menu_panel profile_panel">
+    <div class="user_menu_panel orange_bg">
       <div class="panel_inner_box">
-        <p class="menu_name bold">Profile<%= icon("fas fa-fw", "address-card") %></p>
+        <p class="menu_name bold">Profile<br><%= icon("fas fa-fw", "address-card") %></p>
       </div>
     </div>
   <% end %>
   <%= link_to events_path do %>
-    <div class="user_menu_panel calendar_panel">
+    <div class="user_menu_panel blue_bg">
       <div class="panel_inner_box">
-        <p class="menu_name bold">Calendar<%= icon("fas fa-fw", "calendar-alt") %></p>
+        <p class="menu_name bold">Calendar<br><%= icon("fas fa-fw", "calendar-alt") %></p>
       </div>
     </div>
   <% end %>
   <%= link_to bookmarks_path do %>
-    <div class="user_menu_panel bookmarks_panel">
+    <div class="user_menu_panel yellow_bg">
       <div class="panel_inner_box">
-        <p class="menu_name bold">Bookmark<%= icon("fas fa-fw", "star") %></p>
+        <p class="menu_name bold">Bookmark<br><%= icon("fas fa-fw", "star") %></p>
       </div>
     </div>
   <% end %>
   <%= link_to destroy_user_session_path, method: :delete do %>
-    <div class="user_menu_panel log_out_panel">
+    <div class="user_menu_panel gray_bg">
       <div class="panel_inner_box">
-        <p class="menu_name bold">Log out<%= icon("fas fa-fw", "sign-out-alt") %></p>
+        <p class="menu_name bold">Log out<br><%= icon("fas fa-fw", "sign-out-alt") %></p>
       </div>
     </div>
   <% end %>
-  </div>
 </div>

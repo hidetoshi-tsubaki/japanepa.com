@@ -6,8 +6,9 @@
       <p class="lead"><%= article.lead %></p>
       <p class="article_data right">
         <span class="posted_day"><%= render partial: "posted_day", locals: { article: article } %></span>
-        <span class="like_btn"><%= icon("fas", "heart") %> <%= article.likes_count %>
-        <span class="bookmark_btn"><%= icon("fas", "star") %> <%= article.bookmarks_count %>
+        <span class="like_btn"><%= icon("fas", "heart") %> <%= article.likes_count %></span>
+        <span class="bookmark_btn"><%= icon("fas", "star") %> <%= article.bookmarks_count %></span>
+        <span class="view_count"><%= icon("fas", "eye") %> <%= article.impressions_count %></span>
       </p>
     </div>
   </div>

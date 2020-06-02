@@ -4,6 +4,14 @@
       <span><%= article_counter + 1 %></span>
     </p>
     <%= render "article_img", article: article %>
-    <p class="inner_article_title inline"><%= article.title %></p>
+    <div class="inner_article_headline_wrapper">
+      <p class="inner_article_title"><%= article.title %></p>
+      <p class="sp inner_article_lead"><%= article.lead %></p>
+      <p class="article_data right">
+        <span class="like_btn"><%= icon("fas", "heart") %> <%= article.likes_count %></span>
+        <span class="bookmark_btn"><%= icon("fas", "star") %> <%= article.bookmarks_count %></span>
+        <span class="view_count"><%= icon("fas", "eye") %> <%= article.impressions_count %></span>
+      </p>
+    </div>
   </div>
 <% end %>
