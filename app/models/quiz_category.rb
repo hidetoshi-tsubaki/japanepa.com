@@ -13,15 +13,9 @@ class QuizCategory < ApplicationRecord
   scope :sections_in, ->(level) { level.children }
   scope :titles_in, ->(section) {section.children}
   scope :ancestors_of, ->(node) do
-    left_condition  = arel_table[left_column_name].lt(node.left)
+    left_condition = arel_table[left_column_name].lt(node.left)
     right_condition = arel_table[right_column_name].gt(node.right)
-
     where(left_condition).where(right_condition)
-  end
-
-  def all_quizzes
-    scope = Quiz.joins(:category)
-    scope.where(quiz_category: { id: self_and_descendants.select(:id) })
   end
 
   def is_level?

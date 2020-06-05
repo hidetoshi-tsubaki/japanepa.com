@@ -21,13 +21,13 @@ function showLinearChart(data, chartID){
       pointBorderWidth: 0,//点の周りの線の大きさ
       pointRadius: 2, //点の大きさ
       borderColor: '#F29073',
-      borderWidth: 3,
+      borderWidth: 2,
     }]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      title:{
+      title: {
         display: true,
         text: "Score Board",
         fontColor: "#808080",
@@ -50,7 +50,7 @@ function showLinearChart(data, chartID){
           },
           gridLines: {
             color: '#808080',
-            borderDash: [5,5], //線の長さ、間隔
+            borderDash: [5, 5], //線の長さ、間隔
             lineWidth: 1,
             zeroLineWidth: 1,
             zeroLineColor: '#808080', //x軸の最初の線
@@ -81,7 +81,7 @@ function showDoughnutChart(data, chartID, learning_level){
   var myChart2 = new Chart(ctx2,{
     type: 'doughnut',//データの設定
     data: {
-      labels: ["",""],//データセット
+      labels: ["", ""],//データセット
       datasets: [{
         data: [learning_level, space],
         backgroundColor:[
@@ -97,7 +97,7 @@ function showDoughnutChart(data, chartID, learning_level){
       legend: {
         display: false
       },
-      title:{
+      title: {
         display:true,
         text: 'Learing Level',
         fontColor: "#808080",

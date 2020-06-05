@@ -1,4 +1,4 @@
-$('.chart_button').on('click', function(){
+$('.chart_btn').on('click', function(){
   var id = $(this).attr('id');
   var chart1 = "linearChart";
   var chart2 = "doughnutsChart";

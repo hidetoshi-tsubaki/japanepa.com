@@ -4,14 +4,14 @@ $(function () {
     $('.user_menu, .admin_menu').fadeToggle(100);
   });
   $('.sp_menu_btn, .close_sp_menu_btn ').on('click', function() {
-    $('.user_menu_in_mobile').fadeToggle(100);
+    $('.user_menu_in_mobile').toggle();
     $('.sp_menu_btn, .close_sp_menu_btn').toggle();
   })
   $('#openModal').on('click',function () {
     $('#modalArea').fadeIn();
   });
-  $('#closeModal , #modalBg').on('click',function () {
-    $('#modalArea').fadeOut();
+  $('#closeModal , #modalBg, #score_bg').on('click',function () {
+    $('#modalArea, #score_modal_area').fadeOut();
     $('#linearChart, #doughnutsChart, #learningLevel, #coutionm .quiz_title').empty();
   });
   // logInModalの表示

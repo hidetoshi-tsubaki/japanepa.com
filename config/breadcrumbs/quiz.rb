@@ -1,22 +1,3 @@
-crumb :quizzes do
-  link "Quizzes", quizzes_path
-end
-
-crumb :admin_quizzes do
-  link "Quizzes", admin_quizzes_path
-end
-
-crumb :play_quiz do |quiz|
-  link quiz.quiz_category.name, play_quiz_path(quiz)
-  parent :quizzes
-end
-
-crumb :play_mistake_quiz do |quiz|
-  link quiz.title, play_mistakes_quiz_path(quiz)
-  parent :quizzes
-end
-
-# Admin Article
 crumb :admin_quizzes do
   link "quizzes", admin_quizzes_path
 end

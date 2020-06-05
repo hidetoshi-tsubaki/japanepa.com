@@ -1,0 +1,9 @@
+<% content_for(:html_title) { "Quizzes Index" } %>
+<% breadcrumb :quiz_categories, @levels %>
+<div class="quiz_category_index">
+  <h1 class="page_title center bold">Choose Quiz Level</h1>
+  <ul class="level_panel bold"><%= render partial: 'level', collection: @levels, as: :level %></ul>
+</div>
+<div class="user_menu_in_mobile hidden">
+  <%= render "user_menu_in_mobile" %>
+</div>

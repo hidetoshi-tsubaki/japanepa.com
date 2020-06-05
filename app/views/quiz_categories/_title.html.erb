@@ -1,0 +1,24 @@
+<li class="quiz_category">
+  <div class="graph_and_name">
+    <div class="graph">
+      <span class="bar <%= bar_color(current_user, title) %>" style="width: <%= get_learning_level(current_user, title) %>%;">
+        <%= get_learning_level(current_user, title) %>
+      </span>
+    </div>
+    <h3 class="bold center"><%= title.name %></h3>
+  </div>
+  <div class="quiz_btns right">
+    <%= link_to quiz_play_path(title), class: "edit_button inline" do %>
+      <%= icon("far", "play-circle") %>Play
+    <% end %>
+    <%= link_to play_mistakes_path(title), class: "delete_button inline" do %>
+      <%= icon("far", "play-circle") %>Mistakes
+    <% end %>
+    <p class="chart_btn inline" id=<%= title.id %>>
+      <%= icon("fas", "chart-line") %>Score
+    </p>
+    <%= link_to mistakes_path(id: title.id), class: "show_mistakes_button inline" do %>
+      <%= icon("fas", "tasks") %>records
+    <% end %>
+  </div>
+</li>
