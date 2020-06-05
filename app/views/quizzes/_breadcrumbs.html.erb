@@ -1,0 +1,6 @@
+<ul class="breadcrumbs_list">
+  <li><%= icon("fas","map-marker-alt") %> <%= link_to "Home", root_path %> ＞ <li>
+  <li><%= link_to "Quizzes", quiz_categories_path %> ＞ </li>
+  <li><%= link_to "#{@category.ancestors.first.name} - #{@category.ancestors.second.name}", quiz_category_path(@category.root, anchor: "section_#{@category.ancestors.second.id}") %></li>
+  <li> ＞ <%= @category.name %></li>
+</ul>

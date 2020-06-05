@@ -241,7 +241,7 @@ body {
 }
 .breadcrumbs {
   font-size: 20px;
-  padding: 10px 0 20px 20px;
+  padding: 10px 0 10px 20px;
   a {
     color: gray;
   }
@@ -287,32 +287,6 @@ body {
   color: $yellow;
   opacity: .6;
 }
-.tab_wrapper {
-  display: table;
-  table-layout: fixed;
-  text-align: center;
-  width: 100%;
-}
-.tab_wrapper li {
-  display: table-cell;
-  vertical-align: middle;
-}
-.tab_wrapper li:hover {
-  cursor: pointer;
-}
-.panel {
-  display: none;
-}
-.tab_wrapper li {
-  background-color: $white;
-  color: #e7e7e7;
-  border-bottom: 3px solid $red;
-  padding: 10px 0;
-}
-.tab_wrapper .is-active {
-  background: $red;
-  color: $white;
-}
 .panel.is-show {
   display: block;
 }
@@ -349,8 +323,11 @@ body {
   }
 }
 @media screen and (max-width: 559px) {
-  .breadcrumbs {
-    fons-size: 14px;
+  .page_title {
+    font-size: 26px;
+  }
+  .breadcrumbs, .bradcrumbs_list {
+    font-size: 14px;
   }
   .rank_number {
     height: 9vw;
@@ -358,7 +335,6 @@ body {
     font-size: 5vw;
   }
 }
-
 /*-------------
 PAGINATION
 --------------*/
@@ -507,7 +483,7 @@ header > div {
   background-color:#767676;
   color:#61C359;
 }
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 959px) {
   .header_link {
     .menu_btn, .announe_btn {
       display: none;
@@ -538,16 +514,16 @@ header > div {
     }
     .user_menu_wrapper {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
       margin: 30px 0;
       a {
         color: $white;
         text-align: center;
+        min-width: 150px;
+        margin: 0 auto 20px;
         .panel_inner_box {
           height: 20vw;
           max-height: 150px;
-          width: 20vw;
-          max-width: 150px;
           font-size: 2.5vw;
         }
         .menu_name i {
@@ -559,6 +535,11 @@ header > div {
       background: none;
       color: $white;
     }
+  }
+}
+@media screen and (max-width: 959px) {
+  #logo {
+    font-size: 16px;
   }
 }
 /*-----------
@@ -586,7 +567,7 @@ footer p {
   display: none;
   position: fixed;
   z-index: 10;
-  top: 0;
+  top: 26px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -1545,19 +1526,11 @@ announcement
   opacity: .5;
 }
 /*---------------
-QUIZ INDEX
+QUIZ CATEGORY INDEX
 ----------------*/
 .quiz_index, .admin_quiz_wrapper {
   width: 95%;
   margin: auto;
-}
-.quiz_index {
-  .tab_wrapper li {
-    border-bottom: 3px solid $pink;
-  }
-  .tab_wrapper .is-active {
-    background: $pink;
-  }
 }
 .narrow_down, .quizzes_list {
   background-color: $white;
@@ -1577,6 +1550,85 @@ QUIZ INDEX
 .category_link {
   margin-top: 18px;
   font-size: 12px;
+}
+.level_name {
+  color: $red;
+  text-decoration: underline;
+}
+.quiz_category {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  border-top: solid 1px #e7e7e7;
+  border-bottom: solid 1px #e7e7e7;
+  .graph_and_name {
+    width: 35%;
+  }
+  .graph {
+    position: relative;
+    width: 300px;
+    height: 26px;
+    margin: 5px 0 10px 5px;
+    padding: 2px;
+    background: $white;
+    border: 1px solid gray;
+    border-radius: 13px;
+    .bar {
+      display: block;
+      position: relative;
+      border-radius: 10px;
+      text-align: center;
+      color: #f0ffff;
+      span {
+        position: absolute;
+        left: 1em;
+        border-radius: 10px;
+      }
+    }
+  }
+  .quiz_btns {
+    width: 65%;
+    a, p {
+      padding: 2vw;
+    }
+  }
+}
+@media screen and (max-width: 959px) {
+  .quiz_category {
+    display: block;
+    .graph_and_name, .quiz_btns {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+@media screen and (max-width: 559px) {
+  .level_name {
+    font-size: 32px;
+  }
+  .ac_btn {
+    font-size: 20px;
+  }
+  .quiz_category {
+    .graph_and_name {
+      .graph {
+        height: 21px;
+        width: 200px;
+        span {
+          font-size: 12px;
+        }
+      }
+      h3 {
+        font-size: 22px;
+      }
+    }
+    .quiz_btns {
+      a, p {
+        min-width: 100px;
+        font-size: 14px;
+      }
+    }
+  }
 }
 /*---------------
 QUIZ PLAY
@@ -1658,7 +1710,7 @@ QUIZ PLAY
 }
 #quiz_btn {
   background: $yellow;
-  width: 30%;
+  width: 40%;
   margin: 50px auto 0px;
   padding: 8px;
   border-radius: 12px;
@@ -1674,6 +1726,7 @@ QUIZ PLAY
   @include center;
   width: 95%;
   #score_modal {
+    position: relative;
     padding-bottom: 15px;
     background: #FEF5E1;
     .score_result_info {
@@ -1693,6 +1746,7 @@ QUIZ PLAY
           top: -8px;
           left: 50%;
           transform: translateX(-50%);
+          width: 75%;
           padding: 0 5px;
           background: gray;
         }
@@ -1706,8 +1760,16 @@ QUIZ PLAY
     display: block;
     text-decoration: none;
   }
+  .closeModal {
+    top: 5px;
+    color: $white;
+  }
+  .closeModal:hover {
+    background: none;
+    color: $alert_red;
+  }
   .quiz_title {
-    margin-bottom: 10px;
+    padding: 10px 0;
     font-size: 35px;
     color: $white;
     background: gray;
@@ -1740,9 +1802,7 @@ QUIZ PLAY
   #quiz_action_btns {
     display: flex;
     justify-content: center;
-    padding: 0 15%;
     li {
-      width: 25%;
       padding: 10px;
       color: $white;
       text-align: center;
@@ -1763,6 +1823,49 @@ QUIZ PLAY
     }
   }
 }
+@media screen and (max-width: 559px) {
+  #score_modal_wrapper {
+    .quiz_title {
+      font-size: 22px;
+    }
+    .closeModal {
+      top: 2px;
+      right: -10px;
+      font-size: 23px;
+    }
+    #score_modal {
+      .score_result_info {
+        display: block;
+        li {
+          width: 49%;
+          font-size: 2.5vw;
+          span:first-child {
+            font-size: 3.5vw;
+          }
+        }
+        li:nth-child(-n+2) {
+          margin-bottom: 20px;
+        } 
+      }
+    }
+    .chart_wrapper1, .chart_wrapper2 {
+      display: block;
+      height: 27vh;
+      width: 95%;
+      margin: auto;
+      #learning_level_box {
+        top: 33%;
+        left: 3%;
+        #learning_level {
+          font-size: 48px;
+        }
+      }
+    }
+    .chart_wrapper2 {
+      margin-bottom: 20px;
+    }
+  }
+}
 /*---------------
 MISTAKE INDEX
 ----------------*/
@@ -1777,6 +1880,27 @@ QUIZ CATEGORY
   width: 75%;
   margin: 50px auto;
   border-radius:5px;
+}
+.quiz_category_index {
+  width: 95%;
+  margin: 50px auto;
+  .level_panel {
+    display: flex;
+    flex-wrap: wrap;
+    li{
+      width: 45%;
+      max-width: 300px;
+      min-width: 250px;
+      margin: 0 auto 3vh;
+      background: $red;
+      font-size: 48px;
+      a {
+        display: block;
+        padding: 5vw;
+        color: $white;
+      }
+    }
+  }
 }
 .breadcrumbs_list {
   padding: 10px 0 20px 20px;
@@ -1823,34 +1947,6 @@ QUIZ CATEGORY
   background-color: $white;
 }
 .quiz_category {
-  position: relative;
-  border-top: solid 1px #e7e7e7;
-  border-bottom: solid 1px #e7e7e7;
-  .title_name {
-    width: 45%;
-  }
-  .graph {
-    position: relative;
-    width: 300px;
-    height: 26px;
-    margin: 5px 0 0 5px;
-    padding: 2px;
-    background: $white;
-    border: 1px solid gray;
-    border-radius: 13px;
-    .bar {
-      display: block;
-      position: relative;
-      border-radius: 10px;
-      text-align: center;
-      color: #f0ffff;
-      span {
-        position: absolute;
-        left: 1em;
-        border-radius: 10px;
-      }
-    }
-  }
   .drag_and_drop {
     position: absolute;
     top:50%;
@@ -1862,9 +1958,6 @@ QUIZ CATEGORY
   }
   .drag_and_drop:hover {
     cursor: pointer;
-  }
-  a, p {
-    padding: 15px;
   }
   .edit_button {
     font-size: 20px;
@@ -1889,11 +1982,11 @@ QUIZ CATEGORY
 .quiz_category:nth-child(even), .quiz:nth-child(even) {
   background-color: $white;
 }
-.quiz_category .chart_button {
+.quiz_category .chart_btn {
   font-size: 20px;
   color: #F39C3F;
 }
-.quiz_category .chart_button:hover {
+.quiz_category .chart_btn:hover {
   color: $white;
   background-color: #F39C3F;
   cursor: pointer;
@@ -1911,6 +2004,11 @@ QUIZ CATEGORY
 }
 .quiz_content {
   padding: 15px;
+}
+@media screen and (max-width: 559px) {
+  .quiz_category_index {
+    margin: 10px auto;
+  }
 }
 /*-----------
 login

@@ -1,5 +1,5 @@
 <% content_for(:html_title) { "Quiz - #{@category.name}" } %>
-<% breadcrumb :show_category, @category %>
+<%= render 'breadcrumbs' %>
 <div class="quiz_wrapper">
   <div class="question_box">
     <p id="quiz_count"></P>
@@ -12,6 +12,9 @@
     <div id="quiz_btn" class="quizAction disabled">Next</div>
   </div>
 </div>
-<%= render "score_modal" %>
+<div class="user_menu_in_mobile hidden">
+  <%= render "user_menu_in_mobile" %>
+</div>
+<%= render "score_modal", level: @category.ancestors.first  %>
 <%= javascript_include_tag 'quiz.js' %>
 <%= javascript_include_tag 'show_charts.js' %>

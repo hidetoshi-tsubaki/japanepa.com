@@ -2,15 +2,9 @@ Rails.application.routes.draw do
 
   root "static_pages#home"
 
-  resources :quizzes, only: [:show, :index] do
-    collection do
-      get :all_quizzes
-    end
-    member do
-      get :play
-      get :play_mistakes
-    end
-  end
+  resources :quiz_categories, only: [:index, :show]
+  get '/quizzes/:id/play', to: 'quizzes#play', as: 'quiz_play'
+  get '/quizzes/:id/play_mistakes', to: 'quizzes#play_mistakes', as: 'play_mistakes'
   resources :mistakes, only: [:index, :destroy] do
     collection do
       get :search

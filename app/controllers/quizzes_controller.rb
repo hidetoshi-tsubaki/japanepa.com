@@ -18,15 +18,11 @@ class QuizzesController < ApplicationController
       render :play
     else
       @levels = QuizCategory.includes(categories: :quizzes).levels
-      render :index 
+      render :index
       flash[:alert] = "there is no mistake record"
     end
   end
 
-  def index
-    @levels = QuizCategory.includes(:learning_levels, [categories: :quizzes]).levels
-    get_user_level
-  end
 
   def sections
     @level = QuizCategory.find(params[:id])

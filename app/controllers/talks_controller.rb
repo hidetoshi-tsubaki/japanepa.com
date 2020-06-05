@@ -13,6 +13,7 @@ class TalksController < ApplicationController
     @talks = Talk.in_joined_communities(current_user)
     @comment = Comment.new
     @tags = Community.tags_on(:tags)
+    @joined_communities = current_user.communities
   end
 
   def show
