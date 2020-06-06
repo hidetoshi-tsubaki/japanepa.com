@@ -5,6 +5,6 @@
   </li>
   <li class="posted_time inline">
     Posted by <%= link_to talk.user.name, user_path(talk.user) %> 
-    <%= time_ago_in_words(talk.created_at) %> ago
-    </li>
+  </li>
+  <li class="inline"><%= time_ago_in_words(talk.created_at) %> ago</li>
 </ul>

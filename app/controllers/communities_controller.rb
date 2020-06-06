@@ -7,6 +7,7 @@ class CommunitiesController < ApplicationController
   before_action :get_available_tags, only: [:new, :edit]
   before_action :get_ranked_communities, only: [:show, :index, :search, :tag_search, :joined]
   before_action :get_joined_communities, only: [:index, :show, :joined]
+
   def index
     @q = Community.ransack(params[:q])
     @communities = @q.result(distinct: true).sorted
@@ -14,6 +15,7 @@ class CommunitiesController < ApplicationController
 
   def show
     @community = Community.includes([:founder, talks: :user]).find(params[:id])
+    @q = Community.ransack(params[:q])
     @talks = Talk.where(community_id: params[:id])
     @tags = @community.tags_on(:tags)
     @comment = Comment.new
