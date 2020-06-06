@@ -334,6 +334,15 @@ body {
     width: 9vw;
     font-size: 5vw;
   }
+  #back_to_top_btn_wrapper {
+    right: 10px;
+    height: 54px;
+    width: 54px;
+    #back_to_top_btn {
+      right: 12px;
+      font-size: 60px;
+    }
+  }
 }
 /*-------------
 PAGINATION
@@ -1090,12 +1099,12 @@ COMMON FORM
   margin: 30px auto;
   padding: 25px;
   background-color: $white;
-}
-.form_wrapper label {
-  font-weight: bold;
-}
-.form_wrapper h1 {
-  margin-bottom: 20px;
+  label {
+    font-weight: bold;
+  }
+  h1 {
+    margin-bottom: 20px;
+  }
 }
 form {
   font-size: 14px;
@@ -1212,6 +1221,14 @@ label input {
 #cancel_img_btn:hover, #delete_img_btn:hover {
   color: $red;
   cursor: pointer;
+}
+@media screen and (max-width: 559px) {
+  .form_wrapper {
+    width: 95%;
+    h1 {
+      font-size: 28px;
+    }
+  }
 }
 /*---------------
 USER_FORM ADMIN_FORM
@@ -1385,6 +1402,34 @@ TALKS
   .check_communities_btn:hover {
     background: gray;
     color: $white;
+  }
+}
+@media screen and (max-width: 559px) {
+  #create_talk_btn {
+    position: fixed;
+    top: 81px;
+    right: 8px;
+    a {
+      height: 85px;
+      width: 85px;
+      padding: 15px;
+      border-radius: 50%;
+      border: 2px solid $green;
+      background: $green;
+      color: $white;
+      font-size: 20px;
+    }
+    a:hover {
+      opacity: 1;
+      color: $green;
+      background: $white;
+    }
+  }
+}
+.talk_wrapper {
+  font-size: 14px;
+  .talk_btns {
+    font-size: 12px;
   }
 }
 /*---------------
@@ -2170,6 +2215,69 @@ communityページ
   color: $white;
   background-color:  $deep_blue;
 }
+@media screen and (max-width: 959px) {
+  .community {
+    .community_detail_wrapper {
+      width: 66%;
+    }
+  }
+  .user_menu_in_mobile {
+    .community_data {
+      .community_img_wrapper {
+        display: block;
+        .thumbnail_img {
+          height: 25vh;
+          width: 100%;
+        }
+        .community_initial {
+          width: 100%;
+          padding-top: 25vh;
+        }
+      }
+      .founder_name span, .community_introduction span {
+        background: rgba(0, 0, 0, 0.9);
+        color: gray;
+      }
+    }
+  }
+}
+@media screen and (max-width: 559px) {
+  .community {
+    .community_img_wrapper {
+        display: block;
+        margin: auto;
+      .thumbnail_img, .community_initial {
+        height: 25vh;
+        width: 100%;
+      }
+    }
+    .community_detail_wrapper {
+      margin-top: 10px;
+      height: 25vh;
+      width: 100%;
+      hr {
+        margin: 5px 0;
+      }
+    }
+  }
+  .ranked_community, .joined_community {
+    background: $white;
+    .community_img_wrapper {
+      display: block;
+      .thumbnail_img, .community_initial {
+        height: 25vh;
+        width: 100%;
+      }
+    }
+    .community_initial {
+      font-size: 160px;
+    }
+    .ranked_community_detail, .joined_community_detail {
+      width: 100%;
+      padding-left: 2%;
+    }
+  }
+}
 /*-----------
 ARTICLE
 ------------*/
@@ -2311,7 +2419,7 @@ ARTICLE
     }
     .article_headline_wrapper {
       height: 30vw;
-      width: 60vw;
+      width: 66%;
     }
   }
   .inner_article_content {

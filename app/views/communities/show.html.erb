@@ -11,25 +11,8 @@
       <% end %>
     </div>
   </div>
-  <div class="side_section inline community_page">
-    <div class="side_content">
-      <h4>Community Data</h4>
-      <div class="community_data">
-        <%= link_to 'Edit', edit_community_path(@community), id: "edit_community_btn" if current_user.is_founder?(@community) %>
-        <%= render "community_img", community: @community %>
-        <p class="status_counts">
-          <%= icon("fas","users") %> <%= @community.users.count %>
-          <%= icon("fas","comments") %> <%= @community.talks.count %>
-        </p>
-        <p class="founder_name"><span>Founder</span> <%= link_to @community.founder.name, user_path(@community.founder.id) %></p>
-        <p class="community_introduction"><span>Introduction</span><%= @community.introduction %></p>
-        <div id="join_btn_<%= @community.id %>">
-          <% unless current_user.is_founder?(@community) %>
-            <%= render partial:'join_btn' , locals: { community: @community } %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+  <div class="side_section inline community_page pc">
+    <%= render "community_data" %>
     <div class="side_content">
       <h4><%= icon("fas", "tags") %> Menu (メニュー)</h4>
       <div class="side_inner_box">
@@ -54,4 +37,10 @@
     <%= render "joined_communities" %>
   </div>
 </div>
+<div class="user_menu_in_mobile hidden">
+  <%= render "user_menu_in_mobile" %>
+  <%= render "community_data" %>
+  <%= render "side_section" %>
+</div>
+<%= render "talks/create_talk_btn" %>
 <%= render "back_to_top_btn" %>

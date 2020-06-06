@@ -1,0 +1,5 @@
+<div id="create_talk_btn" class="sp">
+  <%= link_to new_talk_path(talk: { community_id: @community.id }), remote: true do %>
+    <%= icon("fas", "pen") %>
+  <% end %>
+</div>
