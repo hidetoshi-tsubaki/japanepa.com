@@ -87,12 +87,12 @@ class User < ApplicationRecord
     like_talks.find_by(talk_id: talk.id)
   end
 
-  def like_talk(talk)
-    like_talks.create!(talk_id: talk.id)
+  def like_talk(talk_id)
+    like_talks.create!(talk_id: talk_id)
   end
 
-  def remove_like_talk(talk)
-    like_talks.find_by(talk_id: talk.id).destroy
+  def remove_like_talk(talk_id)
+    like_talks.find_by(talk_id: talk_id).destroy
   end
 
   def already_liked_article?(article)

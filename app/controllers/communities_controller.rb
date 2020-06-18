@@ -16,7 +16,7 @@ class CommunitiesController < ApplicationController
   def show
     @community = Community.includes([:founder, talks: :user]).find(params[:id])
     @q = Community.ransack(params[:q])
-    @talks = Talk.where(community_id: params[:id])
+    @talks = Talk.where(community_id: params[:id]).sorted
     @tags = @community.tags_on(:tags)
     @comment = Comment.new
   end

@@ -72,4 +72,9 @@ module ApplicationHelper
       "blue_bg"
     end
   end
+
+  def community_page?
+    controller.controller_name == "communtiy"
+  end
+
 end

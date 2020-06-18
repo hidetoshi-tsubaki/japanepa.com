@@ -1,8 +1,8 @@
-<div class="inline community_img_wrapper">
+<div class="community_img_wrapper">
   <% if community.img.attached? %>
     <%= image_tag community.img, class: "thumbnail_img" %>
   <% else %>
-    <div class="inline community_initial <%= thumbnails_color(community) %>">
+    <div class="community_initial <%= thumbnails_color(community) %>">
       <p><%= community.name.upcase.slice(0) %></p>
     </div>
   <% end %>
