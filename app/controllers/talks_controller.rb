@@ -1,19 +1,15 @@
 class TalksController < ApplicationController
   before_action :only_login_user!
   before_action :get_unchecked_announce_count, :get_current_level
-  before_action :set_ranked_talks, only: [:index]
-  before_action :from_feed?, :get_community_id, only: [:new, :create, :edit]
-
-  def index
-    @talks = current_user.own_talks.paginate(params[:page], 15)
-    @comment = Comment.new
-  end
+  before_action :set_ranked_talks, only: [:feed]
+  before_action :from_feed?, only: [:new, :edit, :create, :edit]
+  before_action :get_community_id, only: [:new, :edit, :create]
+  before_action :get_joined_communties
 
   def feed
     @talks = Talk.in_joined_communities(current_user)
     @comment = Comment.new
     @tags = Community.tags_on(:tags)
-    @joined_communities = current_user.communities
   end
 
   def show
@@ -24,30 +20,31 @@ class TalksController < ApplicationController
 
   def new
     @talk = current_user.talks.new
-    render 'form'
   end
 
   def create
     @talk = current_user.talks.new(talk_params)
     if @talk.save
       flash.now[:notice] = "talk was post"
+      redirect_to_the_page
     else
-      render 'form'
+      @community = Community.find(params[:talk][:community_id].to_i) if params[:feed].blank?
+      render 'new'
     end
   end
 
   def edit
     @talk = Talk.find(params[:id])
-    render 'form'
   end
 
   def update
     @talk = Talk.find(params[:id])
     if @talk.update(talk_params)
       @talk.img.purge if params[:talk][:delete_img].present?
+      redirect_to_the_page
     else
-      @community = Community.find(params[:talk][:community_id])
-      render 'form'
+      @community = Community.find(params[:talk][:community_id].to_i)
+      render 'edit'
     end
   end
 
@@ -69,20 +66,11 @@ class TalksController < ApplicationController
     end
   end
 
-  def talks_in_feed
-    if current_user.communities.empty?
-      Talk.sorted
-    else
-      community_id = current_user.communities.ids
-      Talk.where(id: community_id)
-    end
-  end
-
   def get_community_id
     if params[:from_feed] == "true"
       @communities = current_user.communities
     else
-      @community = Community.find(params[:talk][:community_id])
+      @community = Community.find(params[:from_community_page])
     end
   end
 
@@ -90,9 +78,21 @@ class TalksController < ApplicationController
     @from_feed = params[:from_feed]
   end
 
+  def redirect_to_the_page
+    unless params[:from_feed].blank?
+      redirect_to feed_talk_path(current_user)
+    else
+      redirect_to community_path(@talk.community)
+    end
+  end
+
   def set_ranked_talks
     @commented_top_3 = Talk.commented_top_3
     @liked_top_3 = Talk.liked_top_3
+  end
+
+  def get_joined_communties
+    @joined_communities = current_user.communities
   end
 
 end

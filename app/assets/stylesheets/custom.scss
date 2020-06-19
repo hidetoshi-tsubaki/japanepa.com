@@ -1333,31 +1333,20 @@ TALKS
   padding: 10px;
   box-sizing: border-box;
   border-radius: 5px;
-}
-.talk_head {
-  font-size: 12px;
-}
-.talk_head a {
-  font-weight: bold;
-  color: $blue;
-}
-.talk_head a:hover {
-  opacity: .6;
-}
-.talk_content_wrapper {
-  margin: 10px 0;
-  color: #5f5f5f;
-  img {
-    width: 50%;
+  font-size: 14px;
+  .talk_btns {
+    font-size: 12px;
+  }
+  .talk_content_wrapper {
+    margin: 10px 0;
+    color: #5f5f5f;
+    img {
+      width: 50%;
+      margin-top: 10px;
+    }
   }
 }
-.talk_content {
-  font-size: 18px;
-  a:hover {
-    text-decoration: underline;
-  }
-}
-.talk_btns li, .talk_head li {
+.talk_btns li {
   display: inline-block;
   margin-right: 5px;
 }
@@ -1376,6 +1365,9 @@ TALKS
   border: 2px solid gray;
   border-radius: 5px;
   padding: 3px;
+}
+.talk_info {
+  font-size: 14px;
 }
 #check_community_bg {
   position: fixed;
@@ -1404,32 +1396,71 @@ TALKS
     color: $white;
   }
 }
-@media screen and (max-width: 559px) {
-  #create_talk_btn {
-    position: fixed;
-    top: 81px;
-    right: 8px;
-    a {
-      height: 85px;
-      width: 85px;
-      padding: 15px;
-      border-radius: 50%;
-      border: 2px solid $green;
-      background: $green;
-      color: $white;
-      font-size: 20px;
+.top_3_talk_wrapper {
+  padding: 10px;
+  .inner_talk {
+    padding: 5px;
+    background: #e7e7e7;
+    .talk_btns {
+      font-size: 12px;
+      .comment_btn {
+        color: #75C2F8;
+      }
     }
-    a:hover {
-      opacity: 1;
-      color: $green;
-      background: $white;
+    .talk_info {
+      margin-bottom: 10px;
+    }
+    .like_btn {
+      margin-top: 10px;
+    }
+  }
+  .inner_talk:not(:last-child) {
+    margin-bottom: 10px;
+    .talk_info {
+      font-size: 12px;
     }
   }
 }
-.talk_wrapper {
-  font-size: 14px;
-  .talk_btns {
-    font-size: 12px;
+#create_talk_btn {
+  position: fixed;
+  top: 81px;
+  right: 8px;
+  a {
+    height: 85px;
+    width: 85px;
+    padding: 15px;
+    border-radius: 50%;
+    border: 2px solid $green;
+    background: $green;
+    color: $white;
+    font-size: 20px;
+  }
+  a:hover {
+    opacity: 1;
+    color: $green;
+    background: $white;
+  }
+}
+@media screen and (max-width: 959px) {
+  .talk_index_wrapper {
+    width: 75%;
+    max-width: 550px;
+    min-width: 500px;
+    margin: auto;
+  }
+  .top_3_talk_wrapper {
+    background: $white;
+    color: gray;
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 559px) {
+  .talk_index_wrapper, .top_3_talk_wrapper {
+    width: 100%;
+    min-width: 300px;
+    .talk_wrapper .talk_content_wrapper img {
+      width: 100%;
+    }
   }
 }
 /*---------------
@@ -2093,9 +2124,10 @@ login
 communityページ
 ---------------------*/
 .community {
+  display: flex;
   position: relative;
   margin-bottom: 15px;
-  padding: 10px;
+  padding: 1%;
   background-color: $white;
   color: gray;
   .thumbnail_img, .community_initial {
@@ -2124,6 +2156,8 @@ communityページ
   }
 }
 .ranked_community, .joined_community {
+  display: flex;
+  justify-content: space-around;
   position: relative;
   .thumbnail_img {
     width: 100px;
@@ -2166,7 +2200,10 @@ communityページ
   }
 }
 .inner_community_content {
-  padding: 10px;
+  padding: 2%;
+  .ranked_community, .joined_community {
+    padding: 1%;
+  }
 }
 .community_data {
   position: relative;
@@ -2213,12 +2250,12 @@ communityページ
   margin: 3px;
   padding: 5px 10px;
   color: $white;
-  background-color:  $deep_blue;
+  background-color: $deep_blue;
 }
 @media screen and (max-width: 959px) {
   .community {
     .community_detail_wrapper {
-      width: 66%;
+      width: calc(92vw - 200px);
     }
   }
   .user_menu_in_mobile {
@@ -2238,6 +2275,22 @@ communityページ
         background: rgba(0, 0, 0, 0.9);
         color: gray;
       }
+    }
+  }
+  .ranked_community, .joined_community {
+    background: $white;
+    .thumbnail_img, .thumbnail_img {
+      height: 25vw;
+      width: 25vw;
+    }
+    .community_initial {
+      padding-top: 25vw;
+      width: 25vw;
+      font-size: 80px;
+    }
+    .ranked_community_detail, .joined_community_detail {
+      height: 25vw;
+      width: 58vw;
     }
   }
 }

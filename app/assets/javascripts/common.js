@@ -1,5 +1,5 @@
-  // モーダル開閉
 $(function () {
+  // メニューボタン開閉
   $('.menu_btn').on('click', function() {
     $('.user_menu, .admin_menu').fadeToggle(100);
   });
@@ -7,6 +7,7 @@ $(function () {
     $('.user_menu_in_mobile').toggle();
     $('.sp_menu_btn, .close_sp_menu_btn').toggle();
   })
+  // モーダル開閉
   $('#openModal').on('click',function () {
     $('#modalArea').fadeIn();
   });

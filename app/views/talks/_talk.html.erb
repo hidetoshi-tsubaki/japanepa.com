@@ -1,4 +1,4 @@
-<div class="talk_wrapper" id="talk_<%= talk.id%>">
+<div class="talk_wrapper" id="talk_<%= talk.id %>">
   <%= render 'talks/info_of_poster', talk: talk %>
   <div class="talk_content_wrapper">
     <%= simple_format(text_url_to_link(h(talk.content)).html_safe, class: 'talk_content') %>

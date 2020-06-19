@@ -6,8 +6,8 @@
 </div> 
 <div class="talk_index section_wrapper">
   <div class="main_section">
+    <div class="talk_index_wrapper" class="main_section inline">
     <h1 class="center bold page_title">Feed</h1>
-    <div class="talk_index jscroll" class="main_section inline jscroll">
       <% if @talks.present? %>
         <%= render partial: 'talk', collection: @talks, as: :talk %>
       <% else %>
@@ -15,11 +15,8 @@
       <% end %>
     </div>
   </div>
-  <div class="side_section talk_page">
-    <%= render 'talks/side_section' %>
-  </div>
+  <%= render 'side_section' %>
 </div>
-<%= render "back_to_top_btn" %>
 <% unless current_user.communities.any? %>
   <div id="check_community_bg">
     <div id="check_community_wrapper" class="center">
@@ -31,3 +28,11 @@
     </div>
   </div>
 <% end %>
+<div class="user_menu_in_mobile hidden">
+  <%= render "user_menu_in_mobile" %>
+  <%= render "side_section" %>
+  <%= render 'talks/top_3_talks' %>
+  <%= render 'communities/joined_communities' %>
+</div>
+<%= render "create_talk_btn" %>
+<%= render "back_to_top_btn" %>
