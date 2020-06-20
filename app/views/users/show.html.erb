@@ -1,4 +1,5 @@
 <% content_for(:html_title) { "Profile - #{@user.name}" } %>
+<% breadcrumb :show_user, @user %>
 <div class="profile_wrapper">
   <% if own_profile?(@user) %>
   <p class="right edit_profile_btn">
@@ -14,31 +15,31 @@
   </div>
   <ul class="profile_detail center">
     <li>
-      <p>Name</p>
+      <p>~ Name ~</p>
       <p><%= @user.name %></p>
     </li>
     <li>
-      <p>Level</p>
+      <p>~ Level ~</p>
       <p><%= @current_level || "1" %></p>
     </li>
     <li>
-      <p>Total Experience</p>
-      <p><%= @current_experience %></p>
+      <p>~ Total Experience ~</p>
+      <p><%= @current_experience.to_s(:delimited) %></p>
     </li>
     <li>
-      <p>Total Play Count</p>
-      <p><%= @user.score_records.count %></p>
+      <p>~ Total Play Count ~</p>
+      <p><%= @user.score_records.count.to_s(:delimited) %></p>
     </li>
     <li>
-      <p>Communities</p>
+      <p>~ Communities ~</p>
       <p><%= @user.community_users.count %></p>
     </li>
     <li>
-      <p>Total Posts</p>
-      <p><%= @user.talks.count %></p>
+      <p>~ Total Posts ~</p>
+      <p><%= @user.talks.count.to_s(:delimited) %></p>
     </li>
     <li>
-      <p>Country</p>
+      <p>~ Country ~</p>
       <% unless @user.country.blank? %>
         <p>
           <%= @user.country %> 
@@ -49,7 +50,7 @@
       <% end %>
     </li>
     <li>
-      <p>Address</p>
+      <p>~ Address ~</p>
       <% unless @user.current_address.blank? %>
       <p>
         <%= @user.current_address %> 
@@ -63,4 +64,7 @@
     <p class="right">
       <%= link_to 'delete your account', user_registration_path(@user), method: :delete, id: "delete_account" if own_profile?(@user) %>
     </p>
+</div>
+<div class="user_menu_in_mobile hidden">
+  <%= render "user_menu_in_mobile" %>
 </div>

@@ -1,3 +1,5 @@
+<% content_for(:html_title) { "Edit Profile - #{@user.name}" } %>
+<% breadcrumb :edit_user, @user %>
 <div class="login_form_wrapper">
   <h3 class="center">~ Change Profile ~</h3>
   <%= render 'edit_profile', button: "Change" %>
