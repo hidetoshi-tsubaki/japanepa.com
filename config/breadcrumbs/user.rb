@@ -12,7 +12,7 @@ crumb :show_user do |user|
 end
 
 crumb :edit_user do |user|
-  link "Edit #{user.name}", edit_user_path
+  link "Edit Profile", edit_user_registration_path
   parent :show_user, user
 end
 

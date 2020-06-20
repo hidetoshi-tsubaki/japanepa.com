@@ -8,8 +8,8 @@
   </label>
   <div id="delete_img_wrapper" class="field inline">
     <% if model.img.attached? %>
-        <%= f.label :delete_img, for: "delete_img", id: "delete_img_btn" %>
-        <p class="hidden"><%= icon("fas","trash") %> <%= f.check_box :delete_img, {}, true, nil %></p>
+      <p id="delete_img_btn"><%= icon("fas","trash") %><%= f.label :delete_img, for: "delete_img" %></p>
+      <p class="hidden"><%= hidden_field_tag :delete_img %></p>
     <% else %>
       <p id="cancel_img_btn" class="hidden bold"><%= icon("fas","trash") %> Cancel Image</p>
     <% end %>

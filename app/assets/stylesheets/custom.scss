@@ -1032,23 +1032,29 @@ Home FOR NON-MEMBER
 USER_PROFILE
 ---------------*/
 .profile_wrapper {
-  width: 60%;
-  margin: 60px auto;
+  width: 85%;
+  margin: 30px auto;
   background-color: $white;
   .profile_detail {
-    padding: 5%;
+    padding: 2%;
     li {
       display: inline-block;
       margin-bottom: 30px;
-      width: 45%;
+      width: 48%;
       background: $white;
       border-left: 5px solid $orange;
       box-sizing: border-box;
-      font-size: 30px;
       box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+      p:first-child {
+        font-size: 18px;
+      }
+      p:last-child {
+        font-size: 20px;
+        font-weight: bold;
+      }
     }
     li:nth-child(odd) {
-      margin-right: 5%;
+      margin-right: 2%;
     }
   }
   .user_img_area {
@@ -1079,6 +1085,7 @@ USER_PROFILE
   justify-content: center;
 }
 .edit_profile_btn {
+  margin-bottom: 10px;
   padding-top: 10px;
 }
 #edit_profile_btn {
@@ -1090,6 +1097,34 @@ USER_PROFILE
 #delete_account {
   margin: 5px;
   color: #ccc;
+}
+@media screen and (max-width: 559px) {
+  .profile_wrapper {
+    min-width: 300px;
+      .user_img_area {
+        #no_user_img, #present_user_img, #new_user_img {
+          width: 250px;
+          height: 250px;
+        }
+      }
+      #present_user_img {
+        width: 50vw;
+        height: 50vw;
+      }
+    .profile_detail {
+      li:nth-child(odd) {
+        margin-right: auto;
+      }
+      li {
+        display: block;
+        width: 85%;
+        margin: 0 auto 15px;
+        p:last-child {
+          font-size: 18px;
+        }
+      }
+    }
+  }
 }
 /*---------------
 COMMON FORM
@@ -1234,13 +1269,20 @@ label input {
 USER_FORM ADMIN_FORM
 ---------------*/
 .login_form_wrapper, .register_form_wrapper {
-  width: 600px;
+  width: 75%;
+  min-width: 300px;
   margin: 60px auto;
-  padding:30px 60px;
+  padding: 30px 60px;
   background-color: $white;
 }
 .provider {
   margin: 15px 0;
+}
+@media screen and (max-width: 559px) {
+  .login_form_wrapper, .register_from_wrapper {
+    width: 95%;
+    padding: 30px 2%;
+  }
 }
 /*---------------
 QUIZ_FORM
@@ -1251,7 +1293,7 @@ QUIZ_FORM
 /*-----------
 Ranking(Users)
 ------------*/
-.user_ranking_wrapper  {
+.user_ranking_wrapper {
   width: 90%;
   margin: auto;
   background-color: #fff;
@@ -1259,23 +1301,21 @@ Ranking(Users)
     background-color: $orange;
     color: $white;
   }
-  .your_ranking  {
-    width: 50%;
+  .your_ranking {
+    width: 90%;
     margin: 20px auto;
     padding: 20px;
     background: -webkit-repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
     background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
   }
-  .user_ranking  {
+  .user_ranking {
     padding: 2%;
     .user_ranking_info {
       padding: 20px 0;
       color: gray;
-      font-size: 24px;
-      p  {
-        display: inline-block;
-      }
-      .user_rank_number  {
+      font-size: 20px;
+      display: flex;
+      .user_rank_number {
         .fa-crown {
           font-size: 28px;
         }
@@ -1289,17 +1329,17 @@ Ranking(Users)
       #top_3 .fa-crown {
         color: #C47022;
       }
-      .user_rank_number  {
-        width: 15%;
+      .user_rank_number {
+        width: 20%;
       }
       .name  {
-        width: 55%;
+        width: 50%;
       }
-      .experience  {
-        width: 28%;
+      .experience {
+        width: 30%;
       }
     }
-    .user_ranking_info:hover  {
+    .user_ranking_info:hover {
       @include shadow;
     }
   }
@@ -1310,7 +1350,6 @@ Ranking(Users)
     padding: 15px;
   }
 }
-
 .user .edit_button {
   position: absolute;
   top:50%;
@@ -1322,6 +1361,11 @@ Ranking(Users)
 .user .edit_button:hover {
   color: $white;
   background-color: #388abd;
+}
+@media screen and (max-width: 959px) {
+
+}
+@media screen and (max-width: 559px) {
 }
 /*-----------
 TALKS
