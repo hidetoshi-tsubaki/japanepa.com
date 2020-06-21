@@ -1604,39 +1604,37 @@ announcement
 ----------------*/
 .announcement_index_wrapper {
   width: 75%;
-  margin: 108px auto;
-}
-.announcement_index_wrapper h1 {
-  background-color: #576875;
-  color: $white;
+  margin: 30px auto;
+  h1 {
+    background-color: #576875;
+    color: $white;
+  }
+  .new_announce_index {
+    text-align: start;
+    td {
+      padding: 10px 0;
+    }
+    td:first-child {
+      width: 25%;
+    }
+    td:nth-child(2) {
+      width: 15%;
+    }
+    .announce:nth-child(even) {
+      background-color: #e7e7e7;
+      transition: all linear 0.2s;
+    }
+    .announce:hover {
+      opacity: .6;
+      background-color: rgba(242, 145, 115, 0.459);
+    }
+  }
+  .label_new {
+    color: $alert_red;
+  }
 }
 .announcement_index {
   text-align: start;
-}
-.new_announce_index {
-  text-align: start;
-}
-.new_announce_index{
-  td {
-    padding: 10px 0;
-  }
-  td:first-child {
-    width: 15%;
-  }
-  td:nth-child(2) {
-    width: 10%;
-  }
-}
-.announce:nth-child(even) {
-  background-color: #e7e7e7;
-  transition: all linear 0.2s;
-}
-.announce:hover {
-  opacity: .6;
-  background-color: rgba(242, 145, 115, 0.459);
-}
-.label_new {
-  color: $alert_red;
 }
 .see_more {
   color: $red;
@@ -1644,6 +1642,17 @@ announcement
 .see_more:hover {
   color: $red;
   opacity: .5;
+}
+@media screen and (max-width: 559px) {
+  .announcement_index_wrapper {
+    width: 95%;
+    h1 {
+      font-size: 24px;
+    }
+  }
+  td {
+    font-size: 14px;
+  }
 }
 /*---------------
 QUIZ CATEGORY INDEX
