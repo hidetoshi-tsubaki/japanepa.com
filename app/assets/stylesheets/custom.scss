@@ -812,7 +812,7 @@ HOME FOR ADMIN USER
   color: $green;
 }
 /*---------------
-EVENT
+EVENT(Calendar)
 ---------------*/
 .show_calendar {
   position: absolute;
@@ -825,142 +825,139 @@ EVENT
   margin: auto;
   .simple-calendar {
     .calendar-heading {
+      height: 5%;
+      min-height: 30px;
       .calendar-title {
         margin: 0 10px;
-        font-size: 48px;
+        font-size: 36px;
       }
       a {
         font-size: 24px;
       }
     }
+    .calendar_thead {
+      height: 10%;
+    }
+    .bootstrap-datetimepicker-widget.dropdown-menu {
+      width: auto;
+    }
     table {
       background-color: $white;
-      td {
-        padding-bottom: 5px;
+      .calendar_thead {
+        height: 16%;
       }
-    }
-    .day {
-      height: 12vh;
-      .event_name{
+      .day_of_the_week {
+        padding: 0;
+        text-align: center;
+        background: #767676;
         color: $white;
       }
-      .event_name:hover {
-        transition: .2s;
-      }
-      position: relative;
-      .new_event_btn {
-        display: none;
-        position: absolute;
-        top: 0;
-        right: 5px;
-        a {
-          color: gray;
+      tbody {
+        height: 90%;
+        td {
+          padding: 0px;
+        }
+        .today {
+          color: red;
+        }
+        .day {
+          height: 13vh;
+          .event_name{
+            color: $white;
+          }
+          .event_name:hover {
+            transition: .2s;
+          }
+          position: relative;
+          .new_event_btn {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 5px;
+            a {
+              color: gray;
+            }
+          }
+          .new_event_btn a:hover {
+            color: $red;
+            cursor: pointer;
+          }
+          text-align: start;
+          .event_green {
+          background-color: $green;
+          }
+          .event_green:hover {
+            background-color: rgb(148, 231, 88);
+          }
+          .event_yellow {
+            background-color: $yellow;
+          }
+          .event_yellow:hover {
+            background-color: rgb(243, 220, 115);
+          }
+          .event_blue {
+            background-color: $blue;
+          }
+          .event_blue:hover {
+            background-color: rgba(117, 194, 248, 0.616);
+          }
+          .event_red {
+            background-color: $pink;
+          }
+          .event_red:hover {
+            background-color: rgba(240, 154, 149, 0.883);
+          }
+          .event_brown {
+            background-color: #B8845D;
+          }
+          .event_brown:hover {
+            background-color: rgb(228, 145, 82);
+          }
+        }
+        .day:hover .new_event_btn {
+          display: block;
+        }
+        .day:hover {
+          font-weight: bold;
+          cursor: default;
         }
       }
-      .new_event_btn a:hover {
-        color: $red;
-        cursor: pointer;
-      }
-    }
-    .day:hover .new_event_btn {
-      display: block;
     }
   }
-}
-/*---------------
-CALENDAR
----------------*/
-.calendar_thead {
-  height: 10%;
-}
-.bootstrap-datetimepicker-widget.dropdown-menu {
-  width: auto;
-}
-.calendar_table th {
-  padding: 0;
-  text-align: center;
-  background: #767676;
-  color: $white;
-}
-.calendar_table td {
-  padding: 0;
-}
-.simple-calendar tbody {
-  height: 90%;
-}
-.calendar-heading {
-  height: 5%;
-  min-height: 30px;
-}
-.calendar_thead {
-  height: 16%;
-}
-.day_of_the_week {
-  padding: 0;
-}
-.calendar_thead th {
-  padding: 0;
-}
-.calendar table td {
-  padding: 0;
-}
-.day {
-  height: 14%;
-  text-align: start;
-  padding: 0 0 0 5px;
-}
-.simple-calendar .day:hover {
-  font-weight: bold;
-  font-size: 16px;
-  cursor: default;
-}
-.today {
-  color: red;
 }
 .event {
   color: $white;
   font-weight: normal;
   cursor: pointer;
 }
-.event_green {
-  background-color: $green;
-}
-.event_green:hover {
-  background-color: rgb(148, 231, 88);
-}
-.event_yellow {
-  background-color: $yellow;
-}
-.event_yellow:hover {
-  background-color: rgb(247, 227, 137);
-}
-.event_blue {
-  background-color: $blue;
-}
-.event_blue:hover {
-  background-color: rgba(117, 194, 248, 0.616);
-}
-.event_red {
-  background-color: $pink;
-}
-.event_red:hover {
-  background-color: rgba(242, 146, 141, 0.63);
-}
-.event_brown {
-  background-color: #B8845D;
-}
-.event_brown:hover {
-  background-color: rgb(228, 145, 82);
-}
-.event_detail_wrapper  {
+.event_detail_wrapper {
   padding: 20px;
-  .event_date  {
+  .event_date {
     font-size: 24px;
   }
   .event_name {
     margin-bottom: 10px;
     font-size: 24px;
     border-bottom: solid 3px #CCC;
+  }
+}
+@media screen and (max-width: 559px) {
+  .calendar_wrapper {
+    .simple-calendar {
+      .calendar-heading {
+        .calendar-title {
+          font-size: 20px;
+        }
+        a {
+          font-size: 12px;
+        }
+      }
+      table {
+        .day_of_the_week {
+          font-size: 14px;
+        }
+      }
+    }
   }
 }
 /*---------------
