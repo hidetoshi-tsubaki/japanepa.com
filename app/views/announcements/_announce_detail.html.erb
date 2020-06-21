@@ -1,8 +1,15 @@
 <div class="announce_detail_wrapper">
-  <p class="announce_date">
-    <%= announce.created_at.strftime('%Y/%m/%d') %>
+  <h2 class="announce_name center bold"><%= announce.title %></h2>
+  <p class="announce_date right">
+    <span class="posted_day">
+      <% if updated?(announce) %>
+        <%= icon("fas", "sync-alt") %> <%= announce.updated_at.strftime('%Y/%m/%d') %>
+      <% else %>
+        <%= icon("fas", "clock") %> <%= announce.created_at.strftime('%Y/%m/%d') %>
+      <% end %>
+    </span>
   </p>
-  <h2 class="announce_name bold"><%= announce.title %></h2>
+  <hr>
   <div class="announce_detail">
     <%= raw(announce.contents) %>
   </div>
