@@ -499,6 +499,7 @@ header > div {
     }
     .sp_menu_btn {
       display: inline-block;
+      margin-right: 15px;
     }
   }
   .user_menu_in_mobile {
@@ -547,8 +548,18 @@ header > div {
   }
 }
 @media screen and (max-width: 959px) {
-  #logo {
-    font-size: 16px;
+  header {
+    .login, .register {
+      font-size: 15px;
+    }
+    #logo {
+      font-size: 16px;
+    }
+    .header_link {
+      li {
+        margin-right: 5px;
+      }
+    }
   }
 }
 /*-----------
@@ -822,6 +833,7 @@ EVENT(Calendar)
 }
 .calendar_wrapper {
   width: 95%;
+  min-width: 300px;
   margin: auto;
   .simple-calendar {
     .calendar-heading {
@@ -1268,15 +1280,18 @@ USER_FORM ADMIN_FORM
 .login_form_wrapper, .register_form_wrapper {
   width: 75%;
   min-width: 300px;
-  margin: 60px auto;
+  margin: 30px auto;
   padding: 30px 60px;
   background-color: $white;
-}
-.provider {
-  margin: 15px 0;
+    label {
+      font-weight: bold;
+    }
+    .provider {
+      margin: 15px 0;
+    }
 }
 @media screen and (max-width: 559px) {
-  .login_form_wrapper, .register_from_wrapper {
+  .login_form_wrapper, .register_form_wrapper {
     width: 95%;
     padding: 30px 2%;
   }
