@@ -17,8 +17,11 @@ crumb :edit_user do |user|
 end
 
 crumb :new_user do
-  link "New user", new_user_path
-  parent :users
+  link "Register", new_user_registration_path
+end
+
+crumb :login do
+  link "Log In"
 end
 
 # Admin
