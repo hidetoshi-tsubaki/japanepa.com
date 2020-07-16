@@ -38,6 +38,11 @@ class ApplicationController < ActionController::Base
       length - current_user.announcement_checks.length
   end
 
+  def get_not_done_reviews_count
+    return unless user_signed_in?
+    @not_done_reviews_count = current_user.reviews_today.length
+  end
+
   private
 
   def configure_permitted_parameters
@@ -78,7 +83,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_user_total_experience(user)
-    user_total_experience = UserExperience.new(user_id: user.id)
-    user_total_experience.save!
+    user_total_experience = UserExperience.create(user_id: user.id)
   end
 end

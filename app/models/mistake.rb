@@ -6,3 +6,4 @@ class Mistake < ApplicationRecord
   validates :user_id, :uniqueness => { scope: [:quiz_id, :title_id] }
 
 end
+

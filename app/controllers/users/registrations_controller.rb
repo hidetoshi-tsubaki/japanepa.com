@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   before_action :only_login_user!, only: [:edit, :update, :destory]
-  before_action :get_unchecked_announce_count, :get_current_level, only: :edit
+  before_action :get_unchecked_announce_count, :get_not_done_reviews_count, :get_current_level, only: :edit
 
   def create
     build_resource(sign_up_params)
@@ -33,7 +33,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource_updated = update_resource(resource, account_update_params)
     yield resource if block_given?
     if resource_updated
-      p params[:delete_img]
       resource.img.purge if params[:delete_img]
       bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
       redirect_to user_path(resource)

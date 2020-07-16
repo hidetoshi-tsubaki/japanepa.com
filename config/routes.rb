@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   resources :community_users, only: [:create, :destroy]
   resources :announcements, only: [:index, :show]
   resources :events, only: [:index, :show]
+  resources :reviews, only: [:index, :destroy]
 
   namespace :admin do
     get '/', to: 'static_pages#home'

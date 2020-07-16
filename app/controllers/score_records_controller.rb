@@ -8,6 +8,7 @@ class ScoreRecordsController < ApplicationController
     create_mistakes_record
     update_learning_level(score_records)
     update_experience
+    update_review_info
     get_user_level
     respond_to do |format|
       format.js {
@@ -55,6 +56,10 @@ class ScoreRecordsController < ApplicationController
 
   def mistakes_params
     params.require(:score_record).permit(mistake_ids: [])
+  end
+
+  def played_mistakes?
+    request.referer&.include?("play_mistakes")
   end
 
   def create_mistakes_record
@@ -118,7 +123,12 @@ class ScoreRecordsController < ApplicationController
     end
   end
 
-  def played_mistakes?
-    request.referer&.include?("play_mistakes")
+  def update_review_info
+    review = Review.find_or_initialize_by(user_id: current_user.id, title_id: params[:score_record][:title_id])
+    if review.new_record?
+      review.save_as_new_record
+    else
+      review.overdue? ? review.reset_count : review.update_next_time_and_count
+    end
   end
 end

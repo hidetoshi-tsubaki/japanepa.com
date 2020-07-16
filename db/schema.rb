@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_20_163852) do
+ActiveRecord::Schema.define(version: 2020_06_23_154719) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -239,6 +239,15 @@ ActiveRecord::Schema.define(version: 2020_06_20_163852) do
     t.string "choice4", null: false
     t.integer "category_id"
     t.index ["category_id"], name: "index_quizzes_on_category_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "title_id"
+    t.integer "count", default: 1
+    t.date "next_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "score_records", force: :cascade do |t|

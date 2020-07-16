@@ -1,9 +1,11 @@
-<li class="quiz_category right" id="category_<%= category.id %>">
-  <span class="drag_and_drop"><%= category.name %></span>
-  <%= link_to categories_admin_quiz_category_path(category), class: "edit_button inline" do %>
+<li class="admin_quiz_category" id="category_<%= category.id %>">
+  <p class="drag_and_drop"><%= category.name %></p>
+  <p>
+    <%= link_to categories_admin_quiz_category_path(category), class: "edit_btn inline" do %>
     <%= icon("fas", "edit") %>詳細
-  <% end %>
-  <%= link_to admin_quiz_category_path(category), class: "delete_button inline",data: { confirm: 'このカテゴリーを削除しますか?' } ,remote: true, method: :delete do %>
-    <%= icon("fas", "trash-alt") %>削除
-  <% end %>
+    <% end %>
+    <%= link_to admin_quiz_category_path(category), class: "delete_btn inline",data: { confirm: 'このカテゴリーを削除しますか?' } ,remote: true, method: :delete do %>
+      <%= icon("fas", "trash-alt") %>削除
+    <% end %>
+  </p>
 </li>

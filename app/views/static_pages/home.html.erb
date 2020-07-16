@@ -1,4 +1,9 @@
+<% content_for(:html_title) { "Japanepa.com" } %>
 <% if user_signed_in? %>
+  <p class="breadcrumbs sp">
+    <%= icon("fas","map-marker-alt") %> 
+    <%= link_to "Home", root_path %>
+  </p>
   <%= render 'home_for_member' %>
 <% else %>
   <%= render 'home_for_non-member' %>
