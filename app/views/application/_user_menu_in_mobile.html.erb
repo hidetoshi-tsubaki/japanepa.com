@@ -1,3 +1,21 @@
+<ul class="right notification_wrapper">
+  <li class="announce_btn inline">
+    <%= link_to announcements_path do %>
+      <%= icon("fas", "bell") %>
+      <% unless @unchecked_announce_count.zero? %>
+        <span class="unchecked_announce_count"><%= @unchecked_announce_count.nonzero? %></span>
+      <% end %>
+    <% end %>
+  </li>
+  <li class="to_do_list_btn inline">
+    <%= link_to reviews_path do %>
+      <%= icon("fas", "list") %>
+      <% unless @not_done_reviews_count.zero? %>
+        <span class="not_done_reviews_count"><%= @not_done_reviews_count.nonzero? %>
+      <% end %>
+    <% end %>
+  </li>
+</ul>
 <div class="user_img_area center">
   <% if current_user.img.attached? %>
     <%= image_tag current_user.img, id:'present_user_img' %>

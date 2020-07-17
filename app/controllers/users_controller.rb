@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :only_login_user!
-  before_action :get_unchecked_announce_count, :get_current_level
+  before_action :get_unchecked_announce_count, :get_not_done_reviews_count, :get_current_level
 
   def index
     @users = User.includes(:user_experience)

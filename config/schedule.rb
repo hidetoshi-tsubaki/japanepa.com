@@ -7,7 +7,9 @@ set :output, "#{Rails.root}/log/cron.log"
 #   rake 'counting:counting_date'
 # end
 
-every 1.day, :at => '0am' do
+# every 1.day, :at => '0am' do
+every 1.minute do
   rake 'counting:counting_date'
+  rake 'review:delete_overdue_reviews'
 end
 

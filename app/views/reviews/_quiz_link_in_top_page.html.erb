@@ -1,0 +1,8 @@
+<tr class="review_<%= review.id %>">
+  <td>
+    <%= link_to review.category.name, quiz_play_path(review.category.id), class: "review_link" %>
+  </td>
+  <td>
+    <%= review.count %>
+  </td>
+</tr>

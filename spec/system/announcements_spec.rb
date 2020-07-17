@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Announcement', type: :system do
   let!(:user) { create(:user) }
   let!(:announce1) { create(:announcement) }
-  let!(:announce2) { create(:announement, status: 'draft') }
+  let!(:announce2) { create(:announcement, status: 'draft') }
 
   before do
     user_sign_in(user.name, 'password')

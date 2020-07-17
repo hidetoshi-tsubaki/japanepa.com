@@ -1,0 +1,35 @@
+<div class="reviews_wrapper_in_top_page">
+  <h2 class="center">- To Do List -</h2>
+  <% if current_user.reviews.any? %>
+    <div>
+      <p class="review_category">Review To Do Today</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Quiz Title</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: "reviews/quiz_link_in_top_page", collection: current_user.reviews_today, as: "review" %>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <p class="review_category">Reviewed Today</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Quiz Title</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: "reviews/quiz_link_in_top_page", collection: current_user.reviews_done_today, as: "review" %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <%= render "reviews/explain_system" %>
+  <% end %>
+</div>

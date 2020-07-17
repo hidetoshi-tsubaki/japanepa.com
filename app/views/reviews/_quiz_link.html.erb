@@ -1,0 +1,16 @@
+<tr class="review_<%= review.id %>">
+  <td>
+    <%= review.next_time.strftime("%b %d, %y") %>
+  </td>
+  <td>
+    <%= link_to review.category.name, quiz_play_path(review.category.id), class: "review_link" %>
+  </td>
+  <td>
+    <%= review.count %>
+  </td>
+  <td>
+    <%= link_to review_path(review.id), class: "delete_btn inline", data: { confirm: 'Stop to review this quizzes' }, method: :delete, remote: :ture do %>
+      <%= icon("fas", "trash-alt") %> Remove
+    <% end %>
+  </td>
+</tr>

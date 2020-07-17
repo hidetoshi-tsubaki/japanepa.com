@@ -1,0 +1,13 @@
+<table class="reviews_table center">
+  <thead>
+    <tr>
+      <th>Next time</th>
+      <th>Quiz Title</th>
+      <th>count</th>
+      <th></th>
+    </tr>
+  <thead>
+  <tbody>
+    <%= render partial: "quiz_link", collection: reviews, as: "review" %>
+  </tbody>
+</table>

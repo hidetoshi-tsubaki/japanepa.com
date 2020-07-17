@@ -1,0 +1,29 @@
+<% content_for(:html_title) { "To do list" } %>
+<% breadcrumb :reviews %>
+<div class="reviews_wrapper">
+  <h1 class="center bold page_title">To do list</h2>
+  <% if current_user.reviews.any? %>
+    <div>
+      <h4>Review To Do Today</h4>
+      <%= render "reviews_table", reviews: current_user.reviews_today %>
+    </div>
+    <div>
+      <h4>Reviewed Today</h4>
+      <%= render "reviews_table", reviews: current_user.reviews_done_today %>
+    </div>
+    <div>
+      <h4>Scheduled Reviews</h4>
+      <%= render "reviews_table", reviews: current_user.coming_reviews %>
+    </div>
+    <div>
+      <h4>Overdued Quizzes</h4>
+      <p>Let review them again!</p>
+      <%= render "reviews_table", reviews: current_user.overdue_reviews %>
+    </div>
+  <% else %>
+    <%= render "explain_system" %>
+  <% end %>
+</div>
+<div class="user_menu_in_mobile hidden">
+  <%= render "user_menu_in_mobile" %>
+</div>

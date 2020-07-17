@@ -21,14 +21,15 @@ namespace :counting do
       p "successed to Batch prosessing(#{time})"
     else
       p "***********************************************************"
-      p "  failed Batch prosessing failed（#{time}) "
-      p "***********************************************************"
       p ""
+      p "  failed Batch prosessing failed（#{time}) "
       p "----------error messages------------"
       counting.errors.full_messages.each_with_index do |message, index|
         p "#{index}: #{message}"
       end
       p "------------------------------------"
+      p ""
+      p "***********************************************************"
     end
   end
 end

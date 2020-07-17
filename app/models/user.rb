@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :mistakes
   has_many :announcement_checks, dependent: :destroy
   has_many :learning_levels, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_one :user_experience, dependent: :destroy
   has_one_attached :img
   validates :name, uniqueness: { case_sensitive: false }
@@ -35,25 +36,14 @@ class User < ApplicationRecord
     result
   end
 
-
   def self.from_omniauth(auth)
-    find_or_create_by(provider: auth["provider"], uid: auth["uid"]) do |user|
+    find_or_initialize_by(provider: auth["provider"], uid: auth["uid"]) do |user|
       user.provider = auth["provider"]
       user.uid = auth["uid"]
       user.name = auth["info"]["name"]
       user.password = Devise.friendly_token[0, 20]
     end
   end
-
-  # def self.new_with_session(params, session)
-  #   if session["devise.user_attributes"]
-  #     new(session["devise.user_attributes"]) do |user|
-  #       user.attributes = params
-  #     end
-  #   else
-  #     super
-  #   end
-  # end
 
   def is_founder?(community)
     self.id == community.founder_id
@@ -125,5 +115,35 @@ class User < ApplicationRecord
 
   def check_announce(announce)
     announcement_checks.create!(announcement_id: announce.id)
+  end
+
+  def reviews_today
+    reviews.includes(:category).where(next_time: Date.yesterday..Date.today)
+  end
+
+  def coming_reviews
+    reviews.includes(:category).where("next_time > ?", Date.today)
+  end
+
+  def reviews_done_today
+    reviews.includes(:category).where(updated_at: Date.today.all_day).where("count > 1")
+  end
+
+  def have_overdue_review?
+    reviews.find_by("next_time < ?", Date.today.prev_day(2))
+  end
+
+  def overdue_reviews
+    reviews.where(count: 0).order(count: "ASC")
+  end
+
+  def reset_all_overdue_reviews
+    reviews = []
+    Review.where("user_id: self.id, next_time < ?", Date.today.prev_day(2)).each do |review|
+      review.count = 0
+      review.next_time = nil
+      reviews << review
+    end
+    review.import reviews, on_duplicate_key_update: [:count, :next_time]
   end
 end
