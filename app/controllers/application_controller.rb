@@ -83,6 +83,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_user_total_experience(user)
-    user_total_experience = UserExperience.create(user_id: user.id)
+    UserExperience.create(user_id: user.id)
   end
 end
