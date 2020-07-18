@@ -694,16 +694,17 @@ button {
 2.4 FLASH
 ---------------*/
 #flash_wrapper {
-  position:absolute;
-  top:30px;
-  left:50%;
-    transform:translateX(-50%);
+  position:　absolute;
+  top: 30px;
+  left: 50%;
+  transform:　translateX(-50%);
+  z-index: 1000;
 }
 #flash {
   border:solid 1px #ccc;
   background-color:$white;
-  padding:20px 40px;
-  border-radius:5px;
+  padding: 20px 40px;
+  border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0,0,0,.5);
 }
 #flash {
