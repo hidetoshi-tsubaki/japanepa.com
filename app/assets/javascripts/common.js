@@ -72,9 +72,9 @@ $(function () {
     });
   });
   // 通知の表示
-  $(function flash(){
+  // $(function flash(){
     setTimeout("$('#flash').fadeOut('slow')",2000);
-  })
+  // })
 // tab切り替え
 $('.tab').on('click', function(){
   $('.is-active').removeClass('is-active');
