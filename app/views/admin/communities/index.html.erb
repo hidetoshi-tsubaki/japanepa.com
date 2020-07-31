@@ -1,7 +1,7 @@
 <% content_for(:html_title) { "Communities Index" } %>
 <% breadcrumb :admin_communities, @communities %>
 <div class="admin_index_wrapper">
-  <h1 class="admin_index_title"><%= icon("fas","users") %> Community index </h1>
+  <p class="admin_index_title"><%= icon("fas","users") %> コミュニティー　一覧 <%= icon("fas","users") %></p>
   <div class="search_wrapper">
     <div class="search" id="date_input">
       <p class="bold">・ワード検索</p>
@@ -28,9 +28,14 @@
     </div>
   </div>
   <div class="index">
-    <p><%= link_to "全件表示", admin_communities_path(anchor: "index"), class: "show_all" %></p>
+    <p class="create_btn_wrapper">
+      <%= link_to "全件表示", admin_communities_path(anchor: "index"), class: "show_all" %>
+      <span class="scroll_x">※ 横スクロール可</span>
+    </p>
     <table class="index_table" id="index">
-      <%= render 'column' %>
+      <thead>
+        <%= render 'column' %>
+      </thead>
       <tbody>
         <% if @communities.present? %>
           <%= render partial: 'community', collection: @communities, as: :community %>
@@ -40,8 +45,7 @@
     <%= paginate @communities, :params => { anchor: "index" } %>
     <% if @communities.blank? %>
       <div class="no_result">
-        <h3 class="center">No communities....</h3>
-        <p class="center"><%= link_to '一覧表示', admin_communities_path %></p>
+        <p class="no_data center">No communities....</p>
       </div>
     <% end %>
   </div>

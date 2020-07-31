@@ -1,7 +1,7 @@
 <% content_for(:html_title) { 'talks Index' } %>
 <% breadcrumb :admin_talks, @talks %>
 <div class="admin_index_wrapper">
-  <h1 class="admin_index_title"><%= icon("fas","comments") %> talks index </h1>
+  <p class="admin_index_title"><%= icon("fas","comments") %> 投稿 一覧 <%= icon("fas","comments") %></p>
   <%= search_form_for @q, url: search_admin_talks_path do |f| %>
     <div class="search_wrapper">
       <div class="search" id="date_input">
@@ -22,6 +22,7 @@
   <div class="talks index">
     <p class="create_btn_wrapper">
       <%= link_to "全件表示", admin_talks_path(anchor: "index"), class: "show_all" %>
+      <span class="scroll_x">※ 横スクロール可</span>
     </p>
     <table class="index_table" id="index">
       <thead>
@@ -36,8 +37,7 @@
     <%= paginate @talks, :params => { anchor: "index" } %>
     <% if @talks.blank? %>
       <div class="no_result">
-        <h3 class="center">No talks....</h3>
-        <p class="center"><%= link_to '一覧表示', admin_talks_path %></p>
+        <p class="no_data center">No talks....</p>
       </div>
     <% end %>
   </div>

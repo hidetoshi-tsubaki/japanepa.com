@@ -1,5 +1,6 @@
 <% content_for(:html_title) { 'Article Form' } %>
 <% breadcrumb :new_article, @article %>
+<p class="admin_form_title">Create Article</p>
 <div class="form_wrapper">
   <%= render partial: 'form', locals: { article: @article } %>
 </div>

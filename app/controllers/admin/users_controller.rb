@@ -8,6 +8,12 @@ class Admin::UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    get_user_level(@user)
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    redirect_to admin_users_path
   end
 
   def search

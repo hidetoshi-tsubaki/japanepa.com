@@ -1,7 +1,7 @@
 <% content_for(:html_title) { "Users Index" } %>
 <% breadcrumb :admin_users, @users %>
 <div class="admin_index_wrapper">
-  <h1 class="admin_index_title"><%= icon("fas","user") %> Users index </h1>
+  <p class="admin_index_title"><%= icon("fas","user") %> ユーザー 一覧 <%= icon("fas","user") %></p>
   <%= search_form_for @q, url: search_admin_users_path do |f| %>
     <div class="search_wrapper">
       <div class="search">
@@ -28,9 +28,14 @@
     <%= f.submit 'Search' %>
   <% end %>
   <div class="index">
-    <p><%= link_to "全件表示", admin_users_path(anchor: "index"), class: "new_btn" %></p>
+    <p class="create_btn_wrapper">
+      <%= link_to "全件表示", admin_users_path(anchor: "index"), class: "new_btn" %>
+      <span class="scroll_x">※ 横スクロール可</span>
+    </p>
     <table class="index_table">
-      <%= render 'columns' %>
+      <thead>
+        <%= render 'columns' %>
+      </thead>
       <tbody>
         <% if @users.present? %>
           <%= render partial: 'user', collection: @users, as: :user %>

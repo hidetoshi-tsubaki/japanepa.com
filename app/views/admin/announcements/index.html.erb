@@ -2,7 +2,7 @@
 <% content_for(:html_title) { 'announcement Index' } %>
 <% breadcrumb :admin_announcements_index, @announcement %>
 <div class="admin_index_wrapper">
-  <h1 class="admin_index_title><%= icon("fas","info-circle") %> announcement index </h1>
+  <p class="admin_index_title"><%= icon("fas", "info-circle") %> お知らせ一覧 <%= icon("fas", "info-circle") %></p>
   <div class="search_wrapper">
     <div class="search" id="date_input">
       <p class="bold">ワード検索</p>
@@ -33,6 +33,7 @@
     <p class="create_btn_wrapper">
       <%= link_to "New", new_admin_announcement_path, class: "admin_create_btn" %>
       <%= link_to "全件表示", admin_announcements_path(anchor: "index"), class: "admin_show_all_btn" %>
+      <span class="scroll_x">※ 横スクロール可</span>
     </p>
     <table class="index_table" id="index">
       <thead>
@@ -45,10 +46,9 @@
       </tbody>
     </table>
     <%= paginate @announcements, :params => { anchor: "index" } %>
-    <% if @announcement.blank? %>
+    <% if @announcements.blank? %>
       <div class="no_result">
-        <h3 class="center">No announcement....</h3>
-        <p class="center"><%= link_to '一覧表示', admin_announcements_path %></p>
+        <p class="no_data center">No announcement....</p>
       </div>
     <% end %>
   </div>

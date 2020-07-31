@@ -1,6 +1,6 @@
 $(function () {
   // メニューボタン開閉
-  $('.menu_btn').on('click', function() {
+  $('.menu_btn, .admin_menu_btn').on('click', function() {
     $('.user_menu, .admin_menu').fadeToggle(100);
   });
   $('.sp_menu_btn, .close_sp_menu_btn ').on('click', function() {
@@ -297,4 +297,7 @@ $('.ac_btn').on('click',function(){
       }
     })
   });
+  $(".category_sort_btn").on('click', function() {
+    $(".category_sort, .open_accordion, .close_accordion").toggle();
+  })
 });

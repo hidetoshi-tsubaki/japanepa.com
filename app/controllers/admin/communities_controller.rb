@@ -35,7 +35,7 @@ class Admin::CommunitiesController < ApplicationController
   end
 
   def tag_search
-    @communities = Community.tagged_with(params[:tag]).paginate(params[:page] 15)
+    @communities = Community.tagged_with(params[:tag]).paginate(params[:page], 15)
     @q = Community.ransack(params[:q])
     render template: 'admin/communities/index'
   end

@@ -1,4 +1,3 @@
-<h1 class="center">Article Form</h1>
 <%= form_with model: [:admin, article], local: true, builder: CustomFormBuilder do |f| %>
   <p class="error_message"><%="入力値が正しくありません。" if @article.errors.any? %></p>
   <%= render "radio_button", f: f %>
@@ -11,7 +10,7 @@
     <%= f.text_area :lead %>
   </div>
   <div class="field">
-    <p class="bold">Tags</p>
+    <label>Tags</label>
     <ul id="form-tags" class="tag_input"></ul>
   </div>
   <%= render 'upload_img', model: @article, f: f %>

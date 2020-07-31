@@ -1,7 +1,7 @@
 <% content_for(:html_title) { 'Events Index' } %>
 <% breadcrumb :admin_events, @events %>
 <div class="admin_index_wrapper">
-  <h1 class="admin_index_title"><%= icon("fas","calendar-day") %> Events index </h1>
+  <p class="admin_index_title"><%= icon("fas","calendar-day") %> イベント 一覧 <%= icon("fas","calendar-day") %></p>
   <%= search_form_for @q, url: search_admin_events_path do |f| %>
     <div class="search_wrapper">
       <%= link_to "カレンダー表示に切り替え", calendar_admin_events_path, class: "show_calendar bold" %>
@@ -25,6 +25,7 @@
     <p class="create_btn_wrapper">
       <%= link_to "New", new_admin_event_path, class: "admin_create_btn" %>
       <%= link_to "全件表示", admin_events_path(anchor: "index"), class: "admin_show_all_btn" %>
+      <span class="scroll_x">※ 横スクロール可</span>
     </p>
     <table class="index_table" id="index">
       <thead>
@@ -39,8 +40,7 @@
     <%= paginate @events, :params => { anchor: "index" } %>
     <% if @events.blank? %>
       <div class="no_result">
-        <h3 class="center">No events....</h3>
-        <p class="center"><%= link_to '一覧表示', admin_events_path %></p>
+        <p class="no_data center">No events....</p>
       </div>
     <% end %>
   </div>

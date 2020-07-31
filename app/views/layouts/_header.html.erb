@@ -58,11 +58,8 @@
       </li>
     <% end %>
   <% elsif admin_signed_in? %>
-    <li class="menu_btn sp">
+    <li class="admin_menu_btn">
       <%= icon("fas", "user-cog") %>
-    </li>
-    <li class="menu_btn sp">
-      <%= icon("fas", "bars") %>
     </li>
     <%= render 'admin_menu'%>
   <% else %>

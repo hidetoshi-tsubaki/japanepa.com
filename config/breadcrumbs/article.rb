@@ -17,7 +17,7 @@ crumb :admin_articles do
 end
 
 crumb :edit_article do |article|
-  link "Edit #{article.title}", edit_admin_article_path
+  link "Edit #{article.title[0..15]}", edit_admin_article_path
   parent :admin_articles
 end
 
