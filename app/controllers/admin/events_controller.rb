@@ -8,7 +8,7 @@ class Admin::EventsController < ApplicationController
   end
 
   def calendar
-    @events = Event.published
+    @events = Event.all
   end
 
   def new

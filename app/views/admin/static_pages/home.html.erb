@@ -1,28 +1,33 @@
+<% content_for(:html_title) { "Admin Page" } %>
+<p class="breadcrumbs sp">
+  <%= icon("fas","map-marker-alt") %> 
+  <%= link_to "Home", admin_path %>
+</p>
 <div class="admin_upper_block">
-  <div>
-    <%= link_to admin_announcements_path, class: "menu_panel" do %>
-      <div class="menu_panel announce_panel">
-        <p class="menu_name"><%= icon("fas", "info-circle") %> Announce</p>
-      </div>
-    <% end %>
-    <%= link_to admin_events_path, class: "menu_panel" do %>
-      <div class="menu_panel event_panel">
-        <p class="menu_name"> <%= icon("fas", "calendar-day") %> EVENT</p>
-      </div>
-    <% end %>
-    <%= link_to admin_talks_path, class: "menu_panel" do %>
-      <div class="menu_panel talk_panel">
-        <p class="menu_name"><%= icon("fas", "comments") %> TALKS</p>
-      </div>
-    <% end %>
-    <%= link_to admin_communities_path, class: "menu_panel" do %>
-      <div class="menu_panel community_panel">
-        <p class="menu_name"><%= icon("fas", "users") %> COMMUNITY</p>
-      </div>
-    <% end %>
-  </div>
-  <div class="service_status_panel">
+  <div class="service_status_panel pc">
     <%= render 'admin/static_pages/service_status_panel' %>
+  </div>
+  <div class="admin_upper_panel_wrapper">
+    <%= link_to admin_announcements_path do %>
+      <div class="menu_panel announce_panel">
+        <p class="menu_name"><span> Announce</span><span><%= icon("fas", "info-circle") %></span></p>
+      </div>
+    <% end %>
+    <%= link_to admin_events_path do %>
+      <div class="menu_panel event_panel">
+        <p class="menu_name"><span> EVENT</span><span><%= icon("fas", "calendar-day") %></span></p>
+      </div>
+    <% end %>
+    <%= link_to admin_talks_path do %>
+      <div class="menu_panel talk_panel">
+        <p class="menu_name"><span>TALKS</span><span><%= icon("fas", "comments") %></span></p>
+      </div>
+    <% end %>
+    <%= link_to admin_communities_path do %>
+      <div class="menu_panel community_panel">
+        <p class="menu_name"><span> COMMUNITY</span><span><%= icon("fas", "users") %></span></p>
+      </div>
+    <% end %>
   </div>
 </div>
 <div class="under_block">
@@ -31,12 +36,12 @@
       <p class="menu_name">QUIZ<br><%= icon("fas", "question") %></p>
     </div>
   <% end %>
-  <%= link_to admin_articles_path, class: "menu_panel" do %>
+  <%= link_to admin_articles_path do %>
     <div class="menu_panel article_panel">
       <p class="menu_name">ARTICLE<br><%= icon("fas", "newspaper") %></p>
     </div>
   <% end %>
-  <%= link_to admin_users_path, class: "menu_panel" do%>
+  <%= link_to admin_users_path do%>
     <div class="menu_panel users_panel">
       <p class="menu_name">USERS<br><%= icon("fas", "user") %></p>
     </div>

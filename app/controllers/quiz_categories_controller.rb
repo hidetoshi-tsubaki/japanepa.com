@@ -4,7 +4,7 @@ class QuizCategoriesController < ApplicationController
 
   def index
     @levels = QuizCategory.levels
-    get_user_level
+    get_user_level(current_user)
   end
 
   def show

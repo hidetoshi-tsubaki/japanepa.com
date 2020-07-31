@@ -1,7 +1,7 @@
 <% content_for(:html_title) { 'Articles Index' } %>
 <% breadcrumb :admin_articles, @articles %>
 <div class="admin_index_wrapper">
-  <h1 class="admin_index_title"><%= icon("fas","newspaper") %> Articles index </h1>
+  <p class="admin_index_title"><%= icon("fas","newspaper") %> 記事　一覧 <%= icon("fas","newspaper") %></p>
   <div class="search_wrapper">
     <div class="search" id="date_input">
       <p class="bold">ワード検索</p>
@@ -32,6 +32,7 @@
     <p class="create_btn_wrapper">
       <%= link_to "New", new_admin_article_path, class: "admin_create_btn" %>
       <%= link_to "全件表示", admin_articles_path(anchor: "index"), class: "admin_show_all_btn" %>
+      <span class="scroll_x">※ 横スクロール可</span>
     </p>
     <table class="index_table" id="index">
       <thead>
@@ -46,8 +47,7 @@
     <%= paginate @articles, :params => { anchor: "index" } %>
     <% if @articles.blank? %>
       <div class="no_result">
-        <h3 class="center">No articles....</h3>
-        <p class="center"><%= link_to '一覧表示', admin_articles_path %></p>
+        <p class="no_data center">No articles....</p>
       </div>
     <% end %>
   </div>

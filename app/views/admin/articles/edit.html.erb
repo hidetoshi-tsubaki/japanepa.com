@@ -1,10 +1,11 @@
 <% content_for(:html_title) { "Edit Article-#{@article.title}" } %>
 <% breadcrumb :edit_article, @article %>
+<p class="admin_form_title">Edit Article</p>
 <div class="form_wrapper">
   <p class="right">
   <%= link_to admin_article_path(@article), class: "delete_btn inline", data: { confirm: 'この記事を削除しますか?' }, method: :delete do %>
-      <%= icon("fas", "trash-alt") %> 削除
-    <% end %>
+    <%= icon("fas", "trash-alt") %> 削除
+  <% end %>
   </p>
   <%= render partial: 'form', locals: { article: @article } %>
 </div>

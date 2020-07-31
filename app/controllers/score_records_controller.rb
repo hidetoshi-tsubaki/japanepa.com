@@ -9,7 +9,7 @@ class ScoreRecordsController < ApplicationController
     update_learning_level(score_records)
     update_experience
     update_review_info
-    get_user_level
+    get_user_level(current_user)
     respond_to do |format|
       format.js {
         render json: {

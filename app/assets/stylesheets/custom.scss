@@ -450,7 +450,7 @@ header > div {
     }
   }
 }
-.menu_btn {
+.menu_btn, .admin_menu_btn {
   position: relative;
   vertical-align: bottom;
 }
@@ -694,10 +694,10 @@ button {
 2.4 FLASH
 ---------------*/
 #flash_wrapper {
-  position:　absolute;
+  position: absolute;
   top: 30px;
   left: 50%;
-  transform:　translateX(-50%);
+  transform: translateX(-50%);
   z-index: 1000;
 }
 #flash {
@@ -776,6 +776,12 @@ Home Common
 }
 .admin_upper_block .menu_panel {
   height: calc( calc(100vh - 60px) / 6 );
+}
+.service_status_panel {
+  width: calc(100vw * 0.6666);
+  overflow: scroll;
+  padding: 15px;
+
 }
 .to_do_list_panel {
   width: calc(100vw * 0.6666);
@@ -858,6 +864,28 @@ Home Common
   color: #B8845D;
 }
 @media screen and (max-width: 959px) {
+  .admin_upper_block {
+    height: auto;
+    width: 95%;
+    margin: auto;
+    .admin_upper_panel_wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      .menu_panel {
+        display: flex;
+        height: calc( calc(100vh - 60px) * 0.3333 );
+        position: relative;
+        .menu_name {
+          span {
+            display: block;
+            i {
+              font-size: 90px;
+            }
+          }
+        }
+      }
+    }
+  }
   .to_do_list_panel {
     width: 88%;
     margin-bottom: 30px;
@@ -882,12 +910,14 @@ Home Common
   }
   .menu_panel {
     width: 40vw;
+    min-width: 229px;
     margin: 0 3.25vw 30px;
   }
 }
 @media screen and (max-width: 559px) {
   .menu_panel {
     width: 90vw;
+    font-size: 36px;
   }
   .upper_block {
     .upper_menu_panel_wrapper {
@@ -1074,6 +1104,12 @@ EVENT(Calendar)
         .day_of_the_week {
           font-size: 14px;
         }
+        tbody .day {
+          height: 15vh;
+          .event_name {
+            font-size: 10px;
+          }
+        }
       }
     }
   }
@@ -1246,10 +1282,11 @@ COMMON FORM
 ---------------*/
 .form_wrapper {
   width: 75%;
-  margin: 30px auto;
+  margin: 15px auto 30px;
   padding: 25px;
   background-color: $white;
   label {
+    margin-bottom: 5px;
     font-weight: bold;
   }
   h1 {
@@ -1372,6 +1409,17 @@ label input {
   color: $red;
   cursor: pointer;
 }
+@media screen and (max-width: 959px) {
+  .form_wrapper {
+    width: 90%;
+  }
+  .inline_radio {
+    margin-bottom: 15px;
+    div {
+      font-size: 18px;
+    }
+  }
+}
 @media screen and (max-width: 559px) {
   .form_wrapper {
     width: 95%;
@@ -1383,12 +1431,23 @@ label input {
 /*---------------
 USER_FORM ADMIN_FORM
 ---------------*/
+.admin_form_title {
+    width: 75%;
+    min-width: 300px;
+    margin: 0 auto;
+    padding: 5px 0;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+    font-size: 28px;
+    text-align: center;
+    font-weight: bold;
+  }
 .login_form_wrapper, .register_form_wrapper {
-  width: 75%;
-  min-width: 300px;
-  margin: 30px auto;
-  padding: 30px 60px;
-  background-color: $white;
+    width: 75%;
+    min-width: 300px;
+    margin: 30px auto;
+    padding: 30px 60px;
+    background-color: $white;
     label {
       font-weight: bold;
     }
@@ -1396,7 +1455,15 @@ USER_FORM ADMIN_FORM
       margin: 15px 0;
     }
 }
+@media screen and (max-width: 959px) {
+  .admin_form_title {
+    font-size: 24px;
+  }
+}
 @media screen and (max-width: 559px) {
+  .admin_form_title {
+    width: 95%;
+  }
   .login_form_wrapper, .register_form_wrapper {
     width: 95%;
     padding: 30px 2%;
@@ -1407,6 +1474,9 @@ QUIZ_FORM
 ---------------*/
 .quiz_form_wrapper .note-editor {
   height: 150px;
+}
+.category_sort_btn:hover {
+  cursor: pointer;
 }
 /*-----------
 Ranking(Users)
@@ -1824,6 +1894,7 @@ QUIZ CATEGORY
       display: block;
       position: relative;
       border-radius: 10px;
+      font-size: 16px;
       text-align: center;
       color: #f0ffff;
       span {
@@ -2869,15 +2940,21 @@ ADMIN COMMON INDEX
 ---------------------*/
 .admin_index_wrapper {
   width: 90%;
-  margin: 0 auto;
+  margin: 0 auto 40px;
   .admin_index_title {
+    width: 50%;
+    min-width: 350px;
     margin: 0 auto 10px;
+    padding: 10px 0;
     text-align: center;
+    font-size: 36px;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
   }
 }
-/*---------------
-COMMON SEARCH & SORT
----------------*/
+.scroll_x {
+  display: none;
+}
 .search_wrapper {
   position: relative;
   display: flex;
@@ -2958,25 +3035,22 @@ COMMON SEARCH & SORT
 .sort_link:hover {
   color: #59eb6d;
 }
-
 .index_table {
   margin: 15px 0 15px 0;
-  table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-    background-color: $white;
-    text-align: center;
-    tr {
-      border-bottom: solid 1px #eee;
-      cursor: pointer;
-    }
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  background-color: $white;
+  text-align: center;
+  tr {
+    border-bottom: solid 1px #eee;
+    cursor: pointer;
   }
 }
 .create_btn_wrapper {
+  position: relative;
   margin-bottom: 15px;
 }
-
 .index_content:nth-child(odd) {
   background-color: #e7e7e7;
 }
@@ -3027,4 +3101,66 @@ COMMON SEARCH & SORT
 }
 .fa-eye-slash {
   color: $alert_red;
+}
+@media screen and (max-width: 959px) {
+  .scroll_x {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+    font-size: 14px;
+    color: $alert_red;
+  }
+  .search_wrapper {
+    display: block;
+    .search, .tag_search {
+      width: 100%;
+      height: auto;
+      min-height: 60px;
+      .data_search {
+        display: block;
+      }
+    }
+    .tags_section {
+      height: auto;
+    }
+    .date_search {
+      display: block;
+      .form-group {
+        width: 100%;
+      }
+    }
+  }
+  .create_btn_wrapper {
+    font-size: 14px;
+  }
+  .user_search, .talk_search, .event_search {
+    margin: 15px 0;
+  }
+  .index_table {
+    display: block;
+    overflow-x: scroll;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    font-size: 14px;
+    thead, tbody {
+      min-width: 600px;
+    }
+    thead th:not(:last-child) {
+      padding: 0 8px;
+    }
+  }
+  .no_data {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 559px) {
+  .admin_index_wrapper {
+    .admin_index_title {
+      width: 100%;
+      min-width: 300px;
+      font-size: 24px;
+    }
+  }
 }

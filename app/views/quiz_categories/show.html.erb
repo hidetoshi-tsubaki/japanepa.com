@@ -1,7 +1,6 @@
 <% content_for(:html_title) { "Quizzes Index" } %>
 <% breadcrumb :show_category, @level %>
 <div class="quiz_index">
-  <h1 class="bold level_name">Level: <%= @level.name %></h1>
   <div class="panel_wrapper accordion">
     <%= render partial: 'section', collection: @sections, as: :section %>
   </div>
