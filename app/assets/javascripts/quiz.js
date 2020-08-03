@@ -26,7 +26,7 @@
     }
     isAnswered = true;
     if ($(li).text() === quizSet[currentNum].choices[0]) {
-      $(li).addClass('correct_answer');
+      $('#choice li').addClass('correct_answer');
       $('#correct_circle').removeClass('hidden');
       correct_ids.push(quizSet[currentNum].id)
       score++;
@@ -52,7 +52,7 @@
         checkAnswer(this);
       });
       if (currentNum === quizSet.length - 1) {
-        $('#quiz_btn').text('Show Score');
+        $('#quiz_btn').text('Score');
       }
     })
   }
@@ -109,4 +109,10 @@
       setQuiz();
     }
   })
+  $(window).keydown(function (e) {
+    console.log(e);
+    if (e.keyCode == 13) {
+      $(".quizAction").click();
+    }
+  });
 }

@@ -27,12 +27,6 @@ function showLinearChart(data, chartID){
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      title: {
-        display: true,
-        text: "Score Board",
-        fontColor: "#808080",
-        fontSize: 30
-      },
       legend: {
       display: false
       },
@@ -96,12 +90,6 @@ function showDoughnutChart(data, chartID, learning_level){
       maintainAspectRatio: false,
       legend: {
         display: false
-      },
-      title: {
-        display:true,
-        text: 'Learing Level',
-        fontColor: "#808080",
-        fontSize: 30
       },
       animation: {
         easing: 'easeOutBounce'

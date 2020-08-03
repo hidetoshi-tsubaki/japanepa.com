@@ -29,8 +29,6 @@ module QuizCategoriesHelper
   def get_learning_level(user, category)
     if learning_level = category.learning_levels.where(user_id: user.id).first
       learning_level.percentage
-    else
-      0
     end
   end
 

@@ -1,9 +1,9 @@
 <li>
-  <h2 class="ac_btn inline bold" id="section_<%=section.id %>"><%= section.name %>
+  <h2 class="ac_btn bold" id="section_<%=section.id %>"><%= section.name %>
     <span class="open_ac_btn hidden">▼open</span>
     <span class="close_ac_btn">▲close</span>
   </h2>
-  <ul class="ac-inner">
+  <ul class="ac-inner quiz_title_wrapper">
     <%= render partial: 'title', collection: section.children, as: :title %>
   </ul>
 </li>

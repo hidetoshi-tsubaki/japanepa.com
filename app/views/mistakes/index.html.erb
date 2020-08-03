@@ -2,9 +2,9 @@
 <% breadcrumb :show_mistake, @category %>
 <div class="mistakes_wrapper">
   <div >
-    <h2>Mistakes index </h2>
-    <p><%= @category.name %></p>
-    <div id="date_input">
+    <p class="page_title center">Mistakes Index</p>
+    <div class="mistake_search_wrapper">
+      <p class="search_quiz_title center bold"><%= @category.name %></p>
       <%= search_form_for @q, url: search_mistakes_path do |f| %>
         <div class="field">
           <%= f.text_field :quiz_question_or_quiz_choice1_or_quiz_choice2_or_quiz_choice3_or_quiz_choice4_cont_any, class: "keyword_search" %>
@@ -15,12 +15,14 @@
       <% end %>
     </div>
   </div>
-  <table class="index_table" id="index">
-    <thead>
-      <%= render 'columns' %>
-    </thead>
-    <tbody class="quizzes_list">
-      <%= render partial: 'mistake', collection: @mistakes, as: :mistake %>
-    </tbody>
-  </table>
+  <div class="table_wrapper">
+    <table class="index_table" id="index">
+      <thead>
+        <%= render 'columns' %>
+      </thead>
+      <tbody class="quizzes_list">
+        <%= render partial: 'mistake', collection: @mistakes, as: :mistake %>
+      </tbody>
+    </table>
+  </div>
 </div>

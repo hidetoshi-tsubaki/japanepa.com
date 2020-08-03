@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_many :mistakes
   has_many :announcement_checks, dependent: :destroy
   has_many :learning_levels, dependent: :destroy
+  has_many :masters, dependent: :destroy
+  has_many :quiz_categories, through: :master
   has_many :reviews, dependent: :destroy
   has_one :user_experience, dependent: :destroy
   has_one_attached :img
@@ -59,6 +61,19 @@ class User < ApplicationRecord
 
   def get_learning_level(category)
     learning_levels.where(title_id: category.id).first.percentage
+  end
+
+  def already_mastered?(title)
+    masters.find_by(title_id: title)
+  end
+
+  def master(title)
+    masters.create!(title_id: title)
+  end
+
+  def not_mastered(title)
+    return unless self.already_mastered?(title)
+    masters.find_by(title_id: title).destroy
   end
 
   def already_joined?(community)
