@@ -31,7 +31,6 @@ class ScoreRecordsController < ApplicationController
     @quiz_category = QuizCategory.find(params[:id])
     @score_records = current_user.score_records.where(title_id: params[:id]).last(50).pluck(:score)
     @percentage = calculate_learning_level(@score_records)
-    get_user_level
     respond_to do |format|
       format.js {
           render json: {
@@ -120,6 +119,18 @@ class ScoreRecordsController < ApplicationController
       learning_level.save!
     else
       learning_level.update_attributes!(percentage: @percentage)
+    end
+    user_mastered?(@percentage, params[:score_record][:title_id].to_i)
+  end
+
+  def user_mastered?(percentage, title)
+    return if played_mistakes?
+    if percentage >= 90
+      return if current_user.already_mastered?(title)
+      current_user.master(title)
+    elsif percentage < 60
+      return unless current_user.already_mastered?(title)
+      current_user.not_mastered(title)
     end
   end
 

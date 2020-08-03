@@ -1,24 +1,36 @@
 <li class="quiz_category">
-  <div class="graph_and_name">
-    <div class="graph">
-      <span class="bar <%= bar_color(current_user, title) %>" style="width: <%= get_learning_level(current_user, title) %>%;">
-        <%= get_learning_level(current_user, title) %>
-      </span>
+  <div class="quiz_category_box">
+    <div class="title_and_btns">
+      <p class="quiz_title bold">● <%= title.name %></p>
+      <div class="quiz_btns center">
+        <%= link_to quiz_play_path(title), class: "play_btn inline" do %>
+          <%= icon("far", "play-circle") %>Play
+        <% end %>
+        <%= link_to play_mistakes_path(title), class: "play_mistakes_btn inline" do %>
+          <%= icon("far", "play-circle") %>Mistakes
+        <% end %>
+        <p class="chart_btn inline" id=<%= title.id %>>
+          <%= icon("fas", "chart-line") %>Score
+        </p>
+        <%= link_to mistakes_path(id: title.id), class: "show_mistakes_btn inline" do %>
+          <%= icon("fas", "tasks") %>records
+        <% end %>
+      </div>
     </div>
-    <h3 class="bold center"><%= title.name %></h3>
+    <div class="master_stamp_wrapper">
+      <% if current_user.already_mastered?(title) %>
+        <img src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/%E5%A4%A7%E5%A4%89%E3%82%88%E3%81%8F%E3%81%A6%E3%82%99%E3%81%8D%E3%81%BE%E3%81%97%E3%81%9F%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B31.jpeg">
+      <% else %>
+        <img src="https://kukuhana.s3-ap-northeast-1.amazonaws.com/%E5%A4%A7%E5%A4%89%E3%82%88%E3%81%8F%E3%81%A6%E3%82%99%E3%81%8D%E3%81%BE%E3%81%97%E3%81%9F%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B31+(1).jpeg">
+      <% end %>
+    </div>
   </div>
-  <div class="quiz_btns right">
-    <%= link_to quiz_play_path(title), class: "edit_button inline" do %>
-      <%= icon("far", "play-circle") %>Play
-    <% end %>
-    <%= link_to play_mistakes_path(title), class: "delete_button inline" do %>
-      <%= icon("far", "play-circle") %>Mistakes
-    <% end %>
-    <p class="chart_btn inline" id=<%= title.id %>>
-      <%= icon("fas", "chart-line") %>Score
-    </p>
-    <%= link_to mistakes_path(id: title.id), class: "show_mistakes_button inline" do %>
-      <%= icon("fas", "tasks") %>records
-    <% end %>
+  <div class="graph_and_menu">
+    <div class="graph">
+      <span class="max_length"></span>
+      <span class="bar <%= bar_color(current_user, title) %>" style="width: <%= get_learning_level(current_user, title) %>%;">
+      </span>
+      <span class="learning_level bold"><%= get_learning_level(current_user, title) %>%</span>
+    </div>
   </div>
 </li>

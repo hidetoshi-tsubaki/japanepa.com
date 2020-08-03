@@ -17,18 +17,20 @@
       <% end %>
       <div class="chart">
         <div class="chart_wrapper1 inline">
+          <p class="chart_title">Score Board</p>
           <canvas id="linearChart"></canvas>
         </div>
         <div class="chart_wrapper2 inline">
+          <p class="chart_title">Learning Level</p>
           <canvas id="doughnutsChart"></canvas>
           <p id="learning_level_box"><span id="learning_level"></span><span id="percentage">%</span></p>
         </div>
       </div>
       <% unless current_page?(quiz_category_path) %>
         <ul id="quiz_action_btns">
-          <li id="to_quiz_index"><%= link_to 'Back to Quiz index', quiz_category_path(level) %></li>
+          <li id="to_quiz_index"><%= link_to 'Quiz Top', quiz_category_path(level) %></li>
           <li id="replay_btn" class="inline"><%= icon("fas","redo-alt") %> Replay</li>
-          <li id="to_mistakes_index"><%= link_to 'Check Mistakes', mistakes_path(id: @category.id) if defined?(@category) %></li>
+          <li id="to_mistakes_index"><%= link_to 'Mistakes', mistakes_path(id: @category.id) if defined?(@category) %></li>
         </ul>
       <% end %>
     </div> 

@@ -6,6 +6,8 @@ class QuizCategory < ApplicationRecord
   has_many :mistakes, foreign_key: "title_id"
   has_many :learning_levels, foreign_key: "title_id", dependent: :destroy
   has_many :reviews, foreign_key: "title_id", dependent: :destroy
+  has_many :masters, foreign_key: "title_id", dependent: :destroy
+  has_many :users, through: :master
   has_one :quiz_experience, foreign_key: 'title_id', dependent: :destroy
   belongs_to :parent, foreign_key: "parent_id", optional: true
 
@@ -41,5 +43,9 @@ class QuizCategory < ApplicationRecord
     if self.root
       self.descendants
     end
+  end
+
+  def masterd?
+    self.learning_levels.where(user_id: current_user.id)
   end
 end
