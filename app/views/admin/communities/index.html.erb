@@ -32,21 +32,23 @@
       <%= link_to "全件表示", admin_communities_path(anchor: "index"), class: "show_all" %>
       <span class="scroll_x">※ 横スクロール可</span>
     </p>
-    <table class="index_table" id="index">
-      <thead>
-        <%= render 'column' %>
-      </thead>
-      <tbody>
-        <% if @communities.present? %>
-          <%= render partial: 'community', collection: @communities, as: :community %>
-        <% end %>
-      </tbody>
-    </table>
-    <%= paginate @communities, :params => { anchor: "index" } %>
-    <% if @communities.blank? %>
-      <div class="no_result">
-        <p class="no_data center">No communities....</p>
-      </div>
-    <% end %>
+    <div class="table_wrapper">
+      <table class="index_table" id="index">
+        <thead>
+          <%= render 'column' %>
+        </thead>
+        <tbody>
+          <% if @communities.present? %>
+            <%= render partial: 'community', collection: @communities, as: :community %>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @communities, :params => { anchor: "index" } %>
+      <% if @communities.blank? %>
+        <div class="no_result">
+          <p class="no_data center">No communities....</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

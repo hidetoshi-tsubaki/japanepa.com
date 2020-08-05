@@ -1,0 +1,15 @@
+<tr class="index_content" id="comment_<%= comment.id %>">
+  <td><%= comment.id %></td>
+  <td><%= comment.user.name%></td>
+  <td class="truncate_column"><%= comment.contents.truncate(20) %></td>
+  <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
+  <td><%= comment.updated_at.strftime('%Y/%m/%d') %></td>
+  <td>
+    <%= link_to admin_comment_path(comment), class: "edit_btn inline" do %>
+      <%= icon("fas", "edit") %> 詳細
+    <% end %>
+    <%= link_to admin_comment_path(comment), class: "delete_btn inline", data: { confirm: 'このコメトを削除しますか?' }, remote: true, method: :delete do %>
+      <%= icon("fas", "trash-alt") %> 削除
+    <% end %>
+  </td>
+</tr>
