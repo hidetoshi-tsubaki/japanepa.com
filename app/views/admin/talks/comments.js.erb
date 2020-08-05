@@ -1,0 +1,4 @@
+$("#comments_of_talk<%= @talk.id %>").append("<%= j(render partial: 'admin/comments/comment', collection: @comments, as: :comment) %>");
+$("#view_more_<%= @talk.id %>").html("<%= escape_javascript(link_to_next_page(@comments, 'See More', remote: true, id: 'view_more')) %>");
+$("#comments_wrapper_<%= @talk.id %>").fadeIn();
+$("#comment_btn_<%= @talk.id %>").html('<%= icon("fas", "comment-alt") %> <%= @talk.comments_count %> comments');

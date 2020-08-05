@@ -51,18 +51,24 @@ class Admin::AnnouncementsController < ApplicationController
     if params[:q]['title_or_contents_cont_any'] != nil
       params[:q]['title_or_contents_cont_any'] = params[:q]['title_or_contents_cont_any'].split(/[ ]/)
       @keywords = Announcement.ransack(params[:q])
-      @Announcement = @keywords.result.paginate(params[:page], 15)
+      @announcements = @keywords.result.paginate(params[:page], 15)
       @q = Announcement.ransack(params[:q])
     else
       @q = Announcement.ransack(params[:q])
-      @Announcement = @q.result(distinct: true).paginate(params[:page], 15)
+      @announcements = @q.result(distinct: true).paginate(params[:page], 15)
     end
-    render template: 'admin/Announcement/index'
+    render template: 'admin/announcements/index'
   end
 
   private
   
   def announce_params
     params.require(:announcement).permit(:title, :contents, :status)
+  end
+
+  def is_pagination?(params)
+    if params[:q]['title_or_contents_cont_any'].kind_of?(Array)
+      params[:q]['title_or_contents_cont_any'] = params[:q]['title_or_contents_cont_any'].join(" ")
+    end
   end
 end

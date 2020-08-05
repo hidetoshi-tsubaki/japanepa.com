@@ -22,18 +22,25 @@
     </div>
   </div>
   <div id="index">
-    <p>
+    <p class="create_btn_wrapper">
       <%= link_to 'NEW', new_admin_quiz_path, class: 'admin_create_btn' %>
       <span><%= link_to '全件表示', admin_quizzes_path, class: "admin_show_all_btn"%></span>
     </p>
-    <table class="index_table">
-      <thead>
-        <%= render 'columns' %>
-      </thead>
-      <tbody class="quizzes_list">
-        <%= render partial: 'quiz', collection: @quizzes, as: :quiz %>
-      </tbody>
-    </table>
-    <%= paginate @quizzes, :params => { anchor: "index" } %>
+    <div class="table_wrapper">
+      <table class="index_table">
+        <thead>
+          <%= render 'columns' %>
+        </thead>
+        <tbody class="quizzes_list">
+          <%= render partial: 'quiz', collection: @quizzes, as: :quiz %>
+        </tbody>
+      </table>
+      <%= paginate @quizzes, :params => { anchor: "index" } %>
+      <% if @quizzes.blank? %>
+        <div class="no_result">
+          <p class="no_data center">No quizzes....</p>
+        </div>
+      <% end %>
     </div>
+  </div>
 </div>
