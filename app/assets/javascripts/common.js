@@ -72,24 +72,22 @@ $(function () {
     });
   });
   // 通知の表示
-  // $(function flash(){
-    setTimeout("$('#flash').fadeOut('slow')",2000);
-  // })
-// tab切り替え
-$('.tab').on('click', function(){
-  $('.is-active').removeClass('is-active');
-  $(this).addClass('is-active');
-  $('.is-show').removeClass('is-show');
-  const index = $(this).index();
-  $(".panel").eq(index).addClass('is-show');
-})
-// quiz-accordion
-$('.ac_btn').on('click',function(){
-  $(this).next('.accordion .ac-inner').slideToggle();
-  $('.ac_btn').not($(this)).next('.accordion ac-inner').slideUp();
-  $(this).children('.open_ac_btn, .close_ac_btn').toggle();
-})
-// 動的セレクト（section）
+  setTimeout("$('#flash').fadeOut('slow')",2000);
+  // tab切り替え
+  $('.tab').on('click', function(){
+    $('.is-active').removeClass('is-active');
+    $(this).addClass('is-active');
+    $('.is-show').removeClass('is-show');
+    const index = $(this).index();
+    $(".panel").eq(index).addClass('is-show');
+  })
+  // quiz-accordion
+  $('.ac_btn').on('click',function(){
+    $(this).next('.accordion .ac-inner').slideToggle();
+    $('.ac_btn').not($(this)).next('.accordion ac-inner').slideUp();
+    $(this).children('.open_ac_btn, .close_ac_btn').toggle();
+  })
+  // 動的セレクト（section）
   $('#select_level').on('change', function () {
     var page = $('#select_level').attr('class');
     var url = $('#select_level').find('option:selected').attr('get-select-list-path');
