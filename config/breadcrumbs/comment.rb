@@ -7,7 +7,7 @@ crumb :admin_comments do
   link "comments", admin_comments_path
 end
 
-crumb :show_comment do |comment|
+crumb :admin_show_comment do |comment|
   link "comment - #{comment.id}", admin_comment_path(comment)
   parent :admin_comments
 end

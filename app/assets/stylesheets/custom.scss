@@ -1577,15 +1577,23 @@ Ranking(Users)
 TALKS
 ------------*/
 .talk_wrapper {
+  max-width: 500px;
+  margin: 0 auto 15px;
   position: relative;
   background-color: $white;
-  margin-bottom: 15px;
   padding: 10px;
   box-sizing: border-box;
   border-radius: 5px;
   font-size: 14px;
+  .talk_info {
+  font-size: 14px;
+  }
   .talk_btns {
     font-size: 12px;
+    li {
+      display: inline-block;
+      margin-right: 5px;
+    }
   }
   .talk_content_wrapper {
     margin: 10px 0;
@@ -1594,30 +1602,26 @@ TALKS
       width: 50%;
       margin-top: 10px;
     }
+    .talk_content {
+      font-size: 22px;
+    }
   }
-}
-.talk_btns li {
-  display: inline-block;
-  margin-right: 5px;
-}
-.comment_btn a, .like_btn a {
-  text-decoration: none;
-}
-.comment_btn
-  a {
-  color: $blue;
-}
-.comment_btn:hover {
-  cursor: pointer;
-  opacity: .7;
+  .comment_btn a, .like_btn a {
+    text-decoration: none;
+  }
+  .comment_btn
+    a {
+    color: $blue;
+  }
+  .comment_btn:hover {
+    cursor: pointer;
+    opacity: .7;
+  }
 }
 .warn_sentence {
   border: 2px solid gray;
   border-radius: 5px;
   padding: 3px;
-}
-.talk_info {
-  font-size: 14px;
 }
 #check_community_bg {
   position: fixed;
@@ -1715,16 +1719,37 @@ TALKS
 }
 /*---------------
 ADMIN talk
-----------------*/ 
-.admin_talk_wrapper {
-  width: 50%;
-  min-width: 500px;
-  margin: 30px auto;
-  padding: 5px;
-  background-color: $white;
+----------------*/
+.admin_index_wrapper {
+  .show_comments_index {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: gray;
+  }
+  .talk_wrapper {
+    width: 75%;
+    min-width: none;
+    .talk_content_wrapper ,.talk_content {
+      font-size: 28px;
+    }
+    .talk_info, .talk_btns {
+      font-size: 16px;
+    }
+  }
+}
+@media screen and (max-width: 559px) {
+  .admin_index_wrapper {
+    .talk_wrapper {
+      width: 100%;
+      .talk_info, .talk_btns {
+        font-size: 12px;
+      }
+    }
+  }
 }
 /*---------------
-talk comment
+comment
 ----------------*/ 
 .comments_wrapper {
   margin: 10px 0 0 10px;
@@ -1735,13 +1760,13 @@ talk comment
   }
 }
 .comment {
-  margin-bottom: 25px;
-  .comment_contents {
-    padding: 10px 0 0 5px;
+  .commenter_info {
+    font-size: 14px;;
+    margin-bottom: 5px;
   }
 }
-.comment_text {
-  margin:10px 0 1% 60px;
+.comment:not(:first-child) {
+  margin-top: 10px;
 }
 .comment_user {
   color: $green;
@@ -1749,11 +1774,10 @@ talk comment
 .comment_btn {
   color: #ccc;
 }
-.edit_delete_btn {
-  position: absolute;
-  bottom:5px;
-  right:5px;
-  font-size:24px;
+.admin_comment_wrapper {
+  margin: 20px 0;
+  padding: 5px;
+  background: $white;
 }
 /*-----------
 TAG
@@ -2560,6 +2584,7 @@ MISTAKE INDEX
   width: 95%;
   margin: auto;
   .mistake_search_wrapper {
+    margin-bottom: 15px; 
     padding: 5px;
     background: $white;
     .search_quiz_title {
@@ -3188,7 +3213,7 @@ ADMIN COMMON INDEX
   color: #59eb6d;
 }
 .index_table {
-  margin: 15px 0 15px 0;
+  margin-bottom: 15px;
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
@@ -3201,7 +3226,7 @@ ADMIN COMMON INDEX
 }
 .create_btn_wrapper {
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 .index_content:nth-child(odd) {
   background-color: #e7e7e7;
@@ -3252,6 +3277,9 @@ ADMIN COMMON INDEX
   color: $alert_red;
 }
 @media screen and (max-width: 959px) {
+  .admin_index_wrapper {
+    width: 95%;
+  }
   .scroll_x {
     position: absolute;
     right: 5px;
@@ -3263,6 +3291,7 @@ ADMIN COMMON INDEX
   }
   .search_wrapper {
     display: block;
+    padding: 20px 10px;
     .search, .tag_search {
       width: 100%;
       height: auto;
@@ -3292,6 +3321,9 @@ ADMIN COMMON INDEX
     thead th:not(:last-child) {
       padding: 0 8px;
     }
+    thead, tbody {
+      min-width: 531px;
+    }
   }
   .no_data {
     font-size: 16px;
@@ -3301,7 +3333,7 @@ ADMIN COMMON INDEX
   .admin_index_wrapper {
     .admin_index_title {
       width: 100%;
-      min-width: 300px;
+      min-width: 470px;
       font-size: 24px;
     }
   }
@@ -3309,10 +3341,5 @@ ADMIN COMMON INDEX
     overflow-x: scroll;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
-  }
-  .index_table {
-    thead, tbody {
-      min-width: 531px;
-    }
   }
 }

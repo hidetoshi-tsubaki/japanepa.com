@@ -1,0 +1,44 @@
+<% content_for(:html_title) { 'Comment Index' } %>
+<% breadcrumb :admin_comments, @comment %>
+<div class="admin_index_wrapper">
+  <p class="admin_index_title"><%= icon("fas", "comment") %> コメント 一覧 <%= icon("fas", "comment fa-flip-horizontal") %></p>
+  <div class="search_wrapper">
+    <div class="search" id="date_input">
+      <p class="bold">ワード検索</p>
+      <%= search_form_for @q, url: search_admin_comments_path do |f| %>
+        <div class="field">
+          <%= f.text_field :user_name_or_contents_cont_any, class: "keyword_search" %>
+          <p class="notes">※複数ワードの場合、スペース区切りで入力</p>
+        </div>
+        <%= render 'creation_date_search', f: f %>
+        <%= render 'update_date_search', f: f %>
+        <p id="clear_btn" class="bold right">全クリア</p>
+        <%= f.submit 'Search' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="comment_index index">
+    <p class="create_btn_wrapper">
+      <%= link_to "全件表示", admin_comments_path(anchor: "index"), class: "admin_show_all_btn" %>
+      <span class="scroll_x">※ 横スクロール可</span>
+    </p>
+    <div class="table_wrapper">
+      <table class="index_table" id="index">
+        <thead>
+          <%= render 'columns' %>
+        </thead>
+        <tbody>
+          <% if @comments.present? %>
+            <%= render partial: 'index_comment', collection: @comments, as: :comment %>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @comments, :params => { anchor: "index" } %>
+      <% if @comments.blank? %>
+        <div class="no_result">
+          <p class="no_data center">No comments....</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

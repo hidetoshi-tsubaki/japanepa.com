@@ -104,9 +104,14 @@ Rails.application.routes.draw do
     resources :talks, only: [:index, :show, :destroy] do
       collection do
         get :search
+        get :comments
       end
     end
-    resources :comments, only: [:index, :show, :destroy]
+    resources :comments, only: [:index, :show, :destroy] do
+      collection do
+        get :search
+      end
+    end
     resources :announcements do
       collection do
         get :search
