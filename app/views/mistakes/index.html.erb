@@ -2,7 +2,7 @@
 <% breadcrumb :show_mistake, @category %>
 <div class="mistakes_wrapper">
   <div >
-    <p class="page_title center">Mistakes Index</p>
+    <p class="page_title center"><%= icon("fas", "times-circle") %> Mistakes Index <%= icon("fas", "times-circle") %></p>
     <div class="mistake_search_wrapper">
       <p class="search_quiz_title center bold"><%= @category.name %></p>
       <%= search_form_for @q, url: search_mistakes_path do |f| %>
@@ -15,14 +15,20 @@
       <% end %>
     </div>
   </div>
-  <div class="table_wrapper">
-    <table class="index_table" id="index">
-      <thead>
-        <%= render 'columns' %>
-      </thead>
-      <tbody class="quizzes_list">
-        <%= render partial: 'mistake', collection: @mistakes, as: :mistake %>
-      </tbody>
-    </table>
+  <div class="mistake_index index">
+    <p class="create_btn_wrapper">
+      <%= link_to "全件表示", mistakes_path(anchor: "index"), class: "admin_show_all_btn" %>
+      <span class="scroll_x">※ 横スクロール可</span>
+    </p>
+    <div class="table_wrapper">
+      <table class="index_table" id="index">
+        <thead>
+          <%= render 'columns' %>
+        </thead>
+        <tbody class="quizzes_list">
+          <%= render partial: 'mistake', collection: @mistakes, as: :mistake %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

@@ -4,6 +4,7 @@
   <p class="admin_index_title"><%= icon("fas","comments") %> 投稿 一覧 <%= icon("fas","comments") %></p>
   <%= search_form_for @q, url: search_admin_talks_path do |f| %>
     <div class="search_wrapper">
+      <%= link_to "コメント一覧へ", admin_comments_path, class: "show_comments_index bold" %>
       <div class="search" id="date_input">
         <p class="bold">ワード検索</p>
         <div class="field">
@@ -24,21 +25,23 @@
       <%= link_to "全件表示", admin_talks_path(anchor: "index"), class: "show_all" %>
       <span class="scroll_x">※ 横スクロール可</span>
     </p>
-    <table class="index_table" id="index">
-      <thead>
-        <%= render 'columns' %>
-      </thead>
-      <tbody>
-        <% if @talks.present? %>
-          <%= render partial: 'talk', collection: @talks, as: :talk %>
-        <% end %>
-      </tbody>
-    </table>
-    <%= paginate @talks, :params => { anchor: "index" } %>
-    <% if @talks.blank? %>
-      <div class="no_result">
-        <p class="no_data center">No talks....</p>
-      </div>
-    <% end %>
+    <div class="table_wrapper">
+      <table class="index_table" id="index">
+        <thead>
+          <%= render 'columns' %>
+        </thead>
+        <tbody>
+          <% if @talks.present? %>
+            <%= render partial: 'talk', collection: @talks, as: :talk %>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @talks, :params => { anchor: "index" } %>
+      <% if @talks.blank? %>
+        <div class="no_result">
+          <p class="no_data center">No talks....</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

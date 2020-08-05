@@ -27,21 +27,23 @@
       <%= link_to "全件表示", admin_events_path(anchor: "index"), class: "admin_show_all_btn" %>
       <span class="scroll_x">※ 横スクロール可</span>
     </p>
-    <table class="index_table" id="index">
-      <thead>
-        <%= render 'columns' %>
-      </thead>
-      <tbody>
-        <% if @events.present? %>
-          <%= render partial: 'event', collection: @events, as: :event %>
-        <% end %>
-      </tbody>
-    </table>
-    <%= paginate @events, :params => { anchor: "index" } %>
-    <% if @events.blank? %>
-      <div class="no_result">
-        <p class="no_data center">No events....</p>
-      </div>
-    <% end %>
+    <div class="table_wrapper">
+      <table class="index_table" id="index">
+        <thead>
+          <%= render 'columns' %>
+        </thead>
+        <tbody>
+          <% if @events.present? %>
+            <%= render partial: 'event', collection: @events, as: :event %>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @events, :params => { anchor: "index" } %>
+      <% if @events.blank? %>
+        <div class="no_result">
+          <p class="no_data center">No events....</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

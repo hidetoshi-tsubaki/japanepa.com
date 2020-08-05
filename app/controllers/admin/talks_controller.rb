@@ -8,6 +8,7 @@ class Admin::TalksController < ApplicationController
 
   def show
     @talk = Talk.find(params[:id])
+    @comments = @talk.comments
   end
 
   def destroy
@@ -32,6 +33,11 @@ class Admin::TalksController < ApplicationController
     render template: 'admin/talks/index'
   end
 
+  def comments
+    @talk = Talk.find(params[:id])
+    @comments = @talk.comments.paginate(params[:page], 15)
+  end
+
   private
 
   def talk_params
@@ -39,7 +45,7 @@ class Admin::TalksController < ApplicationController
   end
 
   def authenticate_edit_delete
-    unless user_signed_in? || admin_signed_in?
+    unless user_signed_in? || admsin_signed_in?
       render :index
       flash.now[:notice] = "you don't have right to delete...."
     end

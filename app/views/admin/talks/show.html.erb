@@ -1,31 +1,41 @@
 <% content_for(:html_title) { 'Talks Index' } %>
 <% breadcrumb :admin_talk, @talk %>
-<div class="admin_talk_wrapper" id="talk_<%= @talk.id%>">
-  <p>
-    <%= link_to admin_talk_path(@talk), data: { confirm: 'Delete this post?' }, class: "delete_btn", method: :delete do %>
-      <%= icon("fas", "trash-alt") %> 削除
-    <% end %>
-  </p>
-  <%= render 'talks/info_of_poster', talk: @talk %>
-  <div class="talk_content_wrapper">
-    <%= simple_format(text_url_to_link(h(@talk.content)).html_safe,class: 'talk_content') %>
-    <% if @talk.img.attached? %>
-      <p><%= image_tag @talk.img %></p>
-    <% end %>
-  </div>
-  <ul class="talk_btns">
-    <li id="comment_btn_<%= @talk.id %>" class="comment_btn">
-      <%= link_to admin_comments_path(id: @talk.id), remote: true do %>
-        <%= icon("fas", "comment-alt") %>  <%= @talk.comments_count %>  <%= @talk.comments_count > 1 ? "Comments" : "Comment" %>
+<div class="admin_index_wrapper">
+  <div class="talk_wrapper" id="talk_<%= @talk.id%>">
+    <p class="right">
+      <%= link_to admin_talk_path(@talk), data: { confirm: 'Delete this post?' }, class: "delete_btn", method: :delete do %>
+        <%= icon("fas", "trash-alt") %> 削除
       <% end %>
-    </li>
-    <li id="like_btn_<%= @talk.id %>" class="like_btn">
-        <%= icon("fas", "heart") %> <%= @talk.like_talks.count %>
-    </li>
-  </ul>
-  <div id="comments_wrapper_<%= @talk.id%>" class="hidden comments_wrapper">
-    <div id="comments_of_talk<%= @talk.id %>">
+    </p>
+    <ul class="talk_info">
+      <li class="inline">
+        <%= link_to "#{@talk.community.name}", admin_communities_path(anchor: "community_#{@talk.community.id}") %>
+      </li>
+      <li class="posted_time inline">
+        Posted by <%= link_to @talk.user.name, admin_user_path(@talk.user) %> 
+      </li>
+      <li class="inline"><%= time_ago_in_words(@talk.created_at) %> ago</li>
+    </ul>
+    <div class="talk_content_wrapper">
+      <%= simple_format(text_url_to_link(h(@talk.content)).html_safe,class: 'talk_content') %>
+      <% if @talk.img.attached? %>
+        <p><%= image_tag @talk.img %></p>
+      <% end %>
     </div>
-    <div id="view_more_<%= @talk.id %>" class="center view_more"></div>
+    <ul class="talk_btns">
+      <li id="comment_btn_<%= @talk.id %>" class="comment_btn">
+        <%= link_to comments_admin_talks_path(id: @talk.id), remote: true do %>
+          <%= icon("fas", "comment-alt") %>  <%= @talk.comments_count %>  <%= @talk.comments_count > 1 ? "Comments" : "Comment" %>
+        <% end %>
+      </li>
+      <li id="like_btn_<%= @talk.id %>" class="like_btn">
+          <%= icon("fas", "heart") %> <%= @talk.like_talks.count %>
+      </li>
+    </ul>
+    <div id="comments_wrapper_<%= @talk.id%>" class="hidden comments_wrapper">
+      <div id="comments_of_talk<%= @talk.id %>">
+      </div>
+      <div id="view_more_<%= @talk.id %>" class="center view_more"></div>
+    </div>
   </div>
 </div>

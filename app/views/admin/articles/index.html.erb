@@ -34,21 +34,23 @@
       <%= link_to "全件表示", admin_articles_path(anchor: "index"), class: "admin_show_all_btn" %>
       <span class="scroll_x">※ 横スクロール可</span>
     </p>
-    <table class="index_table" id="index">
-      <thead>
-        <%= render 'columns' %>
-      </thead>
-      <tbody>
-        <% if @articles.present? %>
-          <%= render partial: 'article', collection: @articles, as: :article %>
-        <% end %>
-      </tbody>
-    </table>
-    <%= paginate @articles, :params => { anchor: "index" } %>
-    <% if @articles.blank? %>
-      <div class="no_result">
-        <p class="no_data center">No articles....</p>
-      </div>
-    <% end %>
+    <div class="table_wrapper">
+      <table class="index_table" id="index">
+        <thead>
+          <%= render 'columns' %>
+        </thead>
+        <tbody>
+          <% if @articles.present? %>
+            <%= render partial: 'article', collection: @articles, as: :article %>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @articles, :params => { anchor: "index" } %>
+      <% if @articles.blank? %>
+        <div class="no_result">
+          <p class="no_data center">No articles....</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
