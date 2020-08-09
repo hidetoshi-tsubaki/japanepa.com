@@ -32,16 +32,18 @@
       <%= link_to "全件表示", admin_users_path(anchor: "index"), class: "new_btn" %>
       <span class="scroll_x">※ 横スクロール可</span>
     </p>
-    <table class="index_table">
-      <thead>
-        <%= render 'columns' %>
-      </thead>
-      <tbody>
-        <% if @users.present? %>
-          <%= render partial: 'user', collection: @users, as: :user %>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="table_wrapper">
+      <table class="index_table">
+        <thead>
+          <%= render 'columns' %>
+        </thead>
+        <tbody>
+          <% if @users.present? %>
+            <%= render partial: 'user', collection: @users, as: :user %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
     <%= paginate @users, :params => { anchor: "index" } %>
     <% if @users.blank? %>
       <div class="no_result">

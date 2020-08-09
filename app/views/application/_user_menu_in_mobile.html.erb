@@ -24,36 +24,28 @@
   <% end %>
 </div>
 <div class="user_info center">
-  <h2><%= current_user.name %></h2>
-  <h2>Lv.<%= @current_level %></h2>
+  <p class="user_name"><%= current_user.name %></p>
+  <p class="current_level">Lv.<%= current_user.level %></p>
 </div>
 <div class="user_menu_wrapper">
   <%= link_to user_path(current_user) do %>
     <div class="user_menu_panel orange_bg">
-      <div class="panel_inner_box">
-        <p class="menu_name bold">Profile<br><%= icon("fas fa-fw", "address-card") %></p>
-      </div>
+      <p class="menu_name bold">Profile<br><%= icon("fas fa-fw", "address-card") %></p>
     </div>
   <% end %>
   <%= link_to events_path do %>
     <div class="user_menu_panel blue_bg">
-      <div class="panel_inner_box">
-        <p class="menu_name bold">Calendar<br><%= icon("fas fa-fw", "calendar-alt") %></p>
-      </div>
+      <p class="menu_name bold">Calendar<br><%= icon("fas fa-fw", "calendar-alt") %></p>
     </div>
   <% end %>
   <%= link_to bookmarks_path do %>
     <div class="user_menu_panel yellow_bg">
-      <div class="panel_inner_box">
-        <p class="menu_name bold">Bookmark<br><%= icon("fas fa-fw", "star") %></p>
-      </div>
+      <p class="menu_name bold">Bookmark<br><%= icon("fas fa-fw", "star") %></p>
     </div>
   <% end %>
   <%= link_to destroy_user_session_path, method: :delete do %>
     <div class="user_menu_panel gray_bg">
-      <div class="panel_inner_box">
-        <p class="menu_name bold">Log out<br><%= icon("fas fa-fw", "sign-out-alt") %></p>
-      </div>
+      <p class="menu_name bold">Log out<br><%= icon("fas fa-fw", "sign-out-alt") %></p>
     </div>
   <% end %>
 </div>

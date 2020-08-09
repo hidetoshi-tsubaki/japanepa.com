@@ -8,7 +8,7 @@ class Admin::UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    get_user_level(@user)
+    get_needed_level(@user)
   end
 
   def destroy

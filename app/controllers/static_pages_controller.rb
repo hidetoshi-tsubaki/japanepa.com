@@ -1,6 +1,5 @@
 class StaticPagesController < ApplicationController
   before_action :admin_root
-  before_action :get_current_level
 
   def home
     if user_signed_in?

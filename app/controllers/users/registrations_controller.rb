@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   before_action :only_login_user!, only: [:edit, :update, :destory]
-  before_action :get_unchecked_announce_count, :get_not_done_reviews_count, :get_current_level, only: :edit
+  before_action :get_unchecked_announce_count, :get_not_done_reviews_count, only: :edit
 
   def create
     build_resource(sign_up_params)

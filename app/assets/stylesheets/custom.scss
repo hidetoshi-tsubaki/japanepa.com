@@ -3316,13 +3316,18 @@ ADMIN COMMON INDEX
   .user_search, .talk_search, .event_search {
     margin: 15px 0;
   }
-  .index_table {
-    font-size: 14px;
-    thead th:not(:last-child) {
-      padding: 0 8px;
-    }
-    thead, tbody {
-      min-width: 531px;
+  .table_wrapper {
+    overflow-x: scroll;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    .index_table {
+      font-size: 14px;
+      thead th:not(:last-child) {
+        padding: 0 8px;
+      }
+      thead, tbody {
+        min-width: 850px;
+      }
     }
   }
   .no_data {
@@ -3338,8 +3343,8 @@ ADMIN COMMON INDEX
     }
   }
   .table_wrapper {
-    overflow-x: scroll;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
+    .index_table thead, tbody {
+      min-width: 531px;
+    }
   }
 }
