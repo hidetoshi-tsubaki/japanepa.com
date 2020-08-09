@@ -26,13 +26,15 @@
     }
     isAnswered = true;
     if ($(li).text() === quizSet[currentNum].choices[0]) {
-      $('#choice li').addClass('correct_answer');
+      $(li).addClass('correct_answer');
       $('#correct_circle').removeClass('hidden');
       correct_ids.push(quizSet[currentNum].id)
       score++;
     } else {
       $(li).addClass('wrong_answer');
-      $(`li:contains(${quizSet[currentNum].choices[0]})`).addClass('correct_answer');
+      $("li").filter(function(){
+        return $(this).text() === quizSet[currentNum].choices[0];
+      }).addClass('correct_answer');
       $('#wrong_cross').removeClass('hidden');
       mistake_ids.push(quizSet[currentNum].id)
     }
