@@ -9,7 +9,7 @@ class ScoreRecordsController < ApplicationController
     update_learning_level(score_records)
     update_experience
     update_review_info
-    get_user_level(current_user)
+    update_user_level
     respond_to do |format|
       format.js {
         render json: {
@@ -80,6 +80,15 @@ class ScoreRecordsController < ApplicationController
     end
   end
 
+  def update_user_level
+    @current_level = Level.where("threshold <= ?", current_user.user_experience.total_point)
+                          .order(threshold: :desc).limit(1).pluck(:id).first
+    if @current_level > current_user.level
+      current_user.update_attributes(level: @current_level)
+    end
+    @needed_experience_to_next_level = Level.find(@current_level+1).threshold - current_user.user_experience.total_point
+  end
+
   def update_experience
     category = QuizCategory.includes(:quiz_experience).find(params[:score_record][:title_id])
     experience_rate = category.quiz_experience.rate
@@ -125,10 +134,10 @@ class ScoreRecordsController < ApplicationController
 
   def user_mastered?(percentage, title)
     return if played_mistakes?
-    if percentage >= 90
+    if percentage >= 95
       return if current_user.already_mastered?(title)
       current_user.master(title)
-    elsif percentage < 60
+    else
       return unless current_user.already_mastered?(title)
       current_user.not_mastered(title)
     end

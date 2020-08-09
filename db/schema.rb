@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_01_073836) do
+ActiveRecord::Schema.define(version: 2020_08_08_090913) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -340,6 +340,7 @@ ActiveRecord::Schema.define(version: 2020_08_01_073836) do
     t.integer "community_count", default: 0, null: false
     t.integer "talk_count", default: 0, null: false
     t.integer "play_count", default: 0, null: false
+    t.integer "level", default: 1
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true

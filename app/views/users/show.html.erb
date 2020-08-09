@@ -20,11 +20,11 @@
     </li>
     <li>
       <p>~ Level ~</p>
-      <p><%= @current_level || "1" %></p>
+      <p><%= @user.level %></p>
     </li>
     <li>
       <p>~ Total Experience ~</p>
-      <p><%= @current_experience.to_s(:delimited) %></p>
+      <p><%= @user.user_experience.total_point.to_s(:delimited) %></p>
     </li>
     <li>
       <p>~ Total Play Count ~</p>

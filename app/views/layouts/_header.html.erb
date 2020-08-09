@@ -9,7 +9,7 @@
       <% else %>
         <%= icon("fas", "user") %>
       <% end %>
-      <span><%= current_user.name %> (Lv.<%= @current_level || "1"%>)</span>
+      <span><%= current_user.name %> (Lv.<%= current_user.level %>)</span>
     </li>
     <li class="announce_btn inline">
       <%= link_to announcements_path do %>

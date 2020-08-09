@@ -1,7 +1,7 @@
 class CommunitiesController < ApplicationController
   include CommunitiesHelper
   before_action :only_login_user!
-  before_action :get_unchecked_announce_count, :get_not_done_reviews_count, :get_current_level
+  before_action :get_unchecked_announce_count, :get_not_done_reviews_count
   # before_action :past_30days_after_signIn?, only: [:new, :create]
   before_action :get_community_tags, only: [:index, :search, :tag_search]
   before_action :get_available_tags, only: [:new, :edit]
