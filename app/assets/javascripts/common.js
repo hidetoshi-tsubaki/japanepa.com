@@ -169,25 +169,23 @@ $(function () {
     }
   });
   // ドラッグアンドドロップ 並び替え
-  $(function () {
-    var el, sortable;
-    el = document.getElementById("sortable_list");
-    if (el !== null) {
-      return sortable = Sortable.create(el, {
-        delay: 200,
-        onUpdate: function (evt) {
-          return $.ajax({
-            url: '/admin/quiz_categories/' + $("#parent_id").val() + '/sort',
-            type: 'patch',
-            data: {
-              from: evt.oldIndex,
-              to: evt.newIndex
-            }
-          });
-        }
-      });
-    }
-  });
+  var el, sortable;
+  el = document.getElementById("sortable_list");
+  if (el !== null) {
+    return sortable = Sortable.create(el, {
+      delay: 200,
+      onUpdate: function (evt) {
+        return $.ajax({
+          url: '/admin/quiz_categories/' + $("#parent_id").val() + '/sort',
+          type: 'patch',
+          data: {
+            from: evt.oldIndex,
+            to: evt.newIndex
+          }
+        });
+      }
+    });
+  }
   // カレンダー入力共通設定
   $('#creation_date_from, #update_date_from, #start_time_from, #end_time_from, #start_time').datetimepicker({
     format: 'L',
