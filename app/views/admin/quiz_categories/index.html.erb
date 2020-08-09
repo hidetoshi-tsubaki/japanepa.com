@@ -9,16 +9,18 @@
     <% end %>
   </div>
   <div class="category_children">
-    <%= render 'create_btn', parent: @parent %>
+    <p class="create_btn_wrapper">
+      <%= render 'create_btn', parent: @parent %>
+    </p>
     <% if title_index?(@parent) %>
-      <div id="category index">
-        <table>
+      <div class="table_wrapper">
+        <table class="index_table" >
           <%= render 'quiz_columns' %>
           <tbody id ="quizzes_index">
             <%= render partial: 'admin/quizzes/quiz', collection: @quizzes, as: :quiz %>
           </tbody>
         </table>
-      <% else %>
+    <% else %>
         <ul id="sortable_list" class="quiz_category_list quizzes_list">
           <%= render partial: 'admin/quiz_categories/category', collection: @categories, as: :category %>
         </ul>

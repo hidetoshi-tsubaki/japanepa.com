@@ -2,8 +2,8 @@
   <div class="article">
     <%= render "article_img", article: article %>
     <div class="article_headline_wrapper inline">
-      <h4 class="bold"><%= article.title %></h4>
-      <p class="lead"><%= article.lead %></p>
+      <p class="article_title bold"><%= article.title %></p>
+      <p class="article_lead"><%= article.lead %></p>
       <p class="article_data right">
         <span class="posted_day"><%= render partial: "posted_day", locals: { article: article } %></span>
         <span class="like_btn"><%= icon("fas", "heart") %> <%= article.likes_count %></span>

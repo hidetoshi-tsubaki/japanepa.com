@@ -3,5 +3,5 @@
   <%= link_to "編集", edit_admin_quiz_category_path(parent), remote: true, id: "category_edit_btn" %>
 </p>
 <% if parent.is_title? %>
-  <h2 class="center" >経験値 <span id ="quiz_experience"><%= parent.quiz_experience.rate %></span></h2>
+  <p class="center" >経験値 <span id ="quiz_experience"><%= parent.quiz_experience.rate %></span></p>
 <% end %>

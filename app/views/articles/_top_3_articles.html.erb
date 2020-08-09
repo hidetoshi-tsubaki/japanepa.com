@@ -9,7 +9,7 @@
   </ul>
 </div>
 <div class="side_content">
-  <h4><%= icon("fas", "star") %> Most Bookmarked</h4>
+  <h4><%= icon("fas", "star") %> Most Bookmark</h4>
   <ul class="inner_article_content top_3_content">
     <% if @bookmarked_top_3.present? %>
       <%= render partial: "articles/ranked_article", collection: @bookmarked_top_3, as: :article %>

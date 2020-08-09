@@ -69,6 +69,11 @@ $bronze: -webkit-gradient(linear, left top, right bottom, from(#97461a), color-s
   left: 50%;
   transform:translate(-50%,-50%);
 }
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* ------------------------------
 1. COMMON
 ------------------------------ */
@@ -187,7 +192,7 @@ body {
 .side_section h4 {
   background: $red;
   color: $white;
-  padding: 7px 15px;
+  padding: 5px 10px;
 }
 .article_page h4 {
   background-color: $blue;
@@ -273,10 +278,8 @@ body {
   height: 85px;
   width: 85px;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: $white;
+  @include flex-center;
   #back_to_top_btn {
     font-size: 90px;
     color: $red;
@@ -315,11 +318,12 @@ body {
   height: 30px;
   width: 30px;
   color: $white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
 }
 @media screen and (max-width: 959px) {
+  body {
+    padding-top: 46px;
+  }
   .pc {
     display: none;
   }
@@ -327,6 +331,7 @@ body {
     display: block;
   }
   .main_wrapper {
+    min-height: calc(100vh - 46px);
     .section_wrapper {
       width: 95%;
       .main_section {
@@ -369,11 +374,6 @@ PAGINATION
   margin-bottom: 30px;
   justify-content: center;
 }
-/*-------------
-INFINITE SCROLL
---------------*/
-
-
 /*---------------
 HEADER
 ----------------*/
@@ -450,7 +450,6 @@ header > div {
 .announce_btn, .to_do_list_btn {
   display: inline-block;
   position: relative;
-  margin-right: 20px;
   a {
     color: $white;
     vertical-align: middle;
@@ -467,6 +466,9 @@ header > div {
       background: $alert_red;
     }
   }
+}
+.announce_btn {
+  margin-right: 20px;
 }
 .menu_btn, .admin_menu_btn {
   position: relative;
@@ -546,6 +548,7 @@ header > div {
     }
   }
   .header_link {
+    margin: 10px 0;
     .menu_btn, .announce_btn, .to_do_list_btn {
       display: none;
     }
@@ -572,7 +575,7 @@ header > div {
     left: 0;
     z-index: 100;
     height: calc(100vh - 62px);
-    width: 100vw;
+    width: 100%;
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.9);
     overflow: scroll;
@@ -600,10 +603,11 @@ header > div {
         color: $white;
         text-align: center;
         margin: 0 auto 20px;
-        .panel_inner_box {
+        .user_menu_panel {
           height: 150px;
           width: 250px;
           font-size: 24px;
+          @include flex-center;
         }
         .menu_name i {
           font-size: 9vw;
@@ -618,9 +622,15 @@ header > div {
 }
 @media screen and (max-width: 559px) {
   .user_menu_in_mobile .user_menu_wrapper {
-    width: 320px;
-    a .panel_inner_box {
-      width: 150px;
+    width: 100%;
+    a .user_menu_panel {
+      height: 120px;
+      width: auto;
+      min-width: 120px;
+      font-size: 18px;
+      .menu_name i{
+        font-size: 36px;
+      }
     }
   }
 }
@@ -634,13 +644,21 @@ footer {
   color:$white;
   text-align:center;
   display:table;
+  p {
+    color:$white;
+    font-size:20px;
+    text-align:center;
+    display:table-cell;
+    vertical-align: middle;
+  }
 }
-footer p {
-  color:$white;
-  font-size:20px;
-  text-align:center;
-  display:table-cell;
-  vertical-align: middle;
+@media screen and (max-width: 959px) {
+  footer {
+    height: 50px;
+    p {
+      font-size: 14px;
+    }
+  }
 }
 /*---------------
 2.3 MODAL
@@ -790,7 +808,7 @@ Home Common
 }
 .panel_inner_box {
   width: 100%;
-  display: flex;
+  @include flex-center;
 }
 .admin_upper_block .menu_panel {
   height: calc( calc(100vh - 60px) / 6 );
@@ -1249,9 +1267,7 @@ USER_PROFILE
   padding: 0 10px;
   border-radius: 50%;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
 }
 .edit_profile_btn {
   margin-bottom: 10px;
@@ -1402,9 +1418,7 @@ label input {
     width: 100%;
     height: 100%;
     background: $white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
     pointer-events: none;
     border-right: 1px solid #b6b6b6;
   }
@@ -1499,25 +1513,20 @@ QUIZ_FORM
 /*-----------
 Ranking(Users)
 ------------*/
+.your_ranking {
+  margin-bottom: 20px;
+  padding: 20px;
+  background: -webkit-repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+  background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+  font-size: 28px;
+}
 .user_ranking_wrapper {
-  width: 90%;
   margin: auto;
   background-color: #fff;
-  .ranking_title {
-    background-color: $orange;
-    color: $white;
-  }
-  .your_ranking {
-    width: 90%;
-    margin: 20px auto;
-    padding: 20px;
-    background: -webkit-repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
-    background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
-  }
   .user_ranking {
     padding: 2%;
     .user_ranking_info {
-      padding: 20px 0;
+      padding: 15px 0;
       color: gray;
       font-size: 20px;
       display: flex;
@@ -1538,7 +1547,7 @@ Ranking(Users)
       .user_rank_number {
         width: 20%;
       }
-      .name  {
+      .name {
         width: 50%;
       }
       .experience {
@@ -1572,6 +1581,15 @@ Ranking(Users)
 
 }
 @media screen and (max-width: 559px) {
+  .user_ranking_wrapper .user_ranking {
+    .user_ranking_info {
+      padding: 10px 0;
+      font-size: 14px;
+      .user_rank_number .fa-crown {
+        font-size: 14px;
+      }
+    }
+  }
 }
 /*-----------
 TALKS
@@ -1631,9 +1649,7 @@ TALKS
   width: 100%;
   height: 100%;
   background-color: rgba(30,30,30,0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
   #check_community_wrapper {
     width: 70%;
     padding: 40px 0;
@@ -1835,12 +1851,15 @@ announcement
 .announcement_index_wrapper {
   width: 75%;
   margin: 30px auto;
-  h1 {
+  background: $white;
+  p {
+    padding: 5px 0;
     background-color: #576875;
+    font-size: 24px;
     color: $white;
   }
   .new_announce_index {
-    text-align: start;
+    width: 100%;
     td {
       padding: 10px 0;
     }
@@ -1849,6 +1868,9 @@ announcement
     }
     td:nth-child(2) {
       width: 15%;
+    }
+    td:last-child {
+      width: 60%;
     }
     .announce:nth-child(even) {
       background-color: #e7e7e7;
@@ -1873,13 +1895,28 @@ announcement
   color: $red;
   opacity: .5;
 }
+@media screen and (max-width: 959px) {
+  .announcement_index_wrapper {
+  min-width: 531px;
+}
 @media screen and (max-width: 559px) {
   .announcement_index_wrapper {
+    margin-top: 15px;
     width: 95%;
-    h1 {
-      font-size: 24px;
+    min-width: auto;
+      p {
+        font-size: 24px;
+      }
+      td {
+        font-size: 14px;
+      }
     }
-    td {
+  }
+  .announce_detail_wrapper {
+    .announce_name {
+      font-size: 16px;
+    }
+    .announce_detail, .posted_day {
       font-size: 14px;
     }
   }
@@ -2011,8 +2048,8 @@ QUIZ CATEGORY
   }
 }
 .quiz_categories {
-  width: 85%;
-  margin: 50px auto;
+  width: 95%;
+  margin: 25px auto 60px;
   border-radius:5px;
 }
 .quiz_category_index {
@@ -2037,11 +2074,12 @@ QUIZ CATEGORY
   }
 }
 .quiz_category_parent {
+  padding: 15px;
   background-color: $white;
-}
-.parent_name {
-  font-size: 36px;
-  font-weight: bold;
+  .parent_name {
+    font-size: 28px;
+    font-weight: bold;
+  }
 }
 .category_new {
   position: relative;
@@ -2068,7 +2106,8 @@ QUIZ CATEGORY
   background-color: $white;
 }
 .admin_quiz_category {
-  .drag_and_drop {
+  position: relative;
+  .admin_category_title {
     position: absolute;
     top:50%;
     transform: translateY(-50%);
@@ -2076,9 +2115,6 @@ QUIZ CATEGORY
     width: 75%;
     text-align: left;
     font-size: 24px;
-  }
-  .drag_and_drop:hover {
-    cursor: pointer;
   }
   .edit_button {
     font-size: 20px;
@@ -2097,6 +2133,9 @@ QUIZ CATEGORY
     background-color: $alert_red;
   }
 }
+.admin_quiz_categroy:hover {
+    cursor: pointer;
+  }
 .admin_quiz_category:nth-child(odd), .quiz:nth-child(odd) {
   background-color: #e7e7e7;
 }
@@ -2108,14 +2147,6 @@ QUIZ CATEGORY
 }
 .quiz_content {
   padding: 15px;
-}
-.admin_quiz_category {
-    font-size: 24px;
-    display: flex;
-    justify-content: space-between;
-    p:first-child {
-      padding: 5px 5px 5px 15px;
-    }
 }
 @media screen and (max-width: 959px) {
   .quiz_title_wrapper {
@@ -2213,6 +2244,9 @@ QUIZ CATEGORY
         }
       }
     }
+  }
+  .quiz_category_parent .parent_name {
+    font-size: 18px;
   }
 }
 /*---------------
@@ -2852,6 +2886,7 @@ ARTICLE
   margin-right: 320px;
 }
 .article {
+  display: flex;
   margin-bottom:30px;
   background-color:$white;
   padding: 10px;
@@ -2883,11 +2918,12 @@ ARTICLE
     width: 374px;
     vertical-align: top;
     padding: 5px 5px 25px;
-    .title {
+    .article_title {
       padding-bottom: 5px;
       border-bottom: 1px solid black;
+      font-size: 18px;
     }
-    .lead {
+    .article_lead {
       font-size: 16px;
       margin-top: 10px;
     }
@@ -2935,6 +2971,14 @@ ARTICLE
       height: 100px;
       width: 185px;
       padding: 5px 5px 5px 10px;
+      .inner_article_title {
+        height: 70px;
+        font-size: 14px;
+        overflow: hidden;
+      }
+      .inner_article_lead {
+        overflow: hidden;
+      }
     }
   }
   a:not(:last-child) .inner_article {
@@ -2953,7 +2997,18 @@ ARTICLE
 }
 .article_contents {
   background-color: $white;
+  margin-bottom: 20px;
   padding: 20px;
+  .posted_time {
+    margin-bottom: 10px;
+  }
+  .article_title {
+    margin-bottom: 20px;
+    padding: 5px;
+    font-size: 28px;
+    color: $white;
+    background: gray;
+  }
   .article_img_wrapper {
     text-align: center;
     .thumbnail_img {
@@ -2987,6 +3042,9 @@ ARTICLE
     .article_headline_wrapper {
       height: 30vw;
       width: 66%;
+      .article_title, .article_lead, .article_data {
+        font-size: 14px;
+      }
     }
   }
   .inner_article_content {
@@ -3007,15 +3065,17 @@ ARTICLE
       }
       .inner_article_headline_wrapper {
         height: 25vw;
-        width: 60vw;
+        width: 63vw;
         padding: 5px 5px 5px 10px;
         .inner_article_title {
+          height: auto;
+          max-height: 48px;
           padding-bottom: 5px;
           border-bottom: 1px solid black;
-          font-size: 20px;
+          font-size: 16px;
         }
         .inner_article_lead {
-          font-size: 16px;
+          font-size: 14px;
         }
         .article_data {
           position: absolute;
@@ -3026,8 +3086,15 @@ ARTICLE
     }
   }
 }
+.article_contents {
+  font-size: 16px;
+  .article_title {
+    font-size: 20px;
+  }
+}
 @media screen and (max-width: 559px) {
   .article {
+    display: block;
     .article_img_wrapper {
       display: block;
       margin: auto;
@@ -3045,6 +3112,7 @@ ARTICLE
     }
     .article_headline_wrapper {
       height: 30vw;
+      min-height: 170px;
       width: 100%;
     }
   }
@@ -3054,7 +3122,7 @@ ARTICLE
       .article_img_wrapper {
         display: block;
         .thumbnail_img {
-          height: 30vw;
+          height: 150px;
           width: 100%;
         }
         .thumbnail_panel {
@@ -3066,13 +3134,14 @@ ARTICLE
         }
       }
       .inner_article_headline_wrapper {
-        height: 30vw;
+        min-height: 220px;
         width: 100%;
         padding: 5px 5px 5px 10px;
         .inner_article_title {
+          max-height: none;
           padding-bottom: 5px;
           border-bottom: 1px solid black;
-          font-size: 20px;
+          font-size: 16px;
         }
         .inner_article_lead {
           font-size: 16px;
@@ -3085,9 +3154,10 @@ ARTICLE
       }
     }
   }
+  .article_contetns {
+    font-size: 14px;
+  }
 }
-
-
 /*-------------------
 talkページ
 ---------------------*/
@@ -3226,7 +3296,7 @@ ADMIN COMMON INDEX
 }
 .create_btn_wrapper {
   position: relative;
-  margin-bottom: 5px;
+  margin: 10px 0;
 }
 .index_content:nth-child(odd) {
   background-color: #e7e7e7;

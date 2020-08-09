@@ -1,6 +1,6 @@
 <li class="admin_quiz_category" id="category_<%= category.id %>">
-  <p class="drag_and_drop"><%= category.name %></p>
-  <p>
+  <p class="admin_category_title"><%= category.name %></p>
+  <p class="right">
     <%= link_to categories_admin_quiz_category_path(category), class: "edit_btn inline" do %>
     <%= icon("fas", "edit") %>詳細
     <% end %>
