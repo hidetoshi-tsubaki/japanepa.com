@@ -3,11 +3,11 @@
 <div class="section_wrapper">
   <div class="main_section">
     <div class="article_contents">
-      <h1><%= @article.title %></h1>
-      <p class="posted_time right">
+      <p class="posted_time">
         <%= render partial: 'posted_day', locals: { article: @article } %>
         <%= render partial: "action_btns", locals: { article: @article } %>
       </p>
+      <p class="article_title"><%= @article.title %></p>
       <%= render "article_img", article: @article %>
       <hr>
       <div class="artcile_contents">

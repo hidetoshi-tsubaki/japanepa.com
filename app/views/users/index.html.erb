@@ -1,18 +1,20 @@
 <% content_for(:html_title) { "Ranking" } %>
 <% breadcrumb :users, @user %>
-<div class="user_ranking_wrapper center">
-  <h1 class="center ranking_title">Ranking</h1>
-  <div class="your_ranking">
-    <h2>Your Rank is <%= @current_level || "1" %></h2>
+<div class="section_wrapper">
+  <p class="page_title center">Ranking</p>
+  <div class="your_ranking center">
+    <p>Your Rank is <%= @user.level %></p>
   </div>
-    <div class="user_ranking jscroll">
-      <% if @users.present? %>
-        <%= render partial: 'user', collection: @users, as: :user %>
-      <% else %>
-        <p class="center">No...user</p>
-      <% end %>
+  <div class="user_ranking_wrapper center">
+      <div class="user_ranking jscroll">
+        <% if @users.present? %>
+          <%= render partial: 'user', collection: @users, as: :user %>
+        <% else %>
+          <p class="center">No...user</p>
+        <% end %>
+    </div>
   </div>
-</div>
-<div class="user_menu_in_mobile hidden">
-  <%= render "user_menu_in_mobile" %>
+  <div class="user_menu_in_mobile hidden">
+    <%= render "user_menu_in_mobile" %>
+  </div>
 </div>
