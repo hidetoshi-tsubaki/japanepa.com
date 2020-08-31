@@ -1,16 +1,16 @@
 <p class="bold">更新日</p>
 <div class="date_search">
   <div class="form-group date_form inline">
-    <div class="field input-group date", id="update_date_from", data-target-input="nearest">
-      <%= f.text_field :updated_at_gteq, class: "form-control datetimepicker-input update_date_from", data: { toggle: "from_date", target: "#update_date_from" }, placeholder: "from..." %>
+    <div class="field input-group date", data-target-input="nearest">
+      <%= f.text_field :updated_at_gteq, class: "form-control datetimepicker-input", id:"update_date_from", data: { toggle: "from_date", target: "#update_date_from" }, placeholder: "from..." %>
       <div class="input-group-append" data-target="#update_date_from" data-toggle="datetimepicker">
         <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
       </div>
     </div>
   </div>
   <div class="form-group date_form inline">
-    <div class="field input-group date", id="update_date_to", data-target-input="nearest">
-      <%= f.text_field :updated_at_lteq, class: "form-control datetimepicker-input update_date_to", data: { toggle: "from_date", target: "#update_date_to" }, placeholder: "to..." %>
+    <div class="field input-group date", data-target-input="nearest">
+      <%= f.text_field :updated_at_lteq, class: "form-control datetimepicker-input", id: "update_date_to", data: { toggle: "from_date", target: "#update_date_to" }, placeholder: "to..." %>
       <div class="input-group-append" data-target="#update_date_to" data-toggle="datetimepicker">
         <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
       </div>
