@@ -8,15 +8,14 @@
 
 max_level = 500
 levels = []
-prev_threshold = 100
+current_point = 10
 
-Level.new( threshold: 0)
+levels << Level.new( threshold: 0)
 max_level.times do |number|
-  prev_threshold *= 1.05
-  threshold2 = number * 5
-  threshold_point = (prev_threshold + threshold2) / 2
-  levels << Level.new( threshold: threshold_point)
+  current_point = current_point + (100 + number * number) / 2
+  levels << Level.new( threshold: current_point)
 end
+
 Level.import levels
 
 Admin.create!(
