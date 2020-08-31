@@ -14,7 +14,7 @@
   </div>
 <% end %>
 <div class="login_form_wrapper">
-  <h2>Admin user Login Page</h2>
+  <h2 class="center">Log In</h2>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), builder: CustomFormBuilder) do |f| %>
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <div class="field">

@@ -1,6 +1,11 @@
 <% content_for(:html_title) { "Edit Quiz-#{@quiz.question}" } %>
 <% breadcrumb :edit_quiz, @quiz %>
-<p class="admin_form_title">Edit Quiz</p>
+<p class="admin_form_title">Edit Quiz</p> 
 <div class="form_wrapper">
+  <p class="right">
+  <%= link_to admin_quiz_path(@quiz), class: "delete_btn inline", data: { confirm: 'このクイズを削除しますか?' }, method: :delete do %>
+    <%= icon("fas", "trash-alt") %> 削除
+  <% end %>
+  </p>
   <%= render partial: 'form', locals: { quiz: @quiz, form_btn: "編集" } %> 
 </div>
