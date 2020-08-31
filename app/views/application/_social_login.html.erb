@@ -1,11 +1,11 @@
 <div class="provider">
   <div class="social_btn facebook ">
-    <%= link_to "/users/auth/facebook", class: "block center" do %>
+    <%= link_to "/users/auth/facebook", class: "block center", id: "facebook_btn" do %>
       <%= icon("fab", "facebook-square") %> <%= action %> with Facebook
     <% end %>
   </div>
   <div class="social_btn twitter">
-    <%= link_to "/users/auth/twitter", class: "block center" do %>
+    <%= link_to "/users/auth/twitter", class: "block center", id: "twitter_btn" do %>
       <%= icon("fab", "twitter") %> <%= action %> with Twitter
     <% end %>
   </div>

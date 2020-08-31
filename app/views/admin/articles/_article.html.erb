@@ -1,4 +1,4 @@
-<tr class="index_content" id="article_<%= article.id %>">
+<tr class="index_content row_<%= article_counter %>" id="article_<%= article.id %>">
   <td class="status"><%= icon("fas", "#{contents_status(article)}") %></td>
   <td><%= article.id %></td>
   <td class="truncate_column"><%= article.title.truncate(20) %></td>

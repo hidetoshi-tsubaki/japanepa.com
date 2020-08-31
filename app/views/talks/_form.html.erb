@@ -1,15 +1,20 @@
 <%= form_with model: talk, local: true, builder: CustomFormBuilder do |f| %>
-  <%= hidden_field_tag :from_feed, @from_feed %>
-  <div class="field select_communities">
-    <%= render partial: 'community_id', locals: { community: @community, communities: @communities, f: f } %>
+  <%= hidden_field_tag :community_page?, @community_page %>
+  <div class="field">
+    <% if @community_page.present? %>
+      <%= f.hidden_field :community_id, value: @community.id %>
+    <% else %>
+      <%= f.label :community_id %>
+      <%= f.select :community_id, @communities.map{|c| [c.name, c.id] } %>
+    <% end %>
   </div>
   <div class="field input_content">
     <%= f.label :content %><br>
-    <%= f.text_area :content %>
+    <%= f.text_area :content, class: "content_input" %>
   </div>
   <%= render 'upload_img', model: talk, f: f %>
   <div class="actions">
-    <%= f.submit "Post" %>
+    <%= f.submit action %>
   </div>
 <% end %>
 <%= javascript_include_tag "prev_img.js" %>

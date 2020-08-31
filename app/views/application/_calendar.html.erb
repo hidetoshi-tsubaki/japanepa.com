@@ -6,13 +6,13 @@
   <% events.each do |event| %>
     <% if admin_signed_in? %>
       <%= link_to edit_admin_event_path(event, from_calendar: "true") do %>
-        <p class="<%= event_color(event.id) %> event_name" id="<%= event.id %>">
+        <p class="<%= event_color(event.id) %> event_name" class="<%= event.id %>">
           <%= event.name %>
         </p>
       <% end %>
     <% else %>
       <%= link_to event_path(event), remote: true do %>
-        <p class="<%= event_color(event.id) %> event_name" id="<%= event.id %>">
+        <p class="<%= event_color(event.id) %> event_name" class="<%= event.id %>">
           <%= event.name %>
         </p>
       <% end %>

@@ -1,4 +1,4 @@
-<tr class="index_content" id="event_<%= event.id %>">
+<tr class="index_content row_<%= event_counter %>" id="event_<%= event.id %>">
   <td class="status"><%= icon("fas", "#{contents_status(event)}") %></td>
   <td><%= event.id %></td>
   <td class="truncate_column"><%= event.name.truncate(20) %></td>
