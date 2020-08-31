@@ -3,5 +3,6 @@ class Event < ApplicationRecord
   enum status: { draft: false, published: true }
   validates :name, :start_time, :detail, :status, presence: true
   validates :name, length: { in: 2..9 }
-  validates :status, inclusion: { in: ["published", "draft"]}
+  validates :detail, length: { in: 2..200000 }
+  validates :status, inclusion: { in: ["published", "draft"] }
 end
