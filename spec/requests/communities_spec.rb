@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Communities", type: :request do
-  let(:user) { create(:user) }
-  let(:community) { create(:community, :with_founder) }
-  let(:founder) { create(:founder) }
+  let!(:user) { create(:user) }
+  let!(:community) { create(:community, :with_founder) }
+
   before do
     sign_in user
   end
@@ -16,9 +16,8 @@ RSpec.describe "Communities", type: :request do
     end
 
     it "display community name" do
-      community = create(:community, :with_founder)
       get communities_url
-      expect(response.body).to include "community_test"
+      expect(response.body).to include community.name
     end
   end
 
@@ -39,25 +38,25 @@ RSpec.describe "Communities", type: :request do
 
     it "display community name" do
       get edit_community_url community
-      expect(response.body).to include "community_test"
+      expect(response.body).to include community.name
     end
   end
 
   describe "Post #create" do
     context "when paramater is valid" do
       it "has success to request" do
-        post communities_url, params: { community: attributes_for(:community, :with_founder_2) }
+        post communities_url, params: { community: attributes_for(:community, :with_founder_id) }
         expect(response).to have_http_status 302
       end
 
       it "has success to register community" do
-        expect {
-          post communities_url, params: { community: attributes_for(:community, :with_founder_2) }
-        }.to change(Community, :count).by(1)
+        expect do
+          post communities_url, params: { community: attributes_for(:community, :with_founder_id) }
+        end.to change(Community, :count).by(1)
       end
 
       it "redirect to community index page" do
-        post communities_url, params: { community: attributes_for(:community, :with_founder_2) }
+        post communities_url, params: { community: attributes_for(:community, :with_founder_id) }
         expect(response).to redirect_to community_url Community.last
       end
     end
@@ -72,7 +71,7 @@ RSpec.describe "Communities", type: :request do
       it "failed to register community" do
         expect do
           post communities_url, params: { community: attributes_for(:community, :invalid) }
-        end.to_not change(Community, :count)
+        end.not_to change(Community, :count)
       end
     end
   end
@@ -87,12 +86,12 @@ RSpec.describe "Communities", type: :request do
       it "has success to update community" do
         expect do
           put community_url community, params: { community: attributes_for(:community, :update) }
-        end.to change { Community.find(community.id).name }.from('community_test').to('updated_community')
+        end.to change { Community.find(community.id).name }.from(community.name).to('updated_community')
       end
 
       it "redirect to index page" do
         put community_url community, params: { community: attributes_for(:community, :update) }
-        expect(response).to redirect_to(community_url community)
+        expect(response).to redirect_to(community_url(community))
       end
     end
 
@@ -104,9 +103,9 @@ RSpec.describe "Communities", type: :request do
       end
 
       it "name does not be changed" do
-        expect {
+        expect do
           put community_url community, params: { community: attributes_for(:community, :invalid) }
-        }.to_not change{ Community.find(community.id)}, :name
+        end.not_to change { Community.find(community.id) }, :name
       end
     end
   end
@@ -117,16 +116,11 @@ RSpec.describe "Communities", type: :request do
       expect(response).to have_http_status 302
     end
 
-    it "does not display deleted community" do
-      delete community_url community, xhr: true
-      expect(response).to have_http_status 302
-    end
-
     it "delete community" do
-      community = create(:community)
-      expect {
+      community = create(:community, founder_id: user.id)
+      expect do
         delete community_url community
-      }.to change(Community, :count).by(-1)
+      end.to change(Community, :count).by(-1)
     end
   end
 end

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "LikeTalks", type: :request do
-  let(:user) { create(:user) }
-  let(:taro) { create(:taro)}
-  let(:talk){ create(:talk, :with_community) }
+  let!(:user) { create(:user) }
+  let!(:talk) { create(:talk, :with_related_model, user_id: user.id) }
+
   before do
-    sign_in taro
+    sign_in user
   end
 
   describe "Post #create" do
@@ -23,9 +23,10 @@ RSpec.describe "LikeTalks", type: :request do
   end
 
   describe "DELETE #destroy" do
-    before{
+    before do
       post like_talks_url params: { id: talk.id }, format: :js
-    } 
+    end
+
     it "has success to request" do
       delete like_talk_url talk, format: :js
       expect(response).to have_http_status 200

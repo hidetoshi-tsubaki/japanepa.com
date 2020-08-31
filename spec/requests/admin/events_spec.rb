@@ -2,12 +2,13 @@ require 'rails_helper'
 
 RSpec.describe "Admin::Events", type: :request do
   let(:admin) { create(:admin) }
-  let(:event){ create :event }
+  let!(:event) { create(:event) }
+
   before do
     sign_in admin
   end
-  describe "GET #index" do
 
+  describe "GET #index" do
     it "has success to request" do
       get admin_events_url
       expect(response).to be_success
@@ -15,9 +16,8 @@ RSpec.describe "Admin::Events", type: :request do
     end
 
     it "display event name" do
-      event = create(:event)
       get admin_events_url
-      expect(response.body).to include "new event"
+      expect(response.body).to include event.name
     end
   end
 
@@ -30,8 +30,6 @@ RSpec.describe "Admin::Events", type: :request do
   end
 
   describe "GET #edit" do
-    let(:event){ create :event }
-
     it "has success to request" do
       get edit_admin_event_url event
       expect(response).to be_success
@@ -40,7 +38,7 @@ RSpec.describe "Admin::Events", type: :request do
 
     it "display event title" do
       get edit_admin_event_url event
-      expect(response.body).to include "new event"
+      expect(response.body).to include event.name
     end
   end
 
@@ -52,14 +50,14 @@ RSpec.describe "Admin::Events", type: :request do
       end
 
       it "has success to register event" do
-        expect {
+        expect do
           post admin_events_url, params: { event: attributes_for(:event) }
-        }.to change(Event, :count).by(1)
+        end.to change(Event, :count).by(1)
       end
 
       it "redirect to event index page" do
-          post admin_events_url, params: { event: attributes_for(:event) }
-          expect(response).to redirect_to admin_events_url
+        post admin_events_url, params: { event: attributes_for(:event) }
+        expect(response).to redirect_to calendar_admin_events_url(start_date: event.start_time)
       end
     end
 
@@ -72,7 +70,7 @@ RSpec.describe "Admin::Events", type: :request do
       it "failed to register event" do
         expect do
           post admin_events_url, params: { event: attributes_for(:event, :invalid) }
-        end.to_not change(Event, :count)
+        end.not_to change(Event, :count)
       end
 
       it 'display error message' do
@@ -85,19 +83,19 @@ RSpec.describe "Admin::Events", type: :request do
   describe "PUT #update" do
     context "when paramater is valid" do
       it "has success to request" do
-        put admin_event_url event, params: { event: attributes_for(:event_A) }
+        put admin_event_url event, params: { event: attributes_for(:event, :updated) }
         expect(response).to have_http_status 302
       end
 
       it "has success to update event name" do
         expect do
-          put admin_event_url event, params: { event: attributes_for(:event_A) }
-        end.to change { Event.find(event.id).name }.from('new event').to("event_a")
+          put admin_event_url event, params: { event: attributes_for(:event, :updated) }
+        end.to change { Event.find(event.id).name }.from(event.name).to("updated")
       end
 
       it "redirect to index page" do
-        put admin_event_url event, params: { event: attributes_for(:event_A) }
-        expect(response).to redirect_to(admin_events_url)
+        put admin_event_url event, params: { event: attributes_for(:event, :updated) }
+        expect(response).to redirect_to calendar_admin_events_url(start_date: event.start_time)
       end
     end
 
@@ -109,9 +107,9 @@ RSpec.describe "Admin::Events", type: :request do
       end
 
       it "name does not be changed" do
-        expect {
+        expect do
           put admin_event_url event, params: { event: attributes_for(:event, :invalid) }
-        }.to_not change{ Event.find(event.id) }, :name
+        end.not_to change { Event.find(event.id) }, :name
       end
 
       it "display error message" do
@@ -127,16 +125,11 @@ RSpec.describe "Admin::Events", type: :request do
       expect(response).to have_http_status 200
     end
 
-    it "does not display deleted event" do
-      delete admin_event_url event, format: :js
-      expect(response).to have_http_status 200
-    end
-
     it "delete event" do
       event =  create(:event)
-      expect {
+      expect do
         delete admin_event_url event, format: :js
-      }.to change(Event, :count).by(-1)
+      end.to change(Event, :count).by(-1)
     end
   end
 end
