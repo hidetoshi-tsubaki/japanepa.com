@@ -1,19 +1,22 @@
 FactoryBot.define do
   factory :announcement do
-    title { "announce" }
-    contents { "this is announcement" }
-    created_at { Date.today }
+    sequence(:title) { |n| "announce_#{n}" }
+    sequence(:contents) { |n| "announce contents_#{n}" }
     status { "published" }
 
     trait :invalid do
-      title = nil
+      title { "" }
+      contents { "" }
     end
-  end
 
-  factory :announce_A, class: Announcement do
-    title { "announce_a" }
-    contents { "this is announce_a"}
-    created_at { Date.today }
-    status { "published" }
+    trait :last do
+      title { "wwww" }
+      contents { "wwww" }
+      impressions_count { 100 }
+    end
+
+    trait :update do
+      title { "updated" }
+    end
   end
 end

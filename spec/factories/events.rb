@@ -1,28 +1,26 @@
 FactoryBot.define do
   factory :event do
-    name { "new event" }
+    sequence(:name) { |n| "event_#{n}" }
     detail { "event detail" }
-    start_time { "2019-12-26 11:18:39" }
-    end_time { "2019-12-26 11:18:39" }
+    start_time { Date.today }
+    end_time { Date.today }
     status { "published" }
 
     trait :invalid do
       name { "" }
     end
-  end
 
-  factory :event_A, class: Community do
-    name { "event_a" }
-    start_time { Date.today }
-    end_time { Date.today }
-    status { "published" }
-  end
+    trait :updated do
+      name { "updated" }
+      detail { "updated" }
+      start_time { Date.today }
+      end_time { Date.today }
+      status { "published" }
+    end
 
-  factory :event_B, class: Community do
-    name { "event_b" }
-    start_time { Date.today }
-    end_time { Date.today }
-    status { "published" }
+    trait :last do
+      name { "www" }
+      detail { "www" }
+    end
   end
-
 end

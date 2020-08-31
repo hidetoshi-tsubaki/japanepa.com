@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :category_parent, class: QuizCategory do
-    name { "category_parent" }
+  factory :quiz_category, class: "QuizCategory" do
+    sequence(:name) { |n| "category_#{n}" }
 
     trait :invalid do
       name { "" }
@@ -11,18 +11,21 @@ FactoryBot.define do
     end
 
     trait :update do
-      name { "category_parent_A"}
+      name { "updated" }
     end
   end
-  factory :category_child, class: QuizCategory do
+
+  factory :section, class: "QuizCategory" do
     name { "category_child" }
   end
 
-  factory :category_grandchild, class: QuizCategory do
+  factory :title, class: "QuizCategory" do
     name { "category_grandchild" }
 
-    after(:create) do |quiz_category|
-      create(:quiz_experience, title_id: quiz_category.id, experience: "2.0")
+    trait :with_related_model do
+      after(:build) do |quiz_category|
+        quiz_category.quiz_experience = create(:quiz_experience)
+      end
     end
   end
 end

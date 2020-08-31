@@ -1,26 +1,27 @@
 FactoryBot.define do
   factory :quiz do
-    sequence(:question) { |n| "question_" + n.to_s }
-    sequence(:question_html) { |n| "<p>question_" + n.to_s + "</p>" }
+    sequence(:question) { |n| "question_#{n}" }
+    sequence(:question_html) { |n| "<p>question_#{n}</p>" }
     choice1 { "a" }
     choice2 { "i" }
     choice3 { "u" }
     choice4 { "o" }
-    category_id { "1" }
 
     trait :invalid do
       question { "" }
       choice1 { "" }
     end
-  end
 
-  factory :quiz_A, class: Quiz do
-    question { "カタカナ" }
-    question_html { "<p>カタカナ</p>" }
-    choice1 { "ア" }
-    choice2 { "イ" }
-    choice3 { "ウ" }
-    choice4 { "オ" }
-    category_id { "1" }
+    trait :update do
+      question_html { "<p>updated</p>" }
+    end
+
+    trait :last do
+      question { "wwww" }
+      choice1 { "wwww" }
+      choice2 { "wwww" }
+      choice3 { "wwww" }
+      choice4 { "wwww" }
+    end
   end
 end
