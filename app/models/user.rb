@@ -48,7 +48,7 @@ class User < ApplicationRecord
   end
 
   def is_founder?(community)
-    self.id == community.founder_id
+    id == community.founder_id
   end
 
   def email_required?
@@ -72,7 +72,7 @@ class User < ApplicationRecord
   end
 
   def not_mastered(title)
-    return unless self.already_mastered?(title)
+    return unless already_mastered?(title)
     masters.find_by(title_id: title).destroy
   end
 

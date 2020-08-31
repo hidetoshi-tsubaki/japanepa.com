@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   before_action :only_login_user!, only: [:edit, :update, :destory]
-  before_action :get_unchecked_announce_count, :get_not_done_reviews_count, only: :edit
+  before_action :get_unchecked_announce_count, :get_not_done_reviews_count, only: [:edit, :update]
 
   def create
     build_resource(sign_up_params)
@@ -29,7 +29,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+    # prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
     resource_updated = update_resource(resource, account_update_params)
     yield resource if block_given?
     if resource_updated
@@ -52,5 +52,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update_resource(resource, params)
     resource.update_without_current_password(params)
   end
-
 end

@@ -1,5 +1,4 @@
 class Users::SessionsController < Devise::SessionsController
-
   private
 
   def reset_session_before_login
@@ -7,5 +6,4 @@ class Users::SessionsController < Devise::SessionsController
     reset_session
     session[:user_return_to] = user_return_to if user_return_to
   end
-
 end

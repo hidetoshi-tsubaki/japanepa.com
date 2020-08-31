@@ -7,5 +7,4 @@ class StaticPagesController < ApplicationController
       get_not_done_reviews_count
     end
   end
-
 end

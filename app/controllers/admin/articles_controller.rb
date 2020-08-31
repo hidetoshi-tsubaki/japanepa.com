@@ -1,7 +1,7 @@
 class Admin::ArticlesController < ApplicationController
-  before_action :authenticate_admin!, only: [ :index, :new, :create, :edit, :update, :destroy ]
-  before_action :set_article_tags, only: [ :index, :search, :tag_search ]
-  before_action :set_available_tags_to_gon, only: [ :new, :edit, :confirm ]
+  before_action :authenticate_admin!, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :set_article_tags, only: [:index, :search, :tag_search]
+  before_action :set_available_tags_to_gon, only: [:new, :edit, :confirm]
 
   def index
     @q = Article.ransack(params[:q])
@@ -57,10 +57,10 @@ class Admin::ArticlesController < ApplicationController
 
   def bookmark_articles
     Article.
-    includes(:bookmarks).
-    references.(:bookmarks).
-    where("bookmark.id", current_user.id)
-    .paginate(params[15]).sorted
+      includes(:bookmarks).
+      references.call(:bookmarks).
+      where("bookmark.id", current_user.id).
+      paginate(params[15]).sorted
   end
 
   def upload_image
@@ -85,7 +85,7 @@ class Admin::ArticlesController < ApplicationController
 
   def search
     is_pagination?(params)
-    if params[:q]['title_or_lead_cont_any'] != nil
+    if !params[:q]['title_or_lead_cont_any'].nil?
       params[:q]['title_or_lead_cont_any'] = params[:q]['title_or_lead_cont_any'].split(/[ ]/)
       @keywords = Article.ransack(params[:q])
       @articles = @keywords.result.paginate(params[:page], 15)
@@ -118,9 +118,8 @@ class Admin::ArticlesController < ApplicationController
   end
 
   def is_pagination?(params)
-    if params[:q]['title_or_lead_cont_any'].kind_of?(Array)
+    if params[:q]['title_or_lead_cont_any'].is_a?(Array)
       params[:q]['title_or_lead_cont_any'] = params[:q]['title_or_lead_cont_any'].join(" ")
     end
   end
-
 end

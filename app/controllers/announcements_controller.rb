@@ -1,10 +1,10 @@
 class AnnouncementsController < ApplicationController
   before_action :only_login_user!
-  before_action :get_unchecked_announce_count, :get_not_done_reviews_count, only: :index
+  before_action :get_unchecked_announce_count, :get_not_done_reviews_count, only: [:index, :show]
   impressionist :actions => [:show]
 
   def index
-    @announcements = Announcement.sorted.limit(15)
+    @announcements = Announcement.published
   end
 
   def show

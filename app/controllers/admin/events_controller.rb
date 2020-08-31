@@ -49,7 +49,7 @@ class Admin::EventsController < ApplicationController
 
   def search
     is_pagination?(params)
-    if params[:q]['name_or_detail_cont_any'] != nil
+    if !params[:q]['name_or_detail_cont_any'].nil?
       params[:q]['name_or_detail_cont_any'] = params[:q]['name_or_detail_cont_any'].split(/[ ]/)
       @keywords = Event.ransack(params[:q])
       @events = @keywords.result.paginate(params[:page], 15)
@@ -68,7 +68,7 @@ class Admin::EventsController < ApplicationController
   end
 
   def is_pagination?(params)
-    if params[:q]['name_or_detail_cont_any'].kind_of?(Array)
+    if params[:q]['name_or_detail_cont_any'].is_a?(Array)
       params[:q]['name_or_detail_cont_any'] = params[:q]['name_or_detail_cont_any'].join(" ")
     end
   end
@@ -78,10 +78,10 @@ class Admin::EventsController < ApplicationController
   end
 
   def redirect_to_event_page
-    unless params[:from_calendar].blank?
-      redirect_to calendar_admin_events_path(start_date: @event.start_time)
-    else
+    if params[:from_calendar].present?
       redirect_to admin_events_path
+    else
+      redirect_to calendar_admin_events_path(start_date: @event.start_time)
     end
   end
 end

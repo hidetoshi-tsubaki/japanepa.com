@@ -19,4 +19,8 @@ module UsersHelper
       "not_top_3"
     end
   end
+
+  def current_rank
+    UserExperience.where('total_point > ?', current_user.user_experience.total_point).count + 1
+  end
 end

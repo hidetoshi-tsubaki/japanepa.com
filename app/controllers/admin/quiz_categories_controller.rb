@@ -91,10 +91,10 @@ class Admin::QuizCategoriesController < ApplicationController
   end
 
   def get_children_category(category)
-    unless category.is_title?
-      @categories = category.categories
-    else
+    if category.is_title?
       @quizzes = category.quizzes
+    else
+      @categories = category.categories
     end
   end
 
@@ -102,8 +102,8 @@ class Admin::QuizCategoriesController < ApplicationController
     if category.parent_id
       @parent = QuizCategory.find(category.parent_id)
       render "new_category"
-      else
-        render "new_level"
+    else
+      render "new_level"
     end
   end
 
@@ -117,13 +117,12 @@ class Admin::QuizCategoriesController < ApplicationController
   end
 
   def title_form?(params)
-    return params[:category_with_experience_form].present? ? true : false
+    params[:category_with_experience_form].present? ? true : false
   end
 
   def is_pagination?(params)
-    if params[:q]['name_or_introduction_or_users_name_cont_any'].kind_of?(Array)
+    if params[:q]['name_or_introduction_or_users_name_cont_any'].is_a?(Array)
       params[:q]['name_or_introduction_or_users_name_cont_any'] = params[:q]['name_or_introduction_or_users_name_cont_any'].join(" ")
     end
   end
-
 end
