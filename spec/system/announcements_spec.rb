@@ -1,37 +1,44 @@
 require 'rails_helper'
 
-RSpec.describe 'Announcement', type: :system do
-  let!(:user) { create(:user) }
+RSpec.describe 'Announcements', type: :system do
+  let!(:user) { create(:user, :with_related_model) }
   let!(:announce1) { create(:announcement) }
   let!(:announce2) { create(:announcement, status: 'draft') }
 
   before do
-    user_sign_in(user.name, 'password')
-    visit root_path
+    create_list(:level, 10)
   end
 
-  it 'All function work normally' do
+  it 'All function work normally', retry: 5 do
+    user_sign_in(user.name, 'japanepa')
+    visit root_path
     # 未読のannouncement の数が表示される
-    using_wait_time 15 do
-      within '.announce_link_box' do
+    expect(page).to have_content user.name
+    within '.header_link' do
+      within '.announce_btn' do
         expect(page).to have_content '1'
       end
     end
-    find('.announce_link').click
 
     # 一覧表示
-    expect(page).to have_content 'announce1'
-    expect(page).to have_no_content 'announce2'
+    within '.announce_btn' do
+      first(:link, '1').click
+    end
 
-    # 未読のannouncementにはNEWが表示される
-    expect(page).to have_content 'NEW'
+    using_wait_time 25 do
+      expect(page).to have_content announce1.title
+      expect(page).to have_content "NEW"
+      # 未公開のannounceは表示されない
+      expect(page).to have_no_content announce2.title
+    end
 
-    # 詳細を表示
-    find(".show_announce_#{announce1.id}").click
-    expect(page).to have_content announce1.contents
+    # 詳細ページ表示
+    first(".announce_#{announce1.id}").click
+    using_wait_time 10 do
+      expect(page).to have_content announce1.contents
+    end
+
     visit announcements_path
-
-    # 既読のannouncementにNEWが表示されない
-    expect(page).to have_no_content 'NEW'
+    expect(page).to have_no_content "NEW"
   end
 end

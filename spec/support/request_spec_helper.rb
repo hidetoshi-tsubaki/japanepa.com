@@ -1,5 +1,4 @@
 module RequestSpecHelper
-
   include Warden::Test::Helpers
 
   def self.included(base)
@@ -16,7 +15,6 @@ module RequestSpecHelper
   end
 
   def current_user
-    
   end
 
   private

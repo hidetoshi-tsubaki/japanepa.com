@@ -5,12 +5,12 @@ RSpec.describe 'Admin::StaticPage', type: :system do
 
   context 'when signed in as admin' do
     before do
-      admin_sign_in(admin.name, 'japanepa19')
+      admin_sign_in(admin.name, 'japanepa')
       visit admin_articles_path
     end
 
     it 'show static page' do
-      expect(page).to have_css '.fa-user-cog'
+      expect(page).to have_css '.admin_menu'
     end
   end
 
