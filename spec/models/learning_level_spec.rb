@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 RSpec.describe LearningLevel, type: :model do
   let!(:user) { create(:user) }
   let!(:level) { create(:quiz_category) }

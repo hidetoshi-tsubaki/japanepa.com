@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 RSpec.describe CommunityUser, type: :model do
   let!(:user) { create(:user) }
   let!(:community) { create(:community, :with_founder) }

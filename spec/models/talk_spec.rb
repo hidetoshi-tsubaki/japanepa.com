@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 RSpec.describe Talk, type: :model do
   let(:talk) { build(:talk, :with_related_model) }
 

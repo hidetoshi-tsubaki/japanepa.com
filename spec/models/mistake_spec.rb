@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 RSpec.describe Mistake, type: :model do
   let!(:user) { create(:user) }
   let!(:user2) { create(:user) }

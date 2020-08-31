@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 RSpec.describe Bookmark, type: :model do
   let!(:article) { create(:article) }
   let!(:user) { create(:user) }
