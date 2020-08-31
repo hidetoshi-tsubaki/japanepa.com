@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.1'
+ruby '2.5.1'
 gem 'rails', '~> 5.2.0'
 gem 'bootstrap'
 gem 'puma',         '3.9.1'
@@ -41,11 +41,16 @@ gem 'activerecord-import'
 gem 'nokogiri'
 gem 'aws-sdk-s3', require: false
 gem 'gretel'
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem "capybara"
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
+  gem 'rspec-retry'
 end
 
 group :development do
@@ -66,6 +71,7 @@ group :development do
   gem 'database_cleaner'
   gem 'rails-controller-testing'
   gem 'spring-commands-rspec'
+  gem 'bullet'
 end
 
 group :production do
