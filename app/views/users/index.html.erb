@@ -3,12 +3,34 @@
 <div class="section_wrapper">
   <p class="page_title center">Ranking</p>
   <div class="your_ranking center">
-    <p>Your Rank is <%= @user.level %></p>
+    <p>Your Rank is <%= current_rank %></p>
   </div>
   <div class="user_ranking_wrapper center">
       <div class="user_ranking jscroll">
         <% if @users.present? %>
-          <%= render partial: 'user', collection: @users, as: :user %>
+          <% last_total_point = 0 %>
+          <% rank_number = 1 %>
+          <% @users.each.with_index do |user, number| %>
+            <%= link_to user_path(user), class: "user_wrapper" do %>
+            <% if number == 0 %>
+              <% last_total_point = user.user_experience.total_point %>
+            <% end %>
+            <div class="user_ranking_info" id="user_<%= user.id %> <%= add_emphasis(user) %>">
+              <p class="user_rank_number center" id="<%= is_top_3?(number) %>">
+              <span><%= icon("fas", "crown") if number < 3 %></span>
+              <% if last_total_point != user.user_experience.total_point %>
+                <% rank_number = number + 1 %>
+                <span><%= rank_number %></span>
+              <% else %>
+                <span><%= rank_number %></span>
+              <% end %>
+              <% last_total_point = user.user_experience.total_point %>
+              </p>
+              <p class="name"><%= user.name %></p>
+              <p class="experience"><%= show_total_experience(user).to_s(:delimited) %></p>
+            </div>
+            <% end %>
+          <% end %>
         <% else %>
           <p class="center">No...user</p>
         <% end %>

@@ -1,6 +1,7 @@
 <% content_for(:html_title) { 'Talks Index' } %>
 <% breadcrumb :admin_talk, @talk %>
 <div class="admin_index_wrapper">
+  <p class="admin_index_title">投稿詳細</p>
   <div class="talk_wrapper" id="talk_<%= @talk.id%>">
     <p class="right">
       <%= link_to admin_talk_path(@talk), data: { confirm: 'Delete this post?' }, class: "delete_btn", method: :delete do %>

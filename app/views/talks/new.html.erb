@@ -1,9 +1,10 @@
 <% content_for(:html_title) { "Create Talk " } %>
-<% if defined?(@community) %>
+<% if @community_page %>
   <%= render 'breadcrumbs', action: "New" %>
 <% else %>
   <% breadcrumb :new_talk, @talk %>
 <% end %>
+<p class="form_title">Create Talk</p>
 <div class="form_wrapper">
   <%= render partial: 'form', locals: { talk: @talk, communities: @communities, action: 'Post' } %>
 </div>

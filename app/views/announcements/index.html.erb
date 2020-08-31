@@ -1,12 +1,10 @@
 <% content_for(:html_title) { 'Announcement Index' } %>
 <% breadcrumb :announcements_index, @announce %>
 <div class="announcement_index_wrapper">
-  <p class="center">Announcements</p>
-  <table class="new_announce_index">
-    <tbody>
+  <p class="center announce_page_title">Announcements</p>
+  <div class="new_announce_index">
       <%= render partial: "announce", collection: @announcements, as: :announce %>
-    </tbody>
-  </table>
+  </div>
 </div>
 <div class="user_menu_in_mobile hidden">
   <%= render "user_menu_in_mobile" %>
