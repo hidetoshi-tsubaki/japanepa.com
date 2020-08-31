@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe LearningLevel, type: :model do
   let!(:user) { create(:user) }
-  let!(:title) { create(:quiz_category, :title) }
-  let!(:learning_level) { build(:learning_level) }
+  let!(:level) { create(:quiz_category) }
+  let!(:section) { create(:section, parent_id: level.id) }
+  let!(:title) { create(:title, :with_related_model, parent_id: section.id) }
+  let(:learning_level) { build(:learning_level) }
 
   it "is valid with user_id, title_id and percentage" do
     expect(learning_level).to be_valid
@@ -21,7 +23,7 @@ RSpec.describe LearningLevel, type: :model do
     expect(learning_level.errors[:title_id]).to include "can't be blank"
   end
 
-  describe "when learning level has aleardy exists" do
+  context "when learning level has aleardy exists" do
     let!(:existing_learning_level) { create(:learning_level) }
 
     it "is invalid with same user_id and title_id" do

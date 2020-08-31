@@ -1,20 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe Admin, type: :model do
-  before(:each) do
-    @admin = build(:admin)
-  end
-  it "is valid with email and password" do
-    expect(@admin).to be_valid
+  let(:admin) { build(:admin) }
+
+  it "is valid with name and password" do
+    expect(admin).to be_valid
   end
 
-  it "is invalid without email" do
-    @admin.email = nil
-    expect(@admin).not_to be_valid
+  it "is invalid without name" do
+    admin.name = nil
+    admin.valid?
+    expect(admin.errors[:name]).to include "can't be blank"
   end
 
   it "is invalid without password" do
-    @admin.password = nil
-    expect(@admin).not_to be_valid
+    admin.password = nil
+    admin.valid?
+    expect(admin.errors[:password]).to include "can't be blank"
   end
 end
