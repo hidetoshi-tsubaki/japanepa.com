@@ -2,7 +2,7 @@ class Admin::CommunitiesController < ApplicationController
   include CommunitiesHelper
   before_action :authenticate_admin!
   before_action :set_community_tags, only: [:index, :search, :tag_search]
-  before_action :set_available_tags_to_gon, only: [ :edit, :confirm ]
+  before_action :set_available_tags_to_gon, only: [:edit, :confirm]
 
   def index
     @q = Community.includes(:founder).ransack(params[:q])
@@ -42,7 +42,7 @@ class Admin::CommunitiesController < ApplicationController
 
   def search
     is_pagination?(params)
-    if params[:q]['name_or_introduction_or_founder_name_cont_any'] != nil
+    if !params[:q]['name_or_introduction_or_founder_name_cont_any'].nil?
       params[:q]['name_or_introduction_or_founder_name_cont_any'] = params[:q]['name_or_introduction_or_founder_name_cont_any'].split(/[ ]/)
       @keywords = Community.ransack(params[:q])
       @communities = @keywords.result.sorted.paginate(params[:page], 15)
@@ -64,15 +64,13 @@ class Admin::CommunitiesController < ApplicationController
     gon.available_tags = Community.tags_on(:tags).pluck(:name)
   end
 
-
   def set_community_tags
     @tags = Community.all_tags
   end
 
   def is_pagination?(params)
-    if params[:q]['title_or_lead_cont_any'].kind_of?(Array)
+    if params[:q]['title_or_lead_cont_any'].is_a?(Array)
       params[:q]['title_or_lead_cont_any'] = params[:q]['title_or_lead_cont_any'].join(" ")
     end
   end
-
 end

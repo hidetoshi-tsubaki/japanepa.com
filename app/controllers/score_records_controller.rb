@@ -2,7 +2,7 @@ class ScoreRecordsController < ApplicationController
   before_action :only_login_user!
 
   def create
-    redirect_to quizzes_path if params[:score_record][:score].empty?
+    play_again && return
     current_user.score_records.create(save_score_record_params) unless played_mistakes?
     score_records = current_user.score_records.where(get_score_record_params).last(50).pluck(:score)
     create_mistakes_record
@@ -11,15 +11,15 @@ class ScoreRecordsController < ApplicationController
     update_review_info
     update_user_level
     respond_to do |format|
-      format.js {
+      format.js do
         render json: {
           score_records: score_records,
-          current_level: @current_level,
+          current_level: @updated_level,
           new_experience: @new_experience.floor,
           needed_experience: @needed_experience_to_next_level,
-          learning_level: @percentage
+          learning_level: @percentage,
         }
-      }
+      end
     end
   end
 
@@ -32,18 +32,25 @@ class ScoreRecordsController < ApplicationController
     @score_records = current_user.score_records.where(title_id: params[:id]).last(50).pluck(:score)
     @percentage = calculate_learning_level(@score_records)
     respond_to do |format|
-      format.js {
-          render json: {
+      format.js do
+        render json: {
           score_records: @score_records,
           quiz_category: @quiz_category.name,
           needed_experience: @needed_experience_to_next_level,
-          learning_level: @percentage
+          learning_level: @percentage,
         }
-      }
+      end
     end
   end
 
   private
+
+  def play_again
+    if params[:score_record][:score].empty?
+      title = QuizCategory.find(params[:score_record][:title_id])
+      redirect_to quiz_play_path(title)
+    end
+  end
 
   def save_score_record_params
     params.require(:score_record).permit(:score, :title_id)
@@ -64,7 +71,6 @@ class ScoreRecordsController < ApplicationController
   def create_mistakes_record
     mistake_ids = mistakes_params[:mistake_ids]
     title_id = params[:score_record][:title_id]
-    quiz_id = params[:score_record][:quiz_id]
     if mistake_ids.present?
       @mistakes = []
       mistake_ids.each do |id|
@@ -81,12 +87,11 @@ class ScoreRecordsController < ApplicationController
   end
 
   def update_user_level
-    @current_level = Level.where("threshold <= ?", current_user.user_experience.total_point)
-                          .order(threshold: :desc).limit(1).pluck(:id).first
-    if @current_level > current_user.level
-      current_user.update_attributes(level: @current_level)
+    @updated_level = Level.now(current_user)
+    unless @updated_level == current_user.level
+      current_user.update_attributes(level: @updated_level)
     end
-    @needed_experience_to_next_level = Level.find(@current_level+1).threshold - current_user.user_experience.total_point
+    @needed_experience_to_next_level = Level.next_threshold(@updated_level) - current_user.user_experience.total_point
   end
 
   def update_experience
@@ -97,12 +102,11 @@ class ScoreRecordsController < ApplicationController
     else
       @new_experience = BigDecimal(params[:score_record][:score]) * experience_rate
     end
-    user_experience = UserExperience.find_by(user_id: current_user.id)
-    user_experience.increment!(:total_point, @new_experience.to_i)
+    current_user.user_experience.increment!(:total_point, @new_experience.to_i)
   end
 
   def calculate_experience(category)
-    if correct_ids = params[:score_record][:correct_ids]
+    if correct_ids == params[:score_record][:correct_ids]
       quizzes_count = category.quizzes.length
       (correct_ids.length / quizzes_count.to_f * 100 * category.quiz_experience.rate).floor
     else
@@ -112,11 +116,11 @@ class ScoreRecordsController < ApplicationController
 
   def calculate_learning_level(score_records)
     if score_records.length >= 5
-      score_records[-5, 5].sum/5
+      score_records[-5, 5].sum / 5
     elsif score_records.length == 0
       0
     else
-      score_records.sum/score_records.length
+      score_records.sum / score_records.length
     end
   end
 
@@ -135,11 +139,9 @@ class ScoreRecordsController < ApplicationController
   def user_mastered?(percentage, title)
     return if played_mistakes?
     if percentage >= 95
-      return if current_user.already_mastered?(title)
-      current_user.master(title)
+      current_user.master(title) unless current_user.already_mastered?(title)
     else
-      return unless current_user.already_mastered?(title)
-      current_user.not_mastered(title)
+      current_user.not_mastered(title) if current_user.already_mastered?(title)
     end
   end
 
