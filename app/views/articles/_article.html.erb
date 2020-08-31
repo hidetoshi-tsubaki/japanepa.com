@@ -1,5 +1,5 @@
 <%= link_to article_path(article) do %>
-  <div class="article">
+  <div class="article article_<%= article.id %>">
     <%= render "article_img", article: article %>
     <div class="article_headline_wrapper inline">
       <p class="article_title bold"><%= article.title %></p>

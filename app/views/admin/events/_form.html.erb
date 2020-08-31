@@ -6,11 +6,11 @@
     <%= render "event_date_form", f: f %>
     <div class="field">
       <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, class: "name_input" %>
     </div>
     <div class="field">
       <%= f.label :detail %>
-      <%= f.text_area :detail, class: 'question_input', 'data-provider': :summernote %>
+      <%= f.text_area :detail, class: 'detail_input', 'data-provider': :summernote %>
     </div>
     <div class="actions">
       <%= f.submit form_btn, data: { confirm: "送信しますか？"} %>

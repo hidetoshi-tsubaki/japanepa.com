@@ -1,8 +1,8 @@
 <div class="side_content">
   <h4><%= icon("fas", "search") %> Search(けんさく)</h4>
   <%= search_form_for @q, url: search_articles_path, class: "search_form" do |f| %>
-    <%= f.text_field :title_or_lead_cont_any %>
-    <%= f.button :type => "submit" do %>
+    <%= f.text_field :title_or_lead_cont_any, class: "search_input" %>
+    <%= f.button :type => "submit", class: "search_btn" do %>
       <%= icon("fas", "search") %>
     <% end %>
   <% end %>

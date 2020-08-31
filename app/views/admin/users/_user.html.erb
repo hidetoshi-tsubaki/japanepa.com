@@ -1,4 +1,4 @@
-<tr class="index_content" id="user_#{user_id}">
+<tr class="index_content row_<%= user_counter %>" id="user_#{user_id}">
   <td><%= user.id %></td>
   <td class="truncate_column"><%= user.name.truncate(20) %></td>
   <td><%= number_with_delimiter(user.play_count) %></td>

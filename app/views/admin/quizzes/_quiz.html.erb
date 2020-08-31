@@ -1,4 +1,4 @@
-<tr class="index_content" id="quiz_<%= quiz.id %>">
+<tr class="index_content row_<%= quiz_counter %>" id="quiz_<%= quiz.id %>">
   <td><%= quiz.id %></td>
   <td class="truncate_column"><%= quiz.question.truncate(20) %></td>
   <td><%= quiz.choice1.truncate(20) %></td>

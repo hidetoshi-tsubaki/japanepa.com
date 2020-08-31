@@ -1,4 +1,4 @@
-<tr class="index_content" id="community_<%= community.id %>">
+<tr class="index_content row_<%= community_counter %>" id="community_<%= community.id %>">
   <td><%= community.id %></td>
   <td class="truncate_column"><%= community.name.truncate(20) %></td>
   <td><%= number_with_delimiter(community.member_count) %></td>
