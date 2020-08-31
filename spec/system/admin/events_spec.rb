@@ -4,27 +4,26 @@ RSpec.describe 'Admin::Events', type: :system do
   let!(:admin) { create(:admin) }
   let!(:event) { create(:event) }
   let!(:event_in_draft) { create(:event, status: 'draft') }
-  let!(:last_event) { create(:event, :last_event) }
-  let!(:date) { '2020-1-15'.to_date }
+  let!(:last_event) { create(:event, :last) }
 
   context 'when signed in as admin' do
     before do
-      admin_sign_in(admin.name, 'japanepa19')
+      admin_sign_in(admin.name, 'japanepa')
       visit admin_events_path
     end
 
     it 'show event index page' do
-      expect(page).to have_content event.name
+      expect(page).to have_content "イベント 一覧"
       expect(page).to have_content last_event.name
     end
 
     it 'create event' do
-      first(:link, "新規作成").click
-      using_wait_time 15 do
-        expect(page).to have_content 'New Event Form'
+      first(:link, "New").click
+      using_wait_time 25 do
+        expect(page).to have_content 'Create Event'
       end
 
-      find('.start_time').set(date)
+      find('.start_time').set(Date.today)
       find('.name_input').set('new-event')
       find('.detail_input').set('new-event-detail')
       click_on '新規作成'
@@ -34,8 +33,8 @@ RSpec.describe 'Admin::Events', type: :system do
 
     it 'edit event' do
       first('.edit_btn').click
-      using_wait_time 15 do
-        expect(page).to have_content 'Edit Event Form'
+      using_wait_time 25 do
+        expect(page).to have_content 'Edit Event'
       end
       find('.name_input').set('updated')
       click_on '編集'
@@ -49,7 +48,7 @@ RSpec.describe 'Admin::Events', type: :system do
 
     it 'delete event' do
       first('.edit_btn').click
-      using_wait_time 10 do
+      using_wait_time 25 do
         find('.delete_btn').click
       end
       page.driver.browser.switch_to.alert.accept
@@ -66,9 +65,8 @@ RSpec.describe 'Admin::Events', type: :system do
 
     describe 'Search event' do
       before do
-        date = '2020-1-15'.to_date
-        travel_to(date.prev_day(7)) do
-          @event_7d_ago = create(:event, start_time: date.prev_day(7), end_time: date.prev_day(6))
+        travel_to(Date.today.prev_day(7)) do
+          @event_7d_ago = create(:event, start_time: Date.today, end_time: Date.today)
         end
         visit admin_events_path
       end
@@ -85,39 +83,38 @@ RSpec.describe 'Admin::Events', type: :system do
           expect(page).to have_content event.name
           find('#public_btn').click
           click_on 'Search'
-          expect(page).to have_css '.fa-eye'
           expect(page).to have_content event.name
           expect(page).to have_no_css '.a-eye-slash'
           expect(page).to have_no_content event_in_draft.name
         end
 
         it 'search event by creation date' do
-          find('.creation_date_from').set(date.prev_day(9).strftime("%Y/%m/%d"))
-          find('.creation_date_to').set(date.prev_day(5).strftime("%Y/%m/%d"))
+          find('#creation_date_from').set(Date.today.prev_day(9).strftime("%Y/%m/%d"))
+          find('#creation_date_to').set(Date.today.prev_day(5).strftime("%Y/%m/%d"))
           click_button 'Search'
           expect(page).to have_content @event_7d_ago.name
           expect(page).to have_no_content event.name
         end
 
         it 'search event by update date' do
-          find('.update_date_from').set(date.prev_day(9).strftime("%Y/%m/%d"))
-          find('.update_date_to').set(date.prev_day(5).strftime("%Y/%m/%d"))
+          find('#update_date_from').set(Date.today.prev_day(9).strftime("%Y/%m/%d"))
+          find('#update_date_to').set(Date.today.prev_day(5).strftime("%Y/%m/%d"))
           click_button 'Search'
           expect(page).to have_content @event_7d_ago.name
           expect(page).to have_no_content event.name
         end
 
         it 'search event by start date' do
-          find('.start_time_from').set(date.prev_day(9).strftime("%Y/%m/%d"))
-          find('.start_time_to').set(date.prev_day(5).strftime("%Y/%m/%d"))
+          find('#start_time_from').set(Date.today.prev_day(9).strftime("%Y/%m/%d"))
+          find('#start_time_to').set(Date.today.prev_day(5).strftime("%Y/%m/%d"))
           click_on 'Search'
           expect(page).to have_content @event_7d_ago.name
           expect(page).to have_no_content event.name
         end
 
         it 'search event by end date' do
-          find('.end_time_from').set(date.prev_day(9).strftime("%Y/%m/%d"))
-          find('.end_time_to').set(date.prev_day(5).strftime("%Y/%m/%d"))
+          find('#end_time_from').set(Date.today.prev_day(9).strftime("%Y/%m/%d"))
+          find('#end_time_to').set(Date.today.prev_day(5).strftime("%Y/%m/%d"))
           click_on 'Search'
           expect(page).to have_content @event_7d_ago.name
           expect(page).to have_no_content event.name
@@ -133,32 +130,32 @@ RSpec.describe 'Admin::Events', type: :system do
         end
 
         it 'search event by creation date' do
-          find('.creation_date_from').set(date.prev_day(30).strftime("%Y/%m/%d"))
-          find('.creation_date_to').set(date.prev_day(20).strftime("%Y/%m/%d"))
+          find('#creation_date_from').set(Date.today.prev_day(30).strftime("%Y/%m/%d"))
+          find('#creation_date_to').set(Date.today.prev_day(20).strftime("%Y/%m/%d"))
           click_button 'Search'
           expect(page).to have_content 'No Events....'
           expect(page).to have_no_content event.name
         end
 
         it 'search event by updated date' do
-          find('.update_date_from').set(date.prev_day(30).strftime("%Y/%m/%d"))
-          find('.update_date_to').set(date.prev_day(20).strftime("%Y/%m/%d"))
+          find('#update_date_from').set(Date.today.prev_day(30).strftime("%Y/%m/%d"))
+          find('#update_date_to').set(Date.today.prev_day(20).strftime("%Y/%m/%d"))
           click_on 'Search'
           expect(page).to have_content 'No Events....'
           expect(page).to have_no_content event.name
         end
 
         it 'search event by start date' do
-          find('.start_time_from').set(date.prev_day(30).strftime("%Y/%m/%d"))
-          find('.start_time_to').set(date.prev_day(20).strftime("%Y/%m/%d"))
+          find('#start_time_from').set(Date.today.prev_day(30).strftime("%Y/%m/%d"))
+          find('#start_time_to').set(Date.today.prev_day(20).strftime("%Y/%m/%d"))
           click_on 'Search'
           expect(page).to have_content 'No Events....'
           expect(page).to have_no_content event.name
         end
 
         it 'search event by end date' do
-          find('.end_time_from').set(date.prev_day(30).strftime("%Y/%m/%d"))
-          find('.end_time_to').set(date.prev_day(20).strftime("%Y/%m/%d"))
+          find('#end_time_from').set(Date.today.prev_day(30).strftime("%Y/%m/%d"))
+          find('#end_time_to').set(Date.today.prev_day(20).strftime("%Y/%m/%d"))
           click_on 'Search'
           expect(page).to have_content 'No Events....'
           expect(page).to have_no_content event.name

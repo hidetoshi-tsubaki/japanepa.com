@@ -1,34 +1,29 @@
 require 'rails_helper'
-
 RSpec.describe User, type: :model do
-  before(:each) do
-    @user = build(:user)
-  end
+  let!(:user) { build(:user) }
+  let!(:existing_user) { create(:user, name: "existed user") }
 
   it "is valid with name, password and password_confirmation" do
-    expect(@user).to be_valid
+    expect(user).to be_valid
   end
 
   it "is invalid without name" do
-    @user.name = nil
-    expect(@user).not_to be_valid
+    user.name = nil
+    user.valid?
+    expect(user.errors[:name]).to include "can't be blank"
   end
 
   it "is invalid without password" do
-    @user.password = nil
-    expect(@user).not_to be_valid
+    user.password = nil
+    user.valid?
+    expect(user.errors[:password]).to include "can't be blank"
   end
 
-  it "is invalid without password_confirmation" do
-    @user.password_confirmation = nil
-    expect(@user).not_to be_valid
-  end
-
-  describe "when user name is already token" do
+  context "when user name is already token" do
     it "is invalid with same name" do
-      user1 = create(:user)
-      user2 = build(:user)
-      expect(user2).not_to be_valid
+      user2 = build(:user, name: "existed user")
+      user2.valid?
+      expect(user2.errors[:name]).to include "has already been taken"
     end
   end
 end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "CommunityUsers", type: :request do
   let!(:user) { create(:user) }
-  let!(:community) { create(:community, founder_id: user.id) }
+  let!(:community) { create(:community, :with_founder) }
 
   before do
     sign_in user

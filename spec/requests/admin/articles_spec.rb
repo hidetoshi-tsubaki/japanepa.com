@@ -2,37 +2,38 @@ require 'rails_helper'
 
 RSpec.describe "Admin::Articles", type: :request do
   let(:admin) { create(:admin) }
-  let(:article){ create (:article) }
+  let!(:article) { create(:article) }
+  let!(:img) { Rack::Test::UploadedFile.new(File.join(Rails.root, "spec/factories/images/img.png"), 'image/png') }
+
   before do
     sign_in admin
   end
+
   describe "GET #index" do
     it "has success to request" do
       get admin_articles_url
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
     it "display article titles" do
       get admin_articles_url
-      expect(response.body).to include "japanese"
+      expect(response.body).to include article.title
     end
   end
 
   describe "Get #new" do
     it "has success to request" do
       get new_admin_article_url
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
   end
 
   describe "GET #edit" do
-    let(:article){ create :article }
-
     it "has success to request" do
       get edit_admin_article_url article
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
@@ -45,18 +46,18 @@ RSpec.describe "Admin::Articles", type: :request do
   describe "Post #create" do
     context "when paramater is valid" do
       it "has success to request" do
-        post admin_articles_url, params: { article: attributes_for(:article) }
+        post admin_articles_url, params: { article: attributes_for(:article, img: img) }
         expect(response).to have_http_status 302
       end
 
       it "has success to register article" do
-        expect {
-          post admin_articles_url, params: { article: attributes_for(:article) }
-        }.to change(Article, :count).by(1)
+        expect do
+          post admin_articles_url, params: { article: attributes_for(:article, img: img) }
+        end.to change(Article, :count).by(1)
       end
 
       it "redirect to article index page" do
-        post admin_articles_url, params: { article: attributes_for(:article) }
+        post admin_articles_url, params: { article: attributes_for(:article, img: img) }
         expect(response).to redirect_to admin_articles_url
       end
     end
@@ -64,14 +65,14 @@ RSpec.describe "Admin::Articles", type: :request do
     context "when paramater is invalid" do
       it "has success to request" do
         post admin_articles_url, params: { article: attributes_for(:article, :invalid) }
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to have_http_status 200
       end
 
       it "failed to register article" do
         expect do
           post admin_articles_url, params: { article: attributes_for(:article, :invalid) }
-        end.to_not change(Article, :count)
+        end.not_to change(Article, :count)
       end
 
       it 'display error message' do
@@ -84,18 +85,18 @@ RSpec.describe "Admin::Articles", type: :request do
   describe "PUT #update" do
     context "when paramater is valid" do
       it "has success to request" do
-        put admin_article_url article, params: { article: attributes_for(:article_A) }
+        put admin_article_url article, params: { article: attributes_for(:article, :update) }
         expect(response).to have_http_status 302
       end
 
       it "has success to update article title" do
         expect do
-          put admin_article_url article, params: { article: attributes_for(:article_A) }
-        end.to change { Article.find(article.id).title }.from('japanese').to("japan")
+          put admin_article_url article, params: { article: attributes_for(:article, :update) }
+        end.to change { Article.find(article.id).title }.from(article.title).to("updated")
       end
 
       it "redirect to index page" do
-        put admin_article_url article, params: { article: attributes_for(:article_A) }
+        put admin_article_url article, params: { article: attributes_for(:article, :update) }
         expect(response).to redirect_to(admin_articles_url)
       end
     end
@@ -103,14 +104,14 @@ RSpec.describe "Admin::Articles", type: :request do
     context "when paramater is invalid" do
       it "has success to request" do
         put admin_article_url article, params: { article: attributes_for(:article, :invalid) }
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to have_http_status 200
       end
 
       it "name does not be changed" do
-        expect {
+        expect do
           put admin_article_url article, params: { article: attributes_for(:article, :invalid) }
-        }.to_not change{ Article.find(article.id)}, :title
+        end.not_to change { Article.find(article.id) }, :title
       end
 
       it "display error message" do
@@ -122,20 +123,14 @@ RSpec.describe "Admin::Articles", type: :request do
 
   describe "DELETE #destroy" do
     it "has success to request" do
-      delete admin_article_url article, xhr: true
-      expect(response).to have_http_status 302
-    end
-
-    it "does not display deleted article" do
-      delete admin_article_url article, xhr: true
-      expect(response).to have_http_status 302
+      delete admin_article_url article, format: :js
+      expect(response).to have_http_status 200
     end
 
     it "delete article" do
-      article = create(:article)
-      expect {
-        delete admin_article_url article, xhr: true
-      }.to change(Article, :count).by(-1)
+      expect do
+        delete admin_article_url article, format: :js
+      end.to change(Article, :count).by(-1)
     end
   end
 end

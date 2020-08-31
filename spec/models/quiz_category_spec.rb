@@ -1,16 +1,17 @@
 require 'rails_helper'
-
 RSpec.describe QuizCategory, type: :model do
-  before(:each) do
-    @quiz_category = build(:quiz_category)
-  end
+  let!(:user) { create(:user) }
+  let!(:level) { create(:quiz_category) }
+  let!(:section) { create(:section, parent_id: level.id) }
+  let!(:title) { create(:title, :with_related_model, parent_id: section.id) }
 
   it "is valid with name" do
-    expect(@quiz_category).to be_valid
+    expect(title).to be_valid
   end
 
   it "is invalid without name" do
-    @quiz_category.name = nil
-    expect(@quiz_category).not_to be_valid
+    title.name = nil
+    title.valid?
+    expect(title.errors[:name]).to include "can't be blank"
   end
 end

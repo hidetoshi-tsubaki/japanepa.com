@@ -1,34 +1,31 @@
 require 'rails_helper'
-
 RSpec.describe CommunityUser, type: :model do
-  before do
-    @user = create(:user)
-    @community = create(:community)
-    @community_user = CommunityUser.new(
-      user_id: @user.id,
-      community_id: @community.id
-      )
-  end
+  let!(:user) { create(:user) }
+  let!(:community) { create(:community, :with_founder) }
+  let!(:community_user) { build(:community_user, :with_related_model) }
+  let!(:existing_community_user) { create(:community_user, user_id: user.id, community_id: community.id) }
 
   it "is valid with user_id and community_id" do
-    expect(@community_user).to be_valid
+    expect(community_user).to be_valid
   end
 
   it "is invalid without user_id" do
-    @community_user.user_id = nil
-    expect(@community_user).not_to be_valid
+    community_user.user_id = nil
+    community_user.valid?
+    expect(community_user.errors[:user_id]).to include "can't be blank"
   end
 
   it "is invalid without community_id" do
-    @community_user.community_id = nil
-    expect(@community_user).not_to be_valid
+    community_user.community_id = nil
+    community_user.valid?
+    expect(community_user.errors[:community_id]).to include "can't be blank"
   end
 
-  describe "when communityUser already exists" do
+  context "when communityUser already exists" do
     it "is invalid with same user_id and community_id" do
-      community_user1 = create(:community_user)
-      community_user2 = build(:community_user)
-      expect(community_user2).not_to be_valid
+      community_user2 = build(:community_user, user_id: user.id, community_id: community.id)
+      community_user2.valid?
+      expect(community_user2.errors[:user_id]).to include "has already been taken"
     end
   end
 end

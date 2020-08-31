@@ -13,15 +13,15 @@ module System
 
     def user_sign_in(name, password)
       visit new_user_session_path
-      fill_in 'Name', with: 'test_user1'
-      fill_in 'Password', with: 'password'
+      fill_in 'Name', with: name
+      fill_in 'Password', with: password
       click_button 'Log in'
     end
 
     def admin_sign_in(name, password)
       visit new_admin_session_path
-      fill_in 'Name', with: 'admin@japanepa'
-      fill_in 'Password', with: 'japanepa'
+      fill_in 'Name', with: name
+      fill_in 'Password', with: password
       click_on 'Admin Login'
     end
   end

@@ -1,39 +1,50 @@
 require 'rails_helper'
 
 RSpec.describe "Admin::comments", type: :request do
-  describe "GET #index" do
-    before do
-      FactoryBot.create :comment_A
-    end
+  let(:admin) { create(:admin) }
+  let!(:comment) { create(:comment) }
+  let!(:comment_2) { create(:comment) }
+
+  before do
+    sign_in admin
   end
+
+  describe "GET #index" do
     it "has success to request" do
       get admin_comments_url
-      expect(response.status).to eq(200)
+      expect(response).to be_successful
+      expect(response.status).to eq 200
     end
 
-    it "display comment titles" do
+    it "display comment contents" do
       get admin_comments_url
-      expect(response.body).to include "comment test_a"
+      expect(response.body).to include comment.contents
+    end
+  end
+
+  describe "Get #show" do
+    it "has success to request" do
+      get admin_comment_url comment
+      expect(response.status).to eq 200
+    end
+
+    it "display comment content" do
+      get admin_comment_url comment
+      expect(response.body).to include comment.contents
+      expect(response.body).not_to include comment_2.contents
     end
   end
 
   describe "DELETE #destroy" do
     it "has success to request" do
-      delete admin_comment_url community, format: :js
-      expect(response).to have_http_status 200
-    end
-
-    it "does not display deleted community" do
-      delete admin_comment_url community, format: :js
+      delete admin_comment_url comment, format: :js
       expect(response).to have_http_status 200
     end
 
     it "delete community" do
-      community = create(:community, :with_founder)
-      expect {
-        delete admin_community_url community, format: :js
-      }.to change(Community, :count).by(-1)
+      expect do
+        delete admin_comment_url comment, format: :js
+      end.to change(Comment, :count).by(-1)
     end
   end
-
 end

@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Admin::users", type: :request do
   let(:admin) { create(:admin) }
-  let(:user){ create(:user) }
+  let!(:user) { create(:user) }
+
   before do
     sign_in admin
   end
@@ -17,26 +18,20 @@ RSpec.describe "Admin::users", type: :request do
     it "display user name" do
       user = create(:user)
       get admin_users_url
-      expect(response.body).to include "test user"
+      expect(response.body).to include user.name
     end
   end
 
-  # describe "DELETE #destroy" do
-  #   it "has success to request" do
-  #     delete admin_user_url user, format: :js
-  #     expect(response).to have_http_status 200
-  #   end
+  describe "DELETE #destroy" do
+    it "has success to request" do
+      delete admin_user_url user
+      expect(response).to have_http_status 302
+    end
 
-  #   it "does not display deleted user" do
-  #     delete admin_user_url user, format: :js
-  #     expect(response).to have_http_status 200
-  #   end
-
-  #   it "delete user" do
-  #     user = create(:user)
-  #     expect {
-  #       delete admin_user_url user, format: :js
-  #     }.to change(User, :count).by(-1)
-  #   end
-  # end
+    it "delete user" do
+      expect do
+        delete admin_user_url user
+      end.to change(User, :count).by(-1)
+    end
+  end
 end

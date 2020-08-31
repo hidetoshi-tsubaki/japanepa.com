@@ -1,32 +1,26 @@
 require 'rails_helper'
-
 RSpec.describe QuizExperience, type: :model do
-  before(:each) do
-    @quiz_category = create(:quiz_category)
-    @quiz_experience = QuizExperience.new(
-      title_id: @quiz_category.id,
-      experience: "40"
-    )
-  end
+  let!(:user) { create(:user) }
+  let!(:level) { create(:quiz_category) }
+  let!(:seciton) { create(:section, parent_id: level.id) }
+  let!(:title) { create(:title, parent_id: seciton.id) }
+  let!(:quiz_experience) { create(:quiz_experience, title_id: title.id) }
 
   it "is valid with title_id and experience" do
-    expect(@quiz_experience).to be_valid
+    expect(quiz_experience).to be_valid
   end
 
   it "is invalid without title_id" do
-    @quiz_experience.title_id = nil
-    expect(@quiz_experience).not_to be_valid
+    quiz_experience.title_id = nil
+    quiz_experience.valid?
+    expect(quiz_experience.errors[:title_id]).to include "can't be blank"
   end
 
-  it "is invalid without experience" do
-    @quiz_experience.experience = nil
-    expect(@quiz_experience).not_to be_valid
-  end
-  describe "when quiz_experience already exists" do
+  context "when quiz_experience already exists" do
     it "is invalid with same title_id" do
-      quiz_experience1 = create(:quiz_experience)
-      quiz_experience2 = build(:quiz_experience)
-      expect(quiz_experience2).not_to be_valid
+      quiz_experience2 = build(:quiz_experience, title_id: title.id)
+      quiz_experience2.valid?
+      expect(quiz_experience2.errors[:title_id]).to include "has already been taken"
     end
   end
 end

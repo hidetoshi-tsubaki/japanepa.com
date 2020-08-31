@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
-  let(:user){ create(:user) }
+  let(:user) { create(:user, :with_related_model) }
+
   before do
     sign_in user
     create_list(:level, 10)
@@ -15,7 +16,8 @@ RSpec.describe "Users", type: :request do
 
     it "display user_name" do
       get ranking_url
-      expect(response.body).to include "test user"
+      expect(response.body).to include user.name
+      expect(response.body).to include "Ranking"
     end
   end
 
@@ -28,7 +30,7 @@ RSpec.describe "Users", type: :request do
 
       it "display user_name" do
         get user_url user.id
-        expect(response.body).to include "JP"
+        expect(response.body).to include user.name
       end
 
       context "if user doesn't exist" do
@@ -54,30 +56,29 @@ RSpec.describe "Users", type: :request do
 
     it "display user_name" do
       get edit_user_registration_url user
-      expect(response.body).to include "test user"
-    end
-
-    it "display country" do
-      get edit_user_registration_url user
-      expect(response.body).to include "JP"
+      expect(response.body).to include user.name
     end
   end
 
   describe "Post #create" do
+    before do
+      sign_out user
+    end
+
     context "when paramater is valid" do
       it "has success to request" do
-        post user_registration_url, params: { user: attributes_for(:taro) }
+        post user_registration_url, params: { user: attributes_for(:user) }
         expect(response).to have_http_status 302
       end
 
-      # it "has success to register user" do
-      #   expect do
-      #     post user_registration_url, params: { user: attributes_for(:user, :update) }
-      #   end.to change(User, :count).by(1)
-      # end
+      it "has success to register user" do
+        expect do
+          post user_registration_url, params: { user: attributes_for(:user) }
+        end.to change(User, :count).by(1)
+      end
 
       it "redirect to root" do
-        post user_registration_url, params: { user: attributes_for(:taro) }
+        post user_registration_url, params: { user: attributes_for(:user) }
         expect(response).to redirect_to root_path
       end
     end
@@ -85,19 +86,20 @@ RSpec.describe "Users", type: :request do
     context "when paramater is invalid" do
       it "has success to request" do
         post user_registration_url, params: { user: attributes_for(:user, :invalid) }
-        expect(response.status).to eq 302
+        expect(response.status).to eq 200
       end
 
       it "failed to register user" do
         expect do
           post user_registration_url, params: { user: attributes_for(:user, :invalid) }
-        end.to_not change(User, :count)
+        end.not_to change(User, :count)
       end
     end
   end
 
   describe "PUT #update" do
-    let(:user){ create(:user) }
+    let(:user) { create(:user) }
+
     context "when paramater is valid" do
       it "has success to request" do
         put user_registration_url user, params: { user: attributes_for(:user, :update) }
@@ -106,8 +108,8 @@ RSpec.describe "Users", type: :request do
 
       it "has success to update user_name" do
         expect do
-          put user_registration_url user, params: { user: attributes_for(:user, :update)}
-        end.to change { User.find(user.id).name }.from('test user').to("updated user")
+          put user_registration_url user, params: { user: attributes_for(:user, :update) }
+        end.to change { User.find(user.id).name }.from(user.name).to("updated user")
       end
 
       it "redirect to show page" do
@@ -118,21 +120,22 @@ RSpec.describe "Users", type: :request do
 
     context "when paramater is invalid" do
       let(:user) { create(:user) }
+
       it " has success to request" do
         put user_registration_url user, params: { user: attributes_for(:user, :invalid) }
-        expect(response).to have_http_status 302
+        expect(response).to have_http_status 200
       end
 
       it "name does not be changed" do
-        expect{
+        expect do
           put user_registration_url user, params: { user: attributes_for(:user, :invalid) }
-        }.to_not change{User.find(user.id)}, :name
+        end.not_to change { User.find(user.id) }, :name
       end
 
-      # it "display error message" do
-      #   put user_registration_url user, params: { user: attributes_for(:user, :invalid) }
-      #   expect(response.body).to include 'Please input correct values'
-      # end
+      it "display error message" do
+        put user_registration_url user, params: { user: attributes_for(:user, :invalid) }
+        expect(response.body).to include 'Please input correct values'
+      end
     end
   end
 
