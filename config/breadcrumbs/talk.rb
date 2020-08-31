@@ -1,15 +1,10 @@
 crumb :talks do
-  link "talks", talks_path
-end
-
-crumb :show_talk do |talk|
-  link "Talk - #{talk.id}", talk_path(talk)
-  parent :talks
+  link "Feed", feed_talks_path
 end
 
 crumb :edit_talk do |talk|
   link "Edit Talk - #{talk.id}", edit_talk_path
-  parent :show_talk, talk
+  parent :talks
 end
 
 crumb :new_talk do

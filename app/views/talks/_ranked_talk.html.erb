@@ -1,15 +1,13 @@
-<%= link_to talk_path(talk) do %>
-  <div class="inner_talk">
-    <%= render "info_of_poster", talk: talk %>
-    <%= simple_format(text_url_to_link(h(talk.content)).html_safe, class: 'talk_content') %>
-    <p class="center"><%= image_tag talk.img if talk.img.attached? %></p>
-    <ul class="talk_btns">
-      <li class="comment_btn">
-        <%= icon("fas", "comment-alt") %>  <%= talk.comments_count %>  <%= talk.comments_count > 1 ? "Comments" : "Comment" %>
-      </li>
-      <li class="like_btn">
-        <%= icon("fas", "heart") %> <%= talk.likes_count %>
-      </li>
-    </ul>
-  </div>
-<% end %>
+<div class="inner_talk">
+  <%= render "info_of_poster", talk: talk %>
+  <%= simple_format(text_url_to_link(h(talk.content)).html_safe, class: 'talk_content') %>
+  <p class="center"><%= image_tag talk.img if talk.img.attached? %></p>
+  <ul class="talk_btns">
+    <li class="comment_btn">
+      <%= icon("fas", "comment-alt") %>  <%= talk.comments_count %>  <%= talk.comments_count > 1 ? "Comments" : "Comment" %>
+    </li>
+    <li class="like_btn">
+      <%= icon("fas", "heart") %> <%= talk.likes_count %>
+    </li>
+  </ul>
+</div>

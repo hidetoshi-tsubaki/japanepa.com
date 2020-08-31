@@ -1,0 +1,15 @@
+<%= link_to community_path(community) do %>
+  <div class="joined_community">
+    <%= render partial: "communities/community_img", locals: { community: community } %>    
+    <div class="ranked_community_detail inline">
+      <p class="inner_community_name bold inline"><%= community.name %></p>
+      <p class="status_counts right">
+        <%= icon("fas","users") %> <%= community.member_count %>
+        <%= icon("fas","comments") %> <%= community.talk_count %>
+      </p>
+    </div>
+  </div>
+<% end %>
+<% if community_counter == 5 %>
+  <p class="center"><%= link_to "See More", joined_communities_path %></p>
+<% end %>

@@ -1,5 +1,5 @@
-<% if defined?(@from_feed) %>
-    <%= f.select :community_id, communities.map{|c| [c.name, c.id] } %>
-  <% else %>
-    <%= f.hidden_field :community_id, value: community.id %>
+<% if @community_page %>
+    <%= f.hidden_field :community_id, value: @community.id %>
+<% else %>
+    <%= f.select :community_id, @communities.map{|c| [c.name, c.id] } %>
 <% end %>

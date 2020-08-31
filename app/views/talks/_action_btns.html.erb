@@ -4,23 +4,35 @@
       <%= icon("fas", "comment-alt") %>  <%= talk.comments_count %>  <%= talk.comments_count > 1 ? "Comments" : "Comment" %>
     <% end %>
   </li>
-  <li id="like_btn_<%= talk.id %>" class="like_btn">
-    <%= render partial:'talks/like_btn' ,locals: { talk: talk } %>
+  <li id="like_btn_<%= talk.id %>">
+    <% if own_post?(talk) %>
+        <span class="like_btn"><%= icon("fas", "heart") %> <%= talk.likes_count %></span>
+    <% else %>
+      <% if current_user.already_liked_talk?(talk) %>
+        <%= link_to like_talk_path(talk), class:"like_btn" ,remote: true, method: :delete do %>
+          <%= icon("fas", "heart") %> <%= talk.likes_count %>
+        <% end %>
+      <% else %>
+        <%= link_to like_talks_path(id: talk.id), class:"like_btn" ,remote: true, method: :post do %>
+          <%= icon("far", "heart") %> <%= talk.likes_count %>
+        <% end %>
+      <% end %>
+    <% end %>
   </li>
   <% if own_post?(talk) %>
     <li>
       <% if community_page? %>
-        <%= link_to edit_talk_path(talk, from_community_page: @community.id), class: "edit_btn" do %>
+        <%= link_to edit_talk_path(talk, community_page?: @community.id), class: "edit_btn" do %>
           <%= icon("fas", "edit") %> Edit
         <% end %>
       <% else %>
-        <%= link_to edit_talk_path(from_feed: "true"), class: "edit_btn" do %>
+        <%= link_to edit_talk_path(talk, community_page?: nil), class: "edit_btn" do %>
           <%= icon("fas", "edit") %> Edit
         <% end %>
       <% end %>
     </li>
     <li>
-      <%= link_to talk_path(talk, talk: { community_id: talk.community.id }), class: "delete_btn", data: { confirm: 'Delete this post?' }, method: :delete do %>
+      <%= link_to talk_path(talk), class: "delete_btn", data: { confirm: 'Delete this post?' }, method: :delete, remote: true do %>
         <%= icon("fas", "trash-alt") %> Delete
       <% end %>
     </li>
