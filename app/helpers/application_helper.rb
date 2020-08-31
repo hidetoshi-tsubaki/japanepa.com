@@ -74,7 +74,6 @@ module ApplicationHelper
   end
 
   def community_page?
-    controller.controller_name == "communtiy"
+    controller.controller_name == "communities"
   end
-
 end

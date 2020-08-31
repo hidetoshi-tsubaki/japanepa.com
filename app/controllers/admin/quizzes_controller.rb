@@ -22,7 +22,7 @@ class Admin::QuizzesController < ApplicationController
         redirect_to admin_quizzes_path
       else
         @options = get_levels("index")
-        @options.unshift({name: "All", value: 0, path: all_admin_quizzes_path })
+        @options.unshift({ name: "All", value: 0, path: all_admin_quizzes_path })
         render "admin/quizzes/new"
       end
     end
@@ -53,14 +53,14 @@ class Admin::QuizzesController < ApplicationController
       flash.now[:notice] = "edited quiz successfully!"
       redirect_to admin_quiz_category_path(quiz.category_id)
     else
-    flash.now[:notice] = "edited quiz successfully!"
-    redirect_to admin_quizzes_path
+      flash.now[:notice] = "edited quiz successfully!"
+      redirect_to admin_quizzes_path
     end
   end
 
   def search
     is_pagination?(params)
-    if params[:q]['question_or_choice1_cont_any'] != nil
+    if !params[:q]['question_or_choice1_cont_any'].nil?
       params[:q]['question_or_choice1_cont_any'] = params[:q]['question_or_choice1_cont_any'].split(/[ ]/)
       @keywords = Quiz.ransack(params[:q])
       @quizzes = @keywords.result.paginate(params[:page], 15)
@@ -97,8 +97,8 @@ class Admin::QuizzesController < ApplicationController
   def get_section_list
     @level = QuizCategory.find(params[:id])
     current_page = params[:page]
-    @options = get_sections(@level,current_page)
-    all_quizzes_in_level_path = "/all_quizzes_in_level/" + params[:id] + "/" + params[:page]
+    @options = get_sections(@level, current_page)
+    # all_quizzes_in_level_path = "/all_quizzes_in_level/" + params[:id] + "/" + params[:page]
     add_options(current_page, @options, all_in_level_admin_quiz_path)
     render json: @options
   end
@@ -106,8 +106,8 @@ class Admin::QuizzesController < ApplicationController
   def get_title_list
     @section = QuizCategory.find(params[:id])
     current_page = params[:page]
-    @options = get_titles(@section,current_page)
-    get_all_quizzes_in_section_path = "/all_quizzes_in_section/" + params[:id] + "/" + current_page
+    @options = get_titles(@section, current_page)
+    # get_all_quizzes_in_section_path = "/all_quizzes_in_section/" + params[:id] + "/" + current_page
     add_options(current_page, @options, all_in_section_admin_quiz_path)
     render json: @options
   end
@@ -117,19 +117,19 @@ class Admin::QuizzesController < ApplicationController
   def quiz_params
     question = ''
     extract_inner_text(params[:quiz][:question_html], question)
-    params.require(:quiz)
-          .permit(:category_id, :question_html, :choice1, :choice2, :choice3, :choice4)
-          .merge(question: question)
+    params.require(:quiz).
+      permit(:category_id, :question_html, :choice1, :choice2, :choice3, :choice4).
+      merge(question: question)
   end
 
   def search_params
     params.require(:q).permit(:question_cont)
   end
 
-  def extract_inner_text(html,question)
+  def extract_inner_text(html, question)
     q = html
-    charset = nil 
-    doc = Nokogiri::HTML.parse(q,nil,charset)
+    charset = nil
+    doc = Nokogiri::HTML.parse(q, nil, charset)
     doc.css('p').each do |f|
       question << f.content
     end
@@ -140,32 +140,32 @@ class Admin::QuizzesController < ApplicationController
   end
 
   def get_levels(page)
-    levels = (QuizCategory.where(depth: 0))
-    options = levels.map do |level|
+    levels = QuizCategory.where(depth: 0)
+    levels.map do |level|
       { name: level.name, value: level.id, path: admin_quiz_sections_path(id: level.id, page: page) }
     end
   end
 
-  def get_sections(level,page)
+  def get_sections(level, page)
     QuizCategory.sections_in(level).map do |section|
-      { name: section.name, value: section.id, path: admin_quiz_titles_path(section,page) }
+      { name: section.name, value: section.id, path: admin_quiz_titles_path(section, page) }
     end
   end
 
-  def get_titles(section,page)
+  def get_titles(section, page)
     QuizCategory.titles_in(section).map do |title|
       { name: title.name, value: title.id, path: quizzes_in_title_admin_quiz_path(title) }
     end
   end
 
-  def add_options(page,valiable,path)
+  def add_options(page, valiable, path)
     if valiable.any?
       if page == "index"
-        valiable.unshift({ name: "all",value: 0, path: path })
+        valiable.unshift({ name: "all", value: 0, path: path })
       end
-      valiable.unshift({ name: "選択してください", value: '', path: ''})
+      valiable.unshift({ name: "選択してください", value: '', path: '' })
     else
-      valiable.unshift({ name: "なし", value: '', path: ''})
+      valiable.unshift({ name: "なし", value: '', path: '' })
     end
   end
 
@@ -185,9 +185,8 @@ class Admin::QuizzesController < ApplicationController
   end
 
   def is_pagination?(params)
-    if params[:q]['question_or_choice1_cont_any'].kind_of?(Array)
+    if params[:q]['question_or_choice1_cont_any'].is_a?(Array)
       params[:q]['question_or_choice1_cont_any'] = params[:q]['question_or_choice1_cont_any'].join(" ")
     end
   end
 end
-

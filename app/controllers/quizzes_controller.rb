@@ -12,7 +12,7 @@ class QuizzesController < ApplicationController
 
   def play_mistakes
     @category = QuizCategory.find(params[:id])
-    if mistake_ids = current_user.mistakes.where(title_id: @category.id).pluck(:quiz_id)
+    if mistake_ids == current_user.mistakes.where(title_id: @category.id).pluck(:quiz_id)
       @quizzes = Quiz.where(id: mistake_ids)
       set_quizzes(@categroy)
       render :play
@@ -22,7 +22,6 @@ class QuizzesController < ApplicationController
       flash[:alert] = "there is no mistake record"
     end
   end
-
 
   def sections
     @level = QuizCategory.find(params[:id])
@@ -41,7 +40,11 @@ class QuizzesController < ApplicationController
     gon.title_id = @category.id
     gon.quizSet = []
     @quizzes.each do |quiz|
-      gon.quizSet.push(id: "#{quiz.id}", question: "#{quiz.question}", choices: ["#{quiz.choice1}", "#{quiz.choice2}", "#{quiz.choice3}", "#{quiz.choice4}"])
+      gon.quizSet.push(
+        id: "#{quiz.id}",
+        question: "#{quiz.question_html}",
+        choices: ["#{quiz.choice1}", "#{quiz.choice2}", "#{quiz.choice3}", "#{quiz.choice4}"]
+      )
     end
   end
 end

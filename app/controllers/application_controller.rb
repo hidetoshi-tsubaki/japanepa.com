@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :store_action, unless: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    if (session[:previous_url] == root_path(resource))
+    if session[:previous_url] == root_path(resource)
       super
     else
       session[:previous_url] || root_path(resource)
@@ -19,12 +19,11 @@ class ApplicationController < ActionController::Base
     @needed_experience_to_next_level = Level.find(user.level).threshold - user.user_experience.total_point
   end
 
-
   def get_unchecked_announce_count
     return unless user_signed_in?
     user_registration_date = current_user.created_at
     @unchecked_announce_count = Announcement.
-      where("updated_at > ?", user_registration_date).
+      where("created_at > ?", user_registration_date).where(status: true).
       length - current_user.announcement_checks.length
   end
 

@@ -5,7 +5,7 @@ class BookmarksController < ApplicationController
   def index
     @articles = Article.bookmarks
   end
-  
+
   def create
     @article = Article.find(params[:id])
     current_user.bookmark(@article) unless current_user.already_bookmark?(@article)

@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
     unless @comment.save
       render 'form'
     end
-    @talk = Talk.find(comment_params[:talk_id])
+    @talk = @comment.talk
   end
 
   def edit
@@ -36,5 +36,4 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:talk_id, :contents)
   end
-
 end

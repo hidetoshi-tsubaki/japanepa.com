@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
   impressionist :actions => [:show]
 
   def index
-    @q = Article.with_attached_img.ransack(params[:q])
+    @q = Article.published.with_attached_img.ransack(params[:q])
     @articles = @q.result(distinct: true).paginate(params[:page], 15)
   end
 
@@ -15,7 +15,7 @@ class ArticlesController < ApplicationController
       @tags = @article.tags_on(:tags)
       @q = Article.with_attached_img.ransack(params[:q])
     else
-      redirect_to articles_path
+      redirect_to articles_path, flash: { alert: "coundn't find an article ...." }
     end
   end
 
@@ -26,7 +26,7 @@ class ArticlesController < ApplicationController
   end
 
   def search
-    if params[:q] != nil
+    if !params[:q].nil?
       params[:q]['title_or_lead_cont_any'] = params[:q]['title_or_lead_cont_any'].split(/[ ]/)
       @keywords = Article.with_attached_img.ransack(params[:q])
       @articles = @keywords.result.sorted

@@ -21,7 +21,7 @@ class Admin::TalksController < ApplicationController
 
   def search
     is_pagination?(params)
-    if params[:q]['community_name_or_user_name_or_content_cont_any'] != nil
+    if !params[:q]['community_name_or_user_name_or_content_cont_any'].nil?
       params[:q]['community_name_or_user_name_or_content_cont_any'] = params[:q]['community_name_or_user_name_or_content_cont_any'].split(/[ ]/)
       @keywords = Talk.includes([:user, :community]).ransack(params[:q])
       @talks = @keywords.result.paginate(params[:page], 15)
@@ -44,15 +44,8 @@ class Admin::TalksController < ApplicationController
     params.require(:talk).permit(:user_id, :community_id, :content, :img)
   end
 
-  def authenticate_edit_delete
-    unless user_signed_in? || admsin_signed_in?
-      render :index
-      flash.now[:notice] = "you don't have right to delete...."
-    end
-  end
-
   def is_pagination?(params)
-    if params[:q]['user_name_or_content_cont_any'].kind_of?(Array)
+    if params[:q]['user_name_or_content_cont_any'].is_a?(Array)
       params[:q]['user_name_or_content_cont_any'] = params[:q]['user_name_or_content_cont_any'].join(" ")
     end
   end

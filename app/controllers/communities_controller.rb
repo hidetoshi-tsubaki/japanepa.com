@@ -73,7 +73,7 @@ class CommunitiesController < ApplicationController
   end
 
   def search
-    if params[:q] != nil
+    if !params[:q].nil?
       params[:q]['name_or_introduction_cont_any'] = params[:q]['name_or_introduction_cont_any'].split(/[ ]/)
       @keywords = Community.ransack(params[:q])
       @communities = @keywords.result.sorted

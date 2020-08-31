@@ -1,5 +1,4 @@
 module EventsHelper
-
   def event_color(event_id)
     if event_id % 5 == 0
       "event_brown"

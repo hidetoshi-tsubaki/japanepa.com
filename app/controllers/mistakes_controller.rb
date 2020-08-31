@@ -4,7 +4,7 @@ class MistakesController < ApplicationController
 
   def index
     @category = QuizCategory.find(params[:id])
-    set_valiables(params[:q],@category.id)
+    set_valiables(params[:q], @category.id)
     @mistakes = @q.result(distinct: true).sorted
   end
 
@@ -14,8 +14,12 @@ class MistakesController < ApplicationController
 
   def search
     @category = QuizCategory.find(params[:q][:title_id])
-    if params[:q]['quiz_name_or_quiz_choice1_or_quiz_choice2_or_quiz_choice3_or_quiz_choice4_cont_any'] != nil
-      params[:q]['quiz_name_or_quiz_choice1_or_quiz_choice2_or_quiz_choice3_or_quiz_choice4_cont_any'] = params[:q]['quiz_name_or_quiz_choice1_or_quiz_choice2_or_quiz_choice3_or_quiz_choice4_cont_any'].split(/[ ]/)
+    if !params[:q]['quiz_name_or_quiz_choice1_or_quiz_choice2_or_quiz_choice3_or_quiz_choice4_cont_any'].nil?
+      params[:q]['
+        quiz_name_or_quiz_choice1_or_quiz_choice2_or_quiz_choice3_or_quiz_choice4_cont_any'
+      ] = params[:q][
+        'quiz_name_or_quiz_choice1_or_quiz_choice2_or_quiz_choice3_or_quiz_choice4_cont_any'
+      ].split(/[ ]/)
       set_valiables(params[:q], @category.id)
     else
       set_valiables(params[:q], @category.id)
@@ -27,15 +31,9 @@ class MistakesController < ApplicationController
   private
 
   def set_valiables(params, category)
-    @q = current_user.mistakes.includes(:quiz)
-        .where(title_id: category)
-        .order(count: "DESC")
-        .ransack(params)
-  end
-
-  def get_search_result(words)
-      words = words.split(/[ ]/)
-      @keywords = current_user.mistakes.includes(:quiz).ransack(params[:q])
-      @mistakes = @keywords.result.sorted
+    @q = current_user.mistakes.includes(:quiz).
+      where(title_id: category).
+      order(count: "DESC").
+      ransack(params)
   end
 end

@@ -1,5 +1,5 @@
 class Admin::StaticPagesController < ApplicationController
-    before_action :authenticate_admin!
+  before_action :authenticate_admin!
 
   def home
     @countings = %w(users quiz_play article_views communities talks)

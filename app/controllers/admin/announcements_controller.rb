@@ -1,4 +1,3 @@
-
 class Admin::AnnouncementsController < ApplicationController
   before_action :authenticate_admin!
 
@@ -18,7 +17,7 @@ class Admin::AnnouncementsController < ApplicationController
   def create
     @announce = Announcement.new(announce_params)
     if @announce.save
-      redirect_to admin_announcements_path(@announce)
+      redirect_to admin_announcements_path
     else
       render 'new'
     end
@@ -41,14 +40,14 @@ class Admin::AnnouncementsController < ApplicationController
     @announce = Announcement.find(params[:id])
     @announce.destroy
     respond_to do |format|
-      format.html { redirect_to admin_announcement_index_path }
+      format.html { redirect_to admin_announcements_path }
       format.js { render :action => "destroy" }
     end
   end
 
   def search
     is_pagination?(params)
-    if params[:q]['title_or_contents_cont_any'] != nil
+    if !params[:q]['title_or_contents_cont_any'].nil?
       params[:q]['title_or_contents_cont_any'] = params[:q]['title_or_contents_cont_any'].split(/[ ]/)
       @keywords = Announcement.ransack(params[:q])
       @announcements = @keywords.result.paginate(params[:page], 15)
@@ -61,13 +60,13 @@ class Admin::AnnouncementsController < ApplicationController
   end
 
   private
-  
+
   def announce_params
     params.require(:announcement).permit(:title, :contents, :status)
   end
 
   def is_pagination?(params)
-    if params[:q]['title_or_contents_cont_any'].kind_of?(Array)
+    if params[:q]['title_or_contents_cont_any'].is_a?(Array)
       params[:q]['title_or_contents_cont_any'] = params[:q]['title_or_contents_cont_any'].join(" ")
     end
   end

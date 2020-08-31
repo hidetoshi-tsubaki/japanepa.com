@@ -3,8 +3,8 @@ class Admin::CommentsController < ApplicationController
 
   def index
     @q = Comment.ransack(params[:q])
-    @comments = Comment.includes(:user)
-                       .paginate(params[:page], 15)
+    @comments = Comment.includes(:user).
+      paginate(params[:page], 15)
   end
 
   def show
@@ -18,13 +18,13 @@ class Admin::CommentsController < ApplicationController
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to admin_comments_path }
-      format.js { render :action => "destroy"}
+      format.js { render :action => "destroy" }
     end
   end
 
   def search
     is_pagination?(params)
-    if params[:q]['user_name_or_contents_cont_any'] != nil
+    if !params[:q]['user_name_or_contents_cont_any'].nil?
       params[:q]['user_name_or_contents_cont_any'] = params[:q]['user_name_or_contents_cont_any'].split(/[ ]/)
       @keywords = Comment.ransack(params[:q])
       @comments = @keywords.result.paginate(params[:page], 15)
@@ -39,7 +39,7 @@ class Admin::CommentsController < ApplicationController
   private
 
   def is_pagination?(params)
-    if params[:q]['user_name_or_contents_cont_any'].kind_of?(Array)
+    if params[:q]['user_name_or_contents_cont_any'].is_a?(Array)
       params[:q]['user_name_or_contents_cont_any'] = params[:q]['user_name_or_contents_cont_any'].join(" ")
     end
   end

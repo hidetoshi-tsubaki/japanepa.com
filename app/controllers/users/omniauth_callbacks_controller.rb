@@ -1,7 +1,5 @@
 class Users::OmniauthCallbacksController < ApplicationController
-
   def facebook
-    p "facebook"
     omniauth_callback
   end
 
