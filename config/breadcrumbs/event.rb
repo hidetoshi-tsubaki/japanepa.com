@@ -6,7 +6,6 @@ crumb :calendar do
   link "Calendar", events_path
 end
 
-
 # Admin Article
 crumb :admin_events do
   link "Events", admin_events_path
