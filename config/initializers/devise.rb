@@ -297,10 +297,7 @@ Devise.setup do |config|
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
 
-  #1ヶ月と指定
 config.timeout_in = 1.month
-
-# facebookログイン
   config.omniauth :facebook, ENV["FACEBOOK_API_ID"], ENV["FACEBOOK_API_KEY"]
   config.omniauth :twitter,ENV["TWITTER_API_ID"],ENV["TWITTER_API_KEY"]
 end

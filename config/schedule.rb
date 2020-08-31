@@ -11,4 +11,3 @@ every 1.day, :at => '0am' do
   rake 'counting:counting_date'
   rake 'review:delete_overdue_reviews'
 end
-
