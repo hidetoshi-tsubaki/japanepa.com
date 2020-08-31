@@ -1,8 +1,7 @@
 FactoryBot.define do
   factory :score_record do
     score { 100 }
-    mistake_ids { ["1", "2"]}
-    corrent_ids { ["3"] }
+    title_id { 1 }
 
     trait :invalid do
       score { "" }

@@ -1,25 +1,39 @@
 FactoryBot.define do
   factory :user do
-    name { "test user" }
+    sequence(:name) { |n| "user_#{n}" }
+    password { "japanepa" }
+    password_confirmation { "japanepa" }
     country { "JP" }
     current_address { "JP" }
-    password { "japanepa19" }
-    password_confirmation { "japanepa19" }
-    
-    after(:create) do |user|
-      user.user_experience << build(:user_experience)
+
+    trait :with_related_model do
+      after(:create) do |user|
+        create(:user_experience, user: user)
+      end
     end
-    
+
     trait :invalid do
-      name = nil
+      name { "" }
     end
 
     trait :update do
-      name { "updated user"}
+      name { "updated user" }
     end
 
     trait :founder do
       name { "founder" }
+    end
+
+    trait :last do
+      name { "wwwww" }
+      country { "ZW" }
+      current_address { "ZW" }
+      play_count { 100 }
+      talk_count { 100 }
+      community_count { 100 }
+      after(:create) do |user|
+        create(:user_experience, user: user)
+      end
     end
   end
 end
