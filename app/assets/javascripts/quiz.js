@@ -100,6 +100,7 @@
         $('#current_level').text(data["current_level"]);
         $('#got_experience').text(data["new_experience"]);
         $('#needed_experience').text(data["needed_experience"]);
+        $('#user_level').text(data["current_level"]);
       }).fail(function(){
         alert('score was not saved ......');
       })
