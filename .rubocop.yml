@@ -3,7 +3,7 @@ inherit_from:
   - .rubocop_airbnb.yml
 
 AllCops:
-  argetRubyVersion: 2.3
+  targetRubyVersion: 2.3
   Exclude:
    - 'db/**/*'
    - 'bin/*'
@@ -14,3 +14,9 @@ AllCops:
    - 'lib/tasks/*'
    - 'vendor/**/*'
    - 'path/ruby'
+
+LineLength:
+  Max: 150
+
+Lint/AssignmentInCondition:
+  Enabled: false
