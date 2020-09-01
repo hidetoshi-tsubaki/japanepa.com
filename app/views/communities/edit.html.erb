@@ -1,6 +1,11 @@
 <% content_for(:html_title) { "Edit Community-#{@community.name}" } %>
 <% breadcrumb :edit_community, @community %>
 <div class="form_wrapper">
-  <h1 class="center">Edit Community</h1>
+  <p class="center">Edit Community</p>
+  <p class="right">
+    <%= link_to community_path(@community), class: "delete_btn", data: { confirm: 'Delete this post?' }, method: :delete do %>
+      <%= icon("fas", "trash-alt") %> Delete
+    <% end %>
+  </p>
   <%= render 'form', community: @community, action: "Update" %>
 </div>

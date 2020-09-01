@@ -19,11 +19,8 @@ RSpec.describe "ScoreRecords", type: :request do
     context "when paramater is valid" do
       describe "when create score_record, related model will be created" do
         it { "expect(response).to have_http_status 200" }
-        
         it { "expect(Learninglevel.count).to eq 1" }
-        
         it { "expect(Master.count).to eq 1" }
-        
         it { "expect(ScoreRecord.count).to eq 1" }
       end
     end

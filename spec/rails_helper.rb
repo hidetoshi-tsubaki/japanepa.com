@@ -76,6 +76,6 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-   Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+  Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
   config.include RequestSpecHelper, type: :request
 end

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root "static_pages#home"
 
   resources :quiz_categories, only: [:index, :show]
@@ -11,14 +10,14 @@ Rails.application.routes.draw do
     end
   end
   resources :score_records, only: [:index, :show, :create]
-  resources :talks do
+  resources :talks, except: [:show] do
     collection do
       get :sort
       get :search
       get :tag_search
+      get :feed
     end
     member do
-      get :feed
       get :user
     end
   end
@@ -119,11 +118,11 @@ Rails.application.routes.draw do
       end
     end
     resources :events do
-    collection do
-      get :search
-      get :calendar
+      collection do
+        get :search
+        get :calendar
+      end
     end
-  end
     resource :user, only: [:index, :destroy]
   end
 

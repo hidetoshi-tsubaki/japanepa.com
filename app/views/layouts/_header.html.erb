@@ -9,10 +9,10 @@
       <% else %>
         <%= icon("fas", "user") %>
       <% end %>
-      <span><%= current_user.name %> (Lv.<%= current_user.level %>)</span>
+      <span><%= current_user.name %> (Lv.<span id="user_level"><%= current_user.level %></span>)</span>
     </li>
     <li class="announce_btn inline">
-      <%= link_to announcements_path do %>
+      <%= link_to announcements_path, class: "announce_link" do %>
         <%= icon("fas", "bell") %>
         <% unless @unchecked_announce_count.zero? %>
           <span class="unchecked_announce_count"><%= @unchecked_announce_count.nonzero? %></span>
@@ -36,27 +36,23 @@
     <li class="close_sp_menu_btn">
       Close
     </li>
-    <% if user_signed_in? %>
-      <li class="user_menu hidden">
-        <%= link_to user_path(current_user) do %>
-          <p><%= icon("fas", "address-card") %> Profile</p>
-        <% end %>
-        <%= link_to ranking_path(anchor: current_user.id) do %>
-          <p><%= icon("fas", "crown") %> Ranking</p>
-        <% end %>
-        <%= link_to bookmarks_path do %>
-          <p><%= icon("fas", "star") %> Bookmarks</p>
-        <% end %>
-        <%= link_to events_path do %>
-          <p><%= icon("fas fa-fw", "calendar-alt") %> Calendar</p>
-        <% end %>
-        <p><%= icon("fas", "question-circle") %> Help</p>
-        <p><%= icon("fas", "info-circle") %> About us</p>
-        <%= link_to destroy_user_session_path, method: :delete do %>
-          <p><%= icon("fas", "sign-out-alt") %> Log out</p>
-        <% end %>
-      </li>
-    <% end %>
+    <li class="user_menu hidden">
+      <%= link_to user_path(current_user) do %>
+        <p><%= icon("fas", "address-card") %> Profile</p>
+      <% end %>
+      <%= link_to ranking_path(anchor: current_user.id) do %>
+        <p><%= icon("fas", "crown") %> Ranking</p>
+      <% end %>
+      <%= link_to bookmarks_path do %>
+        <p><%= icon("fas", "star") %> Bookmarks</p>
+      <% end %>
+      <%= link_to events_path do %>
+        <p><%= icon("fas fa-fw", "calendar-alt") %> Calendar</p>
+      <% end %>
+      <%= link_to destroy_user_session_path, method: :delete do %>
+        <p><%= icon("fas", "sign-out-alt") %> Log out</p>
+      <% end %>
+    </li>
   <% elsif admin_signed_in? %>
     <li class="admin_menu_btn">
       <%= icon("fas", "user-cog") %>

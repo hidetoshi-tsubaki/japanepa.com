@@ -62,7 +62,7 @@
     </li>
   </ul>
     <p class="right">
-      <%= link_to 'delete your account', user_registration_path(@user), method: :delete, id: "delete_account" if own_profile?(@user) %>
+      <%= link_to 'delete your account', user_registration_path, method: :delete, id: "delete_account", data: { confirm: 'Are you sure???' } if own_profile?(@user) %>
     </p>
 </div>
 <div class="user_menu_in_mobile hidden">

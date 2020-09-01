@@ -1,2 +1,2 @@
-$("#modal").html("<%= j(render partial: 'admin/quizzes/form', locals: { quiz: @quiz, category: @category }) %>");
+$("#modal").html("<%= j(render partial: 'admin/quizzes/form', locals: { quiz: @quiz, category: @category, action: "編集" }) %>");
 $('#modalArea').fadeIn();
