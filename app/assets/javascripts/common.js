@@ -8,9 +8,9 @@ $(function () {
     $('.sp_menu_btn, .close_sp_menu_btn').toggle();
   })
   // モーダル開閉
-  $('#openModal').on('click',function () {
-    $('#modalArea').fadeIn();
-  });
+  // $('#openModal').on('click',function () {
+  //   $('#modalArea').fadeIn();
+  // });
   $('#closeModal , #modalBg, #score_bg').on('click',function () {
     $('#modalArea, #score_modal_area').fadeOut();
     $('#linearChart, #doughnutsChart, #learningLevel, #coutionm .quiz_title').empty();
@@ -217,53 +217,27 @@ $(function () {
   $("#start_time_to").on("change.datetimepicker", function (e) {
     $('#start_time_from').datetimepicker('maxDate', e.date);
   });
-// 終了日
+  // 終了日
   $("#end_time_from").on("change.datetimepicker", function (e) {
     $('#end_time_to').datetimepicker('minDate', e.date);
   });
   $("#end_time_to").on("change.datetimepicker", function (e) {
     $('#end_time_from').datetimepicker('maxDate', e.date);
   });
-// event_form
+  // event_form
   $("#start_time").on("change.datetimepicker", function (e) {
     $('#end_time').datetimepicker('minDate', e.date);
   });
   $("#end_time").on("change.datetimepicker", function (e) {
     $('#start_time').datetimepicker('maxDate', e.date);
   });
-// クリアボタン
+  // クリアボタン
   $('#clear_btn').on('click', function () {
     $(".datetimepicker-input, .keyword_search, select").val("");
   });
-// ARTICLE tag-form
-  $('#form-tags').tagit({
-    fieldName: 'article[tag_list]',
-    singleField: true,
-    availableTags: gon.available_tags
-  });
-  if (gon.article_tags) {
-    for (var i = 0; i < gon.article_tags.length; i++) {
-      $('#form-tags').tagit(
-        'createTag', gon.article_tags[i]
-      )
-    }
-  }
-// COMMUNITY tag-form
-  $('#form_tags').tagit({
-    fieldName: 'community[tag_list]',
-    singleField: true,
-    availableTags: gon.available_tags
-  });
-  if (gon.community_tags) {
-    for (var i = 0; i < gon.community_tags.length; i++) {
-      $('#form-tags').tagit(
-        'createTag', gon.community_tags[i]
-      )
-    }
-  }
   // calendar 詳細表示
   $(".event").on('click', function () {
-    event_id = $(this).attr('id');
+    event_id = $(this).attr('class');
     event_url = "/events/" + event_id
     $.ajax({
       url: event_url,
@@ -277,7 +251,33 @@ $(function () {
       }
     })
   });
-  // information 詳細表示
+  // ARTICLE tag-form
+  $('#form-tags').tagit({
+    fieldName: 'article[tag_list]',
+    singleField: true,
+    availableTags: gon.available_tags
+  });
+  if (gon.article_tags) {
+    for (var i = 0; i < gon.article_tags.length; i++) {
+      $('#form-tags').tagit(
+        'createTag', gon.article_tags[i]
+      )
+    }
+  }
+  // COMMUNITY tag-form
+  $('#form_tags').tagit({
+    fieldName: 'community[tag_list]',
+    singleField: true,
+    availableTags: gon.available_tags
+  });
+  if (gon.community_tags) {
+    for (var i = 0; i < gon.community_tags.length; i++) {
+      $('#form-tags').tagit(
+        'createTag', gon.community_tags[i]
+      )
+    }
+  }
+  // announce 詳細表示
   $(".announce").on('click', function () {
     announce_id = $(this).attr('id');
     announce_url = "/announcements/" + announce_id
