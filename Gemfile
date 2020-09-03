@@ -44,7 +44,7 @@ gem 'gretel'
 gem 'whenever', require: false
 
 group :development, :test do
-  gem 'sqlite3', '1.3.13'
+  gem 'mysql2'
   gem 'pry-rails'
   gem 'pry-byebug'
   gem "capybara"
@@ -76,5 +76,4 @@ end
 
 group :production do
   gem "rails_12factor"
-  gem 'pg', "~> 0.20"
 end
