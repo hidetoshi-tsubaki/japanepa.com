@@ -13,7 +13,7 @@ development:
 
 test:
   <<: *default
-  database: db_test
+  database: portfolio1_test
 
 production:
   <<: *default
