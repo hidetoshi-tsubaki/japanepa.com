@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'date'
 
 RSpec.describe 'Admin::Articles', type: :system do
   let!(:admin) { create(:admin) }
@@ -7,7 +6,6 @@ RSpec.describe 'Admin::Articles', type: :system do
   let!(:article) { create(:article) }
   let!(:article_in_draft) { create(:article, status: 'draft') }
   let!(:last_article) { create(:article, :last) }
-  let(:date) { Date.today }
 
   context 'when signed in as admin' do
     before do
@@ -15,57 +13,47 @@ RSpec.describe 'Admin::Articles', type: :system do
       visit admin_articles_path
     end
 
-    it 'show admin articles index page' do
+    it 'work correctly', js: true, retry: 2 do
+      # 一覧表示
       expect(page).to have_content "記事一覧"
       expect(page).to have_content article.title
-    end
 
-    it 'create article', retry: 3 do
-      first(:link, "New").click
-      using_wait_time 15 do
-        expect(page).to have_content "Create Article"
-      end
+      # 新規作成
+      visit new_admin_article_path
       find('#title_input').set('new_article')
       find('#lead_input').set('article_lead')
       find('#contents_input').set('test_content')
       find('.upload_btn').click
       attach_file "article[img]", "#{Rails.root}/spec/factories/images/img.png", make_visible: true
-      click_on 'submit'
-
+      click_on '新規作成'
       using_wait_time 10 do
-        expect(page).to have_no_content 'Create Article'
+        page.driver.browser.switch_to.alert.accept
         expect(page).to have_content 'new_article'
       end
-    end
 
-    it 'edit article' do
-      first('.edit_btn').click
+      # 編集
+      visit edit_admin_article_path article
       find('#title_input').set('updated title')
-      click_on 'submit'
-      expect(page).to have_content 'updated title'
-      expect(page).to have_no_content last_article.title
-    end
-
-    it 'delete article' do
-      first('.edit_btn').click
+      click_on '編集'
       using_wait_time 10 do
-        click_on '削除'
+        page.driver.browser.switch_to.alert.accept
+        expect(page).to have_content 'updated title'
       end
+
+      # 削除
+      visit edit_admin_article_path last_article
+      expect(page).to have_content last_article.title
+      find('.delete_btn').click
       page.driver.browser.switch_to.alert.accept
+      visit admin_articles_path
+      expect(page).to have_no_content last_article.title
 
-      using_wait_time 10 do
-        expect(page).to have_no_content 'Article Form'
-        expect(page).to have_no_content last_article.title
-      end
-    end
-
-    it 'delete article with ajax', js: true do
+      # ajaxで削除
+      expect(page).to have_content "new_article"
       page.first('.delete_btn').click
       page.driver.browser.switch_to.alert.accept
-
-      using_wait_time 10 do
-        expect(page).to have_no_content last_article.title
-      end
+      visit admin_articles_path
+      expect(page).to have_no_content "new_article"
     end
 
     describe 'search article' do
@@ -110,7 +98,7 @@ RSpec.describe 'Admin::Articles', type: :system do
         end
       end
 
-      context 'search article by incollect value' do
+      context 'search article by incorrect value' do
         it 'search article by word' do
           find('.keyword_search').set('wrong_keywords')
           click_on 'Search'
@@ -119,16 +107,16 @@ RSpec.describe 'Admin::Articles', type: :system do
         end
 
         it 'search article by creation date' do
-          find('#creation_date_from').set(date.prev_day(30).strftime("%Y/%m/%d"))
-          find('#creation_date_to').set(date.prev_day(20).strftime("%Y/%m/%d"))
+          find('#creation_date_from').set(Date.today.prev_day(30).strftime("%Y/%m/%d"))
+          find('#creation_date_to').set(Date.today.prev_day(20).strftime("%Y/%m/%d"))
           click_button 'Search'
           expect(page).to have_content 'No articles....'
           expect(page).to have_no_content article.title
         end
 
         it 'search article by updated date' do
-          find('#update_date_from').set(date.prev_day(30).strftime("%Y/%m/%d"))
-          find('#update_date_to').set(date.prev_day(20).strftime("%Y/%m/%d"))
+          find('#update_date_from').set(Date.today.prev_day(30).strftime("%Y/%m/%d"))
+          find('#update_date_to').set(Date.today.prev_day(20).strftime("%Y/%m/%d"))
           click_on 'Search'
           expect(page).to have_content 'No articles....'
           expect(page).to have_no_content article.title
@@ -137,50 +125,58 @@ RSpec.describe 'Admin::Articles', type: :system do
     end
 
     describe 'Sort article' do
-      it 'sort article by id' do
-        click_on 'No.'
-        within '.row_0' do
-          expect(page).to have_content last_article.title
+      before do
+        travel_to(Date.tomorrow) do
+          @latest_article = create(:article, title: 'latest')
         end
       end
 
-      it 'sort article by title' do
+      it 'can sort article by id' do
+        click_on 'No.'
+        within '.row_0' do
+          expect(page).to have_content @latest_article.title
+        end
+      end
+
+      it 'can sort article by title' do
         click_on 'Title'
         within '.row_0' do
           expect(page).to have_content last_article.title
         end
       end
-      it 'sort article by view' do
+
+      it 'can sort article by view' do
         click_on 'Views'
         within '.row_0' do
           expect(page).to have_content last_article.title
         end
       end
 
-      it 'sort article by likes' do
+      it 'can sort article by likes' do
         click_on 'Likes'
         within '.row_0' do
           expect(page).to have_content last_article.title
         end
       end
-      it 'sort article by bookmark' do
+
+      it 'can sort article by bookmark' do
         click_on 'Bookmarks'
         within '.row_0' do
           expect(page).to have_content last_article.title
         end
       end
 
-      it 'sort article by creation date' do
+      it 'can sort article by creation date' do
         click_on 'Creation Date'
         within '.row_0' do
-          expect(page).to have_content last_article.title
+          expect(page).to have_content @latest_article.title
         end
       end
 
-      it 'sort article by update date' do
+      it 'can sort article by update date' do
         click_on 'Update Date'
         within '.row_0' do
-          expect(page).to have_content last_article.title
+          expect(page).to have_content @latest_article.title
         end
       end
     end

@@ -12,61 +12,52 @@ RSpec.describe 'Admin::Events', type: :system do
       visit admin_events_path
     end
 
-    it 'show event index page' do
+    it 'work correctly', js: true, retry: 2 do
+      # 一覧表示
       expect(page).to have_content "イベント 一覧"
       expect(page).to have_content last_event.name
-    end
 
-    it 'create event' do
+      # 新規作成
       first(:link, "New").click
-      using_wait_time 25 do
-        expect(page).to have_content 'Create Event'
-      end
-
+      visit new_admin_event_path
+      expect(page).to have_content 'Create Event'
       find('.start_time').set(Date.today)
       find('.name_input').set('new-event')
       find('.detail_input').set('new-event-detail')
       click_on '新規作成'
       page.driver.browser.switch_to.alert.accept
+      visit admin_events_path
       expect(page).to have_content 'new-event'
-    end
 
-    it 'edit event' do
-      first('.edit_btn').click
-      using_wait_time 25 do
-        expect(page).to have_content 'Edit Event'
-      end
+      # 編集
+      visit edit_admin_event_path event
+      expect(page).to have_content 'Edit Event'
       find('.name_input').set('updated')
       click_on '編集'
       page.driver.browser.switch_to.alert.accept
+      visit admin_events_path
+      expect(page).to have_no_content 'Edit Event Form'
+      expect(page).to have_content 'updated'
 
-      using_wait_time 10 do
-        expect(page).to have_no_content 'Edit Event Form'
-        expect(page).to have_content 'updated'
-      end
-    end
-
-    it 'delete event' do
-      first('.edit_btn').click
-      using_wait_time 25 do
-        find('.delete_btn').click
-      end
+      # 削除
+      visit edit_admin_event_path event
+      find('.delete_btn').click
       page.driver.browser.switch_to.alert.accept
+      visit admin_events_path
+      expect(page).to have_no_content event.name
 
-      expect(page).to have_no_content last_event.name
-    end
-
-    it 'delete event with ajax', js: true do
-      expect(page).to have_content last_event.name
+      # ajaxで削除
+      expect(page).to have_content 'new-event'
       first('.delete_btn').click
       page.driver.browser.switch_to.alert.accept
-      expect(page).to have_no_content last_event.name
+      visit admin_events_path
+      expect(page).to have_no_content 'new-event'
     end
 
     describe 'Search event' do
       before do
         travel_to(Date.today.prev_day(7)) do
-          @event_7d_ago = create(:event, start_time: Date.today, end_time: Date.today)
+          @event_7d_ago = create(:event, :oldest)
         end
         visit admin_events_path
       end
@@ -164,10 +155,16 @@ RSpec.describe 'Admin::Events', type: :system do
     end
 
     describe 'sort event' do
+      before do
+        travel_to(Date.tomorrow) do
+          @latest_event = create(:event, name: 'latest', start_time: Date.tomorrow, end_time: Date.tomorrow)
+        end
+      end
+
       it 'sort event by id' do
         click_on 'No.'
         within '.row_0' do
-          expect(page).to have_content last_event.name
+          expect(page).to have_content @latest_event.name
         end
       end
 
@@ -188,29 +185,31 @@ RSpec.describe 'Admin::Events', type: :system do
 
       it 'sort event by start time' do
         click_on 'Start Time'
-        within '.row_0' do
-          expect(page).to have_content last_event.name
+        using_wait_time 20 do
+          within '.row_0' do
+            expect(page).to have_content @latest_event.name
+          end
         end
       end
 
       it 'sort event by end time' do
         click_on 'End Time'
         within '.row_0' do
-          expect(page).to have_content last_event.name
+          expect(page).to have_content @latest_event.name
         end
       end
 
       it 'sort event by creation date' do
         click_on 'Creation Date'
         within '.row_0' do
-          expect(page).to have_content last_event.name
+          expect(page).to have_content @latest_event.name
         end
       end
 
       it 'sort event by update date' do
         click_on 'Update Date'
         within '.row_0' do
-          expect(page).to have_content last_event.name
+          expect(page).to have_content @latest_event.name
         end
       end
     end

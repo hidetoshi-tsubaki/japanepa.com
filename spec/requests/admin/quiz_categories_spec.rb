@@ -13,7 +13,7 @@ RSpec.describe "Admin::QuizCategories", type: :request do
   describe "GET #index" do
     it "has success to request" do
       get admin_quiz_categories_url
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
@@ -54,7 +54,7 @@ RSpec.describe "Admin::QuizCategories", type: :request do
     context "when paramater is invalid" do
       it "has success to request" do
         post admin_quiz_categories_url, params: { quiz_category: attributes_for(:quiz_category, :invalid) }, xhr: true
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to have_http_status 200
       end
 
@@ -83,7 +83,7 @@ RSpec.describe "Admin::QuizCategories", type: :request do
     context "when paramater is invalid" do
       it "has success to request" do
         put admin_quiz_category_url level, params: { quiz_category: attributes_for(:quiz_category, :update) }, format: :js
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to have_http_status 200
       end
 

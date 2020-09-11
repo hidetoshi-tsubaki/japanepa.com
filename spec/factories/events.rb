@@ -21,6 +21,12 @@ FactoryBot.define do
     trait :last do
       name { "www" }
       detail { "www" }
+      impressions_count { "100" }
+    end
+
+    trait :oldest do
+      start_time { Date.today }
+      end_time { Date.today }
     end
   end
 end

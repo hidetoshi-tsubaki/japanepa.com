@@ -4,11 +4,13 @@ class AnnouncementsController < ApplicationController
   impressionist :actions => [:show]
 
   def index
-    @announcements = Announcement.published
+    @announcements = Announcement.
+      published.where("updated_at > ?", current_user.created_at).
+      order(updated_at: "DESC")
   end
 
   def show
     @announce = Announcement.find(params[:id])
-    current_user.check_announce(@announce) unless current_user.aleady_checked?(@announce)
+    current_user.check_announce(@announce) unless current_user.already_checked?(@announce)
   end
 end

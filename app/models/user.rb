@@ -124,8 +124,8 @@ class User < ApplicationRecord
     bookmarks.find_by(article_id: article.id).destroy
   end
 
-  def aleady_checked?(announce)
-    announcement_checks.find_by(announcement_id: announce.id)
+  def already_checked?(announce)
+    announcement_checks.find_by(announcement_id: announce.id) && created_at < announce.updated_at
   end
 
   def check_announce(announce)

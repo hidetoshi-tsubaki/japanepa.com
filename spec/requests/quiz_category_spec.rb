@@ -13,7 +13,7 @@ RSpec.describe "QuizCategories", type: :request do
   describe "GET #index" do
     it "has success to request" do
       get quiz_categories_path
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
@@ -26,7 +26,7 @@ RSpec.describe "QuizCategories", type: :request do
   describe "GET #show" do
     it "has success to request" do
       get quiz_category_path level
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 

@@ -21,9 +21,8 @@ class ApplicationController < ActionController::Base
 
   def get_unchecked_announce_count
     return unless user_signed_in?
-    user_registration_date = current_user.created_at
     @unchecked_announce_count = Announcement.
-      where("created_at > ?", user_registration_date).where(status: true).
+      where("updated_at > ?", current_user.created_at).where(status: true).
       length - current_user.announcement_checks.length
   end
 

@@ -11,7 +11,7 @@ RSpec.describe "Admin::Talks", type: :request do
   describe "GET #index" do
     it "has success to request" do
       get admin_talks_url
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
@@ -24,6 +24,7 @@ RSpec.describe "Admin::Talks", type: :request do
   describe "DELETE #destroy" do
     it "has success to request" do
       delete admin_talk_url talk, format: :js
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 

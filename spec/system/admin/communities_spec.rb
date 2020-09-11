@@ -6,7 +6,6 @@ RSpec.describe 'Admin::Communities', type: :system do
   let!(:community) { create(:community, founder_id: user.id) }
   let!(:last_founder) { create(:user, name: "wwww") }
   let!(:last_community) { create(:community, :last, founder_id: last_founder.id) }
-  let!(:date) { Date.today }
 
   context 'when signed in as admin user' do
     before do
@@ -14,18 +13,18 @@ RSpec.describe 'Admin::Communities', type: :system do
       visit admin_communities_path
     end
 
-    it 'show communiteis index page' do
+    it 'work correctly', js: true, retry: 2 do
+      # 一覧表示
       expect(page).to have_content community.name
       expect(page).to have_content last_community.name
-    end
 
-    it 'delete community with ajax', js: true do
-      expect(page).to have_content last_community.name
-      first('.delete_btn').click
-      page.driver.browser.switch_to.alert.accept
-      using_wait_time 15 do
-        expect(page).to have_no_content last_community.name
+      # ajaxで削除
+      within "#community_#{last_community.id}" do
+        first('.delete_btn').click
       end
+      page.driver.browser.switch_to.alert.accept
+      visit admin_communities_path
+      expect(page).to have_no_content last_community.name
     end
 
     describe 'search community' do
@@ -45,16 +44,16 @@ RSpec.describe 'Admin::Communities', type: :system do
         end
 
         it 'search community by creation date' do
-          find('#creation_date_from').set(date.prev_day(9).strftime("%Y/%m/%d"))
-          find('#creation_date_to').set(date.prev_day(6).strftime("%Y/%m/%d"))
+          find('#creation_date_from').set(Date.today.prev_day(9).strftime("%Y/%m/%d"))
+          find('#creation_date_to').set(Date.today.prev_day(6).strftime("%Y/%m/%d"))
           click_on 'Search'
           expect(page).to have_content @community_7days_ago.name
           expect(page).to have_no_content community.name
         end
 
         it 'search community by updated date' do
-          find('#update_date_from').set(date.prev_day(9).strftime("%Y/%m/%d"))
-          find('#update_date_to').set(date.prev_day(6).strftime("%Y/%m/%d"))
+          find('#update_date_from').set(Date.today.prev_day(9).strftime("%Y/%m/%d"))
+          find('#update_date_to').set(Date.today.prev_day(6).strftime("%Y/%m/%d"))
           click_on 'Search'
           expect(page).to have_content @community_7days_ago.name
           expect(page).to have_no_content community.name
@@ -70,16 +69,16 @@ RSpec.describe 'Admin::Communities', type: :system do
         end
 
         it 'search community by creation date' do
-          find('#creation_date_from').set(date.prev_day(20).strftime("%Y/%m/%d"))
-          find('#creation_date_to').set(date.prev_day(30).strftime("%Y/%m/%d"))
+          find('#creation_date_from').set(Date.today.prev_day(20).strftime("%Y/%m/%d"))
+          find('#creation_date_to').set(Date.today.prev_day(30).strftime("%Y/%m/%d"))
           click_on 'Search'
           expect(page).to have_no_content @community_7days_ago.name
           expect(page).to have_content 'No communities....'
         end
 
         it 'search community by update date' do
-          find('#update_date_from').set(date.prev_day(20).strftime("%Y/%m/%d"))
-          find('#update_date_to').set(date.prev_day(30).strftime("%Y/%m/%d"))
+          find('#update_date_from').set(Date.today.prev_day(20).strftime("%Y/%m/%d"))
+          find('#update_date_to').set(Date.today.prev_day(30).strftime("%Y/%m/%d"))
           click_on 'Search'
           expect(page).to have_no_content @community_7days_ago.name
           expect(page).to have_content 'No communities....'
@@ -88,59 +87,65 @@ RSpec.describe 'Admin::Communities', type: :system do
     end
 
     describe 'sort community' do
-      it 'sort community by id', retry: 3 do
-        click_on 'No.'
-        within '.row_0' do
-          expect(page).to have_content last_community.name
+      before do
+        travel_to(Date.tomorrow) do
+          @latest_community = create(:community, :with_founder, name: 'latest')
         end
       end
 
-      it 'sort community by name' do
+      it 'sort community by id', retry: 2 do
+        click_on 'No.'
+        within '.row_0' do
+          expect(page).to have_content @latest_community.name
+        end
+      end
+
+      it 'sort community by name', retry: 2 do
         click_on 'Name'
         within '.row_0' do
           expect(page).to have_content last_community.name
         end
       end
 
-      it 'sort community by member' do
+      it 'sort community by member', retry: 2 do
         click_on 'Members'
         within '.row_0' do
           expect(page).to have_content last_community.name
         end
       end
 
-      it 'sort community by talks' do
+      it 'sort community by talks', retry: 2 do
         click_on 'Talks'
         within '.row_0' do
           expect(page).to have_content last_community.name
         end
       end
 
-      it 'sort community by introduction' do
+      it 'sort community by introduction', retry: 2 do
         click_on 'Introduction'
         within '.row_0' do
           expect(page).to have_content last_community.name
         end
       end
 
-      it 'sort community by founder' do
+      it 'sort community by founder', retry: 2 do
         click_on 'Founder'
         within '.row_0' do
           expect(page).to have_content last_community.name
         end
       end
 
-      it 'sort community by create date' do
+      it 'sort community by create date', retry: 2 do
         click_on 'Creation Date'
         within '.row_0' do
-          expect(page).to have_content last_community.name
+          expect(page).to have_content @latest_community.name
         end
       end
 
-      it 'sort community by update date' do
+      it 'sort community by update date', retry: 2 do
         click_on 'Update Date'
         within '.row_0' do
-          expect(page).to have_content last_community.name
+          expect(page).to have_content @latest_community.name
         end
       end
     end

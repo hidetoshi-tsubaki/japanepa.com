@@ -1,8 +1,8 @@
-<div class="announce_<%= announce.id %>">
-  <%= link_to announcement_path(announce) do %>
+<div>
+  <%= link_to announcement_path(announce), class: "announce_#{announce.id}" do %>
     <p class="center"><%= announce.created_at.strftime('%Y.%m.%d') %></p>
     <p class="center" id="checked_status_<%= announce.id %>">
-      <% unless current_user.aleady_checked?(announce) %>
+      <% unless current_user.already_checked?(announce) %>
         <span class="label_new bold"> NEW </span>
       <% end %>
     </p>

@@ -29,32 +29,22 @@ RSpec.describe 'Admin::Quizzes', type: :system do
 
     it 'edit quiz' do
       first('.edit_btn').click
+      visit edit_admin_quiz_path quiz1_1
       expect(page).to have_content 'Edit Quiz'
-
       find('.question_input').set('edit-question')
       click_on '編集'
       page.driver.browser.switch_to.alert.accept
-
-      within '.row_0' do
-        expect(page).to have_content 'edit-question'
-      end
+      visit admin_quizzes_path
+      expect(page).to have_content 'edit-question'
     end
 
     it 'delete quiz' do
       first('.edit_btn').click
+      visit edit_admin_quiz_path last_quiz
       expect(page).to have_content 'Edit Quiz'
       find('.delete_btn').click
       page.driver.browser.switch_to.alert.accept
-
-      expect(page).to have_no_content last_quiz.question
-    end
-
-    it 'delete quiz with ajax', js: true do
-      expect(page).to have_content last_quiz.question
-
-      first('.delete_btn').click
-      page.driver.browser.switch_to.alert.accept
-
+      visit admin_quizzes_path
       expect(page).to have_no_content last_quiz.question
     end
 
@@ -123,7 +113,7 @@ RSpec.describe 'Admin::Quizzes', type: :system do
     end
 
     describe 'sort quiz' do
-      it 'sort quiz by id' do
+      it 'sort quiz by id', retry: 2 do
         click_on 'No.'
         within '.row_0' do
           expect(page).to have_content last_quiz.question
@@ -137,7 +127,7 @@ RSpec.describe 'Admin::Quizzes', type: :system do
         end
       end
 
-      it 'sort quiz by Answer' do
+      it 'sort quiz by Answer', retry: 2 do
         click_on 'Answer'
         within '.row_0' do
           expect(page).to have_content last_quiz.question

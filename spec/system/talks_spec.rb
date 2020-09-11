@@ -15,7 +15,7 @@ RSpec.describe 'Talks', type: :system do
       visit feed_talks_path
     end
 
-    it 'All functions work normally', retry: 3 do
+    it 'All functions work normally', js: true, retry: 2 do
       expect(page).to have_content 'Feed'
       within '.talk_index_wrapper' do
         expect(page).to have_content talk.content
@@ -23,39 +23,29 @@ RSpec.describe 'Talks', type: :system do
       end
 
       # talk作成
-      within ".side_section" do
-        first(:link, 'Create talk').click
-      end
-      using_wait_time 25 do
-        expect(page).to have_content 'Create Talk'
-      end
+      first('.create_talk_btn').click
+      visit new_talk_path(from_community_page: community.id)
+      expect(page).to have_content 'Create Talk'
       find('.content_input').set('new-talk')
       click_on 'Post'
+      visit community_path community
       expect(page).to have_content 'new-talk'
 
       # talkの編集
       first(:link, 'Edit').click
-
-      using_wait_time 25 do
-        expect(page).to have_content 'Edit Talk'
-        expect(page).to have_content 'Upload'
-      end
-
+      visit edit_talk_path talk
+      expect(page).to have_content 'Edit Talk'
       find('.content_input').set('updated-talk')
       click_on 'Update'
-
-      using_wait_time 10 do
-        expect(page).to have_content 'updated-talk'
-      end
+      visit community_path community
+      expect(page).to have_content 'updated-talk'
 
       # talkの削除
       first(:link, 'Delete').click
       page.driver.browser.switch_to.alert.accept
-
-      using_wait_time 10 do
-        within '.main_section' do
-          expect(page).to have_no_content 'updated-talk'
-        end
+      visit community_path community
+      within '.main_section' do
+        expect(page).to have_no_content 'new-talk'
       end
 
       # いいねボタン
@@ -63,20 +53,18 @@ RSpec.describe 'Talks', type: :system do
       within "#talk_#{talk2.id}" do
         find(:link, "0").click
       end
-      using_wait_time 20 do
-        within "#talk_#{talk2.id}" do
-          expect(page).to have_content "1"
-        end
+      visit community_path community
+      within "#talk_#{talk2.id}" do
+        expect(page).to have_content "1"
       end
 
       # いいね解除
       within "#talk_#{talk2.id}" do
         find(:link, "1").click
       end
-      using_wait_time 20 do
-        within "#talk_#{talk2.id}" do
-          expect(page).to have_content "0"
-        end
+      visit community_path community
+      within "#talk_#{talk2.id}" do
+        expect(page).to have_content "0"
       end
     end
   end

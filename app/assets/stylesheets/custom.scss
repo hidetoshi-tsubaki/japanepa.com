@@ -2741,7 +2741,7 @@ TALKS
 .fa-sync-alt {
   color: $blue;
 }
-.article_contents {
+.article_wrapper {
   background-color: $white;
   margin-bottom: 20px;
   padding: 20px;
@@ -3177,6 +3177,9 @@ TALKS
       font-weight:bold;
     }
   }
+  hr {
+    margin: 5px 0;
+  }
 }
 .ranked_community, .joined_community {
   display: flex;
@@ -3265,7 +3268,7 @@ TALKS
     font-size: 26px;
   }
 }
-#edit_community_btn {
+.edit_community_btn {
   position: absolute;
   top: 0;
   right: 0;

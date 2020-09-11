@@ -12,7 +12,7 @@ RSpec.describe "Admin::Announcement", type: :request do
   describe "GET #index" do
     it "has success to request" do
       get admin_announcements_url
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
@@ -26,7 +26,7 @@ RSpec.describe "Admin::Announcement", type: :request do
   describe "Get #new" do
     it "has success to request" do
       get new_admin_announcement_url
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
   end
@@ -34,7 +34,7 @@ RSpec.describe "Admin::Announcement", type: :request do
   describe "GET #edit" do
     it "has success to request" do
       get edit_admin_announcement_url announce1
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
@@ -104,7 +104,7 @@ RSpec.describe "Admin::Announcement", type: :request do
     context "when paramater is invalid" do
       it "has success to request" do
         put admin_announcement_url announce1, params: { announcement: attributes_for(:announcement, :invalid) }
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to have_http_status 200
       end
 

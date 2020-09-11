@@ -5,7 +5,7 @@ RSpec.describe 'Events', type: :system do
   let!(:event) { create(:event, start_time: Date.today, end_time: Date.today) }
   let!(:event2) { create(:event, start_time: Date.today, end_time: Date.today, status: "draft") }
 
-  it 'All function work normally', retry: 5 do
+  it 'All function work normally', retry: 2 do
     user_sign_in(user.name, 'japanepa')
     visit events_path user
 

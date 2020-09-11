@@ -14,9 +14,12 @@ development:
 test:
   <<: *default
   database: portfolio1_test
+  # username: root
+  # password:
 
 production:
   <<: *default
-  database: portfolio1_production
-  username: root
-  password:
+  host: <%= ENV["AWS_DATABASE_ENDPOINT"] %>
+  database: <%= ENV["AWS_CATABASE"] %>
+  username: <%= ENV["AWS_USER_NAME"] %>
+  password: <%= ENV["AWS_DATABASE_PASSWORD"] %>

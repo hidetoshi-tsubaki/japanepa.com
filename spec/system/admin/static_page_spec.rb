@@ -10,7 +10,7 @@ RSpec.describe 'Admin::StaticPage', type: :system do
     end
 
     it 'show static page' do
-      expect(page).to have_css '.admin_menu'
+      expect(page).to have_css '.admin_menu_btn'
     end
   end
 

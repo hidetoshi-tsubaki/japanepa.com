@@ -12,6 +12,7 @@ RSpec.describe "LikeTalks", type: :request do
     context "like talk normally" do
       it "has success to request" do
         post like_talks_url params: { id: talk.id }, format: :js
+        expect(response).to be_successful
         expect(response).to have_http_status 200
       end
 
@@ -29,6 +30,7 @@ RSpec.describe "LikeTalks", type: :request do
 
     it "has success to request" do
       delete like_talk_url talk, format: :js
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 

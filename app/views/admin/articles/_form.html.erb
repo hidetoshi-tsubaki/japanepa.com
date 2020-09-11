@@ -19,7 +19,7 @@
     <%= f.text_area :contents, id: "contents_input", 'data-provider': :summernote %>
   </div>
   <div class="actions">
-    <%= f.submit "submit" %>
+    <%= f.submit action, data: { confirm: "送信しますか？"} %>
   </div>
 <% end %>
 <%= javascript_include_tag 'summernote' %>

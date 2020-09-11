@@ -2,7 +2,7 @@
 <% breadcrumb :show_article, @article %>
 <div class="section_wrapper">
   <div class="main_section">
-    <div class="article_contents">
+    <div class="article_wrapper">
       <p class="posted_time">
         <%= render partial: 'posted_day', locals: { article: @article } %>
         <%= render partial: "action_btns", locals: { article: @article } %>
@@ -10,7 +10,7 @@
       <p class="article_title"><%= @article.title %></p>
       <%= render "article_img", article: @article %>
       <hr>
-      <div class="artcile_contents">
+      <div class="article_contents" id="contents">
         <%= raw(@article.contents) %>
       </div>
     </div>

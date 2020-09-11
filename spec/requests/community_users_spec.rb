@@ -12,6 +12,7 @@ RSpec.describe "CommunityUsers", type: :request do
     context "join community normally" do
       it "has success to request" do
         post community_users_url, params: { id: community.id }, xhr: true
+        expect(response).to be_successful
         expect(response).to have_http_status 200
       end
 
@@ -28,6 +29,7 @@ RSpec.describe "CommunityUsers", type: :request do
 
     it "has success to request" do
       delete community_user_url community, format: :js
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 

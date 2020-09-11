@@ -11,12 +11,11 @@ RSpec.describe "Admin::users", type: :request do
   describe "GET #index" do
     it "has success to request" do
       get admin_users_url
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
     it "display user name" do
-      user = create(:user)
       get admin_users_url
       expect(response.body).to include user.name
     end
