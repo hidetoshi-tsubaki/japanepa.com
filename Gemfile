@@ -14,11 +14,9 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'omniauth-google-oauth2'
 gem 'chart-js-rails', '~> 0.1.4'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'fullcalendar-rails'
 gem 'simple_calendar', '~> 2.0'
 gem 'momentjs-rails'
 gem 'dotenv-rails'
@@ -27,7 +25,7 @@ gem 'font-awesome-sass', '~> 5.8.1'
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'country_select', require: 'country_select_without_sort_alphabetical'
-gem 'impressionist'
+gem 'impressionist', '~> 1.6.1'
 gem 'awesome_nested_set'
 gem 'acts_as_list'
 gem 'ransack'
@@ -42,16 +40,7 @@ gem 'nokogiri'
 gem 'aws-sdk-s3', require: false
 gem 'gretel'
 gem 'whenever', require: false
-
-group :development, :test do
-  gem 'mysql2'
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem "capybara"
-  gem 'selenium-webdriver'
-  gem 'webdrivers'
-  gem 'rspec-retry'
-end
+gem 'mysql2'
 
 group :development do
   gem 'web-console',           '3.5.1'
@@ -64,14 +53,27 @@ group :development do
   gem "binding_of_caller"
   gem "awesome_print"
   gem "rack-livereload"
-  gem 'rubocop-airbnb'
-  gem 'rubocop-rspec'
-  gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
   gem 'rails-controller-testing'
   gem 'spring-commands-rspec'
   gem 'bullet'
+end
+
+group :development, :test do
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem "capybara"
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
+  gem 'rubocop-airbnb'
+  gem 'rubocop-rspec'
+  gem 'rspec-rails'
+  gem 'rspec-retry'
+  gem 'rspec_junit_formatter'
+  gem 'rubocop'
+  gem 'rubocop-select'
+  gem 'rubocop-checkstyle_formatter'
 end
 
 group :production do

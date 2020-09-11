@@ -23,8 +23,6 @@
 //= require Chart.min
 //= require form
 //= require moment
-//= require fullcalendar
-//= require fullcalendar/locale-all
 //= require common
 //= require prev_img
 //= require jquery.jscroll.min
