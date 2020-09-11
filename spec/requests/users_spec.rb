@@ -11,6 +11,7 @@ RSpec.describe "Users", type: :request do
   describe "GET #index(Ranking)" do
     it "has success to request" do
       get ranking_url
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
@@ -25,6 +26,7 @@ RSpec.describe "Users", type: :request do
     context "if user exist" do
       it "has success to request" do
         get user_url user.id
+        expect(response).to be_successful
         expect(response).to have_http_status 200
       end
 
@@ -51,6 +53,7 @@ RSpec.describe "Users", type: :request do
   describe "GET #edit" do
     it "has success to request" do
       get edit_user_registration_url user
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 

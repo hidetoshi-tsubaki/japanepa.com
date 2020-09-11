@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Talks", type: :request do
   let(:user) { create(:user) }
   let!(:community) { create(:community, :with_founder) }
-  let!(:talk) { create(:talk, community_id: community.id) }
+  let!(:talk) { create(:talk, community_id: community.id, user_id: user.id) }
 
   before do
     sign_in user
@@ -12,6 +12,7 @@ RSpec.describe "Talks", type: :request do
   describe "GET #feed" do
     it "has success to request" do
       get feed_talks_url
+      expect(response).to be_successful
       expect(response.status).to eq(200)
     end
 
@@ -24,6 +25,7 @@ RSpec.describe "Talks", type: :request do
   describe "GET #edit" do
     it "has success to request" do
       get edit_talk_url talk
+      expect(response).to be_successful
       expect(response.status).to eq 200
     end
 

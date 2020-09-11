@@ -18,6 +18,9 @@ FactoryBot.define do
       title { "wwwww" }
       contents { "wwwwwww" }
       lead { "wwwww" }
+      impressions_count { "100" }
+      bookmarks_count { "100" }
+      likes_count { "100" }
     end
 
     trait :update do

@@ -12,7 +12,7 @@ RSpec.describe "Admin::StaticPages", type: :request do
     context "when admin user log in" do
       it "has success to request" do
         get admin_url
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to have_http_status 200
       end
     end
@@ -25,7 +25,7 @@ RSpec.describe "Admin::StaticPages", type: :request do
 
       it "has not success to request" do
         get admin_url
-        expect(response).not_to be_success
+        expect(response).not_to be_successful
         expect(response).to have_http_status 302
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe "Admin::StaticPages", type: :request do
 
       it "has not success to request" do
         get admin_url
-        expect(response).not_to be_success
+        expect(response).not_to be_successful
         expect(response).to have_http_status 302
       end
     end

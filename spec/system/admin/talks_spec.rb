@@ -5,12 +5,9 @@ RSpec.describe 'Admin::Talks', type: :system do
   let!(:admin) { create(:admin) }
   let!(:user) { create(:user) }
   let!(:last_user) { create(:user, name: 'www user') }
-  let!(:community) { create(:community, founder_id: user.id) }
   let!(:last_community) { create(:community, name: 'www community', founder_id: user.id) }
-  let!(:talk) { create(:talk, user_id: user.id) }
-  let!(:most_liked_talk) { create(:talk, content: 'most likes talk') }
-  let!(:like_talk) { create(:like_talk, talk_id: most_liked_talk.id) }
-  let!(:last_talk) { create(:talk, content: 'wwwlast', user_id: last_user.id) }
+  let!(:talk) { create(:talk, :with_related_model, user_id: user.id) }
+  let!(:last_talk) { create(:talk, :last, user_id: last_user.id, community_id: last_community.id) }
 
   context 'when signed in as admin' do
     before do
@@ -18,35 +15,38 @@ RSpec.describe 'Admin::Talks', type: :system do
       visit admin_talks_path
     end
 
-    it 'show admin talks index' do
+    it 'work correctly', js: true, retry: 2 do
+      # 一覧表示
       expect(page).to have_content talk.content
       expect(page).to have_content last_talk.content
-    end
 
-    it 'show talk detail' do
-      visit admin_talk_path(talk)
+      # 詳細表示
+      first('.edit_btn')
+      visit admin_talk_path talk
       expect(page).to have_content talk.content
       expect(page).to have_no_content last_talk.content
-    end
 
-    it 'delete talk' do
+      # 削除
+      visit admin_talks_path
       first('.edit_btn').click
+      visit admin_talk_path last_talk
       expect(page).to have_content last_talk.content
       find(".delete_btn").click
       page.driver.browser.switch_to.alert.accept
+      visit admin_talks_path
       expect(page).to have_no_content last_talk.content
-    end
 
-    it 'delete talk with ajax', js: true do
+      # ajaxで削除
       first('.delete_btn').click
       page.driver.browser.switch_to.alert.accept
+      visit admin_talks_path
       expect(page).to have_no_content last_talk.content
     end
 
     describe 'Search talk' do
       before do
         travel_to(Date.today.prev_day(7)) do
-          @talk_7days_old = create(:talk, user_id: user.id, content: '7days_old')
+          @talk_7days_old = create(:talk, :with_related_model, user_id: user.id, content: '7days_old')
         end
       end
 
@@ -87,10 +87,16 @@ RSpec.describe 'Admin::Talks', type: :system do
     end
 
     describe 'Sort talk' do
+      before do
+        travel_to(Date.tomorrow) do
+          @latest_talk = create(:talk, :with_related_model, content: 'latest')
+        end
+      end
+
       it 'sort talk by id' do
         click_on 'No.'
         within '.row_0' do
-          expect(page).to have_content last_talk.id
+          expect(page).to have_content @latest_talk.content
         end
       end
 
@@ -103,26 +109,24 @@ RSpec.describe 'Admin::Talks', type: :system do
         end
       end
 
-      it 'sort talk by user name', retry: 5 do
+      it 'sort talk by user name' do
         click_on 'User'
-        using_wait_time 25 do
-          within '.row_0' do
-            expect(page).to have_content last_talk.user.name
-          end
+        within '.row_0' do
+          expect(page).to have_content last_talk.user.name
         end
       end
 
-      it 'sort talk by like count', retry: 3 do
+      it 'sort talk by like count' do
         click_on 'Likes'
         within '.row_0' do
-          expect(page).to have_content most_liked_talk.content
+          expect(page).to have_content last_talk.content
         end
       end
 
       it 'sort talk by creation date' do
         click_on 'Creation Date'
         within '.row_0' do
-          expect(page).to have_content last_talk.content
+          expect(page).to have_content @latest_talk.content
         end
       end
     end

@@ -11,7 +11,7 @@ RSpec.describe "Articles", type: :request do
   describe "GET #index" do
     it "has success to request" do
       get articles_url
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
@@ -25,7 +25,7 @@ RSpec.describe "Articles", type: :request do
     context 'when article exist' do
       it 'has success to request' do
         get article_url article
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to have_http_status 200
       end
 

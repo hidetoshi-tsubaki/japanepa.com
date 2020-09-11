@@ -3,7 +3,7 @@ RSpec.describe LikeArticle, type: :model do
   let!(:user) { create(:user) }
   let!(:user2) { create(:user) }
   let!(:article) { create(:article) }
-  let(:like_article) { build(:like_article, :with_related_model) }
+  let(:like_article) { build(:like_article, user_id: user.id, article_id: article.id) }
   let!(:existing_like_article) { create(:like_article, user_id: user2.id, article_id: article.id) }
 
   it "is valid with user_id and article_id" do

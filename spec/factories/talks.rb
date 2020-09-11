@@ -19,5 +19,10 @@ FactoryBot.define do
     trait :update do
       content { "updated" }
     end
+
+    trait :last do
+      content { "www" }
+      likes_count { "100" }
+    end
   end
 end

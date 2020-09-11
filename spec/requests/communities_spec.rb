@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Communities", type: :request do
   let!(:user) { create(:user) }
-  let!(:community) { create(:community, :with_founder) }
+  let!(:community) { create(:community, founder_id: user.id) }
 
   before do
     sign_in user
@@ -11,7 +11,7 @@ RSpec.describe "Communities", type: :request do
   describe "GET #index" do
     it "has success to request" do
       get communities_url
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
@@ -24,7 +24,7 @@ RSpec.describe "Communities", type: :request do
   describe "Get #new" do
     it "has success to request" do
       get new_community_url
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
   end
@@ -32,7 +32,7 @@ RSpec.describe "Communities", type: :request do
   describe "GET #edit" do
     it "has success to request" do
       get edit_community_url community
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
@@ -64,7 +64,6 @@ RSpec.describe "Communities", type: :request do
     context "when paramater is invalid" do
       it "has success to request" do
         post communities_url, params: { community: attributes_for(:community, :invalid) }
-        expect(response).to be_success
         expect(response).to have_http_status 200
       end
 
@@ -88,17 +87,11 @@ RSpec.describe "Communities", type: :request do
           put community_url community, params: { community: attributes_for(:community, :update) }
         end.to change { Community.find(community.id).name }.from(community.name).to('updated_community')
       end
-
-      it "redirect to index page" do
-        put community_url community, params: { community: attributes_for(:community, :update) }
-        expect(response).to redirect_to(community_url(community))
-      end
     end
 
     context "when paramater is invalid" do
       it "has success to request" do
         put community_url community, params: { community: attributes_for(:community, :invalid) }
-        expect(response).to be_success
         expect(response).to have_http_status 200
       end
 
@@ -117,7 +110,6 @@ RSpec.describe "Communities", type: :request do
     end
 
     it "delete community" do
-      community = create(:community, founder_id: user.id)
       expect do
         delete community_url community
       end.to change(Community, :count).by(-1)

@@ -2,61 +2,68 @@ require 'rails_helper'
 
 RSpec.describe 'Community', type: :system do
   let!(:user) { create(:user) }
+  let!(:user2) { create(:user) }
   let!(:community) { create(:community, founder_id: user.id) }
-  let!(:community2) { create(:community, founder_id: user.id) }
+  let!(:community2) { create(:community, founder_id: user2.id) }
   let!(:community_user) { create(:community_user, user_id: user.id, community_id: community.id) }
 
-  it 'All functions work normally', retry: 5 do
+  it 'All functions work normally', retry: 2 do
     user_sign_in(user.name, 'japanepa')
     visit communities_path
 
     # community 一覧
-    using_wait_time 20 do
-      expect(page).to have_content 'Communities Index'
-    end
+    expect(page).to have_content 'Communities Index'
 
     # community 作成
-    find(:link, 'create community').click
-    using_wait_time 25 do
-      expect(page).to have_content 'Create Community'
-    end
-    find('#input_community_name').set('new community')
+    first('.create_community_btn').click
+    visit new_community_path
+    expect(page).to have_content 'Create Community'
+    find('#input_community_name').set('new_community')
     find('#input_community_introduction').set('this is introduction')
     click_on 'Create'
+    visit communities_path
+    expect(page).to have_content 'new_community'
 
     # community 詳細
-    using_wait_time 10 do
-      expect(page).to have_content 'Founder'
-      expect(page).to have_css '.create_talk_btn'
-    end
+    find("#community_#{community.id}").click
+    visit community_path community
+    expect(page).to have_content community.founder.name
 
     # community 編集
-    find('#edit_community_btn').click
+    first('.edit_community_btn').click
+    visit edit_community_path community
     expect(page).to have_content 'Edit Community'
     find('#input_community_name').set('update community')
     click_on 'Update'
-    using_wait_time 10 do
-      expect(page).to have_content 'update community'
-    end
+    visit communities_path
+    expect(page).to have_content 'update community'
 
     # community 削除
-    find('#edit_community_btn').click
-    using_wait_time 20 do
-      find('.delete_btn').click
-    end
-    page.driver.browser.switch_to.alert.accept
-    expect(page).to have_content 'Communities Index'
+    find("#community_#{community.id}").click
+    visit community_path community
+    first('.edit_community_btn').click
+    visit edit_community_path community
+    first('.delete_btn').click
+    visit communities_path
     expect(page).to have_no_content 'update community'
 
+    # 他人のcommunity編集画面は表示されない
+    visit community_path community2
+    expect(page).to have_no_content 'Edit'
+    visit edit_community_path community2
+    expect(page).to have_content "You don't have the authority"
+
     # community 検索
-    find('.search_input').set(community.name)
-    find('.search_btn').click
-    within '.main_section' do
-      expect(page).to have_content community.name
-      expect(page).to have_no_content community2.name
+    first('.search_input').set('new_community')
+    first('.search_btn').click
+    using_wait_time 20 do
+      within '.main_section' do
+        expect(page).to have_content 'new_community'
+        expect(page).to have_no_content community2.name
+      end
     end
-    find('.search_input').set('wrong-keyword')
-    find('.search_btn').click
+    first('.search_input').set('wrong-keyword')
+    first('.search_btn').click
     expect(page).to have_content 'No community...'
   end
 end

@@ -1,7 +1,7 @@
 <div class="side_content">
   <h4>Community Data</h4>
   <div class="community_data">
-    <%= link_to 'Edit', edit_community_path(@community), id: "edit_community_btn" if current_user.is_founder?(@community) %>
+    <%= link_to 'Edit', edit_community_path(@community), class: "edit_community_btn" if current_user.is_founder?(@community) %>
     <%= render "community_img", community: @community %>
     <p class="status_counts">
       <%= icon("fas","users") %> <%= @community.users.count %>

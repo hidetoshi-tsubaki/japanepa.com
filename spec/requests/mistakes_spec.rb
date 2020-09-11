@@ -15,7 +15,7 @@ RSpec.describe "Mistakes", type: :request do
   describe "GET #index" do
     it "has success to request" do
       get mistakes_url(id: title)
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 
@@ -28,6 +28,7 @@ RSpec.describe "Mistakes", type: :request do
   describe "DELETE #destroy" do
     it "has success to request" do
       delete mistake_url Mistake.last, format: :js
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 

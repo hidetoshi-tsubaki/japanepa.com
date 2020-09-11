@@ -12,6 +12,7 @@ RSpec.describe "Bookmarks", type: :request do
     context "bookmark article normally" do
       it "has success to request" do
         post bookmarks_url, params: { id: article.id }, xhr: true
+        expect(response).to be_successful
         expect(response).to have_http_status 200
       end
 
@@ -26,6 +27,7 @@ RSpec.describe "Bookmarks", type: :request do
     it "has success to request" do
       post bookmarks_url, params: { id: article.id }, xhr: true
       delete bookmark_url article, format: :js
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 

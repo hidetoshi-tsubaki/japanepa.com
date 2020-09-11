@@ -14,7 +14,7 @@ RSpec.describe "Reviews", type: :request do
   describe "Get #index" do
     it "has success to request" do
       get reviews_path
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to have_http_status 200
     end
 

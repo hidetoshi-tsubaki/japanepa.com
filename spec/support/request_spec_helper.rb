@@ -14,9 +14,6 @@ module RequestSpecHelper
     logout(warden_scope(resource))
   end
 
-  def current_user
-  end
-
   private
 
   def warden_scope(resource)

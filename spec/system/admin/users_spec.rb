@@ -15,14 +15,15 @@ RSpec.describe 'Admin::Users', type: :system do
       create_list(:level, 10)
     end
 
-    it 'show users index page' do
+    it 'work correctly' do
+      # 一覧表示
       expect(page).to have_content user.name
       expect(page).to have_content user2.name
-    end
 
-    it 'show user detail page' do
-      visit admin_user_path(user)
-      expect(page).to have_content user.name
+      # プロフィール表示
+      first('.edit_btn').click
+      visit admin_user_path(last_user)
+      expect(page).to have_content last_user.name
       expect(page).to have_no_content user2.name
     end
 

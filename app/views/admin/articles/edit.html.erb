@@ -7,5 +7,5 @@
     <%= icon("fas", "trash-alt") %> 削除
   <% end %>
   </p>
-  <%= render partial: 'form', locals: { article: @article } %>
+  <%= render partial: 'form', locals: { article: @article, action: "編集" } %>
 </div>
