@@ -4,9 +4,13 @@ capybara-*.html
 # .rspec
 /db/*.sqlite3
 /db/*.sqlite3-journal
+/db/mysql
+
 /public/system
 /coverage/
 /spec/tmp
+/spec/examples.txt
+
 *.orig
 rerun.txt
 pickle-email-*.html
